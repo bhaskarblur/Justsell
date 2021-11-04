@@ -1,29 +1,46 @@
 package com.classified.justsell.Fragments;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.classified.justsell.Adapters.bannerAdapter;
 import com.classified.justsell.R;
 import com.classified.justsell.databinding.FragmentHomeBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
 
 
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment implements LocationListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private FragmentHomeBinding binding;
+    private FragmentHomeBinding hmbinding;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private com.classified.justsell.Adapters.bannerAdapter bannerAdapter;
+    private Integer pos = 0;
+    private SharedPreferences sharedPreferences;
+    private String lat;
+    private String longit;
+    private String userid;
+    private LocationManager locationManager;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     public homeFragment() {
         // Required empty public constructor
     }
@@ -50,12 +67,188 @@ public class homeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentHomeBinding.inflate(inflater,container,false);
+        hmbinding=FragmentHomeBinding.inflate(inflater,container,false);
 
-        ManageUI();
-        return binding.getRoot();
+        ManageData();
+        viewfuncs();
+        return hmbinding.getRoot();
     }
 
-    private void ManageUI() {
+    private void viewfuncs() {
+
+        hmbinding.onbprog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmbinding.bannerrv.setCurrentItem(0, true);
+                hmbinding.onbprog.getBackground().setTint(Color.parseColor("#FFD057"));
+                hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        hmbinding.onbprog2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmbinding.bannerrv.setCurrentItem(1, true);
+                hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#FFD057"));
+                hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        hmbinding.onbprog3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmbinding.bannerrv.setCurrentItem(2, true);
+                hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#FFD057"));
+                hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        hmbinding.onbprog4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hmbinding.bannerrv.setCurrentItem(3, true);
+                hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#FFD057"));
+                hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+            }
+        });
+
+        hmbinding.bannerrv.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == 0) {
+                    hmbinding.onbprog.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                } else if (position == 1) {
+                    hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                } else if (position == 2) {
+                    hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                } else if (position == 3) {
+                    hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                    hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
     }
+
+    private void ManageData() {
+        pos = 0;
+        sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+        userid = sharedPreferences.getString("userid", "");
+    }
+
+    private void rotatebanner() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (bannerAdapter.getItemCount() > 0) {
+                    if (bannerAdapter.getItemCount() > hmbinding.bannerrv.getCurrentItem() && hmbinding.bannerrv.getCurrentItem() == 0) {
+                        hmbinding.bannerrv.setCurrentItem(1, true);
+                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#FFD057"));
+                        hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner();
+                        return;
+                    }
+                    if (bannerAdapter.getItemCount() > hmbinding.bannerrv.getCurrentItem() && hmbinding.bannerrv.getCurrentItem() == 1) {
+                        hmbinding.bannerrv.setCurrentItem(2, true);
+                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#FFD057"));
+                        hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner();
+                        return;
+                    }
+                    if (bannerAdapter.getItemCount() > hmbinding.bannerrv.getCurrentItem() && hmbinding.bannerrv.getCurrentItem() == 2) {
+                        hmbinding.bannerrv.setCurrentItem(3, true);
+                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#FFD057"));
+                        hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner();
+                        return;
+                    }
+
+                    if (bannerAdapter.getItemCount() > hmbinding.bannerrv.getCurrentItem() && hmbinding.bannerrv.getCurrentItem() == 2) {
+                        hmbinding.bannerrv.setCurrentItem(0, true);
+                        hmbinding.onbprog.getBackground().setTint(Color.parseColor("#FFD057"));
+                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner();
+                        return;
+                    }
+                    if (hmbinding.bannerrv.getCurrentItem() == bannerAdapter.getItemCount() - 1) {
+                        hmbinding.bannerrv.setCurrentItem(0);
+                        hmbinding.onbprog.getBackground().setTint(Color.parseColor("#FFD057"));
+                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner();
+                        return;
+
+                    } else {
+                        hmbinding.bannerrv.setCurrentItem(0);
+                        hmbinding.onbprog.getBackground().setTint(Color.parseColor("#FFD057"));
+                        hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
+                        rotatebanner();
+                    }
+                }
+
+
+            }
+        }, 5000);
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+
 }

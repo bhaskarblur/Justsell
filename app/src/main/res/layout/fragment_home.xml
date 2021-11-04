@@ -6,6 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.homeFragment">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/primary_color"
+        android:foregroundTint="@color/primary_color"
+        android:indeterminateTint="@color/primary_color"
+        android:progressBackgroundTint="@color/primary_color"
+        android:progressTint="@color/primary_color"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rettxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Something went wrong!"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
+
+    <Button
+        android:id="@+id/retrybtn"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/roundboxbg"
+        android:backgroundTint="@color/primary_color"
+        android:fontFamily="@font/poppins_medium"
+        android:foreground="?android:selectableItemBackground"
+        android:text="Reload"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.523" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/homeNested"
         android:layout_width="match_parent"
@@ -20,7 +75,96 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categoryrec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/citytext2"
+                tools:itemCount="1"
+                tools:listitem="@layout/category_layout" />
+
+            <TextView
+                android:id="@+id/citytext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Top Categories"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <Button
+                android:id="@+id/onbprog"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="50dp"
+                android:clickable="true"
+                android:background="@drawable/onboardingposcircle"
+                android:backgroundTint="@color/primary_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <Button
+                android:id="@+id/onbprog2"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:background="@drawable/onboardingposcircle"
+                android:backgroundTint="#C6C6C6"
+                app:layout_constraintStart_toEndOf="@+id/onbprog"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <Button
+                android:id="@+id/onbprog3"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:background="@drawable/onboardingposcircle"
+                android:backgroundTint="#C6C6C6"
+                app:layout_constraintStart_toEndOf="@+id/onbprog2"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <Button
+                android:id="@+id/onbprog4"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:background="@drawable/onboardingposcircle"
+                android:backgroundTint="#C6C6C6"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@+id/onbprog3"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/bannerrv"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topbar" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,10 +184,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/citytext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Current Location"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/searchicon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_marginTop="22dp"
                     android:layout_marginEnd="65dp"
                     android:clickable="true"
@@ -54,8 +211,8 @@
 
                 <ImageView
                     android:id="@+id/notiicon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_marginTop="22dp"
                     android:layout_marginEnd="25dp"
                     android:clickable="true"
@@ -66,19 +223,18 @@
 
                 <ImageView
                     android:id="@+id/locaticon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="27dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="360dp"
                     android:layout_marginBottom="10dp"
                     android:clickable="true"
                     android:src="@drawable/locationicon"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/appname"
                     app:tint="?android:textColorPrimary" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
