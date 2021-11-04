@@ -20,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomnav"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="54dp"
         android:background="?android:textColorPrimaryInverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,13 +28,12 @@
 
         <ImageView
             android:id="@+id/homeicon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="35dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/postselectedicon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/homeicon"
@@ -42,21 +41,21 @@
 
         <ImageView
             android:id="@+id/homeselectedicon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="35dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/postselectedicon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/homeicon" />
 
         <ImageView
             android:id="@+id/postselectedicon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:tint="@color/primary_color"
@@ -68,9 +67,9 @@
 
         <ImageView
             android:id="@+id/posticon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginBottom="2dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -82,8 +81,9 @@
 
         <ImageView
             android:id="@+id/chatselectedicon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:tint="@color/primary_color"
@@ -95,9 +95,9 @@
 
         <ImageView
             android:id="@+id/chaticon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="2dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,28 +109,28 @@
 
         <ImageView
             android:id="@+id/profileselectedicon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="2dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:tint="@color/primary_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chatselectedicon"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/profileicon" />
 
         <ImageView
             android:id="@+id/profileicon"
-            android:layout_width="35dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="2dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chatselectedicon"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/profileicon"
             app:tint="#8B8B8B" />
