@@ -10,6 +10,7 @@
         android:id="@+id/homeNested"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,17 +20,63 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/appname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
                 android:text="JustSell"
+                android:textColor="@color/primary_color"
                 android:textSize="18sp"
-                android:textColor="?android:textColorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/searchicon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="65dp"
+                android:clickable="true"
+                android:src="@drawable/searchicon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?android:textColorPrimary" />
+
+            <ImageView
+                android:id="@+id/notiicon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="25dp"
+                android:clickable="true"
+                android:src="@drawable/notification"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?android:textColorPrimary" />
+
+            <ImageView
+                android:id="@+id/locaticon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="360dp"
+                android:clickable="true"
+                android:src="@drawable/locationicon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appname"
+                app:tint="?android:textColorPrimary" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

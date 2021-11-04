@@ -21,6 +21,8 @@
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/drawable/sizeprobg.xml" value="0.2203125" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/font/poppins.xml" value="0.234375" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/layout/activity_main.xml" value="0.14" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_o_t_p.xml" value="0.335" />
       </map>
     </option>
