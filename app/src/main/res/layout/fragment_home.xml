@@ -17,7 +17,7 @@
         android:indeterminateTint="@color/primary_color"
         android:progressBackgroundTint="@color/primary_color"
         android:progressTint="@color/primary_color"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -32,7 +32,7 @@
         android:text="Something went wrong!"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -54,7 +54,7 @@
         android:textAllCaps="false"
         android:textColor="?android:textColorPrimary"
         android:textSize="15sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,12 +64,12 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/homeNested"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/topbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -82,7 +82,9 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,9 +138,9 @@
                 android:layout_height="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="50dp"
-                android:clickable="true"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="@color/primary_color"
+                android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -150,9 +152,9 @@
                 android:layout_height="5dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="5dp"
-                android:clickable="true"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
+                android:clickable="true"
                 app:layout_constraintStart_toEndOf="@+id/onbprog"
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
@@ -162,9 +164,9 @@
                 android:layout_height="5dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="5dp"
-                android:clickable="true"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
+                android:clickable="true"
                 app:layout_constraintStart_toEndOf="@+id/onbprog2"
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
@@ -174,9 +176,9 @@
                 android:layout_height="5dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="5dp"
-                android:clickable="true"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
+                android:clickable="true"
                 android:visibility="visible"
                 app:layout_constraintStart_toEndOf="@+id/onbprog3"
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
@@ -191,83 +193,84 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/topbar" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/topbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/appname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="JustSell"
-                    android:textColor="@color/primary_color"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/citytext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="48dp"
-                    android:layout_marginTop="64dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Current Location"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/searchicon"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginEnd="60dp"
-                    android:clickable="true"
-                    android:src="@drawable/searchicon"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="?android:textColorPrimary" />
-
-                <ImageView
-                    android:id="@+id/notiicon"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginEnd="20dp"
-                    android:clickable="true"
-                    android:src="@drawable/notification"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="?android:textColorPrimary" />
-
-                <ImageView
-                    android:id="@+id/locaticon"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:clickable="true"
-                    android:src="@drawable/locationicon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appname"
-                    app:tint="?android:textColorPrimary" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="JustSell"
+            android:textColor="@color/primary_color"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/citytext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins"
+            android:maxLength="30"
+            android:text="Current Location"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/searchicon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="60dp"
+            android:clickable="true"
+            android:src="@drawable/searchicon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?android:textColorPrimary" />
+
+        <ImageView
+            android:id="@+id/notiicon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:src="@drawable/notification"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?android:textColorPrimary" />
+
+        <ImageView
+            android:id="@+id/locaticon"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:src="@drawable/locationicon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appname"
+            app:tint="?android:textColorPrimary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
