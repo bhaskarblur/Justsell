@@ -9,5 +9,5 @@
         android:bottomLeftRadius="9dp"
         android:topLeftRadius="9dp"
         android:topRightRadius="9dp" />
-    <stroke android:width="0.7dip" android:color="?android:textColorSecondary"/>
+    <stroke android:width="0.7dip" android:color="?android:textColorPrimaryInverse"/>
 </shape>

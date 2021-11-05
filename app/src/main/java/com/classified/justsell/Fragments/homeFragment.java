@@ -146,22 +146,22 @@ public class homeFragment extends Fragment implements LocationListener {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 if (position == 0) {
-                    hmbinding.onbprog.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog.getBackground().setTint(Color.parseColor("#FFD057"));
                     hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
                 } else if (position == 1) {
-                    hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#FFD057"));
                     hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
                 } else if (position == 2) {
-                    hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#FFD057"));
                     hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#C6C6C6"));
                 } else if (position == 3) {
-                    hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#0881E3"));
+                    hmbinding.onbprog4.getBackground().setTint(Color.parseColor("#FFD057"));
                     hmbinding.onbprog.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog2.getBackground().setTint(Color.parseColor("#C6C6C6"));
                     hmbinding.onbprog3.getBackground().setTint(Color.parseColor("#C6C6C6"));
@@ -179,13 +179,15 @@ public class homeFragment extends Fragment implements LocationListener {
         pos = 0;
         sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
         userid = sharedPreferences.getString("userid", "");
+        String state=sharedPreferences.getString("userstate","");
+        String city=sharedPreferences.getString("usercity","");
+        hmbinding.citytext.setText(city+", "+state);
         hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
         hmViewModel.initwork(userid,"0","0","location");
 
         hmViewModel.getBannerdata().observe(getActivity(), new Observer<List<homeResponse.bannerResult>>() {
             @Override
             public void onChanged(List<homeResponse.bannerResult> bannermodels) {
-
                 if (bannermodels.size() > 0) {
                     bannerlist.clear();
                     bannerlist = bannermodels;

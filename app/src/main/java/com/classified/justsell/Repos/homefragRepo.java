@@ -69,7 +69,7 @@ public class homefragRepo {
     private void getbannersfromserver() {
         bannerlist.add(new homeResponse.bannerResult("https://mir-s3-cdn-cf.behance.net/project_modules/1400/45838099680787.5ef86c4b01fb3.png"));
         bannerlist.add(new homeResponse.bannerResult("https://thumbs.dreamstime.com/b/kharkov-ukraine-march-apple-iphone-mini-retail-box-blue-color-yellow-background-banner-photo-212841861.jpg"));
-        bannerdata.postValue(bannerlist);
+        bannerdata.setValue(bannerlist);
     }
 
 }

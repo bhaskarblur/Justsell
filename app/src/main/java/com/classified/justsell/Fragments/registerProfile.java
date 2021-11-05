@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.HomeActivity;
 import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.R;
 import com.classified.justsell.databinding.FragmentRegisterProfileBinding;
@@ -164,8 +165,11 @@ public class registerProfile extends Fragment {
                                 editor.putString("usermobile",resp.getResult().getMobile());
                                 editor.putString("username",sdbinding.nameTxt.getText().toString());
                                 editor.putString("userstate",sdbinding.statet.getText().toString());
-                                editor.putString    ("usercity",sdbinding.cityet.getText().toString());
+                                editor.putString("usercity",sdbinding.cityet.getText().toString());
                                 editor.commit();
+                                startActivity(new Intent(getActivity(), HomeActivity.class));
+                                getActivity().finish();
+                                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 
                             }
                             else {
