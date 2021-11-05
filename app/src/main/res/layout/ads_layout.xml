@@ -29,6 +29,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/imgsample" />
 
+        <ImageView
+            android:id="@+id/featuredimg"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/featuredimg" />
+
         <TextView
             android:id="@+id/ads_title"
             android:layout_width="wrap_content"
@@ -54,13 +64,13 @@
             android:layout_marginTop="7dp"
             android:fontFamily="@font/poppins"
             android:text="₹40000"
-            android:textColor="@color/primary_color"
+            android:textColor="?android:textColorPrimary"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/ads_image"
             app:layout_constraintTop_toBottomOf="@+id/ads_title" />
 
         <TextView
-            android:id="@+id/ads_price3"
+            android:id="@+id/ads_pricecut"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -92,7 +102,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/ads_image"
-            app:layout_constraintTop_toBottomOf="@+id/ads_price3"
+            app:layout_constraintTop_toBottomOf="@+id/ads_pricecut"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
