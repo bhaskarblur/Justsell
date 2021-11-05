@@ -60,7 +60,7 @@ public class homeResponse {
     public class categoryResp {
 
         public String success;
-        public categoryResult result;
+        public List<categoryResult> result;
 
         public String getSuccess() {
             return success;
@@ -70,11 +70,11 @@ public class homeResponse {
             this.success = success;
         }
 
-        public categoryResult getResult() {
+        public List<categoryResult> getResult() {
             return result;
         }
 
-        public void setResult(categoryResult result) {
+        public void setResult(List<categoryResult> result) {
             this.result = result;
         }
     }
@@ -141,6 +141,7 @@ public class homeResponse {
     }
 
     public class adsResult {
+
         public String ad_id;
         public String ad_title;
         public String ad_image;

@@ -31,10 +31,11 @@
 
         <ImageView
             android:id="@+id/featuredimg"
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="40dp"
             android:paddingRight="10dp"
             android:paddingBottom="20dp"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/featuredimg" />
@@ -70,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ads_title" />
 
         <TextView
-            android:id="@+id/ads_pricecut"
+            android:id="@+id/ads_descr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -86,7 +87,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ads_price" />
 
         <TextView
-            android:id="@+id/ads_price4"
+            android:id="@+id/ads_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -102,11 +103,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/ads_image"
-            app:layout_constraintTop_toBottomOf="@+id/ads_pricecut"
+            app:layout_constraintTop_toBottomOf="@+id/ads_descr"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/ads_price2"
+            android:id="@+id/ads_pricecut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

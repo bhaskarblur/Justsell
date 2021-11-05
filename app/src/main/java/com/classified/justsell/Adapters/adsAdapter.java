@@ -1,5 +1,7 @@
 package com.classified.justsell.Adapters;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,21 +10,46 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.classified.justsell.Models.homeResponse;
+import com.classified.justsell.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
 public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
+
+    private Context mcontext;
+    private List<homeResponse .adsResult> list;
+
+    public adsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
+        this.mcontext = mcontext;
+        this.list = list;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view= LayoutInflater.from(mcontext).inflate(R.layout.ads_layout,parent,false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).into(holder.adsimg);
+        holder.adstitle.setText(list.get(position).getAd_title());
+        holder.adsprice.setText(list.get(position).getAd_price());
+        holder.adspricecut.setText(list.get(position).getAd_pricecut());
+        holder.adsdesr.setText("Product Description: "+list.get(position).getAd_description());
+        holder.adsdate.setText("Posted On  "+list.get(position).getAd_date());
 
-    }
+        if(list.get(position).getFeatured_status().equals("yes")) {
+            holder.adsfeat.setVisibility(View.VISIBLE);
+        }
+     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -35,6 +62,14 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         View adsfeat;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            adsimg=itemView.findViewById(R.id.ads_image);
+            adstitle=itemView.findViewById(R.id.ads_title);
+            adsprice=itemView.findViewById(R.id.ads_price);
+            adspricecut=itemView.findViewById(R.id.ads_pricecut);
+            adsdesr=itemView.findViewById(R.id.ads_descr);
+            adsdate=itemView.findViewById(R.id.ads_date);
+            adsfeat=itemView.findViewById(R.id.featuredimg);
+
 
         }
     }
