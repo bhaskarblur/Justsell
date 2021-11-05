@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="7dp">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ads_card"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/roundboxbg"
+        android:backgroundTint="?android:textColorPrimaryInverse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ads_image"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/imgsample" />
+
+        <TextView
+            android:id="@+id/ads_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLength="27"
+            android:text="Iphone 10s Max Good condition"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ads_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ads_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/poppins"
+            android:text="₹40000"
+            android:textColor="@color/primary_color"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/ads_image"
+            app:layout_constraintTop_toBottomOf="@+id/ads_title" />
+
+        <TextView
+            android:id="@+id/ads_price3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/poppins"
+            android:maxLength="75"
+            android:text="Product Description: The product is 2 yrs old and is in good condition."
+            android:textColor="?android:textColorSecondary"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ads_image"
+            app:layout_constraintTop_toBottomOf="@+id/ads_price" />
+
+        <TextView
+            android:id="@+id/ads_price4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/poppins"
+            android:maxLength="30"
+            android:text="Posted on 8 November,2021"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/ads_image"
+            app:layout_constraintTop_toBottomOf="@+id/ads_price3"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/ads_price2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/poppins"
+            android:text="₹40000"
+            android:textColor="#FF0000"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/ads_price"
+            app:layout_constraintTop_toBottomOf="@+id/ads_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
