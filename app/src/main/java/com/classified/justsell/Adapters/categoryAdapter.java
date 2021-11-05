@@ -42,7 +42,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
         Picasso.get().load(searchfieldModelList.get(position).getCategory_image()).resize(150           ,150)
                 .centerCrop().into(holder.img);
         if(checkpos==position){
-            holder.fieldname.setTextColor(Color.parseColor("#FFD107"));
+            holder.fieldname.setTextColor(Color.parseColor("#FFD057"));
             holder.fieldbg.setBackgroundResource(R.drawable.fieldselbg);
 
         }
@@ -67,6 +67,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             fieldname=itemView.findViewById(R.id.fieldname);
+            img=itemView.findViewById(R.id.fieldimg);
             fieldbg=itemView.findViewById(R.id.fieldbg);
             fieldbg.setOnClickListener(new View.OnClickListener() {
                 @Override
