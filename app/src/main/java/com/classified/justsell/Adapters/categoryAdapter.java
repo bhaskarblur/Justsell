@@ -1,6 +1,7 @@
 package com.classified.justsell.Adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -42,13 +44,11 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
         Picasso.get().load(searchfieldModelList.get(position).getCategory_image()).resize(150           ,150)
                 .centerCrop().into(holder.img);
         if(checkpos==position){
-            holder.fieldname.setTextColor(Color.parseColor("#FFD057"));
             holder.fieldbg.setBackgroundResource(R.drawable.fieldselbg);
 
         }
         else if(checkpos!=position) {
             holder.fieldbg.setBackgroundResource(R.drawable.fieldnotselbg);
-            holder.fieldname.setTextColor(Color.parseColor("#DFDFDF"));
         }
 
 
@@ -73,7 +73,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
                 @Override
                 public void onClick(View v) {
                     int position=getAdapterPosition();
-                    if(position!=RecyclerView.NO_POSITION && listener!=null) {
+                    if(position!=RecyclerView.NO_POSITION) {
                         checkpos=position;
                         notifyDataSetChanged();
                         listener.oncardclick(searchfieldModelList.get(position).getCategory_id());

@@ -26,11 +26,15 @@ public class homeResponse {
         }
     }
 
-    public class bannerResult{
+    public static class bannerResult{
 
         public String banner_id;
         public String banner_image;
         public String banner_url;
+
+        public bannerResult(String banner_image) {
+            this.banner_image = banner_image;
+        }
 
         public String getBanner_id() {
             return banner_id;
@@ -79,11 +83,16 @@ public class homeResponse {
         }
     }
 
-    public class categoryResult {
+    public static class categoryResult {
 
         public String category_id;
         public String category_name;
         public String category_image;
+
+        public categoryResult(String category_name, String category_image) {
+            this.category_name = category_name;
+            this.category_image = category_image;
+        }
 
         public String getCategory_id() {
             return category_id;
@@ -140,7 +149,7 @@ public class homeResponse {
         }
     }
 
-    public class adsResult {
+    public static class adsResult {
 
         public String ad_id;
         public String ad_title;
@@ -152,6 +161,14 @@ public class homeResponse {
         public String ad_price;
         public String ad_pricecut;
         public String product_name;
+
+        public adsResult(String ad_title, String ad_image, String ad_price, String ad_pricecut,String featured_status) {
+            this.ad_title = ad_title;
+            this.ad_image = ad_image;
+            this.ad_price = ad_price;
+            this.ad_pricecut = ad_pricecut;
+            this.featured_status=featured_status;
+        }
 
         public String getAd_id() {
             return ad_id;

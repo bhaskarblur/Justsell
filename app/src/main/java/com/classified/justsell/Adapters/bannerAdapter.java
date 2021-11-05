@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class bannerAdapter extends RecyclerView.Adapter<bannerAdapter.viewHolder
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Toast.makeText(mcontext,"hello", Toast.LENGTH_SHORT).show();
         View view = LayoutInflater.from(mcontext).inflate(R.layout.banner_layout, parent, false);
         return new viewHolder(view);
     }
@@ -43,6 +45,8 @@ public class bannerAdapter extends RecyclerView.Adapter<bannerAdapter.viewHolder
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
         Picasso.get().load(bannerlist.get(position).getBanner_image()).transform(transformation).resize(800,400)
                 .centerCrop().into(holder.img);
+
+        Toast.makeText(mcontext, String.valueOf(bannerlist.size()), Toast.LENGTH_SHORT).show();
         Log.d("img", bannerlist.get(position).getBanner_image());
     }
 

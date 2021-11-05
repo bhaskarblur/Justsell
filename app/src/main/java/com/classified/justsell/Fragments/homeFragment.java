@@ -9,17 +9,29 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
+import com.classified.justsell.Adapters.categoryAdapter;
+import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.classified.justsell.ViewModels.homefragViewModel;
 import com.classified.justsell.databinding.FragmentHomeBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class homeFragment extends Fragment implements LocationListener {
@@ -29,11 +41,14 @@ public class homeFragment extends Fragment implements LocationListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private FragmentHomeBinding hmbinding;
-
+    private bannerAdapter bannerAdapter;
+    private com.classified.justsell.Adapters.categoryAdapter categoryAdapter;
+    private com.classified.justsell.Adapters.adsAdapter adsAdapter;
+    private List<homeResponse.bannerResult> bannerlist = new ArrayList<>();
+    private homefragViewModel hmViewModel;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private com.classified.justsell.Adapters.bannerAdapter bannerAdapter;
     private Integer pos = 0;
     private SharedPreferences sharedPreferences;
     private String lat;
@@ -62,6 +77,7 @@ public class homeFragment extends Fragment implements LocationListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -163,6 +179,67 @@ public class homeFragment extends Fragment implements LocationListener {
         pos = 0;
         sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
         userid = sharedPreferences.getString("userid", "");
+        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
+        hmViewModel.initwork(userid,"0","0","location");
+
+        hmViewModel.getBannerdata().observe(getActivity(), new Observer<List<homeResponse.bannerResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.bannerResult> bannermodels) {
+
+                if (bannermodels.size() > 0) {
+                    bannerlist.clear();
+                    bannerlist = bannermodels;
+                    bannerAdapter = new bannerAdapter(getActivity(), bannerlist);
+                    hmbinding.bannerrv.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                    hmbinding.bannerrv.setAdapter(bannerAdapter);
+                    hmbinding.bannerrv.setCurrentItem(0);
+                    rotatebanner();
+                }
+            }
+        });
+        hmViewModel.getCategorydata().observe(getActivity(), new Observer<List<homeResponse.categoryResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.categoryResult> categoryResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(categoryResults.size()>0) {
+                            categoryAdapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+
+            }
+        });
+        hmViewModel.getAdsdata().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(adsResults.size()>0) {
+                            adsAdapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+            }
+        });
+        categoryAdapter =new categoryAdapter(getActivity(),hmViewModel.getCategorydata().getValue());
+        LinearLayoutManager llm=new LinearLayoutManager(getActivity());
+        llm.setOrientation(RecyclerView.HORIZONTAL);
+        hmbinding.categoryrec.setLayoutManager(llm);
+        hmbinding.categoryrec.setAdapter(categoryAdapter);
+        categoryAdapter.setoncardclicklistener(new categoryAdapter.oncardclicklistener() {
+            @Override
+            public void oncardclick(String catname) {
+
+            }
+        });
+
+        adsAdapter=new adsAdapter(getActivity(),hmViewModel.getAdsdata().getValue());
+        LinearLayoutManager llm1=new LinearLayoutManager(getActivity());
+        hmbinding.adsrec.setLayoutManager(llm1);
+        hmbinding.adsrec.setAdapter(adsAdapter);
     }
 
     private void rotatebanner() {

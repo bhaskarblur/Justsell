@@ -5,14 +5,19 @@
       <map>
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/borderbg.xml" value="0.18076923076923077" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/descboxbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/fieldnotselbg.xml" value="0.18076923076923077" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/fieldselbg.xml" value="0.18076923076923077" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/otpborderbg.xml" value="0.18076923076923077" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/roundboxbg.xml" value="0.18076923076923077" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/font/open_sans.xml" value="0.189873417721519" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_auth.xml" value="0.14" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_main.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/ads_layout.xml" value="0.19" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/banner_layout.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/category_layout.xml" value="0.67" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_chat.xml" value="0.1675213675213675" />
-        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_home.xml" value="0.21" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_o_t_p.xml" value="0.22" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_post.xml" value="0.1675213675213675" />
@@ -21,15 +26,6 @@
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/drawable/sizeprobg.xml" value="0.2203125" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/font/poppins.xml" value="0.234375" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/layout/activity_main.xml" value="0.14" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/ads_layout.xml" value="0.4764621968616263" />
-        <entry key="app/src/main/res/layout/banner_layout.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/category_layout.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.20512820512820512" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24610591900311526" />
-        <entry key="app/src/main/res/layout/fragment_o_t_p.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -1,6 +1,7 @@
 package com.classified.justsell.Adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,9 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText(list.get(position).getAd_price());
         holder.adspricecut.setText(list.get(position).getAd_pricecut());
-        holder.adsdesr.setText("Product Description: "+list.get(position).getAd_description());
-        holder.adsdate.setText("Posted On  "+list.get(position).getAd_date());
+        holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//        holder.adsdesr.setText("Product Description: "+list.get(position).getAd_description());
+//        holder.adsdate.setText("Posted On  "+list.get(position).getAd_date());
 
         if(list.get(position).getFeatured_status().equals("yes")) {
             holder.adsfeat.setVisibility(View.VISIBLE);
