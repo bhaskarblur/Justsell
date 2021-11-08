@@ -267,4 +267,65 @@ public class homeResponse {
             this.product_name = product_name;
         }
     }
+
+    public class listofcities {
+
+        public String success;
+        public List<citiesResp> result;
+        public String message;
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        public List<citiesResp> getResult() {
+            return result;
+        }
+
+        public void setResult(List<citiesResp> result) {
+            this.result = result;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
+
+    public class citiesResp {
+        public String id;
+        public String city;
+        public String state;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+    }
 }

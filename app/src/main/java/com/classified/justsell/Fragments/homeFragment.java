@@ -101,7 +101,30 @@ public class homeFragment extends Fragment implements LocationListener {
     }
 
     private void viewfuncs() {
+        hmbinding.citytext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationFragment homeFragment=new locationFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.addToBackStack("A");
+                transaction.commit();
+                getActivity().getViewModelStore().clear();
+            }
+        });
 
+        hmbinding.locaticon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationFragment homeFragment=new locationFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.addToBackStack("A");
+                transaction.commit();
+            }
+        });
         hmbinding.onbprog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
