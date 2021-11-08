@@ -195,6 +195,18 @@ public class homeFragment extends Fragment implements LocationListener {
                 transaction.commit();
             }
         });
+
+        hmbinding.notiicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notiFragment homeFragment=new notiFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.addToBackStack("A");
+                transaction.commit();
+            }
+        });
     }
 
     private void ManageData() {
