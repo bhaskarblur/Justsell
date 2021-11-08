@@ -36,7 +36,7 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).into(holder.adsimg);
+        Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText(list.get(position).getAd_price());
         holder.adspricecut.setText(list.get(position).getAd_pricecut());
@@ -44,7 +44,8 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
 //        holder.adsdesr.setText("Product Description: "+list.get(position).getAd_description());
 //        holder.adsdate.setText("Posted On  "+list.get(position).getAd_date());
 
-        if(list.get(position).getFeatured_status().equals("yes")) {
+
+        if(list.get(position).getFeatured_status().equals("1")) {
             holder.adsfeat.setVisibility(View.VISIBLE);
         }
      }

@@ -160,14 +160,22 @@ public class homeResponse {
 
     public static class adsResult {
 
+        @SerializedName("id")
         public String ad_id;
+        @SerializedName("product_title")
         public String ad_title;
+        @SerializedName("product_image")
         public String ad_image;
+        @SerializedName("product_category_name")
         public String ad_category;
+        @SerializedName("product_description")
         public String ad_description;
+        @SerializedName("product_date")
         public String ad_date;
         public String featured_status;
+        @SerializedName("product_price")
         public String ad_price;
+        @SerializedName("product_sale_price")
         public String ad_pricecut;
         public String product_name;
 

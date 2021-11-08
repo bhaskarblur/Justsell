@@ -30,13 +30,13 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(mcontext).inflate(R.layout.ads_layout,parent,false);
+        View view= LayoutInflater.from(mcontext).inflate(R.layout.favads_layout,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).into(holder.adsimg);
+        Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText(list.get(position).getAd_price());
         holder.adspricecut.setText(list.get(position).getAd_pricecut());

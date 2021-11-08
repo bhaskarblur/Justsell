@@ -154,13 +154,15 @@ public class searchFragment extends Fragment {
         for(homeResponse.adsResult model:hmViewModel.getAdsdata().getValue()){
 
             if(filterfield!=null && filterfield!="null" && filterfield!="" && !filterfield.equals("All")) {
-                if(model.getAd_title().toLowerCase().contains(query.toLowerCase())) {
+                if(model.getAd_title().toLowerCase().contains(query.toLowerCase())
+                || model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
 
                     searchedList.add(model);
                 }
             }
             else{
-                if(model.getAd_title().toLowerCase().contains(query.toLowerCase())) {
+                if(model.getAd_title().toLowerCase().contains(query.toLowerCase()) ||
+                model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
 
                     searchedList.add(model);
                 }

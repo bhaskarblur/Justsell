@@ -66,11 +66,11 @@ public class homefragRepo {
     }
 
     private void getadsfromserver(String city) {
-        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-                , "$399", "$500", "yes"));
-        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-                , "$399", "$500", "no"));
-        adsdata.setValue(adslist);
+//        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
+//                , "$399", "$500", "yes"));
+//        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
+//                , "$399", "$500", "no"));
+//        adsdata.setValue(adslist);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -79,31 +79,31 @@ public class homefragRepo {
 
         Call<homeResponse.ListadsResp> call3=apiWork.getAds(city);
 
-//        call3.enqueue(new Callback<homeResponse.ListadsResp>() {
-//            @Override
-//            public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
-//                if(!response.isSuccessful()){
-//                    Log.d("Error code",String.valueOf(response.code()));
-//                    return;
-//                }
-//
-//                homeResponse.ListadsResp resp=response.body();
-//
-//                if(resp.getResult()!=null) {
-//                    for(int i=0;i<resp.getResult().size();i++) {
-//                        adslist.add(resp.getResult().get(i));
-//                        Log.d("stat",resp.getResult().get(i).getProduct_name());
-//                    }
-//
-//                    adsdata.setValue(adslist);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<homeResponse.ListadsResp> call, Throwable t) {
-//                Log.d("Failure",t.getMessage());
-//            }
-//        });
+        call3.enqueue(new Callback<homeResponse.ListadsResp>() {
+            @Override
+            public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                homeResponse.ListadsResp resp=response.body();
+
+                if(resp.getResult()!=null) {
+                    for(int i=0;i<resp.getResult().size();i++) {
+                        adslist.add(resp.getResult().get(i));
+                        Log.d("stat",resp.getResult().get(i).getProduct_name());
+                    }
+
+                    adsdata.setValue(adslist);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.ListadsResp> call, Throwable t) {
+                Log.d("Failure",t.getMessage());
+            }
+        });
     }
 
     private void getcategoryfromserver() {
@@ -114,7 +114,6 @@ public class homefragRepo {
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
         Call<homeResponse.categoryResp> call2=apiWork.getCategories();
-
 
         call2.enqueue(new Callback<homeResponse.categoryResp>() {
             @Override
