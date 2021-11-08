@@ -8,127 +8,312 @@
     tools:context=".Fragments.profileFragment">
 
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Profile"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="74dp"
-        android:fontFamily="@font/poppins"
-        android:text="Username"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/poppins"
-        android:text="Number"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name" />
-
-    <ImageView
-        android:id="@+id/user_img"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/sampleuserimg1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <ImageView
-        android:id="@+id/profile_edit_save"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="30dp"
-        android:clickable="true"
-        android:src="@drawable/editicon"
-        android:visibility="invisible"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:srcCompat="@drawable/tickicon"
-        app:tint="#27D81A" />
-
-    <ImageView
-        android:id="@+id/profile_edit"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="30dp"
-        android:clickable="true"
-        android:src="@drawable/editicon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:srcCompat="@drawable/editicon" />
-
-    <ImageView
-        android:id="@+id/img_pick"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="62dp"
-        android:clickable="true"
-        android:src="@drawable/editicon"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:srcCompat="@drawable/editicon" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/name_txt"
-        android:layout_width="210dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/descboxbg"
-        android:backgroundTint="?android:textColorPrimaryInverse"
-        android:fontFamily="@font/poppins"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:paddingLeft="15dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/user_img"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/name_txt2"
-        android:layout_width="210dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/descboxbg"
-        android:backgroundTint="?android:textColorPrimaryInverse"
-        android:fontFamily="@font/poppins"
-        android:hint="Number"
-        android:inputType="none|number"
-        android:maxLength="10"
-        android:paddingLeft="15dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/user_img"
-        app:layout_constraintTop_toBottomOf="@+id/name_txt" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Profile"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="74dp"
+                android:fontFamily="@font/poppins"
+                android:text="Username"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/user_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins"
+                android:text="Number"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+            <ImageView
+                android:id="@+id/user_img"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/sampleuserimg1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <ImageView
+                android:id="@+id/profile_edit_save"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="30dp"
+                android:clickable="true"
+                android:src="@drawable/editicon"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                app:srcCompat="@drawable/tickicon"
+                app:tint="#27D81A" />
+
+            <ImageView
+                android:id="@+id/profile_edit"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="30dp"
+                android:clickable="true"
+                android:src="@drawable/editicon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                app:srcCompat="@drawable/editicon" />
+
+            <ImageView
+                android:id="@+id/menu_btn"
+                android:layout_width="22dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:clickable="true"
+                android:src="@drawable/menuicon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?android:textColorPrimary" />
+
+            <ImageView
+                android:id="@+id/img_pick"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="62dp"
+                android:clickable="true"
+                android:src="@drawable/editicon"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                app:srcCompat="@drawable/editicon" />
+
+            <EditText
+                android:id="@+id/name_txt"
+                android:layout_width="210dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="72dp"
+                android:background="@drawable/descboxbg"
+                android:backgroundTint="?android:textColorPrimaryInverse"
+                android:fontFamily="@font/poppins"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/user_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/number_txt"
+                android:layout_width="210dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/descboxbg"
+                android:backgroundTint="?android:textColorPrimaryInverse"
+                android:fontFamily="@font/poppins"
+                android:hint="Number"
+                android:inputType="none|number"
+                android:maxLength="10"
+                android:paddingLeft="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/user_img"
+                app:layout_constraintTop_toBottomOf="@+id/name_txt" />
+
+            <TextView
+                android:id="@+id/myads_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="My Ads"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_pick" />
+
+            <TextView
+                android:id="@+id/prom_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="Promote"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/favs_txt"
+                app:layout_constraintTop_toBottomOf="@+id/img_pick" />
+
+            <TextView
+                android:id="@+id/favs_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="Favourites"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/myads_txt"
+                app:layout_constraintTop_toBottomOf="@+id/img_pick" />
+
+            <TextView
+                android:id="@+id/prom_txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="Promote"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/favs_txt"
+                app:layout_constraintTop_toBottomOf="@+id/img_pick" />
+
+            <TextView
+                android:id="@+id/myads_txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="My Ads"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_pick" />
+
+            <TextView
+                android:id="@+id/favs_txt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="Favourites"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/myads_txt"
+                app:layout_constraintTop_toBottomOf="@+id/img_pick" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/promote_lay"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myads_txt">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/promrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/ads_layout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/favs_lay"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myads_txt">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/favrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/ads_layout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ads_lay"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myads_txt">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/adsrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/ads_layout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
