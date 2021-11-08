@@ -67,9 +67,9 @@ public class homefragRepo {
 
     private void getadsfromserver(String city) {
 //        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-//                , "$399", "$500", "yes"));
+//                , "$399", "$500", "1"));
 //        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-//                , "$399", "$500", "no"));
+//                , "$399", "$500", "0"));
 //        adsdata.setValue(adslist);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
