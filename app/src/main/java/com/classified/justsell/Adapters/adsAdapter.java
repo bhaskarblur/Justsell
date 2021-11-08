@@ -48,6 +48,10 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
             holder.adsfeat.setVisibility(View.VISIBLE);
         }
      }
+    public void searchList(List<homeResponse .adsResult> searchedList) {
+        list=searchedList;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

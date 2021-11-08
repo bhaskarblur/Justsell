@@ -168,7 +168,8 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                             Bitmap image = BitmapFactory.decodeStream(is);
                             ByteArrayOutputStream by = new ByteArrayOutputStream();
                             image.compress(Bitmap.CompressFormat.JPEG, 50, by);
-                            base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                            base64img =  Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                            Log.d("base64img2",base64img);
                         }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
