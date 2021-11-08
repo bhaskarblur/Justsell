@@ -54,6 +54,7 @@ public class homeFragment extends Fragment implements LocationListener {
     private String lat;
     private String longit;
     private String userid;
+    private String city;
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationProviderClient;
     public homeFragment() {
@@ -76,6 +77,14 @@ public class homeFragment extends Fragment implements LocationListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+        Bundle bundle=getArguments();
+        if(bundle!=null) {
+             city=bundle.getString("city");
+        }
+        else {
+            city= sharedPreferences.getString("usercity","");
         }
 
     }
@@ -177,13 +186,22 @@ public class homeFragment extends Fragment implements LocationListener {
 
     private void ManageData() {
         pos = 0;
-        sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
         userid = sharedPreferences.getString("userid", "");
         String state=sharedPreferences.getString("userstate","");
-        String city=sharedPreferences.getString("usercity","");
-        hmbinding.citytext.setText(city+", "+state);
+        String citystate;
+        Bundle bundle=getArguments();
+        if(bundle!=null) {
+            citystate=bundle.getString("city");
+            hmbinding.citytext.setText(citystate);
+        }
+        else {
+             citystate=sharedPreferences.getString("usercity","");
+            hmbinding.citytext.setText(citystate+", "+state);
+        }
+
+
         hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-        hmViewModel.initwork(userid,"0","0","location");
+        hmViewModel.initwork(userid,"0","0",city);
 
         hmViewModel.getBannerdata().observe(getActivity(), new Observer<List<homeResponse.bannerResult>>() {
             @Override

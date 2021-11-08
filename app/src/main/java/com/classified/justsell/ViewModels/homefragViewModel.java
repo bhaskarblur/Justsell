@@ -30,7 +30,7 @@ public class homefragViewModel extends ViewModel {
 
         bannerdata= repo.getInstance().getInstance().returnbannerdata();
         categorydata=repo.getInstance().returncategorydata();
-        adsdata= repo.getInstance().returnadadata();
+        adsdata= repo.getInstance().returnadadata(location);
 
 
     }

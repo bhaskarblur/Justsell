@@ -36,6 +36,20 @@ public interface ApiWork {
                                                     @Field("city") String city,
                                                     @Field("image") String image);
 
+    @FormUrlEncoded
+    @POST("profile_update")
+    Call<AuthResponse.profile_update> updateprofile2(@Field("user_id") String userid,
+                                                    @Field("name") String name,
+                                                    @Field("state") String state,
+                                                    @Field("city") String city,
+                                                    @Field("image") String image,
+                                                     @Field("mobile")String mobile);
+
+
+    @FormUrlEncoded
+    @POST("get_user")
+    Call<AuthResponse.VerifyOtp> getprofile(@Field("user_id") String userid);
+
     @GET("banner")
     Call<homeResponse.bannerResp> getBanners();
 

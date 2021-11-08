@@ -17,12 +17,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
+public class promadsAdapter extends RecyclerView.Adapter<promadsAdapter.ViewHolder> {
 
     private Context mcontext;
     private List<homeResponse .adsResult> list;
 
-    public adsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
+    public promadsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
         this.mcontext = mcontext;
         this.list = list;
     }
@@ -72,7 +72,7 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
             adsdesr=itemView.findViewById(R.id.ads_descr);
             adsdate=itemView.findViewById(R.id.ads_date);
             adsfeat=itemView.findViewById(R.id.featuredimg);
-
+            adsbg=itemView.findViewById(R.id.ads_card);
 
         }
     }

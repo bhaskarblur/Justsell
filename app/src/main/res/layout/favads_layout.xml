@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/poppins"
             android:maxLength="30"
@@ -119,5 +119,27 @@
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/ads_price"
             app:layout_constraintTop_toBottomOf="@+id/ads_title" />
+
+        <ImageView
+            android:id="@+id/heartofficon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:tint="#FF0000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/hearticon" />
+
+        <ImageView
+            android:id="@+id/heartonicon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:tint="#FF0000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/profhearticon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

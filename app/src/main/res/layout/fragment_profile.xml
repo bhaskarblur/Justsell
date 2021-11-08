@@ -71,20 +71,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <ImageView
-                android:id="@+id/profile_edit_save"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="30dp"
-                android:clickable="true"
-                android:src="@drawable/editicon"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                app:srcCompat="@drawable/tickicon"
-                app:tint="#27D81A" />
-
-            <ImageView
                 android:id="@+id/profile_edit"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -95,6 +81,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10"
                 app:srcCompat="@drawable/editicon" />
+
+            <ImageView
+                android:id="@+id/profile_edit_save"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="30dp"
+                android:clickable="true"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                app:srcCompat="@drawable/tickicon"
+                app:tint="#27D81A" />
 
             <ImageView
                 android:id="@+id/menu_btn"
@@ -164,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="40dp"
+                android:clickable="true"
                 android:fontFamily="@font/poppins"
                 android:text="My Ads"
                 android:textColor="?android:textColorPrimary"
@@ -177,6 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="40dp"
+                android:clickable="true"
                 android:fontFamily="@font/poppins"
                 android:text="Promote"
                 android:textColor="?android:textColorSecondary"
@@ -190,6 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="40dp"
+                android:clickable="true"
                 android:fontFamily="@font/poppins"
                 android:text="Favourites"
                 android:textColor="?android:textColorSecondary"
@@ -203,6 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="40dp"
+                android:clickable="true"
                 android:fontFamily="@font/poppins"
                 android:text="Promote"
                 android:textColor="?android:textColorPrimary"
@@ -217,6 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="40dp"
+                android:clickable="true"
                 android:fontFamily="@font/poppins"
                 android:text="My Ads"
                 android:textColor="?android:textColorSecondary"

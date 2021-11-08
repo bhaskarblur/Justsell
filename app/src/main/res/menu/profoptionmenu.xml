@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/terms"
+        android:title="About Us" />
+    <item
+        android:id="@+id/aboutbtn"
+        android:title="Terms And Conditions" />
+    <item
+        android:id="@+id/logout_item"
+        android:title="Delete Account" />
+</menu>

@@ -17,12 +17,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
+public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder> {
 
     private Context mcontext;
     private List<homeResponse .adsResult> list;
 
-    public adsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
+    public FavadsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
         this.mcontext = mcontext;
         this.list = list;
     }
@@ -47,6 +47,7 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         if(list.get(position).getFeatured_status().equals("yes")) {
             holder.adsfeat.setVisibility(View.VISIBLE);
         }
+
      }
 
     @Override
@@ -63,6 +64,8 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         TextView adsdate;
         View adsfeat;
         View adsbg;
+        View hearton;
+        View heartoff;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             adsimg=itemView.findViewById(R.id.ads_image);
@@ -72,8 +75,9 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
             adsdesr=itemView.findViewById(R.id.ads_descr);
             adsdate=itemView.findViewById(R.id.ads_date);
             adsfeat=itemView.findViewById(R.id.featuredimg);
-
-
+            adsbg=itemView.findViewById(R.id.ads_card);
+            heartoff=itemView.findViewById(R.id.heartofficon);
+            hearton=itemView.findViewById(R.id.heartonicon);
         }
     }
 }
