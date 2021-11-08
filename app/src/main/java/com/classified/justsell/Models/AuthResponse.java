@@ -212,11 +212,20 @@ public class AuthResponse {
 
     public class profile_data {
         public String id;
+        public String image;
         public String mobile;
         public String name;
         public String state;
         public String city;
         public String user_type;
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
 
         public String getUser_type() {
             return user_type;

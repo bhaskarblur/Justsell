@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 import com.squareup.picasso.Picasso;
@@ -45,7 +46,6 @@ public class bannerAdapter extends RecyclerView.Adapter<bannerAdapter.viewHolder
         Picasso.get().load(bannerlist.get(position).getBanner_image()).transform(transformation).resize(800,450)
                 .centerCrop().into(holder.img);
 
-        Log.d("img", bannerlist.get(position).getBanner_image());
     }
 
     @Override

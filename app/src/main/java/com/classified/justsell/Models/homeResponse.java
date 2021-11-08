@@ -1,5 +1,7 @@
 package com.classified.justsell.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class homeResponse {
@@ -7,7 +9,15 @@ public class homeResponse {
     public class bannerResp {
 
         public String success;
-        public bannerResult result;
+        public List<bannerResult> result;
+
+        public List<bannerResult> getResult() {
+            return result;
+        }
+
+        public void setResult(List<bannerResult> result) {
+            this.result = result;
+        }
 
         public String getSuccess() {
             return success;
@@ -17,19 +27,16 @@ public class homeResponse {
             this.success = success;
         }
 
-        public bannerResult getResult() {
-            return result;
-        }
-
-        public void setResult(bannerResult result) {
-            this.result = result;
-        }
     }
 
     public static class bannerResult{
 
+        @SerializedName("id")
         public String banner_id;
+        @SerializedName("banner_img")
         public String banner_image;
+
+        @SerializedName("banner_link")
         public String banner_url;
 
         public bannerResult(String banner_image) {
@@ -85,8 +92,10 @@ public class homeResponse {
 
     public static class categoryResult {
 
+        @SerializedName("id")
         public String category_id;
         public String category_name;
+        @SerializedName("category_icon")
         public String category_image;
 
         public categoryResult(String category_name, String category_image) {

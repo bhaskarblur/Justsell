@@ -161,11 +161,12 @@ public class registerProfile extends Fragment {
                                 SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
                                 SharedPreferences.Editor editor=sharedPreferences.edit();
                                 editor.putString("userlogged","yes");
-                                editor.putString("userid",userid);
+                                editor.putString("userimage",resp.getResult().getImage());
+                                editor.putString("userid",resp.getResult().getId());
                                 editor.putString("usermobile",resp.getResult().getMobile());
-                                editor.putString("username",sdbinding.nameTxt.getText().toString());
-                                editor.putString("userstate",sdbinding.statet.getText().toString());
-                                editor.putString("usercity",sdbinding.cityet.getText().toString());
+                                editor.putString("username",resp.getResult().getName());
+                                editor.putString("userstate",resp.getResult().getState());
+                                editor.putString("usercity",resp.getResult().getCity());
                                 editor.commit();
                                 startActivity(new Intent(getActivity(), HomeActivity.class));
                                 getActivity().finish();

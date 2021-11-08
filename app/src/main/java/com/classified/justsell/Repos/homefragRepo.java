@@ -1,11 +1,22 @@
 package com.classified.justsell.Repos;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.classified.justsell.APIWork.ApiWork;
+import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.homeResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class homefragRepo {
 
@@ -17,6 +28,8 @@ public class homefragRepo {
     public MutableLiveData<List<homeResponse.bannerResult>> bannerdata = new MutableLiveData<>();
     public MutableLiveData<List<homeResponse.categoryResult>> categorydatanew = new MutableLiveData<>();
     public MutableLiveData<List<homeResponse.adsResult>> adsdata = new MutableLiveData<>();
+
+    public api_baseurl baseurl = new api_baseurl();
 
     public homefragRepo getInstance() {
         if (instance == null) {
@@ -53,23 +66,84 @@ public class homefragRepo {
     }
 
     private void getadsfromserver() {
-        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB","https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-        ,"$399","$500","yes"));
-        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB","https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-                ,"$399","$500","no"));
+        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
+                , "$399", "$500", "yes"));
+        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
+                , "$399", "$500", "no"));
         adsdata.setValue(adslist);
     }
 
     private void getcategoryfromserver() {
-        categorylist.add(new homeResponse.categoryResult("Sports","https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"));
-        categorylist.add(new homeResponse.categoryResult("Technology","https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"));
-        categorydatanew.setValue(categorylist);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<homeResponse.categoryResp> call2=apiWork.getCategories();
+
+
+        call2.enqueue(new Callback<homeResponse.categoryResp>() {
+            @Override
+            public void onResponse(Call<homeResponse.categoryResp> call, Response<homeResponse.categoryResp> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                homeResponse.categoryResp resp=response.body();
+
+                if(resp.getResult()!=null) {
+                    for(int i=0;i<resp.getResult().size();i++) {
+                        categorylist.add(resp.getResult().get(i));
+                        Log.d("stat",resp.getResult().get(i).getCategory_image());
+                    }
+
+                    categorydatanew.setValue(categorylist);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.categoryResp> call, Throwable t) {
+                Log.d("Failure",t.getMessage());
+            }
+        });
     }
 
     private void getbannersfromserver() {
-        bannerlist.add(new homeResponse.bannerResult("https://mir-s3-cdn-cf.behance.net/project_modules/1400/45838099680787.5ef86c4b01fb3.png"));
-        bannerlist.add(new homeResponse.bannerResult("https://thumbs.dreamstime.com/b/kharkov-ukraine-march-apple-iphone-mini-retail-box-blue-color-yellow-background-banner-photo-212841861.jpg"));
-        bannerdata.setValue(bannerlist);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<homeResponse.bannerResp> call1=apiWork.getBanners();
+
+        call1.enqueue(new Callback<homeResponse.bannerResp>() {
+            @Override
+            public void onResponse(Call<homeResponse.bannerResp> call, Response<homeResponse.bannerResp> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                homeResponse.bannerResp resp=response.body();
+
+                if(resp.getResult()!=null) {
+                    for(int i=0;i<resp.getResult().size();i++) {
+                        bannerlist.add(resp.getResult().get(i));
+                        Log.d("stat",resp.getResult().get(i).getBanner_image());
+                    }
+
+                    bannerdata.setValue(bannerlist);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.bannerResp> call, Throwable t) {
+                Log.d("Failure",t.getMessage());
+            }
+        });
     }
 
 }
