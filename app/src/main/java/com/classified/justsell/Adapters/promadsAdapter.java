@@ -38,8 +38,8 @@ public class promadsAdapter extends RecyclerView.Adapter<promadsAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get().load(list.get(position).getAd_image()).resize(300,300).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
-        holder.adsprice.setText(list.get(position).getAd_price());
-        holder.adspricecut.setText(list.get(position).getAd_pricecut());
+        holder.adsprice.setText("₹ "+list.get(position).getAd_price());
+        holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());
         holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //        holder.adsdesr.setText("Product Description: "+list.get(position).getAd_description());
 //        holder.adsdate.setText("Posted On  "+list.get(position).getAd_date());

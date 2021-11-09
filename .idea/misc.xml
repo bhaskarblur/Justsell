@@ -26,17 +26,22 @@
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/drawable/sizeprobg.xml" value="0.2203125" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/font/poppins.xml" value="0.234375" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/layout/activity_main.xml" value="0.14" />
-        <entry key="app/src/main/res/layout/ads_layout.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_auth.xml" value="0.19746835443037974" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.19746835443037974" />
+        <entry key="app/src/main/res/layout/ads_layout.xml" value="0.4810288508996986" />
         <entry key="app/src/main/res/layout/banner_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/city_layout.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/favads_layout.xml" value="0.6132804224740553" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.19746835443037974" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_location.xml" value="0.2678414355302105" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_no_internet.xml" value="0.2849534567844539" />
         <entry key="app/src/main/res/layout/fragment_noti.xml" value="0.22376355517795304" />
         <entry key="app/src/main/res/layout/fragment_o_t_p.xml" value="0.19746835443037974" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.19746835443037974" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29139735112646203" />
-        <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.23464313040902293" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="app/src/main/res/layout/noti_layout.xml" value="0.3139831451317533" />
       </map>

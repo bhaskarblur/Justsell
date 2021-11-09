@@ -67,6 +67,8 @@ public class notiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding =FragmentNotiBinding.inflate(inflater,container,false);
+        View bottombar=getActivity().findViewById(R.id.bottomnav);
+        bottombar.setVisibility(View.GONE);
         ManageData();
         viewfunc();
         return binding.getRoot();
@@ -115,5 +117,12 @@ public class notiFragment extends Fragment {
 
         binding.notirec.setLayoutManager(llm1);
         binding.notirec.setAdapter(notiAdapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        View bottombar=getActivity().findViewById(R.id.bottomnav);
+        bottombar.setVisibility(View.VISIBLE);
     }
 }

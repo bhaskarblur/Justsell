@@ -26,9 +26,9 @@
                 android:id="@+id/citysearch_txt"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/descboxbg"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:fontFamily="@font/poppins"
@@ -46,7 +46,7 @@
                 android:id="@+id/citysearch"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -73,8 +73,7 @@
                     android:id="@+id/locaticon2"
                     android:layout_width="23dp"
                     android:layout_height="23dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginBottom="20dp"
                     android:clickable="true"
                     android:src="@drawable/locationicon"
@@ -118,11 +117,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Location"
@@ -135,7 +135,7 @@
         android:id="@+id/backbtn3"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
         android:src="@drawable/backbtn"
         android:tint="?android:textColorPrimary"
