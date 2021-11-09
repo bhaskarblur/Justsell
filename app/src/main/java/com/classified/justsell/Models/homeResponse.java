@@ -178,8 +178,17 @@ public class homeResponse {
         @SerializedName("product_sale_price")
         public String ad_pricecut;
         public String product_name;
+        public String user_id;
 
-        public adsResult(String ad_title, String ad_image, String ad_price, String ad_pricecut,String featured_status) {
+        public String getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_idd(String user_id) {
+            this.user_id = user_id;
+        }
+
+        public adsResult(String ad_title, String ad_image, String ad_price, String ad_pricecut, String featured_status) {
             this.ad_title = ad_title;
             this.ad_image = ad_image;
             this.ad_price = ad_price;
