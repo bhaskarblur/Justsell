@@ -36,10 +36,15 @@ public class cityAdapter extends RecyclerView.Adapter<cityAdapter.viewHolder> {
         holder.cityname.setText(list.get(position).getCity()+", "+list.get(position).getState());
     }
 
+    public void searchList(List<homeResponse .citiesResp> searchedList) {
+        list=searchedList;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
-        return list.size();
+        return 30;
     }
+
 
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView cityname;

@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -203,6 +206,7 @@ public class locationFragment extends Fragment {
         LinearLayoutManager llm=new LinearLayoutManager(getContext());
         binding.citysearch.setLayoutManager(llm);
         binding.citysearch.setAdapter(cityAdapter);
+        binding.citysearch.setVisibility(View.GONE);
         cityAdapter.setonCityclickListener(new cityAdapter.onCityClick() {
             @Override
             public void oncitynameclick(String city, String state) {
@@ -218,6 +222,28 @@ public class locationFragment extends Fragment {
                 transaction.replace(R.id.mainFragment, homeFragment);
                 transaction.commit();
 
+            }
+        });
+        binding.citysearchTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.citysearch.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString()!=null) {
+                    searchfun(s.toString());
+                    binding.citysearch.setVisibility(View.VISIBLE);
+                }
+                else {
+                    binding.citysearch.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -319,7 +345,24 @@ public class locationFragment extends Fragment {
 
     }
 
+    private void searchfun(String query) {
+        List<homeResponse.citiesResp> searchedList=new ArrayList<>();
+        for(homeResponse.citiesResp model:hmViewModel.getCitydata().getValue()){
 
+                if(model.getCity().toLowerCase().contains(query.toLowerCase()) ||
+                        model.getState().toLowerCase().contains(query.toLowerCase())) {
+
+                    searchedList.add(model);
+                }
+            }
+
+            if(searchedList.size()<1) {
+                binding.citysearch.setVisibility(View.GONE);
+            }
+
+
+        cityAdapter.searchList(searchedList);
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

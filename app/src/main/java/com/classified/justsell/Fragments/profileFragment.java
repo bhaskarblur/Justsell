@@ -322,8 +322,6 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                     editor.putString("userid",resp.getResult().getId());
                     editor.putString("usermobile",resp.getResult().getMobile());
                     editor.putString("username",resp.getResult().getName());
-                    editor.putString("userstate",resp.getResult().getState());
-                    editor.putString("usercity",resp.getResult().getCity());
                     editor.commit();
                 }
             }

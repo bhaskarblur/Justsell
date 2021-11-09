@@ -300,7 +300,7 @@ public class homeResponse {
     }
 
     public static class citiesResp {
-        public String id;
+        @SerializedName("city_name")
         public String city;
         public String state;
 
@@ -309,13 +309,6 @@ public class homeResponse {
             this.state = state;
         }
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
 
         public String getCity() {
             return city;
