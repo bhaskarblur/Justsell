@@ -4,35 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="5dp"
     android:foreground="?android:selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/noti_card"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/roundboxbg"
         android:backgroundTint="?android:textColorPrimaryInverse"
         android:clickable="true"
-        android:foreground="?android:selectableItemBackground">
+        android:foreground="?android:selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
             android:id="@+id/noti_img"
             android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/sampleuserimg1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/nxt"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_marginTop="28dp"

@@ -1,6 +1,8 @@
 package com.classified.justsell.Adapters;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.helper.widget.Layer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class notiAdapter extends RecyclerView.Adapter<notiAdapter.viewHolder> {
     private Context mcontext;
+    private List<homeResponse .notiResult> list;
 
+    public notiAdapter(Context mcontext, List<homeResponse.notiResult> list) {
+        this.mcontext = mcontext;
+        this.list = list;
+    }
 
     @NonNull
     @Override
@@ -26,12 +37,15 @@ public class notiAdapter extends RecyclerView.Adapter<notiAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-
+        Picasso.get().load(list.get(position).getImage()).into(holder.notiimg);
+        Log.d("img",list.get(position).getImage());
+        holder.notititle.setText(list.get(position).getTitle());
+        holder.notidesc.setText(list.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {

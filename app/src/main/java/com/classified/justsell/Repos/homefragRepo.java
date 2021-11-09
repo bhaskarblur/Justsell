@@ -29,6 +29,8 @@ public class homefragRepo {
     public MutableLiveData<List<homeResponse.adsResult>> adsdata = new MutableLiveData<>();
     public List<homeResponse.citiesResp> citylist = new ArrayList<>();
     public MutableLiveData<List<homeResponse.citiesResp>> citydata = new MutableLiveData<>();
+    public MutableLiveData<List<homeResponse.notiResult>> notidata=new MutableLiveData<>();
+    public List<homeResponse.notiResult> notilist=new ArrayList<>();
     public api_baseurl baseurl = new api_baseurl();
 
     public homefragRepo getInstance() {
@@ -73,6 +75,41 @@ public class homefragRepo {
         citydata.setValue(citylist);
         return citydata;
     }
+
+    public MutableLiveData<List<homeResponse.notiResult>> returnnotis(String userid) {
+        getnotisfromServer(userid);
+        if ( notilist == null) {
+            notidata.setValue(null);
+        }
+        notidata.setValue(notilist);
+        return notidata;
+    }
+
+    private void getnotisfromServer(String userid) {
+
+        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
+                "Your ad is going to expire"));
+
+
+        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
+                "Your ad is going to expire"));
+
+
+        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
+                "Your ad is going to expire"));
+
+
+        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
+                "Your ad is going to expire"));
+
+        notidata.setValue(notilist);
+
+
+
+
+
+    }
+
 
     private void getcitiesfromServer() {
 //        citylist.add(new homeResponse.citiesResp("Ludhiana","Punjab"));

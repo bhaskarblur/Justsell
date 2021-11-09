@@ -18,7 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
@@ -31,12 +35,15 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
+import com.classified.justsell.Adapters.FavadsAdapter;
 import com.classified.justsell.Adapters.MyadsAdapter;
+import com.classified.justsell.Adapters.promadsAdapter;
 import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.HomeActivity;
 import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.classified.justsell.ViewModels.profilefragViewModel;
 import com.classified.justsell.databinding.FragmentProfileBinding;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -45,6 +52,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.stream.Stream;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -76,6 +84,9 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     private SharedPreferences sharedPreferences;
     private String userid;
     private MyadsAdapter myadsAdapter;
+    private FavadsAdapter favadsAdapter;
+    private com.classified.justsell.Adapters.promadsAdapter promadsAdapter;
+    private profilefragViewModel profilefragViewModel;
     api_baseurl baseurl=new api_baseurl();
     public profileFragment() {
         // Required empty public constructor
@@ -346,6 +357,66 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             final Transformation transformation = new RoundedCornersTransformation(radius, margin);
             Picasso.get().load(image).transform(new CropCircleTransformation()).into(binding.userImg);
         }
+
+        profilefragViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.profilefragViewModel.class);
+        profilefragViewModel.initwork(userid);
+        profilefragViewModel.getMyads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(adsResults.size()>0) {
+                            myadsAdapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+            }
+        });
+        profilefragViewModel.getFavads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(adsResults.size()>0) {
+                            favadsAdapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+            }
+        });
+        profilefragViewModel.getPromoteads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(adsResults.size()>0) {
+                            promadsAdapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+            }
+        });
+
+        myadsAdapter=new MyadsAdapter(getContext(),profilefragViewModel.getMyads().getValue());
+        promadsAdapter=new promadsAdapter(getContext(),profilefragViewModel.getPromoteads().getValue());
+        favadsAdapter=new FavadsAdapter(getContext(),profilefragViewModel.getFavads().getValue());
+
+        LinearLayoutManager llm1=new LinearLayoutManager(getContext());
+        LinearLayoutManager llm2=new LinearLayoutManager(getContext());
+        LinearLayoutManager llm3=new LinearLayoutManager(getContext());
+
+        binding.adsrec.setLayoutManager(llm1);
+        binding.adsrec.setAdapter(myadsAdapter);
+
+        binding.favrec.setLayoutManager(llm2);
+        binding.favrec.setAdapter(favadsAdapter);
+
+        binding.promrec.setLayoutManager(llm3);
+        binding.promrec.setAdapter(promadsAdapter);
+
     }
 
     private void showpopup(View v) {

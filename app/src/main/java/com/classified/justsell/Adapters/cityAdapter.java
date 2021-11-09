@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class cityAdapter extends RecyclerView.Adapter<cityAdapter.viewHolder> {
     private Context mcontext;
     private List<homeResponse .citiesResp> list;
+    private List<homeResponse .citiesResp> searchedlist=new ArrayList<>();
     private onCityClick listener;
     public cityAdapter(Context mcontext, List<homeResponse.citiesResp> list) {
         this.mcontext = mcontext;
@@ -33,17 +35,18 @@ public class cityAdapter extends RecyclerView.Adapter<cityAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        holder.cityname.setText(list.get(position).getCity()+", "+list.get(position).getState());
+        holder.cityname.setText(searchedlist.get(position).getCity()+", "+searchedlist.get(position).getState());
     }
 
     public void searchList(List<homeResponse .citiesResp> searchedList) {
-        list=searchedList;
+        searchedlist=searchedList;
         notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
-        return 30;
+        return searchedlist.size();
     }
+
 
 
     public class viewHolder extends RecyclerView.ViewHolder {
@@ -56,8 +59,8 @@ public class cityAdapter extends RecyclerView.Adapter<cityAdapter.viewHolder> {
                 @Override
                 public void onClick(View view) {
                     if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                        listener.oncitynameclick(list.get(getAdapterPosition()).getCity(),
-                                list.get(getAdapterPosition()).getState());
+                        listener.oncitynameclick(searchedlist.get(getAdapterPosition()).getCity(),
+                                searchedlist.get(getAdapterPosition()).getState());
                     }
                 }
             });

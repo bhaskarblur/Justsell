@@ -5,15 +5,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.os.SharedMemory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.classified.justsell.Adapters.notiAdapter;
+import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.classified.justsell.ViewModels.homefragViewModel;
 import com.classified.justsell.databinding.FragmentNotiBinding;
+
+import java.util.List;
 
 public class notiFragment extends Fragment {
 
@@ -23,7 +31,7 @@ public class notiFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private FragmentNotiBinding binding;
     private com.classified.justsell.Adapters.notiAdapter notiAdapter;
-
+    private com.classified.justsell.ViewModels.homefragViewModel homefragViewModel;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -78,6 +86,34 @@ public class notiFragment extends Fragment {
     }
 
     private void ManageData() {
+        homefragViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.homefragViewModel.class);
 
+        homefragViewModel.getNotidata().observe(getActivity(), new Observer<List<homeResponse.notiResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.notiResult> notiResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(notiResults.size()>0){
+                            notiAdapter.notifyDataSetChanged();
+                            binding.notirec.setVisibility(View.VISIBLE);
+                            binding.nonotiimg.setVisibility(View.INVISIBLE);
+                            binding.nonotitxt.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            binding.notirec.setVisibility(View.INVISIBLE);
+                            binding.nonotiimg.setVisibility(View.VISIBLE);
+                            binding.nonotitxt.setVisibility(View.VISIBLE);
+                        }
+                    }
+                },100);
+            }
+        });
+
+        notiAdapter=new notiAdapter(getContext(),homefragViewModel.getNotidata().getValue());
+        LinearLayoutManager llm1=new LinearLayoutManager(getContext());
+
+        binding.notirec.setLayoutManager(llm1);
+        binding.notirec.setAdapter(notiAdapter);
     }
 }

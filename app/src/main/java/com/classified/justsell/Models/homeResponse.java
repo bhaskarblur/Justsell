@@ -326,4 +326,90 @@ public class homeResponse {
             this.state = state;
         }
     }
+
+    public class notiResp {
+
+        public String success;
+        public String message;
+        public List<notiResult> result;
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public List<notiResult> getResult() {
+            return result;
+        }
+
+        public void setResult(List<notiResult> result) {
+            this.result = result;
+        }
+    }
+
+    public static class notiResult {
+        public String noti_id;
+        public String ad_id;
+        public String title;
+        public String image;
+        public String description;
+
+
+        public notiResult(String title, String image, String description) {
+            this.title = title;
+            this.image = image;
+            this.description = description;
+        }
+
+        public String getNoti_id() {
+            return noti_id;
+        }
+
+        public void setNoti_id(String noti_id) {
+            this.noti_id = noti_id;
+        }
+
+        public String getAd_id() {
+            return ad_id;
+        }
+
+        public void setAd_id(String ad_id) {
+            this.ad_id = ad_id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+    }
 }

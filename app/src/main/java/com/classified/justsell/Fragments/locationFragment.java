@@ -237,13 +237,18 @@ public class locationFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString()!=null) {
-                    searchfun(s.toString());
-                    binding.citysearch.setVisibility(View.VISIBLE);
-                }
-                else {
-                    binding.citysearch.setVisibility(View.GONE);
-                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(s.toString()!=null) {
+                            searchfun(s.toString());
+                        }
+                        else {
+                            binding.citysearch.setVisibility(View.GONE);
+                        }
+                    }
+                },1000);
+
             }
         });
 
@@ -349,8 +354,7 @@ public class locationFragment extends Fragment {
         List<homeResponse.citiesResp> searchedList=new ArrayList<>();
         for(homeResponse.citiesResp model:hmViewModel.getCitydata().getValue()){
 
-                if(model.getCity().toLowerCase().contains(query.toLowerCase()) ||
-                        model.getState().toLowerCase().contains(query.toLowerCase())) {
+                if(model.getCity().toLowerCase().contains(query.toLowerCase())) {
 
                     searchedList.add(model);
                 }
@@ -359,9 +363,19 @@ public class locationFragment extends Fragment {
             if(searchedList.size()<1) {
                 binding.citysearch.setVisibility(View.GONE);
             }
+            else {
+                 new Handler().postDelayed(new Runnable() {
+                     @Override
+                     public void run() {
+                         binding.citysearch.setVisibility(View.VISIBLE);
+                     }
+                 },500);
+
+            }
 
 
         cityAdapter.searchList(searchedList);
+
     }
     @Override
     public void onDestroy() {
