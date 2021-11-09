@@ -9,6 +9,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -25,7 +29,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.classified.justsell.Adapters.cityAdapter;
+import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.classified.justsell.ViewModels.homefragViewModel;
 import com.classified.justsell.databinding.FragmentLocationBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -65,7 +71,7 @@ public class locationFragment extends Fragment {
     private String state;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private String mLastLocation;
-
+    private homefragViewModel hmViewModel;
     public locationFragment() {
         // Required empty public constructor
     }
@@ -103,8 +109,20 @@ public class locationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLocationBinding.inflate(inflater, container, false);
-        ManageData();
-        viewfunc();
+        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+            noInternetFragment nocon=new noInternetFragment();
+            FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+            transaction1.replace(R.id.mainFragment, nocon);
+            transaction1.addToBackStack("A");
+            transaction1.commit();
+        }
+        else {
+            ManageData();
+            viewfunc();
+        }
         return binding.getRoot();
     }
 
@@ -166,6 +184,42 @@ public class locationFragment extends Fragment {
 
     private void ManageData() {
         getlatlong();
+        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
+        hmViewModel.getCitydata().observe(getActivity(), new Observer<List<homeResponse.citiesResp>>() {
+            @Override
+            public void onChanged(List<homeResponse.citiesResp> citiesResps) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(citiesResps.size()>0) {
+                            cityAdapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+            }
+        });
+
+        cityAdapter=new cityAdapter(getContext(),hmViewModel.getCitydata().getValue());
+        LinearLayoutManager llm=new LinearLayoutManager(getContext());
+        binding.citysearch.setLayoutManager(llm);
+        binding.citysearch.setAdapter(cityAdapter);
+        cityAdapter.setonCityclickListener(new cityAdapter.onCityClick() {
+            @Override
+            public void oncitynameclick(String city, String state) {
+                city=city;
+                state=state;
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString("usercity",city);
+                editor.putString("userstate",state);
+                editor.commit();
+                homeFragment homeFragment=new homeFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.commit();
+
+            }
+        });
 
     }
 
@@ -211,6 +265,7 @@ public class locationFragment extends Fragment {
                                             city = addresses.get(0).getLocality();
                                             state =  addresses.get(0).getAdminArea();
                                             binding.curcity.setText(city+", "+state);
+
                                         }
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -262,5 +317,12 @@ public class locationFragment extends Fragment {
             }
         }
 
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().getViewModelStore().clear();
     }
 }

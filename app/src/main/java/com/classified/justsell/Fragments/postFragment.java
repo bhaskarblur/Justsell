@@ -1,14 +1,19 @@
 package com.classified.justsell.Fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.classified.justsell.R;
+import com.classified.justsell.databinding.FragmentPostBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +26,7 @@ public class postFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private FragmentPostBinding binding;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -60,7 +65,18 @@ public class postFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post, container, false);
+        binding=FragmentPostBinding.inflate(inflater,container,false);
+        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+            noInternetFragment nocon=new noInternetFragment();
+            FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+            transaction1.replace(R.id.mainFragment, nocon);
+            transaction1.addToBackStack("A");
+            transaction1.commit();
+        }
+
+        return binding.getRoot();
     }
 }

@@ -299,10 +299,15 @@ public class homeResponse {
         }
     }
 
-    public class citiesResp {
+    public static class citiesResp {
         public String id;
         public String city;
         public String state;
+
+        public citiesResp(String city, String state) {
+            this.city = city;
+            this.state = state;
+        }
 
         public String getId() {
             return id;

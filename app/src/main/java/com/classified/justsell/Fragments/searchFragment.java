@@ -1,6 +1,9 @@
 package com.classified.justsell.Fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -83,8 +86,21 @@ public class searchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding=FragmentSearchBinding.inflate(inflater,container,false);
-        ManageData();
-        viewfuncs();
+        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+            noInternetFragment nocon=new noInternetFragment();
+            FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+            transaction1.replace(R.id.mainFragment, nocon);
+            transaction1.addToBackStack("A");
+            transaction1.commit();
+        }
+        else {
+            ManageData();
+            viewfuncs();
+        }
+
         return binding.getRoot();
     }
 

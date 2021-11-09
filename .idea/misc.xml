@@ -31,6 +31,8 @@
         <entry key="app/src/main/res/layout/city_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_location.xml" value="0.2678414355302105" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_no_internet.xml" value="0.2849534567844539" />
         <entry key="app/src/main/res/layout/fragment_noti.xml" value="0.22376355517795304" />
         <entry key="app/src/main/res/layout/fragment_o_t_p.xml" value="0.19746835443037974" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29139735112646203" />

@@ -1,10 +1,13 @@
 package com.classified.justsell.Fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -95,8 +98,20 @@ public class homeFragment extends Fragment implements LocationListener {
                              Bundle savedInstanceState) {
         hmbinding=FragmentHomeBinding.inflate(inflater,container,false);
 
-        ManageData();
-        viewfuncs();
+        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+            noInternetFragment nocon=new noInternetFragment();
+            FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+            transaction1.replace(R.id.mainFragment, nocon);
+            transaction1.addToBackStack("A");
+            transaction1.commit();
+        }
+        else {
+            ManageData();
+            viewfuncs();
+        }
         return hmbinding.getRoot();
     }
 
@@ -110,7 +125,6 @@ public class homeFragment extends Fragment implements LocationListener {
                 transaction.replace(R.id.mainFragment, homeFragment);
                 transaction.addToBackStack("A");
                 transaction.commit();
-                getActivity().getViewModelStore().clear();
             }
         });
 

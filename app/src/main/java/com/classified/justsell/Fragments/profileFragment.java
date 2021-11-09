@@ -1,6 +1,7 @@
 package com.classified.justsell.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,12 +9,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -110,9 +114,20 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding=FragmentProfileBinding.inflate(inflater,container,false);
-        
-        ManageData();
-        viewfunc();
+        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+            noInternetFragment nocon=new noInternetFragment();
+            FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+            transaction1.replace(R.id.mainFragment, nocon);
+            transaction1.addToBackStack("A");
+            transaction1.commit();
+        }
+        else {
+            ManageData();
+            viewfunc();
+        }
         return binding.getRoot();
     }
 

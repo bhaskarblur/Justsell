@@ -24,11 +24,11 @@ public class homefragRepo {
     public List<homeResponse.bannerResult> bannerlist = new ArrayList<>();
     public List<homeResponse.categoryResult> categorylist = new ArrayList<>();
     public List<homeResponse.adsResult> adslist = new ArrayList<>();
-
     public MutableLiveData<List<homeResponse.bannerResult>> bannerdata = new MutableLiveData<>();
     public MutableLiveData<List<homeResponse.categoryResult>> categorydatanew = new MutableLiveData<>();
     public MutableLiveData<List<homeResponse.adsResult>> adsdata = new MutableLiveData<>();
-
+    public List<homeResponse.citiesResp> citylist = new ArrayList<>();
+    public MutableLiveData<List<homeResponse.citiesResp>> citydata = new MutableLiveData<>();
     public api_baseurl baseurl = new api_baseurl();
 
     public homefragRepo getInstance() {
@@ -63,6 +63,22 @@ public class homefragRepo {
         }
         adsdata.setValue(adslist);
         return adsdata;
+    }
+
+    public MutableLiveData<List<homeResponse.citiesResp>> returncitydata() {
+       getcitiesfromServer();
+        if (citylist == null) {
+            citydata.setValue(null);
+        }
+        citydata.setValue(citylist);
+        return citydata;
+    }
+
+    private void getcitiesfromServer() {
+        citylist.add(new homeResponse.citiesResp("Ludhiana","Punjab"));
+        citylist.add(new homeResponse.citiesResp("Amritsar","Punjab"));
+        citylist.add(new homeResponse.citiesResp("Khanna","Punjab"));
+        citylist.add(new homeResponse.citiesResp("Jalandhar","Punjab"));
     }
 
     private void getadsfromserver(String city) {

@@ -13,6 +13,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.classified.justsell.Fragments.chatFragment;
 import com.classified.justsell.Fragments.homeFragment;
+import com.classified.justsell.Fragments.noInternetFragment;
 import com.classified.justsell.Fragments.postFragment;
 import com.classified.justsell.Fragments.profileFragment;
 import com.classified.justsell.R;
@@ -55,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void handleBottomNav() {
+
         binding.homeicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +79,7 @@ public class HomeActivity extends AppCompatActivity {
                 transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
                 transaction.replace(R.id.mainFragment, homeFragment);
                 transaction.commit();
+
             }
         });
 

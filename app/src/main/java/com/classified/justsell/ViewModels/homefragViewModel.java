@@ -14,6 +14,10 @@ public class homefragViewModel extends ViewModel {
     public MutableLiveData<List<homeResponse.bannerResult>> bannerdata;
     public MutableLiveData<List<homeResponse.categoryResult>> categorydata;
     public MutableLiveData<List<homeResponse.adsResult>> adsdata;
+    public MutableLiveData<List<homeResponse.citiesResp>> citydata;
+
+
+
     private homefragRepo repo=new homefragRepo();
 
 
@@ -28,12 +32,18 @@ public class homefragViewModel extends ViewModel {
             return;
         }
 
+        citydata=repo.getInstance().returncitydata();
         bannerdata= repo.getInstance().getInstance().returnbannerdata();
         categorydata=repo.getInstance().returncategorydata();
         adsdata= repo.getInstance().returnadadata(location);
 
 
     }
+
+    public LiveData<List<homeResponse.citiesResp>> getCitydata() {
+        return citydata;
+    }
+
     public LiveData<List<homeResponse.bannerResult>> getBannerdata() {
         return bannerdata;
     }
