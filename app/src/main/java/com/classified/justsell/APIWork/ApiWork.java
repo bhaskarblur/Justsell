@@ -60,4 +60,7 @@ public interface ApiWork {
     @GET("product")
     Call<homeResponse.ListadsResp> getAds(@Query("city") String city);
 
+    @GET("city")
+    Call<homeResponse.listofcities> getallcities();
+
 }
