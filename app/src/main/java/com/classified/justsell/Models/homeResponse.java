@@ -170,7 +170,7 @@ public class homeResponse {
         public String ad_category;
         @SerializedName("product_description")
         public String ad_description;
-        @SerializedName("product_date")
+        @SerializedName("sdate")
         public String ad_date;
         public String featured_status;
         @SerializedName("product_price")
@@ -179,6 +179,28 @@ public class homeResponse {
         public String ad_pricecut;
         public String product_name;
         public String user_id;
+        public String location;
+        public String fav_name;
+
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getFav_name() {
+            return fav_name;
+        }
+
+        public void setFav_name(String fav_name) {
+            this.fav_name = fav_name;
+        }
 
         public String getUser_id() {
             return user_id;

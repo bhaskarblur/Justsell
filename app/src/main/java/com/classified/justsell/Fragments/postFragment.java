@@ -1,19 +1,30 @@
 package com.classified.justsell.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.classified.justsell.Adapters.post_categoryAdapter;
+import com.classified.justsell.Models.homeResponse;
+import com.classified.justsell.PostActivity;
 import com.classified.justsell.R;
+import com.classified.justsell.ViewModels.postViewModel;
 import com.classified.justsell.databinding.FragmentPostBinding;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +38,8 @@ public class postFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private FragmentPostBinding binding;
+    private post_categoryAdapter adapter;
+    private postViewModel viewModel;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -76,7 +89,44 @@ public class postFragment extends Fragment {
             transaction1.addToBackStack("A");
             transaction1.commit();
         }
+        else {
+            ManageData();
+        }
 
         return binding.getRoot();
+    }
+
+    private void ManageData() {
+
+        viewModel=new ViewModelProvider(getActivity()).get(postViewModel.class);
+        viewModel.initwork();
+        viewModel.getCategorydata().observe(getActivity(), new Observer<List<homeResponse.categoryResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.categoryResult> categoryResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(categoryResults.size()>0) {
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                },100);
+            }
+        });
+        adapter=new post_categoryAdapter(getActivity(),viewModel.getCategorydata().getValue());
+        LinearLayoutManager llm=new LinearLayoutManager(getActivity());
+        binding.catrec.setLayoutManager(llm);
+        binding.catrec.setAdapter(adapter);
+        adapter.setonItemclick(new post_categoryAdapter.onItemClick() {
+            @Override
+            public void ontileClick(String catname) {
+
+                Intent intent=new Intent(getActivity(), PostActivity.class);
+                intent.putExtra("catname",catname);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+            }
+        });
+
     }
 }

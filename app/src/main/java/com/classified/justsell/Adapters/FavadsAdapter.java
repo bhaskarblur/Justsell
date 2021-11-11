@@ -41,9 +41,9 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());
         holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//        holder.adsdesr.setText("Product Description: "+list.get(position).getAd_description());
-//        holder.adsdate.setText("Posted On  "+list.get(position).getAd_date());
 
+        holder.adsdesr.setText("Description: "+list.get(position).getAd_description());
+         //holder.adsdate.setText("Posted by "+list.get(position).getFav_name());
         if(list.get(position).getFeatured_status().equals("yes")) {
             holder.adsfeat.setVisibility(View.VISIBLE);
         }
