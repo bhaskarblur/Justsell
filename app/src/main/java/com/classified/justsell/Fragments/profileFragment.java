@@ -474,16 +474,16 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 // this is aboutus
                 break;
 
-            case R.id.toglmode:
-                // toggle theme here
-                UiModeManager  uiModeManager = (UiModeManager)getActivity().getSystemService(UI_MODE_SERVICE);
-                if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
-                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
-                }
-                else {
-                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
-                }
-                break;
+//            case R.id.toglmode:
+//                 toggle theme here
+//                UiModeManager  uiModeManager = (UiModeManager)getActivity().getSystemService(UI_MODE_SERVICE);
+//                if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
+//                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+//                }
+//                else {
+//                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+//                }
+//                break;
             case R.id.aboutbtn:
                 // this is terms and conditions
                 break;
