@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.classified.justsell.Adapters.post_categoryAdapter;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.PostActivity;
+import com.classified.justsell.PostActivity_all;
 import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.postViewModel;
 import com.classified.justsell.databinding.FragmentPostBinding;
@@ -121,7 +122,7 @@ public class postFragment extends Fragment {
             @Override
             public void ontileClick(String catname) {
 
-                Intent intent=new Intent(getActivity(), PostActivity.class);
+                Intent intent=new Intent(getActivity(), PostActivity_all.class);
                 intent.putExtra("catname",catname);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);

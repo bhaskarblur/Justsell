@@ -46,7 +46,7 @@ public class MyadsAdapter extends RecyclerView.Adapter<MyadsAdapter.ViewHolder> 
         else {
             holder.adspricecut.setVisibility(View.INVISIBLE);
         }
-        holder.adsdesr.setText("Description: "+list.get(position).getAd_description());
+        holder.adsdesr.setText(list.get(position).getAd_description());
         // holder.adsdate.setText("Posted on "+list.get(position).getAd_date());
         if(list.get(position).getFeatured_status().equals("yes")) {
             holder.adsfeat.setVisibility(View.VISIBLE);

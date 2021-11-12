@@ -49,21 +49,35 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/textView31"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Area (include units)"
+                android:text="In Warranty"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/numof_rec" />
+                app:layout_constraintTop_toBottomOf="@+id/cond_rec" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lineSpacingExtra="2dp"
+                android:text="Brand"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
             <EditText
-                android:id="@+id/area_txt"
+                android:id="@+id/brand_txt"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -72,8 +86,42 @@
                 android:background="@drawable/descboxbg"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:fontFamily="@font/poppins"
-                android:hint="Enter Area"
+                android:hint="Enter Brand"
                 android:inputType="number|textPersonName"
+                android:paddingLeft="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lineSpacingExtra="2dp"
+                android:text="Selling Price(in ₹)"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brand_txt" />
+
+            <EditText
+                android:id="@+id/sp_txt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/descboxbg"
+                android:backgroundTint="?android:textColorPrimaryInverse"
+                android:fontFamily="@font/poppins"
+                android:hint="Enter Selling Price"
+                android:inputType="number"
                 android:paddingLeft="15dp"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="15sp"
@@ -83,7 +131,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
             <Button
-                android:id="@+id/post_automob_btn"
+                android:id="@+id/post_allbtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -139,30 +187,18 @@
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/prodprice_txt" />
-
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:lineSpacingExtra="2dp"
-                android:text="Select One"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/proptype_rec" />
+                app:layout_constraintTop_toBottomOf="@+id/cp_txt" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/adtype_rec"
-                android:layout_width="match_parent"
+                android:id="@+id/cond_rec"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView25"
                 tools:itemCount="2"
@@ -176,7 +212,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Ad Type"
+                android:text="Condition"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -190,14 +226,14 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Price (in ₹)"
+                android:text="Cost Price (in ₹)"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/area_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_txt" />
 
             <EditText
-                android:id="@+id/prodprice_txt"
+                android:id="@+id/cp_txt"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -206,7 +242,7 @@
                 android:background="@drawable/descboxbg"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:fontFamily="@font/poppins"
-                android:hint="Enter Price"
+                android:hint="Enter Cost Price"
                 android:inputType="number"
                 android:paddingLeft="15dp"
                 android:textColor="?android:textColorPrimary"
@@ -215,46 +251,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/numof_rec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView26"
-                tools:itemCount="2"
-                tools:listitem="@layout/textonly_lay" />
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:lineSpacingExtra="2dp"
-                android:text="Type Of Property"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/adtype_rec" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/proptype_rec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView24"
-                tools:itemCount="2"
-                tools:listitem="@layout/textonly_lay" />
 
             <EditText
                 android:id="@+id/prodname_txt"
@@ -373,6 +369,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="1"
                 tools:listitem="@layout/images_layout" />
+
+            <Switch
+                android:id="@+id/warranty_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="13dp"
+                android:backgroundTint="?android:textColorPrimaryInverse"
+                android:buttonTint="@color/primary_color"
+                app:layout_constraintStart_toEndOf="@+id/textView31"
+                app:layout_constraintTop_toBottomOf="@+id/cond_rec" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

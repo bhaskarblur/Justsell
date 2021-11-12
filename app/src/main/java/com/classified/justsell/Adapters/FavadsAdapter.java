@@ -47,7 +47,7 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
             holder.adspricecut.setVisibility(View.INVISIBLE);
         }
 
-        holder.adsdesr.setText("Description: "+list.get(position).getAd_description());
+        holder.adsdesr.setText(list.get(position).getAd_description());
          //holder.adsdate.setText("Posted by "+list.get(position).getFav_name());
         if(list.get(position).getFeatured_status().equals("yes")) {
             holder.adsfeat.setVisibility(View.VISIBLE);

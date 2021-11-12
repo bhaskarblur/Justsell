@@ -20,7 +20,15 @@
         android:theme="@style/Theme.Justsell"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".adposted_successful"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".PostActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PostActivity_all"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
