@@ -243,11 +243,25 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Purchase Date:"
+                android:text="Purchase Date"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/brand_txt" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lineSpacingExtra="2dp"
+                android:text="Fuel Type"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/datepicklay" />
 
             <EditText
                 android:id="@+id/model_txt"
