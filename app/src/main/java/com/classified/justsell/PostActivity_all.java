@@ -37,14 +37,15 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class PostActivity_all extends AppCompatActivity {
     private ActivityPostAllBinding binding;
     private textonlyAdapter condAdapter;
-    private Boolean warrantystat=false;
+    private Boolean warrantystat = false;
     private String condition;
     private imagesAdapter imagesAdapter;
-    private List<String> imagesList=new ArrayList<>();
+    private List<String> imagesList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityPostAllBinding.inflate(getLayoutInflater());
+        binding = ActivityPostAllBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
 
@@ -53,46 +54,45 @@ public class PostActivity_all extends AppCompatActivity {
             //startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
         try {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         ManageData();
         viewfunc();
     }
 
     private void ManageData() {
-        List<String> condList=new ArrayList<>();
+        List<String> condList = new ArrayList<>();
         condList.add("New");
         condList.add("Old");
 
-        condAdapter=new textonlyAdapter(PostActivity_all.this,condList);
-        GridLayoutManager glm=new GridLayoutManager(PostActivity_all.this,3);
+        condAdapter = new textonlyAdapter(PostActivity_all.this, condList);
+        GridLayoutManager glm = new GridLayoutManager(PostActivity_all.this, 3);
         binding.condRec.setLayoutManager(glm);
         binding.condRec.setAdapter(condAdapter);
         condAdapter.setoncardclicklistener(new textonlyAdapter.oncardclicklistener() {
             @Override
             public void oncardclick(String catname) {
-                condition=catname;
+                condition = catname;
             }
         });
         binding.warrantySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    warrantystat=true;
-                }
-                else {
-                    warrantystat=false;
+                if (isChecked) {
+                    warrantystat = true;
+                } else {
+                    warrantystat = false;
                 }
             }
         });
 
-        imagesAdapter=new imagesAdapter(PostActivity_all.this,imagesList);
-        LinearLayoutManager llm1=new LinearLayoutManager(PostActivity_all.this);
+        imagesAdapter = new imagesAdapter(PostActivity_all.this, imagesList);
+        LinearLayoutManager llm1 = new LinearLayoutManager(PostActivity_all.this);
         llm1.setOrientation(RecyclerView.HORIZONTAL);
         binding.automobImg.setLayoutManager(llm1);
         binding.automobImg.setAdapter(imagesAdapter);
@@ -111,10 +111,9 @@ public class PostActivity_all extends AppCompatActivity {
         binding.registeruserimg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imagesList.size()<6) {
+                if (imagesList.size() < 6) {
                     startCropActivity();
-                }
-                else {
+                } else {
                     Toast.makeText(PostActivity_all.this, "Cannot add more than 6 images", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -123,10 +122,9 @@ public class PostActivity_all extends AppCompatActivity {
         binding.cameraimg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imagesList.size()<6) {
+                if (imagesList.size() < 6) {
                     startCropActivity();
-                }
-                else {
+                } else {
                     Toast.makeText(PostActivity_all.this, "Cannot add more than 6 images", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -135,60 +133,50 @@ public class PostActivity_all extends AppCompatActivity {
         binding.postAllbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(imagesList.size()<2) {
-//                    binding.automobImg.setFocusable(true);
-//                    binding.automobImg.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
-//                }
-//                else if(binding.titleTxt.getText().toString().isEmpty()) {
-//                    binding.titleTxt.setFocusable(true);
-//                    binding.titleTxt.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please enter title.", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else if(binding.prodnameTxt.getText().toString().isEmpty()) {
-//                    binding.prodnameTxt.setFocusable(true);
-//                    binding.prodnameTxt.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please enter product name.", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else if(binding.proddescTxt.getText().toString().isEmpty()) {
-//                    binding.proddescTxt.setFocusable(true);
-//                    binding.proddescTxt.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please enter description.", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else if(condition==null) {
-//                    binding.condRec.setFocusable(true);
-//                    binding.condRec.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please select a condition.", Toast.LENGTH_SHORT).show();
-//                }
-//                else if(warrantystat==null) {
-//                    binding.warrantySwitch.setFocusable(true);
-//                    binding.warrantySwitch.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please tell about the warranty.", Toast.LENGTH_SHORT).show();
-//                }
-//                else if(binding.brandTxt.getText().toString().isEmpty()) {
-//                    binding.brandTxt.setFocusable(true);
-//                    binding.brandTxt.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please enter the brand name.", Toast.LENGTH_SHORT).show();
-//                }
-//                else if(binding.spTxt.getText().toString().isEmpty()) {
-//                    binding.spTxt.setFocusable(true);
-//                    binding.spTxt.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please enter the selling price.", Toast.LENGTH_SHORT).show();
-//                }
-//                else if(binding.cpTxt.getText().toString().isEmpty()) {
-//                    binding.cpTxt.setFocusable(true);
-//                    binding.cpTxt.requestFocus();
-//                    Toast.makeText(PostActivity_all.this, "Please enter the cost price.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                else {
+                if (imagesList.size() < 2) {
+                    binding.automobImg.setFocusable(true);
+                    binding.automobImg.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
+                } else if (binding.titleTxt.getText().toString().isEmpty()) {
+                    binding.titleTxt.setFocusable(true);
+                    binding.titleTxt.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please enter title.", Toast.LENGTH_SHORT).show();
+
+                } else if (binding.prodnameTxt.getText().toString().isEmpty()) {
+                    binding.prodnameTxt.setFocusable(true);
+                    binding.prodnameTxt.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please enter product name.", Toast.LENGTH_SHORT).show();
+
+                } else if (binding.proddescTxt.getText().toString().isEmpty()) {
+                    binding.proddescTxt.setFocusable(true);
+                    binding.proddescTxt.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please enter description.", Toast.LENGTH_SHORT).show();
+
+                } else if (condition == null) {
+                    binding.condRec.setFocusable(true);
+                    binding.condRec.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please select a condition.", Toast.LENGTH_SHORT).show();
+                } else if (warrantystat == null) {
+                    binding.warrantySwitch.setFocusable(true);
+                    binding.warrantySwitch.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please tell about the warranty.", Toast.LENGTH_SHORT).show();
+                } else if (binding.brandTxt.getText().toString().isEmpty()) {
+                    binding.brandTxt.setFocusable(true);
+                    binding.brandTxt.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please enter the brand name.", Toast.LENGTH_SHORT).show();
+                } else if (binding.spTxt.getText().toString().isEmpty()) {
+                    binding.spTxt.setFocusable(true);
+                    binding.spTxt.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please enter the selling price.", Toast.LENGTH_SHORT).show();
+                } else if (binding.cpTxt.getText().toString().isEmpty()) {
+                    binding.cpTxt.setFocusable(true);
+                    binding.cpTxt.requestFocus();
+                    Toast.makeText(PostActivity_all.this, "Please enter the cost price.", Toast.LENGTH_SHORT).show();
+                } else {
 //                    Posting API Here
-                    askBoost_Dialog dialog=new askBoost_Dialog();
-                    dialog.show(getSupportFragmentManager(),"dialog");
-//                }
+                    askBoost_Dialog dialog = new askBoost_Dialog();
+                    dialog.show(getSupportFragmentManager(), "dialog");
+                }
             }
         });
     }

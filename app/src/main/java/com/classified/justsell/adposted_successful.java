@@ -14,11 +14,6 @@ public class adposted_successful extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adposted_successful);
         this.getSupportActionBar().hide();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.white, this.getTheme()));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
-        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
