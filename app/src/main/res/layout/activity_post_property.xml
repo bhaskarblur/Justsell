@@ -48,6 +48,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lineSpacingExtra="2dp"
+                android:text="Area (include units)"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/numof_rec" />
+
+            <EditText
+                android:id="@+id/area_txt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/descboxbg"
+                android:backgroundTint="?android:textColorPrimaryInverse"
+                android:fontFamily="@font/poppins"
+                android:hint="Enter Price"
+                android:inputType="number|textPersonName"
+                android:paddingLeft="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
             <Button
                 android:id="@+id/post_automob_btn"
                 android:layout_width="match_parent"
@@ -115,14 +149,14 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Number Of Owners"
+                android:text="Select One"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trans_rec" />
+                app:layout_constraintTop_toBottomOf="@+id/proptype_rec" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fuel_rec"
+                android:id="@+id/adtype_rec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -142,11 +176,11 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Fuel Type"
+                android:text="Ad Type"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/datepicklay" />
+                app:layout_constraintTop_toBottomOf="@+id/prodname_txt" />
 
             <TextView
                 android:id="@+id/textView28"
@@ -160,7 +194,7 @@
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/numof_rec" />
+                app:layout_constraintTop_toBottomOf="@+id/area_txt" />
 
             <EditText
                 android:id="@+id/prodprice_txt"
@@ -196,34 +230,6 @@
                 tools:listitem="@layout/textonly_lay" />
 
             <TextView
-                android:id="@+id/textView23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:lineSpacingExtra="2dp"
-                android:text="Brand"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/prodname_txt" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/poppins_medium"
-                android:lineSpacingExtra="2dp"
-                android:text="Purchase Date"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/brand_txt" />
-
-            <TextView
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -231,14 +237,14 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Transmission"
+                android:text="Type Of Property"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fuel_rec" />
+                app:layout_constraintTop_toBottomOf="@+id/adtype_rec" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trans_rec"
+                android:id="@+id/proptype_rec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -249,58 +255,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView24"
                 tools:itemCount="2"
                 tools:listitem="@layout/textonly_lay" />
-
-            <EditText
-                android:id="@+id/model_txt"
-                android:layout_width="165dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/descboxbg"
-                android:backgroundTint="?android:textColorPrimaryInverse"
-                android:fontFamily="@font/poppins"
-                android:hint="Enter Model"
-                android:inputType="textPersonName"
-                android:paddingLeft="15dp"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/brand_txt"
-                app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-            <EditText
-                android:id="@+id/brand_txt"
-                android:layout_width="165dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/descboxbg"
-                android:backgroundTint="?android:textColorPrimaryInverse"
-                android:fontFamily="@font/poppins"
-                android:hint="Enter Brand"
-                android:inputType="textPersonName"
-                android:paddingLeft="15dp"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:lineSpacingExtra="2dp"
-                android:text="Model"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/brand_txt"
-                app:layout_constraintTop_toBottomOf="@+id/prodname_txt" />
 
             <EditText
                 android:id="@+id/prodname_txt"
@@ -419,47 +373,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="1"
                 tools:listitem="@layout/images_layout" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/datepicklay"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/roundboxbg"
-                android:backgroundTint="?android:textColorPrimaryInverse"
-                android:clickable="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19">
-
-                <TextView
-                    android:id="@+id/datetxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Select Date"
-                    android:textColor="?android:textColorPrimary"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/calendar"
-                    app:tint="?android:textColorSecondary" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,10 +39,14 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
-        holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());
-        holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-
+        if(list.get(position).getAd_pricecut()!=null) {
+            holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
+            holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else {
+            holder.adspricecut.setVisibility(View.INVISIBLE);
+        }
         holder.adsdesr.setText("Description: "+list.get(position).getAd_description());
        holder.adsdate.setText("Posted on "+list.get(position).getAd_date());
         if(list.get(position).getFeatured_status().equals("1")) {

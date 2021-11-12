@@ -24,6 +24,10 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".PostActivity_property"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait" />

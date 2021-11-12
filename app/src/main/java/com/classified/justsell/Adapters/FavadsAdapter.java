@@ -39,8 +39,13 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
         Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
-        holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());
-        holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        if(list.get(position).getAd_pricecut()!=null) {
+            holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
+            holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else {
+            holder.adspricecut.setVisibility(View.INVISIBLE);
+        }
 
         holder.adsdesr.setText("Description: "+list.get(position).getAd_description());
          //holder.adsdate.setText("Posted by "+list.get(position).getFav_name());
