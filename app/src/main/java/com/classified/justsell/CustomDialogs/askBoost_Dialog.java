@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.classified.justsell.R;
 import com.classified.justsell.adposted_successful;
+import com.classified.justsell.promote_ad;
 
 public class askBoost_Dialog extends AppCompatDialogFragment {
 
@@ -31,7 +32,8 @@ public class askBoost_Dialog extends AppCompatDialogFragment {
         prombtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                startActivity(new Intent(getActivity(), promote_ad.class));
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             }
         });
 

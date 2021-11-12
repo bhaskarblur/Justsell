@@ -136,50 +136,50 @@ public class PostActivity_all extends AppCompatActivity {
         binding.postAllbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imagesList.size() < 2) {
-                    binding.automobImg.setFocusable(true);
-                    binding.automobImg.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
-                } else if (binding.titleTxt.getText().toString().isEmpty()) {
-                    binding.titleTxt.setFocusable(true);
-                    binding.titleTxt.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please enter title.", Toast.LENGTH_SHORT).show();
-
-                } else if (binding.prodnameTxt.getText().toString().isEmpty()) {
-                    binding.prodnameTxt.setFocusable(true);
-                    binding.prodnameTxt.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please enter product name.", Toast.LENGTH_SHORT).show();
-
-                } else if (binding.proddescTxt.getText().toString().isEmpty()) {
-                    binding.proddescTxt.setFocusable(true);
-                    binding.proddescTxt.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please enter description.", Toast.LENGTH_SHORT).show();
-
-                } else if (condition == null) {
-                    binding.condRec.setFocusable(true);
-                    binding.condRec.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please select a condition.", Toast.LENGTH_SHORT).show();
-                } else if (warrantystat == null) {
-                    binding.warrantySwitch.setFocusable(true);
-                    binding.warrantySwitch.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please tell about the warranty.", Toast.LENGTH_SHORT).show();
-                } else if (binding.brandTxt.getText().toString().isEmpty()) {
-                    binding.brandTxt.setFocusable(true);
-                    binding.brandTxt.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please enter the brand name.", Toast.LENGTH_SHORT).show();
-                } else if (binding.spTxt.getText().toString().isEmpty()) {
-                    binding.spTxt.setFocusable(true);
-                    binding.spTxt.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please enter the selling price.", Toast.LENGTH_SHORT).show();
-                } else if (binding.cpTxt.getText().toString().isEmpty()) {
-                    binding.cpTxt.setFocusable(true);
-                    binding.cpTxt.requestFocus();
-                    Toast.makeText(PostActivity_all.this, "Please enter the cost price.", Toast.LENGTH_SHORT).show();
-                } else {
+//                if (imagesList.size() < 2) {
+//                    binding.automobImg.setFocusable(true);
+//                    binding.automobImg.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
+//                } else if (binding.titleTxt.getText().toString().isEmpty()) {
+//                    binding.titleTxt.setFocusable(true);
+//                    binding.titleTxt.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please enter title.", Toast.LENGTH_SHORT).show();
+//
+//                } else if (binding.prodnameTxt.getText().toString().isEmpty()) {
+//                    binding.prodnameTxt.setFocusable(true);
+//                    binding.prodnameTxt.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please enter product name.", Toast.LENGTH_SHORT).show();
+//
+//                } else if (binding.proddescTxt.getText().toString().isEmpty()) {
+//                    binding.proddescTxt.setFocusable(true);
+//                    binding.proddescTxt.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please enter description.", Toast.LENGTH_SHORT).show();
+//
+//                } else if (condition == null) {
+//                    binding.condRec.setFocusable(true);
+//                    binding.condRec.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please select a condition.", Toast.LENGTH_SHORT).show();
+//                } else if (warrantystat == null) {
+//                    binding.warrantySwitch.setFocusable(true);
+//                    binding.warrantySwitch.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please tell about the warranty.", Toast.LENGTH_SHORT).show();
+//                } else if (binding.brandTxt.getText().toString().isEmpty()) {
+//                    binding.brandTxt.setFocusable(true);
+//                    binding.brandTxt.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please enter the brand name.", Toast.LENGTH_SHORT).show();
+//                } else if (binding.spTxt.getText().toString().isEmpty()) {
+//                    binding.spTxt.setFocusable(true);
+//                    binding.spTxt.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please enter the selling price.", Toast.LENGTH_SHORT).show();
+//                } else if (binding.cpTxt.getText().toString().isEmpty()) {
+//                    binding.cpTxt.setFocusable(true);
+//                    binding.cpTxt.requestFocus();
+//                    Toast.makeText(PostActivity_all.this, "Please enter the cost price.", Toast.LENGTH_SHORT).show();
+//                } else {
 //                    Posting API Here
                     askBoost_Dialog dialog = new askBoost_Dialog();
                     dialog.show(getSupportFragmentManager(), "dialog");
-                }
+//                }
             }
         });
 

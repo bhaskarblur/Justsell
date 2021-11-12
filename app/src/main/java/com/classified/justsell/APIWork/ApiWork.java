@@ -63,4 +63,8 @@ public interface ApiWork {
     @GET("state")
     Call<homeResponse.listofcities> getallcities();
 
+    @FormUrlEncoded
+    @POST("favorite")
+    Call<homeResponse.ListadsResp> getfavAds(@Field("user_id") String userid);
+
 }
