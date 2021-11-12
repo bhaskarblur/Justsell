@@ -21,7 +21,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".promote_ad"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".adposted_successful"
             android:exported="true"
