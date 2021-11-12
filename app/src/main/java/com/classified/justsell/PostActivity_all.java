@@ -66,6 +66,9 @@ public class PostActivity_all extends AppCompatActivity {
     }
 
     private void ManageData() {
+        Intent intent=getIntent();
+        String catname=intent.getStringExtra("catname");
+        binding.catname.setText(catname);
         List<String> condList = new ArrayList<>();
         condList.add("New");
         condList.add("Old");
@@ -179,6 +182,14 @@ public class PostActivity_all extends AppCompatActivity {
                 }
             }
         });
+
+        binding.backbtn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+            }
+        });
     }
 
     private void startCropActivity() {
@@ -199,5 +210,6 @@ public class PostActivity_all extends AppCompatActivity {
 
         }
     }
+
 
 }

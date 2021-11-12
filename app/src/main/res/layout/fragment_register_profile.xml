@@ -160,6 +160,7 @@
                     android:layout_height="19dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="2dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -184,13 +185,16 @@
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/statespin" />"
+                    app:layout_constraintTop_toBottomOf="@+id/statespin" /><![CDATA[
+
+                "
                 android:textColorHint="#717171"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            ]]>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,6 +224,7 @@
                     android:layout_height="19dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="2dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

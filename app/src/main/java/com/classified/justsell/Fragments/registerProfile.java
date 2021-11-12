@@ -186,6 +186,15 @@ public class registerProfile extends Fragment {
                 }
             }
         });
+
+        sdbinding.cityspin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sdbinding.statet.getText().toString().equals("Select State")) {
+                    Toast.makeText(getActivity(), "Select state first.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void loadfunc() {

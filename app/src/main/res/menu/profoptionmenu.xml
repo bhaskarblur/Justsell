@@ -5,6 +5,9 @@
         android:id="@+id/terms"
         android:title="About Us" />
     <item
+        android:id="@+id/toglmode"
+        android:title="Toggle Dark Mode" />
+    <item
         android:id="@+id/aboutbtn"
         android:title="Terms And Conditions" />
     <item

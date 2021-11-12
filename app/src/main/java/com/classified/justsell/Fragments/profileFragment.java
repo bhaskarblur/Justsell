@@ -1,6 +1,9 @@
 package com.classified.justsell.Fragments;
 
+import static android.content.Context.UI_MODE_SERVICE;
+
 import android.app.AlertDialog;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -468,6 +472,17 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         switch (item.getItemId()){
             case R.id.terms:
                 // this is aboutus
+                break;
+
+            case R.id.toglmode:
+                // toggle theme here
+                UiModeManager  uiModeManager = (UiModeManager)getActivity().getSystemService(UI_MODE_SERVICE);
+                if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
+                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+                }
+                else {
+                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+                }
                 break;
             case R.id.aboutbtn:
                 // this is terms and conditions
