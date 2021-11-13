@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fieldbg"
-    android:layout_width="wrap_content"
+    android:layout_width="115dp"
     android:layout_height="40dp"
     android:layout_marginRight="3dp"
-    android:layout_marginBottom="3dp"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/backgroundbg"
     android:foreground="?android:selectableItemBackground">
 

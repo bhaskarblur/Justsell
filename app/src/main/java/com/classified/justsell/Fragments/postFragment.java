@@ -122,7 +122,7 @@ public class postFragment extends Fragment {
             @Override
             public void ontileClick(String catname) {
 
-                Intent intent=new Intent(getActivity(), PostActivity_all.class);
+                Intent intent=new Intent(getActivity(), PostActivity.class);
                 intent.putExtra("catname",catname);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
