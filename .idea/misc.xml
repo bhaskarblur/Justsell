@@ -34,10 +34,12 @@
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/roundboxbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/rounded_transf.xml" value="0.20970464135021097" />
+        <entry key="app/src/main/res/layout/activity_adposted_successful.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.19746835443037974" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.49914759891138016" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.24045319328486053" />
+        <entry key="app/src/main/res/layout/activity_post_property.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_promote_ad.xml" value="0.2631270673422947" />
         <entry key="app/src/main/res/layout/ads_layout.xml" value="0.4810288508996986" />
         <entry key="app/src/main/res/layout/banner_layout.xml" value="0.2" />

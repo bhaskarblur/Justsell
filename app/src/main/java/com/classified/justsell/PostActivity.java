@@ -213,12 +213,12 @@ public class PostActivity extends AppCompatActivity {
 //                } else if (transmission == null) {
 //                    binding.transRec.setFocusable(true);
 //                    binding.transRec.requestFocus();
-//                    Toast.makeText(PostActivity.this, "Please tell about the warranty.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PostActivity.this, "lease select a transmission.", Toast.LENGTH_SHORT).show();
 //                }
 //                 } else if (numown == null) {
 //                    binding.numofRec.setFocusable(true);
 //                    binding.numofRec.requestFocus();
-//                    Toast.makeText(PostActivity.this, "Please tell about the warranty.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PostActivity.this, "Please select a number of owners..", Toast.LENGTH_SHORT).show();
 //                }else if (binding.brandTxt.getText().toString().isEmpty()) {
 //                    binding.brandTxt.setFocusable(true);
 //                    binding.brandTxt.requestFocus();
@@ -230,7 +230,7 @@ public class PostActivity extends AppCompatActivity {
 //                } else if (binding.datetxt.getText().toString().equals("Select Date")) {
 //                    binding.datetxt.setFocusable(true);
 //                    binding.datetxt.requestFocus();
-//                    Toast.makeText(PostActivity.this, "Please enter the cost price.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PostActivity.this, "Please select a date.", Toast.LENGTH_SHORT).show();
 //                } else {
 //                    Posting API Here
                 askBoost_Dialog dialog = new askBoost_Dialog();
