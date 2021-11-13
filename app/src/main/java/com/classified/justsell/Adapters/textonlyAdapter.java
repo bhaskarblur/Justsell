@@ -4,6 +4,7 @@ import static android.content.Context.UI_MODE_SERVICE;
 
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +48,27 @@ public class textonlyAdapter extends RecyclerView.Adapter<textonlyAdapter.viewHo
         UiModeManager uiModeManager = (UiModeManager) mcontext.getSystemService(UI_MODE_SERVICE);
         if (checkpos == position) {
             holder.fieldbg.setBackgroundResource(R.drawable.backgroundbg_yellow);
+            holder.fieldname.setTextColor(Color.parseColor("#1D1D1D"));
 
 
         } else if (checkpos != position) {
             holder.fieldbg.setBackgroundResource(R.drawable.backgroundbg);
+            int nightModeFlags =
+                    mcontext.getResources().getConfiguration().uiMode &
+                            Configuration.UI_MODE_NIGHT_MASK;
+            switch (nightModeFlags) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                    holder.fieldname.setTextColor(Color.parseColor("#FFFFFF"));
+                    break;
+
+                case Configuration.UI_MODE_NIGHT_NO:
+                    holder.fieldname.setTextColor(Color.parseColor("#1D1D1D"));
+                    break;
+
+                case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                    break;
+            }
         }
 
 
