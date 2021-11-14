@@ -21,7 +21,8 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
 
     private Context mcontext;
     private List<homeResponse .adsResult> list;
-
+    onitemClick listener;
+    onItemClick listener1;
     public FavadsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
         this.mcontext = mcontext;
         this.list = list;
@@ -48,7 +49,7 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
         }
 
         holder.adsdesr.setText(list.get(position).getAd_description());
-         //holder.adsdate.setText("Posted by "+list.get(position).getFav_name());
+        holder.adsdate.setText("Posted by "+list.get(position).getFav_name());
         if(list.get(position).getFeatured_status().equals("yes")) {
             holder.adsfeat.setVisibility(View.VISIBLE);
         }
@@ -83,6 +84,39 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
             adsbg=itemView.findViewById(R.id.ads_card);
             heartoff=itemView.findViewById(R.id.heartofficon);
             hearton=itemView.findViewById(R.id.heartonicon);
+
+            hearton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
+                        listener.onHeartClick(list.get(getAdapterPosition()).getAd_id());
+                    }
+                }
+            });
+            adsbg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
+                        listener1.onAdClick(list.get(getAdapterPosition()).getAd_category()
+                                ,list.get(getAdapterPosition()).getAd_id(),list.get(getAdapterPosition())
+                                        .getProduct_name());
+                    }
+                }
+            });
         }
+    }
+    public interface onItemClick {
+        void onAdClick(String category_name,String ad_id,String prod_name);
+    }
+
+    public void setonItemClick(onItemClick listener1) {
+        this.listener1=listener1;
+    }
+    public interface onitemClick {
+        void onHeartClick(String id);
+    }
+
+    public void setonitemClickListener(onitemClick listener) {
+        this.listener=listener;
     }
 }

@@ -21,7 +21,7 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
 
     private Context mcontext;
     private List<homeResponse .adsResult> list;
-
+    onItemClick listener;
     public adsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
         this.mcontext = mcontext;
         this.list = list;
@@ -81,8 +81,25 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
             adsdesr=itemView.findViewById(R.id.ads_descr);
             adsdate=itemView.findViewById(R.id.ads_date);
             adsfeat=itemView.findViewById(R.id.featuredimg);
+            adsbg=itemView.findViewById(R.id.ads_card);
 
-
+            adsbg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
+                        listener.onAdClick(list.get(getAdapterPosition()).getAd_category()
+                        ,list.get(getAdapterPosition()).getAd_id(),list.get(getAdapterPosition())
+                        .getProduct_name());
+                    }
+                }
+            });
         }
+    }
+    public interface onItemClick {
+        void onAdClick(String category_name,String ad_id,String prod_name);
+    }
+
+    public void setonItemClick(onItemClick listener) {
+        this.listener=listener;
     }
 }

@@ -231,7 +231,13 @@ public class PostActivity extends AppCompatActivity {
 //                    binding.datetxt.setFocusable(true);
 //                    binding.datetxt.requestFocus();
 //                    Toast.makeText(PostActivity.this, "Please select a date.", Toast.LENGTH_SHORT).show();
-//                } else {
+//                }
+//                else if(binding.proddrivenTxt.getText().toString().isEmpty()) {
+//                    binding.proddrivenTxt.setFocusable(true);
+//                    binding.proddrivenTxt.requestFocus();
+//                   Toast.makeText(PostActivity.this, "Please enter km driven", Toast.LENGTH_SHORT).show();
+//                }
+//            else {
 //                    Posting API Here
                 askBoost_Dialog dialog = new askBoost_Dialog();
                 dialog.show(getSupportFragmentManager(), "dialog");

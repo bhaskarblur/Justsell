@@ -42,6 +42,7 @@ import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.FavadsAdapter;
 import com.classified.justsell.Adapters.MyadsAdapter;
 import com.classified.justsell.Adapters.promadsAdapter;
+import com.classified.justsell.AuthActivity;
 import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.HomeActivity;
 import com.classified.justsell.Models.AuthResponse;
@@ -72,7 +73,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link profileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class profileFragment extends Fragment implements PopupMenu.OnMenuItemClickListener{
+public class profileFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,7 +92,8 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     private FavadsAdapter favadsAdapter;
     private com.classified.justsell.Adapters.promadsAdapter promadsAdapter;
     private profilefragViewModel profilefragViewModel;
-    api_baseurl baseurl=new api_baseurl();
+    api_baseurl baseurl = new api_baseurl();
+
     public profileFragment() {
         // Required empty public constructor
     }
@@ -121,25 +123,24 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        sharedPreferences = getActivity().getSharedPreferences("userlogged",0);
-        userid=sharedPreferences.getString("userid","");
+        sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+        userid = sharedPreferences.getString("userid", "");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentProfileBinding.inflate(inflater,container,false);
-        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
-            noInternetFragment nocon=new noInternetFragment();
+            noInternetFragment nocon = new noInternetFragment();
             FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
             transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
             transaction1.replace(R.id.mainFragment, nocon);
             transaction1.addToBackStack("A");
             transaction1.commit();
-        }
-        else {
+        } else {
             ManageData();
             viewfunc();
         }
@@ -179,12 +180,11 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 // make API Call of update!
                 if (editedimage == null) {
                     Toast.makeText(getContext(), "Please select an image.", Toast.LENGTH_SHORT).show();
-                }
-                else if (binding.nameTxt.getText().toString().isEmpty()) {
+                } else if (binding.nameTxt.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
                 } else {
-                    String city=sharedPreferences.getString("usercity","");
-                    String state=sharedPreferences.getString("userstate","");
+                    String city = sharedPreferences.getString("usercity", "");
+                    String state = sharedPreferences.getString("userstate", "");
                     api_baseurl baseurl = new api_baseurl();
 
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
@@ -198,37 +198,36 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                             Bitmap image = BitmapFactory.decodeStream(is);
                             ByteArrayOutputStream by = new ByteArrayOutputStream();
                             image.compress(Bitmap.CompressFormat.JPEG, 50, by);
-                            base64img =  Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
-                            Log.d("base64img2",base64img);
+                            base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                            Log.d("base64img2", base64img);
                         }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
 
-                    Call<AuthResponse.profile_update> call1 = apiWork.updateprofile2(userid,binding.nameTxt.getText().toString()
-                            , state, city, base64img,binding.numberTxt.getText().toString());
+                    Call<AuthResponse.profile_update> call1 = apiWork.updateprofile2(userid, binding.nameTxt.getText().toString()
+                            , state, city, base64img, binding.numberTxt.getText().toString());
 
                     call1.enqueue(new Callback<AuthResponse.profile_update>() {
                         @Override
                         public void onResponse(Call<AuthResponse.profile_update> call, Response<AuthResponse.profile_update> response) {
                             if (!response.isSuccessful()) {
-                                Log.d("error code",String.valueOf(response.code()));
+                                Log.d("error code", String.valueOf(response.code()));
                                 return;
                             }
-                            AuthResponse.profile_update resp=response.body();
+                            AuthResponse.profile_update resp = response.body();
 
                             Log.d("message", resp.getStatus());
-                            if(resp.getResult()!=null) {
-                                Toast.makeText(getContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
-                                SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
-                                SharedPreferences.Editor editor=sharedPreferences.edit();
-                                editor.putString("userlogged","yes");
-                                editor.putString("userimage",resp.getResult().getImage());
-                                editor.putString("userid",resp.getResult().getId());
-                                editor.putString("usermobile",resp.getResult().getMobile());
-                                editor.putString("username",resp.getResult().getName());
-                                editor.putString("userstate",resp.getResult().getState());
-                                editor.putString("usercity",resp.getResult().getCity());
+                            if (resp.getResult() != null) {
+                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("userlogged", "yes");
+                                editor.putString("userimage", resp.getResult().getImage());
+                                editor.putString("userid", resp.getResult().getId());
+                                editor.putString("usermobile", resp.getResult().getMobile());
+                                editor.putString("username", resp.getResult().getName());
+                                editor.putString("userstate", resp.getResult().getState());
+                                editor.putString("usercity", resp.getResult().getCity());
                                 editor.commit();
                                 binding.userName.setText(resp.getResult().getName());
                                 binding.userNumber.setText(resp.getResult().getMobile());
@@ -238,12 +237,12 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                                 binding.numberTxt.setVisibility(View.INVISIBLE);
                                 binding.imgPick.setVisibility(View.INVISIBLE);
 
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(getContext(), "There was an error!", Toast.LENGTH_SHORT).show();
                             }
 
                         }
+
                         @Override
                         public void onFailure(Call<AuthResponse.profile_update> call, Throwable t) {
 
@@ -306,6 +305,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         });
 
     }
+
     private void startCropActivity() {
         CropImage.activity()
                 .start(getContext(), this);
@@ -318,51 +318,51 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<AuthResponse.VerifyOtp> call=apiWork.getprofile(userid);
+        Call<AuthResponse.VerifyOtp> call = apiWork.getprofile(userid);
 
         call.enqueue(new Callback<AuthResponse.VerifyOtp>() {
             @Override
             public void onResponse(Call<AuthResponse.VerifyOtp> call, Response<AuthResponse.VerifyOtp> response) {
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     Log.d("error code", String.valueOf(response.code()));
                     return;
                 }
 
-                AuthResponse.VerifyOtp resp=response.body();
+                AuthResponse.VerifyOtp resp = response.body();
 
-                if(resp.getResult()!=null) {
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putString("userlogged","yes");
-                    editor.putString("userimage",resp.getResult().getImage());
-                    editor.putString("userid",resp.getResult().getId());
-                    editor.putString("usermobile",resp.getResult().getMobile());
-                    editor.putString("username",resp.getResult().getName());
+                if (resp.getResult() != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userlogged", "yes");
+                    editor.putString("userimage", resp.getResult().getImage());
+                    editor.putString("userid", resp.getResult().getId());
+                    editor.putString("usermobile", resp.getResult().getMobile());
+                    editor.putString("username", resp.getResult().getName());
                     editor.commit();
                 }
             }
 
             @Override
             public void onFailure(Call<AuthResponse.VerifyOtp> call, Throwable t) {
-                Log.d("Failure",t.getMessage());
+                Log.d("Failure", t.getMessage());
             }
         });
-        String name=sharedPreferences.getString("username","");
-        String number=sharedPreferences.getString("usermobile","");
-        String image=sharedPreferences.getString("userimage","empty");
-        editedimage=sharedPreferences.getString("userimage","empty");
+        String name = sharedPreferences.getString("username", "");
+        String number = sharedPreferences.getString("usermobile", "");
+        String image = sharedPreferences.getString("userimage", "empty");
+        editedimage = sharedPreferences.getString("userimage", "empty");
 
         binding.userName.setText(name);
         binding.userNumber.setText(number);
         binding.nameTxt.setText(name);
         binding.numberTxt.setText(number);
-        if(image!=null && !image.equals("empty")) {
+        if (image != null && !image.equals("empty")) {
             final int radius = 150;
             final int margin = 50;
             final Transformation transformation = new RoundedCornersTransformation(radius, margin);
             Picasso.get().load(image).transform(new CropCircleTransformation()).into(binding.userImg);
         }
 
-        profilefragViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.profilefragViewModel.class);
+        profilefragViewModel = new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.profilefragViewModel.class);
         profilefragViewModel.initwork(userid);
         profilefragViewModel.getMyads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
             @Override
@@ -370,11 +370,11 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(adsResults.size()>0) {
+                        if (adsResults.size() > 0) {
                             myadsAdapter.notifyDataSetChanged();
                         }
                     }
-                },100);
+                }, 100);
             }
         });
         profilefragViewModel.getFavads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
@@ -383,11 +383,11 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(adsResults.size()>0) {
+                        if (adsResults.size() > 0) {
                             favadsAdapter.notifyDataSetChanged();
                         }
                     }
-                },100);
+                }, 100);
             }
         });
         profilefragViewModel.getPromoteads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
@@ -396,21 +396,21 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(adsResults.size()>0) {
+                        if (adsResults.size() > 0) {
                             promadsAdapter.notifyDataSetChanged();
                         }
                     }
-                },100);
+                }, 100);
             }
         });
 
-        myadsAdapter=new MyadsAdapter(getContext(),profilefragViewModel.getMyads().getValue());
-        promadsAdapter=new promadsAdapter(getContext(),profilefragViewModel.getPromoteads().getValue());
-        favadsAdapter=new FavadsAdapter(getContext(),profilefragViewModel.getFavads().getValue());
+        myadsAdapter = new MyadsAdapter(getContext(), profilefragViewModel.getMyads().getValue());
+        promadsAdapter = new promadsAdapter(getContext(), profilefragViewModel.getPromoteads().getValue());
+        favadsAdapter = new FavadsAdapter(getContext(), profilefragViewModel.getFavads().getValue());
 
-        LinearLayoutManager llm1=new LinearLayoutManager(getContext());
-        LinearLayoutManager llm2=new LinearLayoutManager(getContext());
-        LinearLayoutManager llm3=new LinearLayoutManager(getContext());
+        LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
+        LinearLayoutManager llm2 = new LinearLayoutManager(getContext());
+        LinearLayoutManager llm3 = new LinearLayoutManager(getContext());
 
         binding.adsrec.setLayoutManager(llm1);
         binding.adsrec.setAdapter(myadsAdapter);
@@ -421,13 +421,54 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         binding.promrec.setLayoutManager(llm3);
         binding.promrec.setAdapter(promadsAdapter);
 
+
+        favadsAdapter.setonitemClickListener(new FavadsAdapter.onitemClick() {
+            @Override
+            public void onHeartClick(String id) {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                ApiWork apiWork = retrofit.create(ApiWork.class);
+
+                Call<AuthResponse.SendOtp> call1 = apiWork.remove_favourite(id,userid);
+
+                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                        if(!response.isSuccessful()) {
+                            Log.d("error code",String.valueOf(response.code()));
+                            return;
+                        }
+
+                        AuthResponse.SendOtp resp=response.body();
+
+                        if(resp.getCode().equals("200")) {
+                            //
+                            Toast.makeText(getContext(), "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
+                            getActivity().getViewModelStore().clear();
+                            profileFragment homeFragment=new profileFragment();
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
+                            transaction.replace(R.id.mainFragment, homeFragment);
+                            transaction.commit();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                        Log.d("Failure",t.getMessage());
+                    }
+                });
+            }
+        });
+
     }
 
     private void showpopup(View v) {
-        PopupMenu popupMenu=new PopupMenu(getContext(),v);
+        PopupMenu popupMenu = new PopupMenu(getContext(), v);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.profoptionmenu);
-        MenuItem item=popupMenu.getMenu().findItem(R.id.logout_item);
+        MenuItem item = popupMenu.getMenu().findItem(R.id.logout_item);
         SpannableString s = new SpannableString("Delete Account");
         item.setTitle(s);
         s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
@@ -469,7 +510,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.terms:
                 // this is aboutus
                 break;
@@ -488,10 +529,44 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 // this is terms and conditions
                 break;
             case R.id.logout_item:
-                AlertDialog.Builder builder= new AlertDialog.Builder(getContext()).setTitle("Delete?")
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setTitle("Delete?")
                         .setMessage("Do you want to Delete Account?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
+                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                                ApiWork apiWork = retrofit.create(ApiWork.class);
+
+                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_account(userid);
+
+                                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                                    @Override
+                                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                                        if(!response.isSuccessful()) {
+                                            Log.d("error code",String.valueOf(response.code()));
+                                            return;
+                                        }
+
+                                        AuthResponse.SendOtp resp=response.body();
+
+                                        if(resp.getCode().equals("200")) {
+                                            Toast.makeText(getContext(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.clear();
+                                            editor.apply();
+                                            startActivity(new Intent(getActivity(), AuthActivity.class));
+                                            getActivity().finish();
+                                            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                                        Log.d("Failure",t.getMessage());
+                                    }
+                                });
 
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {

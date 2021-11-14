@@ -180,6 +180,7 @@ public class homeResponse {
         public String product_name;
         public String user_id;
         public String location;
+        @SerializedName("post_by")
         public String fav_name;
 
         public void setUser_id(String user_id) {

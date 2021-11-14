@@ -66,7 +66,6 @@ public class textonlyAdapter extends RecyclerView.Adapter<textonlyAdapter.viewHo
                     break;
 
                 case Configuration.UI_MODE_NIGHT_UNDEFINED:
-
                     break;
             }
         }

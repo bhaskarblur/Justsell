@@ -67,4 +67,26 @@ public interface ApiWork {
     @POST("favorite")
     Call<homeResponse.ListadsResp> getfavAds(@Field("user_id") String userid);
 
+
+    @FormUrlEncoded
+    @POST("my_product")
+    Call<homeResponse.ListadsResp> get_myads(@Field("user_id") String userid);
+
+    @FormUrlEncoded
+    @POST("delete_account")
+    Call<AuthResponse.SendOtp> delete_account(@Field("user_id") String userid);
+
+    @FormUrlEncoded
+    @POST("remove_favorite")
+    Call<AuthResponse.SendOtp> remove_favourite(@Field("id") String ad_id,
+                                                @Field("user_id") String userid);
+
+
+    @FormUrlEncoded
+    @POST("add_to_favorite")
+    Call<AuthResponse.SendOtp> add_favourite(@Field("id") String ad_id,
+                                                @Field("user_id") String userid);
+
+
+
 }

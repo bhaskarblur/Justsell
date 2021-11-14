@@ -60,7 +60,7 @@ public class registerProfile extends Fragment {
     private String mParam1;
     private String mParam2;
     private String userid;
-    private Uri imguri;
+    private Uri imguri=Uri.parse("");
 
     public registerProfile() {
         // Required empty public constructor
@@ -144,8 +144,9 @@ public class registerProfile extends Fragment {
                     }
 
                     Call<AuthResponse.profile_update> call1 = apiWork.updateprofile(userid, sdbinding.nameTxt.getText().toString()
-                            , sdbinding.statet.getText().toString(), sdbinding.cityet.toString(), base64img);
+                            , sdbinding.statet.getText().toString(), sdbinding.cityet.getText().toString(), base64img);
 
+                    Log.d("city", sdbinding.cityet.getText().toString());
                     call1.enqueue(new Callback<AuthResponse.profile_update>() {
                         @Override
                         public void onResponse(Call<AuthResponse.profile_update> call, Response<AuthResponse.profile_update> response) {
@@ -187,7 +188,7 @@ public class registerProfile extends Fragment {
             }
         });
 
-        sdbinding.cityspin.setOnClickListener(new View.OnClickListener() {
+        sdbinding.cityet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(sdbinding.statet.getText().toString().equals("Select State")) {

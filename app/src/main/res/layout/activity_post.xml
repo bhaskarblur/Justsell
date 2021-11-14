@@ -149,6 +149,40 @@
                 app:layout_constraintTop_toBottomOf="@+id/datepicklay" />
 
             <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lineSpacingExtra="2dp"
+                android:text="Km Driven"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/numof_rec" />
+
+            <EditText
+                android:id="@+id/proddriven_txt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/descboxbg"
+                android:backgroundTint="?android:textColorPrimaryInverse"
+                android:fontFamily="@font/poppins"
+                android:hint="Enter Km Driven"
+                android:inputType="number"
+                android:paddingLeft="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+            <TextView
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,15 +194,15 @@
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/numof_rec" />
+                app:layout_constraintTop_toBottomOf="@+id/proddriven_txt" />
 
             <EditText
                 android:id="@+id/prodprice_txt"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/descboxbg"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:fontFamily="@font/poppins"
@@ -177,6 +211,7 @@
                 android:paddingLeft="15dp"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/prodprice_txt2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

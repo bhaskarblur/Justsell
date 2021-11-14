@@ -68,7 +68,7 @@ public class profilefragRepo {
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<homeResponse.ListadsResp> call3=apiWork.getAds(userid);
+        Call<homeResponse.ListadsResp> call3=apiWork.get_myads(userid);
 
         call3.enqueue(new Callback<homeResponse.ListadsResp>() {
             @Override
@@ -86,7 +86,7 @@ public class profilefragRepo {
                         Log.d("stat",resp.getResult().get(i).getProduct_name());
                     }
 
-                    promoteads.setValue(promoteadslist    );
+                    promoteads.setValue(promoteadslist);
                 }
             }
 
@@ -118,11 +118,11 @@ public class profilefragRepo {
 
                 if(resp.getResult()!=null) {
                     for(int i=0;i<resp.getResult().size();i++) {
-                        promoteadslist.add(resp.getResult().get(i));
+                        favadslist.add(resp.getResult().get(i));
                         Log.d("stat",resp.getResult().get(i).getProduct_name());
                     }
 
-                    promoteads.setValue(promoteadslist    );
+                    favads.setValue(favadslist);
                 }
             }
 
@@ -139,7 +139,7 @@ public class profilefragRepo {
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<homeResponse.ListadsResp> call3=apiWork.getAds(userid);
+        Call<homeResponse.ListadsResp> call3=apiWork.get_myads(userid);
 
         call3.enqueue(new Callback<homeResponse.ListadsResp>() {
             @Override
@@ -157,7 +157,7 @@ public class profilefragRepo {
                         Log.d("stat",resp.getResult().get(i).getProduct_name());
                     }
 
-                    myads.setValue(myadslist        );
+                    myads.setValue(myadslist);
                 }
             }
 
