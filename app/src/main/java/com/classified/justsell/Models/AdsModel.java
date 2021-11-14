@@ -49,6 +49,12 @@ public class AdsModel {
         public String number_of_owners;
         public String ad_type;
         public String kmdriven;
+        public String property_type;
+        public String land_type;
+        public String area;
+        public String featured_status;
+        public String promotion_enddate;
+        public String ad_views;
 
         public String getKmdriven() {
             return kmdriven;
@@ -57,13 +63,6 @@ public class AdsModel {
         public void setKmdriven(String kmdriven) {
             this.kmdriven = kmdriven;
         }
-
-        public String property_type;
-        public String land_type;
-        public String area;
-        public String featured_status;
-        public String promotion_enddate;
-        public String ad_views;
 
         public String getAd_views() {
             return ad_views;
