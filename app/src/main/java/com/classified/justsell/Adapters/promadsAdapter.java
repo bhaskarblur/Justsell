@@ -85,14 +85,14 @@ public class promadsAdapter extends RecyclerView.Adapter<promadsAdapter.ViewHold
                     if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
                         listener.onAdClick(list.get(getAdapterPosition()).getAd_category()
                                 ,list.get(getAdapterPosition()).getAd_id(),list.get(getAdapterPosition())
-                                        .getProduct_name());
+                                        .getProduct_name(),list.get(getAdapterPosition()).getUser_id());
                     }
                 }
             });
         }
     }
     public interface onItemClick {
-        void onAdClick(String category_name,String ad_id,String prod_name);
+        void onAdClick(String category_name,String ad_id,String prod_name,String userid);
     }
 
     public void setonItemClick(onItemClick listener) {

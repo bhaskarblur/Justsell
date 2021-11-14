@@ -1,6 +1,7 @@
 package com.classified.justsell.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.classified.justsell.Ad_userActivity;
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
 import com.classified.justsell.Adapters.categoryAdapter;
@@ -57,7 +59,7 @@ public class homeFragment extends Fragment implements LocationListener {
     private SharedPreferences sharedPreferences;
     private String lat;
     private String longit;
-    private String userid;
+    private String user_id;
     private String city;
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -249,7 +251,7 @@ public class homeFragment extends Fragment implements LocationListener {
 
     private void ManageData() {
         pos = 0;
-        userid = sharedPreferences.getString("userid", "");
+        user_id = sharedPreferences.getString("userid", "");
         String state=sharedPreferences.getString("userstate","");
         String citystate;
         Bundle bundle=getArguments();
@@ -264,7 +266,7 @@ public class homeFragment extends Fragment implements LocationListener {
 
 
         hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-        hmViewModel.initwork(userid,"0","0",city);
+        hmViewModel.initwork(user_id,"0","0",city);
 
         hmViewModel.getBannerdata().observe(getActivity(), new Observer<List<homeResponse.bannerResult>>() {
             @Override
@@ -323,6 +325,29 @@ public class homeFragment extends Fragment implements LocationListener {
         LinearLayoutManager llm1=new LinearLayoutManager(getActivity());
         hmbinding.adsrec.setLayoutManager(llm1);
         hmbinding.adsrec.setAdapter(adsAdapter);
+
+        adsAdapter.setonItemClick(new adsAdapter.onItemClick() {
+            @Override
+            public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
+               Intent intent = null;
+                if(!userid.equals(user_id)) {
+                    intent=new Intent(getActivity(), Ad_userActivity.class);
+
+                }
+                else {
+                    // change this to same user activity
+                    intent=new Intent(getActivity(), Ad_userActivity.class);
+                }
+
+                intent.putExtra("cat_name",category_name);
+                intent.putExtra("ad_id",ad_id);
+                intent.putExtra("product_name",prod_name);
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+
+            }
+        });
     }
 
     private void rotatebanner() {

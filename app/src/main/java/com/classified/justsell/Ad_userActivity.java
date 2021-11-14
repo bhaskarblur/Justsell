@@ -13,6 +13,6 @@ public class Ad_userActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityAdUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+        this.getSupportActionBar().hide();
     }
 }
