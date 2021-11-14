@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.classified.justsell.Ad_posterActivity;
 import com.classified.justsell.Ad_userActivity;
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
@@ -336,7 +337,7 @@ public class homeFragment extends Fragment implements LocationListener {
                 }
                 else {
                     // change this to same user activity
-                    intent=new Intent(getActivity(), Ad_userActivity.class);
+                    intent=new Intent(getActivity(), Ad_posterActivity.class);
                 }
 
                 intent.putExtra("cat_name",category_name);

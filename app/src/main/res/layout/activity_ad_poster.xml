@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorPrimary"
-    tools:context=".Ad_userActivity">
+    tools:context=".Ad_posterActivity">
 
     <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/textView40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -21,15 +21,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/backbtn6"
+        android:id="@+id/backbtn7"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
         android:src="@drawable/backbtn"
-        app:tint="?android:textColorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:textColorPrimary" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -38,11 +38,52 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView38">
+        app:layout_constraintTop_toBottomOf="@+id/textView40">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/delbtn"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="40dp"
+                android:clickable="true"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Delete"
+                android:textAlignment="center"
+                android:textColor="#FF0000"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prombtn2" />
+
+            <Button
+                android:id="@+id/prombtn2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/roundboxbg"
+                android:backgroundTint="@color/primary_color"
+                android:fontFamily="@font/poppins_medium"
+                android:foreground="?android:selectableItemBackground"
+                android:text="Promote"
+                android:textAllCaps="false"
+                android:textColor="@color/back_black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
             <Button
                 android:id="@+id/onbprog9"
@@ -218,19 +259,6 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line7" />
-
-            <TextView
-                android:id="@+id/line11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/poppins"
-                android:text="Recommended"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
             <TextView
                 android:id="@+id/line7_data"
@@ -414,44 +442,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodtitle_txt" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/chatlay"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/prom_date_txt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Promotion Ending on"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6">
-
-                <Button
-                    android:id="@+id/chatbtn"
-                    android:layout_width="110dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/roundboxbg"
-                    android:backgroundTint="@color/primary_color"
-                    android:fontFamily="@font/poppins_medium"
-                    android:foreground="?android:selectableItemBackground"
-                    android:paddingLeft="22dp"
-                    android:text="Chat"
-                    android:textAllCaps="false"
-                    android:textColor="@color/back_black"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="90dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                app:srcCompat="@drawable/chaticon" />
+                app:layout_constraintStart_toEndOf="@+id/prodprice_txt"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout6"
@@ -490,21 +494,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/sampleuserimg1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line11"
-                app:layout_constraintVertical_bias="0.0"
-                tools:itemCount="2"
-                tools:listitem="@layout/ads_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

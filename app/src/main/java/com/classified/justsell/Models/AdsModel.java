@@ -48,11 +48,30 @@ public class AdsModel {
         public String transmission;
         public String number_of_owners;
         public String ad_type;
+        public String kmdriven;
+
+        public String getKmdriven() {
+            return kmdriven;
+        }
+
+        public void setKmdriven(String kmdriven) {
+            this.kmdriven = kmdriven;
+        }
+
         public String property_type;
         public String land_type;
         public String area;
         public String featured_status;
         public String promotion_enddate;
+        public String ad_views;
+
+        public String getAd_views() {
+            return ad_views;
+        }
+
+        public void setAd_views(String ad_views) {
+            this.ad_views = ad_views;
+        }
 
         public String getPost_by() {
             return post_by;
@@ -265,5 +284,13 @@ public class AdsModel {
 
     public class imagesres {
         public String image;
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
     }
 }
