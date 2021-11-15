@@ -580,4 +580,10 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         }
         return false;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().getViewModelStore().clear();
+    }
 }

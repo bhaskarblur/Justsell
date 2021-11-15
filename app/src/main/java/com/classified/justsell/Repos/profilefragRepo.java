@@ -119,7 +119,7 @@ public class profilefragRepo {
                 if(resp.getResult()!=null) {
                     for(int i=0;i<resp.getResult().size();i++) {
                         favadslist.add(resp.getResult().get(i));
-                        Log.d("stat",resp.getResult().get(i).getProduct_name());
+                        Log.d("stat1",resp.getResult().get(i).getProduct_name());
                     }
 
                     favads.setValue(favadslist);

@@ -84,7 +84,7 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("add_to_favorite")
-    Call<AuthResponse.SendOtp> add_favourite(@Field("id") String ad_id,
+    Call<AuthResponse.SendOtp> add_favourite(@Field("product_id") String ad_id,
                                                 @Field("user_id") String userid);
 
 

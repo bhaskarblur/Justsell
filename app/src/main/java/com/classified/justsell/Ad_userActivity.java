@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,7 +45,7 @@ public class Ad_userActivity extends AppCompatActivity {
     private com.classified.justsell.Adapters.adsAdapter adsAdapter;
     private List<AdsModel.imagesres> bannerlist = new ArrayList<>();
     private AdsViewModel adsViewModel;
-    private api_baseurl baseurl;
+    private api_baseurl baseurl=new api_baseurl();
     String adid;
     String prod_name;
     String cat_name;
@@ -62,6 +63,14 @@ public class Ad_userActivity extends AppCompatActivity {
 
     private void viewfuncs() {
 
+        binding.backbtn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         binding.imageView6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,19 +78,19 @@ public class Ad_userActivity extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                 ApiWork apiWork = retrofit.create(ApiWork.class);
-
-                Call<AuthResponse.SendOtp> call3=apiWork.add_favourite(adid,userid);
+                Log.d("data",adid+","+userid);
+                Call<AuthResponse.SendOtp> call3 = apiWork.add_favourite(adid, userid);
                 call3.enqueue(new Callback<AuthResponse.SendOtp>() {
                     @Override
                     public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-                        if(!response.isSuccessful()) {
-                            Log.d("error code",String.valueOf(response.code()));
+                        if (!response.isSuccessful()) {
+                            Log.d("error code", String.valueOf(response.code()));
                             return;
                         }
 
-                        AuthResponse.SendOtp resp=response.body();
+                        AuthResponse.SendOtp resp = response.body();
 
-                        if(resp.getCode().equals("200")) {
+                        if (resp.getCode().equals("200")) {
                             //
                             Toast.makeText(Ad_userActivity.this, "Ad added to favourite.", Toast.LENGTH_SHORT).show();
                             binding.imageView6.setImageResource(R.drawable.heartlovedicon);
@@ -90,11 +99,13 @@ public class Ad_userActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                        Log.d("Failure",t.getMessage());
+                        Log.d("Failure", t.getMessage());
                     }
                 });
             }
         });
+
+
 
         binding.chatbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +121,11 @@ public class Ad_userActivity extends AppCompatActivity {
         Intent intent = getIntent();
          adid = intent.getStringExtra("ad_id");
          prod_name = intent.getStringExtra("product_name");
-         cat_name = intent.getStringExtra("cat_name");
+        cat_name = intent.getStringExtra("cat_name");
+        SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
+        userid=sharedPreferences.getString("userid","");
         adsViewModel = new ViewModelProvider(Ad_userActivity.this).get(AdsViewModel.class);
-        adsViewModel.initwork(adid, prod_name);
+        adsViewModel.initwork(adid, prod_name,userid);
 
         adsViewModel.getDataModel().observe(Ad_userActivity.this, new Observer<AdsModel.adsResult>() {
             @Override
@@ -331,4 +344,12 @@ public class Ad_userActivity extends AppCompatActivity {
             }
         }, 5000);
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+        getViewModelStore().clear();
+    }
+
 }
