@@ -17,10 +17,13 @@ import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.databinding.ActivityPromoteAdBinding;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class promote_ad extends AppCompatActivity {
     private ActivityPromoteAdBinding binding;
+    private String ad_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,24 +45,70 @@ public class promote_ad extends AppCompatActivity {
         viewfunc();
     }
 
+    private void calculateprice() {
+        String myFormat = "dd/MM/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        if(!binding.datetxt.getText().toString().equals("Select Date") &&
+        !binding.datetxtEnd.getText().toString().equals("Select Date")) {
+            try {
+                Date date = sdf.parse(binding.datetxt.getText().toString());
+                Date date2 = sdf.parse(binding.datetxtEnd.getText().toString());
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.set(Calendar.MONTH, date.getMonth() - 1);
+                calendar1.set(Calendar.DAY_OF_MONTH, date.getDate());
+                calendar1.set(Calendar.YEAR, date.getYear());
+
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.set(Calendar.MONTH, date2.getMonth() - 1);
+                calendar2.set(Calendar.DAY_OF_MONTH, date2.getDate());
+                calendar2.set(Calendar.YEAR, date2.getYear());
+                long msDiff = calendar2.getTimeInMillis() - calendar1.getTimeInMillis();
+                long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
+                Float total_days = (float) daysDiff * (float) 11.8;
+                if(total_days<0) {
+                    Toast.makeText(promote_ad.this, "Please select an end date in future of start date", Toast.LENGTH_SHORT).show();
+                    binding.datetxtEnd.setText("Select Date");
+                    binding.prombudTxt.setText("Promotion Budget:");
+                }
+                else{
+                    binding.prombudTxt.setText("Promotion Budget:       Rs " + String.valueOf(total_days));
+                }
+                Log.d("days", String.valueOf(total_days));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void ManageData() {
         loadfunc();
+        Intent intent=getIntent();
+        ad_id=intent.getStringExtra("ad_id");
+
         final Calendar myCalendar = Calendar.getInstance();
         final int[] clickcheck = {0};
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                datePicker.setMinDate(System.currentTimeMillis());
                 myCalendar.set(Calendar.YEAR, i);
                 myCalendar.set(Calendar.MONTH, i1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, i2);
                 String myFormat = "dd/MM/yy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                if(clickcheck[0]==0) {
-                    binding.datetxt.setText(sdf.format(myCalendar.getTime()));
+                long checkdate=myCalendar.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
+                Log.d("date",String.valueOf(checkdate));
+                if(checkdate<0) {
+                    Toast.makeText(promote_ad.this, "Please set a date in future", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
+                    if (clickcheck[0] == 0) {
+                        binding.datetxt.setText(sdf.format(myCalendar.getTime()));
+                        calculateprice();
+                    } else {
+                        binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
+                        calculateprice();
+                    }
                 }
             }
 
@@ -181,6 +231,7 @@ public class promote_ad extends AppCompatActivity {
                                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                     if (!parent.getItemAtPosition(position).equals("Select City")) {
                                                         binding.cityet.setText(parent.getItemAtPosition(position).toString());
+                                                        binding.estimTxt.setText("Estimated Reach*:       2000-3000");
                                                     }
                                                 }
 

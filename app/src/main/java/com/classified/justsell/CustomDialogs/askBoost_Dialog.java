@@ -29,10 +29,14 @@ public class askBoost_Dialog extends AppCompatDialogFragment {
         View prombtn=view.findViewById(R.id.prombtn);
         View skipbtn=view.findViewById(R.id.skipbtn);
 
+        Bundle bundle=getArguments();
+        String ad_id=bundle.getString("ad_id");
         prombtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), promote_ad.class));
+                Intent intent=new Intent(getActivity(), promote_ad.class);
+                intent.putExtra("ad_id",ad_id);
+                startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             }
         });
@@ -41,8 +45,9 @@ public class askBoost_Dialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), adposted_successful.class));
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+
 
             }
         });
