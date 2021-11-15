@@ -13,8 +13,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -31,6 +35,9 @@ import com.classified.justsell.databinding.ActivityPostBinding;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -269,13 +276,22 @@ public class PostActivity extends AppCompatActivity {
 
                     ApiWork apiWork = retrofit.create(ApiWork.class);
                     StringBuilder images=new StringBuilder();
-                    for(int i=0;i<imagesList.size();i++) {
-                        images.append(imagesList.get(i)+",");
+                    String base64img;
+                    for (int i = 0; i < imagesAdapter.bannerlist.size(); i++) {
+                        try {
+                            InputStream is = getContentResolver().openInputStream(Uri.parse(imagesAdapter.bannerlist.get(i)));
+                            Bitmap image1 = BitmapFactory.decodeStream(is);
+                            ByteArrayOutputStream by = new ByteArrayOutputStream();
+                            image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
+                            base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                            images.append(base64img + ",");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
-
                     Call<AdsModel.postadsResp> call=apiWork.post_automobile(userid,binding.prodnameTxt.getText().toString(),
                             binding.titleTxt.getText().toString(),"automobile",binding.proddescTxt.getText().toString(),
-                            city,binding.prodpriceTxt.getText().toString(),images.toString(),binding.brandTxt.getText().toString(),
+                            city,binding.prodpriceTxt.getText().toString(),images.toString().substring(0,images.toString().length()-1),binding.brandTxt.getText().toString(),
                             binding.modelTxt.getText().toString(),binding.datetxt.getText().toString(),fuel,
                             transmission,numowner,binding.proddrivenTxt.getText().toString(),"yes");
 
