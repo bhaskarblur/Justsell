@@ -128,7 +128,7 @@ public class postFragment extends Fragment {
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 }
-                else if(catname.equals("Property") || catname.equals("House") || catname.equals("Bike")){
+                else if(catname.equals("Property") || catname.equals("property") || catname.equals("Bike")){
                     Intent intent=new Intent(getActivity(), PostActivity_property.class);
                     intent.putExtra("catname",catname);
                     startActivity(intent);

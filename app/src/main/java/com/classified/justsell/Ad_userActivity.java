@@ -220,7 +220,7 @@ public class Ad_userActivity extends AppCompatActivity {
                     Picasso.get().load(adsResult.getPost_by_image()).transform(new CropCircleTransformation()).resize(150,150)
                             .into(binding.postimage);
                     binding.postname.setText(adsResult.getPost_by());
-                    if (cat_name.equals("Automobile") || cat_name.equals("Car") || cat_name.equals("Bike")) {
+                    if (cat_name.equals("Automobile") || cat_name.equals("car") || cat_name.equals("Bike")) {
 
                         binding.line1.setText("Brand");
                         binding.line2.setText("Model");
