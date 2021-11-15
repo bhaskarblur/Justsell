@@ -70,7 +70,40 @@ public class Ad_userActivity extends AppCompatActivity {
             }
         });
 
+        binding.imageView9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                        .addConverterFactory(GsonConverterFactory.create()).build();
 
+                ApiWork apiWork = retrofit.create(ApiWork.class);
+                Log.d("data",adid+","+userid);
+                Call<AuthResponse.SendOtp> call3 = apiWork.remove_favourite(adid, userid);
+                call3.enqueue(new Callback<AuthResponse.SendOtp>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("error code", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        AuthResponse.SendOtp resp = response.body();
+
+                        if (resp.getCode().equals("200")) {
+                            //
+                            Toast.makeText(Ad_userActivity.this, "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
+                            binding.imageView6.setVisibility(View.VISIBLE);
+                            binding.imageView9.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                        Log.d("Failure", t.getMessage());
+                    }
+                });
+            }
+        });
         binding.imageView6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +126,8 @@ public class Ad_userActivity extends AppCompatActivity {
                         if (resp.getCode().equals("200")) {
                             //
                             Toast.makeText(Ad_userActivity.this, "Ad added to favourite.", Toast.LENGTH_SHORT).show();
-                            binding.imageView6.setImageResource(R.drawable.heartlovedicon);
+                            binding.imageView6.setVisibility(View.INVISIBLE);
+                            binding.imageView9.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -127,6 +161,23 @@ public class Ad_userActivity extends AppCompatActivity {
         adsViewModel = new ViewModelProvider(Ad_userActivity.this).get(AdsViewModel.class);
         adsViewModel.initwork(adid, prod_name,userid);
 
+        adsViewModel.getFavads().observe(Ad_userActivity.this, new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                for(int i=0;i<adsResults.size();i++) {
+                    if(adsResults.get(i).getAd_id().equals(adid)) {
+                        binding.imageView6.setVisibility(View.INVISIBLE);
+                        binding.imageView9.setVisibility(View.VISIBLE);
+
+                        break;
+                    }
+                    else {
+                        binding.imageView6.setVisibility(View.VISIBLE);
+                        binding.imageView9.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        });
         adsViewModel.getDataModel().observe(Ad_userActivity.this, new Observer<AdsModel.adsResult>() {
             @Override
             public void onChanged(AdsModel.adsResult adsResult) {

@@ -60,6 +60,40 @@ public class Ad_posterActivity extends AppCompatActivity {
 
     private void viewfuncs() {
 
+        binding.imageView8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                ApiWork apiWork = retrofit.create(ApiWork.class);
+                Log.d("data",adid+","+userid);
+                Call<AuthResponse.SendOtp> call3 = apiWork.remove_favourite(adid, userid);
+                call3.enqueue(new Callback<AuthResponse.SendOtp>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("error code", String.valueOf(response.code()));
+                            return;
+                        }
+
+                        AuthResponse.SendOtp resp = response.body();
+
+                        if (resp.getCode().equals("200")) {
+                            //
+                            Toast.makeText(Ad_posterActivity.this, "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
+                            binding.imageView6.setVisibility(View.VISIBLE);
+                            binding.imageView8.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                        Log.d("Failure", t.getMessage());
+                    }
+                });
+            }
+        });
         binding.imageView6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,30 +103,32 @@ public class Ad_posterActivity extends AppCompatActivity {
                 ApiWork apiWork = retrofit.create(ApiWork.class);
                 Log.d("data",adid+","+userid);
                 Call<AuthResponse.SendOtp> call3 = apiWork.add_favourite(adid, userid);
-                    call3.enqueue(new Callback<AuthResponse.SendOtp>() {
-                        @Override
-                        public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-                            if (!response.isSuccessful()) {
-                                Log.d("error code", String.valueOf(response.code()));
-                                return;
-                            }
-
-                            AuthResponse.SendOtp resp = response.body();
-
-                            if (resp.getCode().equals("200")) {
-                                //
-                                Toast.makeText(Ad_posterActivity.this, "Ad added to favourite.", Toast.LENGTH_SHORT).show();
-                                binding.imageView6.setImageResource(R.drawable.heartlovedicon);
-                            }
+                call3.enqueue(new Callback<AuthResponse.SendOtp>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("error code", String.valueOf(response.code()));
+                            return;
                         }
 
-                        @Override
-                        public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                            Log.d("Failure", t.getMessage());
+                        AuthResponse.SendOtp resp = response.body();
+
+                        if (resp.getCode().equals("200")) {
+                            //
+                            Toast.makeText(Ad_posterActivity.this, "Ad added to favourite.", Toast.LENGTH_SHORT).show();
+                            binding.imageView6.setVisibility(View.INVISIBLE);
+                            binding.imageView8.setVisibility(View.VISIBLE);
                         }
-                    });
-                }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                        Log.d("Failure", t.getMessage());
+                    }
+                });
+            }
         });
+
 
         binding.prombtn2.setOnClickListener(new View.OnClickListener() {
             @Override
