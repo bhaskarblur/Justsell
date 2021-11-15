@@ -1,5 +1,6 @@
 package com.classified.justsell.APIWork;
 
+import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.Models.homeResponse;
 
@@ -87,6 +88,59 @@ public interface ApiWork {
     Call<AuthResponse.SendOtp> add_favourite(@Field("product_id") String ad_id,
                                                 @Field("user_id") String userid);
 
+    @FormUrlEncoded
+    @POST("single_product")
+    Call<AdsModel .adsResp> single_product(@Field("product_id") String ad_id);
 
+    @FormUrlEncoded
+    @POST("add_product")
+    Call<AdsModel.postadsResp> post_automobile( @Field("user_id") String userid,
+                                                @Field("product_name") String name,
+                                                @Field("product_title") String title,
+                                                @Field("product_type") String product_type,
+                                                @Field("product_description")String descr,
+                                                @Field("location") String city,
+                                                @Field("product_sale_price") String sellprice,
+                                                @Field("product_image") String image,
+                                                @Field("brand") String brand,
+                                                @Field("model") String model,
+                                                @Field("purchase_date") String date,
+                                                @Field("fuel_type") String fueltype,
+                                                @Field("transmission") String transm,
+                                                @Field("number_of_owners") String numown,
+                                                @Field("kmdriven") String kmdriven,
+                                                @Field("show_number") String number);
 
+    @FormUrlEncoded
+    @POST("add_product")
+    Call<AdsModel.postadsResp> post_property( @Field("user_id") String userid,
+                                                @Field("product_name") String name,
+                                                @Field("product_title") String title,
+                                                @Field("product_type") String product_type,
+                                                @Field("product_description")String descr,
+                                                @Field("location") String city,
+                                                @Field("product_sale_price") String sellprice,
+                                                @Field("product_image") String image,
+                                                @Field("property_type") String prop_type,
+                                                @Field("ad_type") String ad_type,
+                                                @Field("area") String area,
+                                                @Field("land_type") String land_type,
+                                              @Field("show_number") String number);
+
+    @FormUrlEncoded
+    @POST("add_product")
+    Call<AdsModel.postadsResp> post_other( @Field("user_id") String userid,
+                                              @Field("product_name") String name,
+                                              @Field("product_title") String title,
+                                              @Field("product_type") String product_type,
+                                              @Field("product_description")String descr,
+                                              @Field("product_price") String origprice,
+                                              @Field("location") String city,
+                                              @Field("product_sale_price") String sellprice,
+                                              @Field("product_image") String image,
+                                              @Field("condition") String condition,
+                                              @Field("in_warranty") String warranty,
+                                              @Field("brand") String brand,
+                                              @Field("purchase_date") String date,
+                                           @Field("show_number") String number);
 }

@@ -8,6 +8,16 @@ public class AdsModel {
 
     public class adsResp {
         public String success;
+        public String code;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
         public adsResult result;
 
         public String getSuccess() {
@@ -31,18 +41,38 @@ public class AdsModel {
         @SerializedName("product_id")
         public String ad_id;
         public String user_id;
+        @SerializedName("posted_by")
         public String post_by;
+        @SerializedName("posted_by_image")
         public String post_by_image;
+        @SerializedName("posted_by_number")
+        public String post_by_number;
         public String ad_category_id;
+        @SerializedName("product_category_name")
         public String ad_category_name;
+        @SerializedName("product_title")
         public String ad_title;
+        @SerializedName("product_name")
         public String product_name;
+        @SerializedName("product_description")
         public String description;
+        @SerializedName("product_images")
         public List<imagesres> images;
+
+        public String getPost_by_number() {
+            return post_by_number;
+        }
+
+        public void setPost_by_number(String post_by_number) {
+            this.post_by_number = post_by_number;
+        }
+
         public String condition;
         public String in_warranty;
         public String brand;
+        @SerializedName("product_sale_price")
         public String selling_price;
+        @SerializedName("product_price")
         public String original_price;
         public String model;
         public String purchase_date;
@@ -292,6 +322,39 @@ public class AdsModel {
 
         public void setImage(String image) {
             this.image = image;
+        }
+    }
+
+    public class postadsResp {
+        public String success;
+        public postResult result;
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        public postResult getResult() {
+            return result;
+        }
+
+        public void setResult(postResult result) {
+            this.result = result;
+        }
+    }
+
+    public class postResult {
+        public String product_id;
+
+        public String getProduct_id() {
+            return product_id;
+        }
+
+        public void setProduct_id(String product_id) {
+            this.product_id = product_id;
         }
     }
 }

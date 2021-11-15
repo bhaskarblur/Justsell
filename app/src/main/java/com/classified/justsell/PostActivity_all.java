@@ -38,6 +38,7 @@ public class PostActivity_all extends AppCompatActivity {
     private ActivityPostAllBinding binding;
     private textonlyAdapter condAdapter;
     private Boolean warrantystat = false;
+    private Boolean show_number=false;
     private String condition;
     private imagesAdapter imagesAdapter;
     private List<String> imagesList = new ArrayList<>();
@@ -90,6 +91,17 @@ public class PostActivity_all extends AppCompatActivity {
                     warrantystat = true;
                 } else {
                     warrantystat = false;
+                }
+            }
+        });
+
+        binding.numberSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    show_number = true;
+                } else {
+                    show_number = false;
                 }
             }
         });

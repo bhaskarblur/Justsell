@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class PostActivity_property extends AppCompatActivity {
     private textonlyAdapter propAdapter;
     private textonlyAdapter seloneAdapter;
     private imagesAdapter imagesAdapter;
+    private Boolean show_number=false;
     private String adtype;
     private String proptype;
     private String selone;
@@ -116,6 +118,16 @@ public class PostActivity_property extends AppCompatActivity {
             }
         });
 
+        binding.numberSwitch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    show_number = true;
+                } else {
+                    show_number = false;
+                }
+            }
+        });
         imagesAdapter = new imagesAdapter(PostActivity_property.this, imagesList);
         LinearLayoutManager llm1 = new LinearLayoutManager(PostActivity_property.this);
         llm1.setOrientation(RecyclerView.HORIZONTAL);

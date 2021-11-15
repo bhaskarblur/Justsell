@@ -60,7 +60,7 @@ public class registerProfile extends Fragment {
     private String mParam1;
     private String mParam2;
     private String userid;
-    private Uri imguri =Uri.parse("");
+    private Uri imguri;
 
     public registerProfile() {
         // Required empty public constructor
