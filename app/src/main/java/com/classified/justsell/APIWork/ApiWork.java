@@ -78,7 +78,7 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("remove_favorite")
-    Call<AuthResponse.SendOtp> remove_favourite(@Field("id") String ad_id,
+    Call<AuthResponse.SendOtp> remove_favourite(@Field("product_id") String ad_id,
                                                 @Field("user_id") String userid);
 
 

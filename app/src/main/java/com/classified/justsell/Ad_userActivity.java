@@ -50,6 +50,7 @@ public class Ad_userActivity extends AppCompatActivity {
     String prod_name;
     String cat_name;
     String userid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,8 +154,8 @@ public class Ad_userActivity extends AppCompatActivity {
     private void ManageData() {
         pos = 0;
         Intent intent = getIntent();
-         adid = intent.getStringExtra("ad_id");
-         prod_name = intent.getStringExtra("product_name");
+        adid = intent.getStringExtra("ad_id");
+        prod_name = intent.getStringExtra("product_name");
         cat_name = intent.getStringExtra("cat_name");
         SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
         userid=sharedPreferences.getString("userid","");
@@ -168,12 +169,14 @@ public class Ad_userActivity extends AppCompatActivity {
                     if(adsResults.get(i).getAd_id().equals(adid)) {
                         binding.imageView6.setVisibility(View.INVISIBLE);
                         binding.imageView9.setVisibility(View.VISIBLE);
-
+                        Log.d("favourite","yes "+adsResults.get(i).getAd_id()+","+adid);
                         break;
                     }
                     else {
                         binding.imageView6.setVisibility(View.VISIBLE);
                         binding.imageView9.setVisibility(View.INVISIBLE);
+                        Log.d("favourite","no");
+                        Log.d("favourite","no "+adsResults.get(i).getAd_id()+","+adid);
                     }
                 }
             }
@@ -324,8 +327,6 @@ public class Ad_userActivity extends AppCompatActivity {
                 super.onPageScrollStateChanged(state);
             }
         });
-
-
 
     }
 

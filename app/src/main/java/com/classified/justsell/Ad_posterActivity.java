@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.adImagesAdapter;
 import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.CustomDialogs.askBoost_Dialog;
+import com.classified.justsell.CustomDialogs.deletepost_Dialog;
 import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.Models.AuthResponse;
+import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.ViewModels.AdsViewModel;
 import com.classified.justsell.databinding.ActivityAdPosterBinding;
 import com.classified.justsell.databinding.ActivityAdUserBinding;
@@ -151,7 +154,10 @@ public class Ad_posterActivity extends AppCompatActivity {
         binding.delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle bundle=new Bundle();
+                bundle.putString("ad_id",adid);
+                deletepost_Dialog dialog = new deletepost_Dialog();
+                dialog.show(getSupportFragmentManager(), "dialog");
             }
         });
 
@@ -168,6 +174,25 @@ public class Ad_posterActivity extends AppCompatActivity {
         adsViewModel = new ViewModelProvider(Ad_posterActivity.this).get(AdsViewModel.class);
         adsViewModel.initwork(adid, prod_name,userid);
 
+        adsViewModel.getFavads().observe(Ad_posterActivity.this, new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                for(int i=0;i<adsResults.size();i++) {
+                    if(adsResults.get(i).getAd_id().equals(adid)) {
+                        binding.imageView6.setVisibility(View.INVISIBLE);
+                        binding.imageView8.setVisibility(View.VISIBLE);
+                        Log.d("favourite","yes "+adsResults.get(i).getAd_id()+","+adid);
+                        break;
+                    }
+                    else {
+                        binding.imageView6.setVisibility(View.VISIBLE);
+                        binding.imageView8.setVisibility(View.INVISIBLE);
+                        Log.d("favourite","no");
+                        Log.d("favourite","no "+adsResults.get(i).getAd_id()+","+adid);
+                    }
+                }
+            }
+        });
         adsViewModel.getDataModel().observe(Ad_posterActivity.this, new Observer<AdsModel.adsResult>() {
             @Override
             public void onChanged(AdsModel.adsResult adsResult) {

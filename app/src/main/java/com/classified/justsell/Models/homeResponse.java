@@ -160,7 +160,7 @@ public class homeResponse {
 
     public static class adsResult {
 
-        @SerializedName("id")
+        @SerializedName("product_id")
         public String ad_id;
         @SerializedName("product_title")
         public String ad_title;

@@ -1,5 +1,7 @@
 package com.classified.justsell.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class AdsModel {
@@ -26,7 +28,7 @@ public class AdsModel {
     }
 
     public class adsResult {
-
+        @SerializedName("product_id")
         public String ad_id;
         public String user_id;
         public String post_by;
