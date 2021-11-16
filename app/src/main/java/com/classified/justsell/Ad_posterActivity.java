@@ -272,6 +272,9 @@ public class Ad_posterActivity extends AppCompatActivity {
                         binding.line2Data.setText(adsResult.getProperty_type());
                         binding.line3Data.setText(adsResult.getLand_type());
                         binding.line4Data.setText(adsResult.getArea());
+                        binding.line5.setVisibility(View.GONE);
+                        binding.line6.setVisibility(View.GONE);
+                        binding.line7.setVisibility(View.GONE);
                         binding.line5Data.setVisibility(View.GONE);
                         binding.line6Data.setVisibility(View.GONE);
                         binding.line7Data.setVisibility(View.GONE);
@@ -288,6 +291,9 @@ public class Ad_posterActivity extends AppCompatActivity {
                         binding.line2Data.setText(adsResult.getIn_warranty());
                         binding.line3Data.setText(adsResult.getBrand());
                         binding.line4Data.setText(adsResult.getPurchase_date());
+                        binding.line5.setVisibility(View.GONE);
+                        binding.line6.setVisibility(View.GONE);
+                        binding.line7.setVisibility(View.GONE);
                         binding.line5Data.setVisibility(View.GONE);
                         binding.line6Data.setVisibility(View.GONE);
                         binding.line7Data.setVisibility(View.GONE);

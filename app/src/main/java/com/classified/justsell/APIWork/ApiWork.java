@@ -158,5 +158,9 @@ public interface ApiWork {
     Call<AuthResponse.SendOtp> put_views(@Field("product_id") String ad_id,
                                            @Field("user_id") String userid);
 
+    @FormUrlEncoded
+    @POST("notification")
+    Call<homeResponse.notiResp> get_notifications(@Field("user_id") String userid);
+
 
 }

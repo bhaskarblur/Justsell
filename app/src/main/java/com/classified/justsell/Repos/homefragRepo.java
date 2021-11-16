@@ -87,22 +87,37 @@ public class homefragRepo {
 
     private void getnotisfromServer(String userid) {
 
-        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
-                "Your ad is going to expire"));
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
 
+        ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
-                "Your ad is going to expire"));
+        Call<homeResponse.notiResp> call2=apiWork.get_notifications(userid);
 
+        call2.enqueue(new Callback<homeResponse.notiResp>() {
+            @Override
+            public void onResponse(Call<homeResponse.notiResp> call, Response<homeResponse.notiResp> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Error code",String.valueOf(response.code()));
+                    return;
+                }
 
-        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
-                "Your ad is going to expire"));
+                homeResponse.notiResp resp=response.body();
 
+                if(resp.getResult()!=null) {
+                    for(int i=0;i<resp.getResult().size();i++) {
+                        notilist.add(resp.getResult().get(i));
+                    }
 
-        notilist.add(new homeResponse.notiResult("Iphone 13x Max","https://i.pinimg.com/originals/02/67/d7/0267d7dc3064c5d3ff952f6ced227023.jpg",
-                "Your ad is going to expire"));
+                    notidata.setValue(notilist);
+                }
+            }
 
-        notidata.setValue(notilist);
+            @Override
+            public void onFailure(Call<homeResponse.notiResp> call, Throwable t) {
+                Log.d("Failure_city",t.getMessage());
+            }
+        });
 
 
 

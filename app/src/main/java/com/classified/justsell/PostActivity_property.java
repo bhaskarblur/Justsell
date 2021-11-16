@@ -3,9 +3,15 @@ package com.classified.justsell;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -19,19 +25,31 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.imagesAdapter;
 import com.classified.justsell.Adapters.textonlyAdapter;
+import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.CustomDialogs.askBoost_Dialog;
+import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.databinding.ActivityPostBinding;
 import com.classified.justsell.databinding.ActivityPostPropertyBinding;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostActivity_property extends AppCompatActivity {
     private ActivityPostPropertyBinding binding;
@@ -44,6 +62,8 @@ public class PostActivity_property extends AppCompatActivity {
     private String proptype;
     private String selone;
     private List<String> imagesList = new ArrayList<>();
+    private api_baseurl baseurl=new api_baseurl();
+    String catname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +89,7 @@ public class PostActivity_property extends AppCompatActivity {
 
     private void ManageData() {
         Intent intent=getIntent();
-        String catname=intent.getStringExtra("catname");
+        catname=intent.getStringExtra("catname");
         binding.catname.setText(catname);
         List<String> adtypeList = new ArrayList<>();
         adtypeList.add("Rent");
@@ -85,6 +105,10 @@ public class PostActivity_property extends AppCompatActivity {
         seloneList.add("Plot/Land");
         seloneList.add("Apartment");
         seloneList.add("House");
+
+        adtype=adtypeList.get(0).toString();
+        proptype=proptypeList.get(0).toString();
+        selone=seloneList.get(0).toString();
         adsAdapter = new textonlyAdapter(PostActivity_property.this, adtypeList);
         GridLayoutManager glm = new GridLayoutManager(PostActivity_property.this, 3);
         binding.adtypeRec.setLayoutManager(glm);
@@ -170,51 +194,110 @@ public class PostActivity_property extends AppCompatActivity {
         binding.postAutomobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (imagesList.size() < 2) {
-//                    binding.automobImg.setFocusable(true);
-//                    binding.automobImg.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
-//                } else if (binding.titleTxt.getText().toString().isEmpty()) {
-//                    binding.titleTxt.setFocusable(true);
-//                    binding.titleTxt.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please enter title.", Toast.LENGTH_SHORT).show();
-//
-//                } else if (binding.prodnameTxt.getText().toString().isEmpty()) {
-//                    binding.prodnameTxt.setFocusable(true);
-//                    binding.prodnameTxt.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please enter product name.", Toast.LENGTH_SHORT).show();
-//
-//                } else if (binding.proddescTxt.getText().toString().isEmpty()) {
-//                    binding.proddescTxt.setFocusable(true);
-//                    binding.proddescTxt.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please enter description.", Toast.LENGTH_SHORT).show();
-//
-//                } else if (adtype == null) {
-//                    binding.adtypeRec.setFocusable(true);
-//                    binding.adtypeRec.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please select an ad type.", Toast.LENGTH_SHORT).show();
-//                } else if (proptype == null) {
-//                    binding.proptypeRec.setFocusable(true);
-//                    binding.proptypeRec.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please select a property type.", Toast.LENGTH_SHORT).show();
-//                }
-//                 } else if (selone == null) {
-//                    binding.numofRec.setFocusable(true);
-//                    binding.numofRec.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please select any one.", Toast.LENGTH_SHORT).show();
-//                } else if (binding.prodpriceTxt.getText().toString().isEmpty()) {
-//                    binding.prodpriceTxt.setFocusable(true);
-//                    binding.prodpriceTxt.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please enter the selling price.", Toast.LENGTH_SHORT).show();
-//                } else if (binding.areaTxt.getText().toString().equals("Select Date")) {
-//                    binding.areaTxt.setFocusable(true);
-//                    binding.areaTxt.requestFocus();
-//                    Toast.makeText(PostActivity_property.this, "Please enter the area.", Toast.LENGTH_SHORT).show();
-//                } else {
+                if (imagesList.size() < 2) {
+                    binding.automobImg.setFocusable(true);
+                    binding.automobImg.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
+                } else if (binding.titleTxt.getText().toString().isEmpty()) {
+                    binding.titleTxt.setFocusable(true);
+                    binding.titleTxt.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please enter title.", Toast.LENGTH_SHORT).show();
+
+                } else if (binding.prodnameTxt.getText().toString().isEmpty()) {
+                    binding.prodnameTxt.setFocusable(true);
+                    binding.prodnameTxt.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please enter product name.", Toast.LENGTH_SHORT).show();
+
+                } else if (binding.proddescTxt.getText().toString().isEmpty()) {
+                    binding.proddescTxt.setFocusable(true);
+                    binding.proddescTxt.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please enter description.", Toast.LENGTH_SHORT).show();
+
+                } else if (adtype == null) {
+                    binding.adtypeRec.setFocusable(true);
+                    binding.adtypeRec.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please select an ad type.", Toast.LENGTH_SHORT).show();
+                } else if (proptype == null) {
+                    binding.proptypeRec.setFocusable(true);
+                    binding.proptypeRec.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please select a property type.", Toast.LENGTH_SHORT).show();
+                 } else if (selone == null) {
+                    binding.numofRec.setFocusable(true);
+                    binding.numofRec.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please select any one.", Toast.LENGTH_SHORT).show();
+                } else if (binding.prodpriceTxt.getText().toString().isEmpty()) {
+                    binding.prodpriceTxt.setFocusable(true);
+                    binding.prodpriceTxt.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please enter the selling price.", Toast.LENGTH_SHORT).show();
+                } else if (binding.areaTxt.getText().toString().equals("Select Date")) {
+                    binding.areaTxt.setFocusable(true);
+                    binding.areaTxt.requestFocus();
+                    Toast.makeText(PostActivity_property.this, "Please enter the area.", Toast.LENGTH_SHORT).show();
+                } else {
 //                    Posting API Here
-                askBoost_Dialog dialog = new askBoost_Dialog();
-                dialog.show(getSupportFragmentManager(), "dialog");
-//                }
+
+//                    Posting API Here
+                    SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
+                    String userid=sharedPreferences.getString("userid","");
+                    String city=sharedPreferences.getString("usercity","");
+
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                            .addConverterFactory(GsonConverterFactory.create()).build();
+
+                    ApiWork apiWork = retrofit.create(ApiWork.class);
+                    StringBuilder images=new StringBuilder();
+                    String base64img;
+                    for (int i = 0; i < imagesAdapter.bannerlist.size(); i++) {
+                        try {
+                            InputStream is = getContentResolver().openInputStream(Uri.parse(imagesAdapter.bannerlist.get(i)));
+                            Bitmap image1 = BitmapFactory.decodeStream(is);
+                            ByteArrayOutputStream by = new ByteArrayOutputStream();
+                            image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
+                            base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                            images.append(base64img + ",");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    String number_status;
+                    if(show_number.equals(false)) {
+                        number_status="no";
+                    }
+                    else {
+                        number_status="yes";
+                    }
+                    Call<AdsModel.postadsResp> call=apiWork.post_property(userid,binding.prodnameTxt.getText().toString(),
+                            binding.titleTxt.getText().toString(),"property",binding.proddescTxt.getText().toString(),
+                            city,binding.prodpriceTxt.getText().toString(),images.toString().substring(0,images.toString().length()-1),
+                            proptype,adtype,binding.areaTxt.getText().toString(),selone,number_status,catname);
+
+                    call.enqueue(new Callback<AdsModel.postadsResp>() {
+                        @Override
+                        public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
+                            if(!response.isSuccessful()) {
+                                Log.d("error code",String.valueOf(response.code()));
+                                return;
+                            }
+
+                            if(response.body().getResult()!=null) {
+                                Bundle bundle=new Bundle();
+                                bundle.putString("ad_id",response.body().getResult().getProduct_id());
+                                askBoost_Dialog dialog = new askBoost_Dialog();
+                                dialog.setArguments(bundle);
+                                dialog.show(getSupportFragmentManager(), "dialog");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
+                            Log.d("Failure",t.getMessage());
+                        }
+                    });
+
+
+
+                }
             }
         });
 

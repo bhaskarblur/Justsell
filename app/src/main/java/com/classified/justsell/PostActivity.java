@@ -272,6 +272,7 @@ public class PostActivity extends AppCompatActivity {
                    Toast.makeText(PostActivity.this, "Please enter km driven", Toast.LENGTH_SHORT).show();
                 }
             else {
+
 //                    Posting API Here
                     SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
                     String userid=sharedPreferences.getString("userid","");
