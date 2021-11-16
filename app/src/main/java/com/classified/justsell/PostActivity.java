@@ -272,10 +272,11 @@ public class PostActivity extends AppCompatActivity {
                    Toast.makeText(PostActivity.this, "Please enter km driven", Toast.LENGTH_SHORT).show();
                 }
             else {
+//                    Posting API Here
                     SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
                     String userid=sharedPreferences.getString("userid","");
                     String city=sharedPreferences.getString("usercity","");
-//                    Posting API Here
+
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                             .addConverterFactory(GsonConverterFactory.create()).build();
 
