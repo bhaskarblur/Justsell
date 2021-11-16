@@ -56,7 +56,7 @@ public class AdsModel {
         public String product_name;
         @SerializedName("product_description")
         public String description;
-        @SerializedName("product_images")
+        @SerializedName("product_image")
         public List<imagesres> images;
 
         public String getPost_by_number() {
@@ -85,8 +85,28 @@ public class AdsModel {
         public String land_type;
         public String area;
         public String featured_status;
+        @SerializedName("product_end_date")
         public String promotion_enddate;
+        @SerializedName("views")
         public String ad_views;
+        public String product_type;
+        public String posted_date;
+
+        public String getPosted_date() {
+            return posted_date;
+        }
+
+        public void setPosted_date(String posted_date) {
+            this.posted_date = posted_date;
+        }
+
+        public String getProduct_type() {
+            return product_type;
+        }
+
+        public void setProduct_type(String product_type) {
+            this.product_type = product_type;
+        }
 
         public String getKmdriven() {
             return kmdriven;

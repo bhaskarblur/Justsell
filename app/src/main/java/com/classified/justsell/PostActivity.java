@@ -60,6 +60,7 @@ public class PostActivity extends AppCompatActivity {
     private String fuel;
     private String transmission;
     private String numowner;
+    private String catname;
     private List<String> imagesList = new ArrayList<>();
     private api_baseurl baseurl=new api_baseurl();
     @Override
@@ -87,7 +88,7 @@ public class PostActivity extends AppCompatActivity {
 
     private void ManageData() {
         Intent intent=getIntent();
-        String catname=intent.getStringExtra("catname");
+         catname=intent.getStringExtra("catname");
         binding.catname.setText(catname);
         List<String> fuelList = new ArrayList<>();
         fuelList.add("Petrol");
@@ -105,6 +106,10 @@ public class PostActivity extends AppCompatActivity {
         numList.add("One");
         numList.add("Two");
         numList.add("Three");
+
+        fuel=fuelList.get(0).toString();
+        transmission=transList.get(0).toString();
+        numowner=numList.get(0).toString();
         fuelAdapter = new textonlyAdapter(PostActivity.this, fuelList);
         GridLayoutManager glm = new GridLayoutManager(PostActivity.this, 3);
         binding.fuelRec.setLayoutManager(glm);
@@ -242,7 +247,7 @@ public class PostActivity extends AppCompatActivity {
                 } else if (transmission == null) {
                     binding.transRec.setFocusable(true);
                     binding.transRec.requestFocus();
-                    Toast.makeText(PostActivity.this, "lease select a transmission.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Please select a transmission.", Toast.LENGTH_SHORT).show();
                 }
                 else if (numowner == null) {
                     binding.numofRec.setFocusable(true);
@@ -289,11 +294,19 @@ public class PostActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+
+                    String number_status;
+                    if(show_number.equals(false)) {
+                        number_status="no";
+                    }
+                    else {
+                        number_status="yes";
+                    }
                     Call<AdsModel.postadsResp> call=apiWork.post_automobile(userid,binding.prodnameTxt.getText().toString(),
                             binding.titleTxt.getText().toString(),"automobile",binding.proddescTxt.getText().toString(),
                             city,binding.prodpriceTxt.getText().toString(),images.toString().substring(0,images.toString().length()-1),binding.brandTxt.getText().toString(),
                             binding.modelTxt.getText().toString(),binding.datetxt.getText().toString(),fuel,
-                            transmission,numowner,binding.proddrivenTxt.getText().toString(),"yes");
+                            transmission,numowner,binding.proddrivenTxt.getText().toString(),number_status,catname);
 
                     call.enqueue(new Callback<AdsModel.postadsResp>() {
                         @Override

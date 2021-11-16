@@ -40,7 +40,7 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
 
-        if(list.get(position).getAd_pricecut()!=null) {
+        if(list.get(position).getAd_pricecut()!=null && !list.get(position).getAd_pricecut().equals("")) {
             holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
             holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }

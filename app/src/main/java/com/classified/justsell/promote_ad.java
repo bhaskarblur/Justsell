@@ -1,9 +1,12 @@
 package com.classified.justsell;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +17,11 @@ import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.Models.AuthResponse;
+import com.classified.justsell.ViewModels.AdsViewModel;
 import com.classified.justsell.databinding.ActivityPromoteAdBinding;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +49,28 @@ public class promote_ad extends AppCompatActivity {
 
     private void ManageData() {
         loadfunc();
+        Intent intent=getIntent();
+        String adid=intent.getStringExtra("ad_id");
+        SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
+        String userid=sharedPreferences.getString("userid","");
+        AdsViewModel adsViewModel;
+        adsViewModel = new ViewModelProvider(promote_ad.this).get(AdsViewModel.class);
+        adsViewModel.initwork(adid, "prod_name",userid);
+
+        adsViewModel.getDataModel().observe(promote_ad.this, new Observer<AdsModel.adsResult>() {
+            @Override
+            public void onChanged(AdsModel.adsResult adsResult) {
+                if(adsResult!=null) {
+                    binding.adsTitle.setText(adsResult.getAd_title());
+                    if(adsResult.getImages().size()>0) {
+                        Picasso.get().load(adsResult.getImages().get(0).getImage()).resize(200, 200).into(binding.adsImage);
+                    }
+                    binding.adsPrice.setText("₹ "+adsResult.getSelling_price());
+                    binding.adsDescr.setText(adsResult.getDescription());
+                    binding.adsDate.setText("Posted on "+adsResult.getPosted_date());
+                }
+            }
+        });
         final Calendar myCalendar = Calendar.getInstance();
         final int[] clickcheck = {0};
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -115,6 +143,13 @@ public class promote_ad extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                    finish();
                 }
+            }
+        });
+
+        binding.backbtn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -222,6 +257,7 @@ public class promote_ad extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
+        getViewModelStore().clear();
         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
     }
 }

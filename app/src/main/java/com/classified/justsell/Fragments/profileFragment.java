@@ -39,8 +39,11 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
+import com.classified.justsell.Ad_posterActivity;
+import com.classified.justsell.Ad_userActivity;
 import com.classified.justsell.Adapters.FavadsAdapter;
 import com.classified.justsell.Adapters.MyadsAdapter;
+import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.promadsAdapter;
 import com.classified.justsell.AuthActivity;
 import com.classified.justsell.Constants.api_baseurl;
@@ -87,7 +90,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     private String mParam2;
     private String editedimage;
     private SharedPreferences sharedPreferences;
-    private String userid;
+    private String user_id;
     private MyadsAdapter myadsAdapter;
     private FavadsAdapter favadsAdapter;
     private com.classified.justsell.Adapters.promadsAdapter promadsAdapter;
@@ -124,7 +127,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-        userid = sharedPreferences.getString("userid", "");
+        user_id = sharedPreferences.getString("userid", "");
     }
 
     @Override
@@ -205,7 +208,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                         e.printStackTrace();
                     }
 
-                    Call<AuthResponse.profile_update> call1 = apiWork.updateprofile2(userid, binding.nameTxt.getText().toString()
+                    Call<AuthResponse.profile_update> call1 = apiWork.updateprofile2(user_id, binding.nameTxt.getText().toString()
                             , state, city, base64img, binding.numberTxt.getText().toString());
 
                     call1.enqueue(new Callback<AuthResponse.profile_update>() {
@@ -318,7 +321,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<AuthResponse.VerifyOtp> call = apiWork.getprofile(userid);
+        Call<AuthResponse.VerifyOtp> call = apiWork.getprofile(user_id);
 
         call.enqueue(new Callback<AuthResponse.VerifyOtp>() {
             @Override
@@ -363,7 +366,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         }
 
         profilefragViewModel = new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.profilefragViewModel.class);
-        profilefragViewModel.initwork(userid);
+        profilefragViewModel.initwork(user_id);
         profilefragViewModel.getMyads().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
             @Override
             public void onChanged(List<homeResponse.adsResult> adsResults) {
@@ -424,13 +427,32 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
         favadsAdapter.setonitemClickListener(new FavadsAdapter.onitemClick() {
             @Override
+            public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
+                Intent intent = null;
+                if(!userid.equals(user_id)) {
+                    intent=new Intent(getActivity(), Ad_userActivity.class);
+
+                }
+                else {
+                    // change this to same user activity
+                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                }
+
+                intent.putExtra("cat_name",category_name);
+                intent.putExtra("ad_id",ad_id);
+                intent.putExtra("product_name",prod_name);
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+            }
+            @Override
             public void onHeartClick(String id) {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                 ApiWork apiWork = retrofit.create(ApiWork.class);
 
-                Call<AuthResponse.SendOtp> call1 = apiWork.remove_favourite(id,userid);
+                Call<AuthResponse.SendOtp> call1 = apiWork.remove_favourite(id,user_id);
 
                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {
                     @Override
@@ -459,6 +481,51 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                         Log.d("Failure",t.getMessage());
                     }
                 });
+            }
+        });
+
+        myadsAdapter.setonItemClick(new MyadsAdapter.onItemClick() {
+            @Override
+            public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
+                Intent intent = null;
+                if(!userid.equals(user_id)) {
+                    intent=new Intent(getActivity(), Ad_userActivity.class);
+
+                }
+                else {
+                    // change this to same user activity
+                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                }
+
+                intent.putExtra("cat_name",category_name);
+                intent.putExtra("ad_id",ad_id);
+                intent.putExtra("product_name",prod_name);
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+            }
+        });
+
+        promadsAdapter.setonItemClick(new promadsAdapter.onItemClick() {
+            @Override
+            public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
+                Intent intent = null;
+                if(!userid.equals(user_id)) {
+                    intent=new Intent(getActivity(), Ad_userActivity.class);
+
+                }
+                else {
+                    // change this to same user activity
+                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                }
+
+                intent.putExtra("cat_name",category_name);
+                intent.putExtra("ad_id",ad_id);
+                intent.putExtra("product_name",prod_name);
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+
             }
         });
 
@@ -539,7 +606,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
 
-                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_account(userid);
+                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_account(user_id);
 
                                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {
                                     @Override

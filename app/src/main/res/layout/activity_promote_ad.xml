@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:colorPrimary"
     tools:context=".promote_ad">
 
     <ImageView
@@ -163,7 +164,6 @@
                 android:background="@drawable/roundboxbg"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:clickable="true"
-                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -459,8 +459,8 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Note: Estimated Reach is calculated based on number of users in selected area. Actual number may vary."
-                android:textColor="?android:textColorPrimary"
-                android:textSize="13sp"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/estim_txt" />

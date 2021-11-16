@@ -157,6 +157,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                 Bundle bundle=new Bundle();
                 bundle.putString("ad_id",adid);
                 deletepost_Dialog dialog = new deletepost_Dialog();
+                dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "dialog");
             }
         });
@@ -232,8 +233,14 @@ public class Ad_posterActivity extends AppCompatActivity {
                     Picasso.get().load(adsResult.getPost_by_image()).transform(new CropCircleTransformation()).resize(150,150)
                             .into(binding.postimage);
                     binding.postname.setText(adsResult.getPost_by());
+                    if(adsResult.getPost_by_number()!=null) {
+                        binding.postnumber.setText(adsResult.getPost_by_number());
+                    }
+                    else {
+                        binding.postnumber.setText("Number not shared.");
+                    }
                     binding.promDateTxt.setText("Ad ending on "+adsResult.getPromotion_enddate());
-                    if (cat_name.equals("Automobile") || cat_name.equals("Car") || cat_name.equals("Bike"))
+                    if (adsResult.getProduct_type().toString().equals("automobile"))
                     {
                         binding.line1.setText("Brand");
                         binding.line2.setText("Model");
@@ -252,7 +259,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                         binding.line7Data.setText(adsResult.getNumber_of_owners());
 
 
-                    } else if (cat_name.equals("Property") || cat_name.equals("House") || cat_name.equals("Land"))
+                    } else if (adsResult.getProduct_type().toString().equals("property"))
                     {
 
                         binding.line1.setText("Ad Type");
@@ -341,7 +348,6 @@ public class Ad_posterActivity extends AppCompatActivity {
                 super.onPageScrollStateChanged(state);
             }
         });
-
 
 
     }

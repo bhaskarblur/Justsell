@@ -40,7 +40,7 @@ public class promadsAdapter extends RecyclerView.Adapter<promadsAdapter.ViewHold
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());
-        if(list.get(position).getAd_pricecut()!=null) {
+        if(list.get(position).getAd_pricecut()!=null&& !list.get(position).getAd_pricecut().equals("")) {
             holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
             holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }

@@ -40,7 +40,7 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
         Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
-        if(list.get(position).getAd_pricecut()!=null) {
+        if(list.get(position).getAd_pricecut()!=null&& !list.get(position).getAd_pricecut().equals("")) {
             holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
             holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
@@ -97,7 +97,7 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                        listener1.onAdClick(list.get(getAdapterPosition()).getAd_category()
+                        listener.onAdClick(list.get(getAdapterPosition()).getAd_category()
                                 ,list.get(getAdapterPosition()).getAd_id(),list.get(getAdapterPosition())
                                         .getProduct_name(),list.get(getAdapterPosition()).getUser_id());
                     }
@@ -106,13 +106,14 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
         }
     }
     public interface onItemClick {
-        void onAdClick(String category_name,String ad_id,String prod_name,String userid);
+
     }
 
     public void setonItemClick(onItemClick listener1) {
         this.listener1=listener1;
     }
     public interface onitemClick {
+        void onAdClick(String category_name,String ad_id,String prod_name,String userid);
         void onHeartClick(String id);
     }
 

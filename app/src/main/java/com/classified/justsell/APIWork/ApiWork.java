@@ -109,7 +109,8 @@ public interface ApiWork {
                                                 @Field("transmission") String transm,
                                                 @Field("number_of_owners") String numown,
                                                 @Field("kmdriven") String kmdriven,
-                                                @Field("show_number") String number);
+                                                @Field("show_number") String number,
+                                                @Field("product_category_name") String catname);
 
     @FormUrlEncoded
     @POST("add_product")
@@ -125,7 +126,8 @@ public interface ApiWork {
                                                 @Field("ad_type") String ad_type,
                                                 @Field("area") String area,
                                                 @Field("land_type") String land_type,
-                                              @Field("show_number") String number);
+                                              @Field("show_number") String number,
+                                              @Field("product_category_name") String catname);
 
     @FormUrlEncoded
     @POST("add_product")
@@ -142,5 +144,19 @@ public interface ApiWork {
                                               @Field("in_warranty") String warranty,
                                               @Field("brand") String brand,
                                               @Field("purchase_date") String date,
-                                           @Field("show_number") String number);
+                                           @Field("show_number") String number,
+                                           @Field("product_category_name") String catname);
+
+    @FormUrlEncoded
+    @POST("remove_product")
+    Call<AuthResponse.SendOtp> delete_post(@Field("product_id") String ad_id,
+                                           @Field("user_id") String userid,
+                                           @Field("reason") String reason);
+
+    @FormUrlEncoded
+    @POST("views")
+    Call<AuthResponse.SendOtp> put_views(@Field("product_id") String ad_id,
+                                           @Field("user_id") String userid);
+
+
 }

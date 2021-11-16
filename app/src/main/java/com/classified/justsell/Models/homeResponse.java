@@ -170,17 +170,17 @@ public class homeResponse {
         public String ad_category;
         @SerializedName("product_description")
         public String ad_description;
-        @SerializedName("sdate")
+        @SerializedName("posted_date")
         public String ad_date;
         public String featured_status;
-        @SerializedName("product_price")
-        public String ad_price;
         @SerializedName("product_sale_price")
+        public String ad_price;
+        @SerializedName("product_price")
         public String ad_pricecut;
         public String product_name;
         public String user_id;
         public String location;
-        @SerializedName("post_by")
+        @SerializedName("posted_by")
         public String fav_name;
 
         public void setUser_id(String user_id) {
@@ -391,12 +391,23 @@ public class homeResponse {
     }
 
     public static class notiResult {
+        @SerializedName("id")
         public String noti_id;
+        @SerializedName("product_id")
         public String ad_id;
+        public String user_id;
         public String title;
+        @SerializedName("img")
         public String image;
         public String description;
 
+        public String getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
+        }
 
         public notiResult(String title, String image, String description) {
             this.title = title;

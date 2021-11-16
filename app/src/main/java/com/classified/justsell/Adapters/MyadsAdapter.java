@@ -39,7 +39,7 @@ public class MyadsAdapter extends RecyclerView.Adapter<MyadsAdapter.ViewHolder> 
         Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
-        if(list.get(position).getAd_pricecut()!=null) {
+        if(list.get(position).getAd_pricecut()!=null && !list.get(position).getAd_pricecut().equals("")) {
             holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
             holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }

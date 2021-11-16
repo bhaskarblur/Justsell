@@ -106,8 +106,9 @@
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:fontFamily="@font/poppins"
                 android:gravity="left"
+                android:paddingRight="10dp"
                 android:hint="Enter Product Description"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textMultiLine"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:textColor="?android:textColorPrimary"
@@ -351,14 +352,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="141dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
                 android:text="Model"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/brand_txt"
+                app:layout_constraintStart_toEndOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/prodname_txt" />
 
             <EditText

@@ -141,7 +141,6 @@ public class Ad_userActivity extends AppCompatActivity {
         });
 
 
-
         binding.chatbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -220,7 +219,13 @@ public class Ad_userActivity extends AppCompatActivity {
                     Picasso.get().load(adsResult.getPost_by_image()).transform(new CropCircleTransformation()).resize(150,150)
                             .into(binding.postimage);
                     binding.postname.setText(adsResult.getPost_by());
-                    if (cat_name.equals("Automobile") || cat_name.equals("car") || cat_name.equals("Bike")) {
+                    if(adsResult.getPost_by_number()!=null) {
+                        binding.postnumber.setText(adsResult.getPost_by_number());
+                    }
+                    else {
+                        binding.postnumber.setText("Number not shared.");
+                    }
+                    if (adsResult.getProduct_type().toString().equals("automobile")) {
 
                         binding.line1.setText("Brand");
                         binding.line2.setText("Model");
@@ -239,7 +244,7 @@ public class Ad_userActivity extends AppCompatActivity {
                         binding.line7Data.setText(adsResult.getNumber_of_owners());
 
 
-                    } else if (cat_name.equals("Property") || cat_name.equals("House") || cat_name.equals("Land")) {
+                    } else if (adsResult.getProduct_type().toString().equals("property")) {
 
                         binding.line1.setText("Ad Type");
                         binding.line2.setText("Property Type");
@@ -328,6 +333,34 @@ public class Ad_userActivity extends AppCompatActivity {
             }
         });
 
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<AuthResponse.SendOtp> call1 = apiWork.put_views(adid,userid);
+
+        call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+            @Override
+            public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                if(!response.isSuccessful()) {
+                    Log.d("error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                AuthResponse.SendOtp resp=response.body();
+
+                if(resp.getCode().equals("200")) {
+                    //
+                    Log.d("addcount","yes");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                Log.d("Failure",t.getMessage());
+            }
+        });
     }
 
 

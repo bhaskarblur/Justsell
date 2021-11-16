@@ -162,7 +162,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="7dp"
                 android:fontFamily="@font/poppins"
-                android:text="1k"
+                android:text="0"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -196,14 +196,15 @@
 
             <TextView
                 android:id="@+id/prodtitle_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins"
                 android:text="Product Title"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/chatlay"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodprice_txt" />
 
@@ -225,7 +226,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Posted By"
                 android:textColor="?android:textColorPrimary"
@@ -394,7 +395,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Line 1"
                 android:textColor="?android:textColorPrimary"
@@ -407,7 +408,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="180dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
@@ -417,14 +418,16 @@
 
             <TextView
                 android:id="@+id/proddesc_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="70dp"
                 android:fontFamily="@font/poppins"
                 android:text="Product Description"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodtitle_txt" />
 
@@ -470,7 +473,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout6"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -484,7 +487,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:layout_marginTop="17dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/poppins"
                     android:text="Posted By Name"
                     android:textColor="?android:textColorPrimary"
@@ -492,13 +495,28 @@
                     app:layout_constraintStart_toEndOf="@+id/postimage"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/postnumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Posted By Number"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/postimage"
+                    app:layout_constraintTop_toBottomOf="@+id/postname" />
+
                 <ImageView
                     android:id="@+id/postimage"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginBottom="13dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="9dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
