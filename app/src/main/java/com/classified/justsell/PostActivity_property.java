@@ -285,6 +285,7 @@ public class PostActivity_property extends AppCompatActivity {
                                 bundle.putString("ad_id",response.body().getResult().getProduct_id());
                                 askBoost_Dialog dialog = new askBoost_Dialog();
                                 dialog.setArguments(bundle);
+                                dialog.setCancelable(false);
                                 dialog.show(getSupportFragmentManager(), "dialog");
                             }
                         }

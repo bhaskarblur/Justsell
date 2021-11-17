@@ -90,9 +90,21 @@ public class promote_ad extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, i);
                 myCalendar.set(Calendar.MONTH, i1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, i2);
+                String dateString = myCalendar.getTime().getDate()+"/"+
+                        myCalendar.getTime().getMonth()+"/"+myCalendar.getTime().getYear();
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy"); // here set the pattern as you date in string was containing like date/month/year
+                Date d1 = null;
+                Date dateObj=null;
+                try {
+                    d1 = sdf1.parse(dateString);
+                    String today=Calendar.getInstance().getTime().getDate()+"/"+
+                            Calendar.getInstance().getTime().getMonth()+"/"+Calendar.getInstance().getTime().getYear();
+                    dateObj = sdf1.parse(today);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 String myFormat = "dd/MM/yy"; //In which you need put here
-                float checkstat = myCalendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
-                if (checkstat < 0) {
+                if (d1.before(dateObj)) {
                     Toast.makeText(promote_ad.this, "Please select a date in future.", Toast.LENGTH_SHORT).show();
                 } else {
                     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -101,8 +113,24 @@ public class promote_ad extends AppCompatActivity {
                         binding.datetxt.setText(sdf.format(myCalendar.getTime()));
                         docalculation();
                     } else {
-                        binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
-                        docalculation();
+                        try {
+                            d1 = sdf1.parse(binding.datetxt.getText().toString());
+                            String enddate=myCalendar.getTime().getDate()+"/"+
+                                    myCalendar.getTime().getMonth()+"/"+myCalendar.getTime().getYear();
+                            dateObj = sdf1.parse(enddate);
+
+                            if(dateObj.before(d1)) {
+                                binding.datetxtEnd.setText("Select Date");
+                                Toast.makeText(promote_ad.this, "Please select end date in future of start date.", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
+                                docalculation();
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }
             }
@@ -143,10 +171,11 @@ public class promote_ad extends AppCompatActivity {
                 calendar2.set(d2.getYear(),d2.getMonth(),d2.getDate());
                 long diff=d2.getTime()-d1.getTime();
                 if(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)>0) {
-                    cost = String.valueOf((float)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * 11.8);
+                    cost = String.valueOf((float)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * 11.8).substring(0,7);
                     binding.prombudTxt.setText("Promotion Budget:    Rs " + cost);
                 }
                 else {
+                    binding.datetxtEnd.setText("Select Date");
                     Toast.makeText(promote_ad.this, "Please select end date in future of start date.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -203,7 +232,7 @@ public class promote_ad extends AppCompatActivity {
                             if(resp.getCode().equals("200")) {
                                 //
                                 Toast.makeText(promote_ad.this, "Ad Promoted", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(promote_ad.this, adposted_successful.class));
+                                startActivity(new Intent(promote_ad.this, adpromoted_successful.class));
                                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                                 finish();
                             }
@@ -289,6 +318,8 @@ public class promote_ad extends AppCompatActivity {
                                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                     if (!parent.getItemAtPosition(position).equals("Select City")) {
                                                         binding.cityet.setText(parent.getItemAtPosition(position).toString());
+                                                        reach="2000-3000";
+                                                        binding.estimTxt.setText("Estimated Reach*:    " + reach);
                                                     }
                                                 }
 

@@ -85,7 +85,7 @@ public class AdsModel {
         public String land_type;
         public String area;
         public String featured_status;
-        @SerializedName("product_end_date")
+        @SerializedName("end_date")
         public String promotion_enddate;
         @SerializedName("views")
         public String ad_views;

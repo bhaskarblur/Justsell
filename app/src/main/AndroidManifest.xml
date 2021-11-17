@@ -20,6 +20,10 @@
         android:theme="@style/Theme.Justsell"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".adpromoted_successful"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".Ad_posterActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
