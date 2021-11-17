@@ -1,6 +1,7 @@
 package com.classified.justsell;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,16 +18,20 @@ import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.Fragments.profileFragment;
 import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.ViewModels.AdsViewModel;
 import com.classified.justsell.databinding.ActivityPromoteAdBinding;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +41,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class promote_ad extends AppCompatActivity {
     private ActivityPromoteAdBinding binding;
+    private api_baseurl baseurl=new api_baseurl();
+    String adid;
+    String userid;
+    String cost;
+    String reach;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +60,9 @@ public class promote_ad extends AppCompatActivity {
     private void ManageData() {
         loadfunc();
         Intent intent=getIntent();
-        String adid=intent.getStringExtra("ad_id");
+        adid=intent.getStringExtra("ad_id");
         SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
-        String userid=sharedPreferences.getString("userid","");
+         userid=sharedPreferences.getString("userid","");
         AdsViewModel adsViewModel;
         adsViewModel = new ViewModelProvider(promote_ad.this).get(AdsViewModel.class);
         adsViewModel.initwork(adid, "prod_name",userid);
@@ -81,12 +91,19 @@ public class promote_ad extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, i1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, i2);
                 String myFormat = "dd/MM/yy"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                if(clickcheck[0]==0) {
-                    binding.datetxt.setText(sdf.format(myCalendar.getTime()));
-                }
-                else {
-                    binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
+                float checkstat = myCalendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+                if (checkstat < 0) {
+                    Toast.makeText(promote_ad.this, "Please select a date in future.", Toast.LENGTH_SHORT).show();
+                } else {
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    if (clickcheck[0] == 0) {
+                        binding.datetxt.setText(sdf.format(myCalendar.getTime()));
+                        docalculation();
+                    } else {
+                        binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
+                        docalculation();
+                    }
                 }
             }
 
@@ -111,6 +128,32 @@ public class promote_ad extends AppCompatActivity {
                 clickcheck[0] =1;
             }
         });
+    }
+
+    private void docalculation() {
+
+        if(!binding.datetxtEnd.getText().toString().equals("Select Date") && !binding.datetxt.getText().toString().equals("Select Date")) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // here set the pattern as you date in string was containing like date/month/year
+                Date d1 = sdf.parse(binding.datetxt.getText().toString());
+                Date d2 = sdf.parse(binding.datetxtEnd.getText().toString());
+                Calendar calendar1=Calendar.getInstance();
+                calendar1.set(d1.getYear(),d1.getMonth(),d1.getDate());
+                Calendar calendar2=Calendar.getInstance();
+                calendar2.set(d2.getYear(),d2.getMonth(),d2.getDate());
+                long diff=d2.getTime()-d1.getTime();
+                if(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)>0) {
+                    cost = String.valueOf((float)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * 11.8);
+                    binding.prombudTxt.setText("Promotion Budget:    Rs " + cost);
+                }
+                else {
+                    Toast.makeText(promote_ad.this, "Please select end date in future of start date.", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void viewfunc() {
@@ -139,9 +182,39 @@ public class promote_ad extends AppCompatActivity {
                 }
                else {
                    // Api Call
-                    startActivity(new Intent(promote_ad.this, adposted_successful.class));
-                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                   finish();
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                            .addConverterFactory(GsonConverterFactory.create()).build();
+
+                    ApiWork apiWork = retrofit.create(ApiWork.class);
+
+                    Call<AuthResponse.SendOtp> call1 = apiWork.do_promotion(adid,userid,binding.datetxt.getText().toString(),
+                            binding.datetxtEnd.getText().toString(),binding.cityet.getText().toString(),cost,reach);
+
+                    call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                        @Override
+                        public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                            if(!response.isSuccessful()) {
+                                Log.d("error code",String.valueOf(response.code()));
+                                return;
+                            }
+
+                            AuthResponse.SendOtp resp=response.body();
+
+                            if(resp.getCode().equals("200")) {
+                                //
+                                Toast.makeText(promote_ad.this, "Ad Promoted", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(promote_ad.this, adposted_successful.class));
+                                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                            Log.d("Failure",t.getMessage());
+                        }
+                    });
+
                 }
             }
         });

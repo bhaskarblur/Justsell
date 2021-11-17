@@ -51,6 +51,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         handlePermissions();
         handleBottomNav();
+        Intent intent=new Intent(this,promote_ad.class);
+        intent.putExtra("ad_id","1");
+        startActivity(intent);
     }
 
     private void handlePermissions() {

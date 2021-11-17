@@ -162,5 +162,18 @@ public interface ApiWork {
     @POST("notification")
     Call<homeResponse.notiResp> get_notifications(@Field("user_id") String userid);
 
+    @FormUrlEncoded
+    @POST("promotion")
+    Call<AuthResponse.SendOtp> do_promotion(@Field("product_id") String ad_id,
+                                         @Field("user_id") String userid,
+                                            @Field("start_date") String start_date,
+                                            @Field("end_date") String end_date,
+                                            @Field("location") String city,
+                                            @Field("promotion_cost") String cost,
+                                            @Field("promotion_reach") String reach);
 
+
+    @FormUrlEncoded
+    @POST("reach")
+    Call<homeResponse.notiResp> get_reach(@Field("location") String city);
 }
