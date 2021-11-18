@@ -1,5 +1,6 @@
 package com.classified.justsell;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -8,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +49,8 @@ public class promote_ad extends AppCompatActivity {
     String userid;
     String cost;
     String reach;
+    String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
+    int GOOGLE_PAY_REQUEST_CODE = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +176,7 @@ public class promote_ad extends AppCompatActivity {
                 calendar2.set(d2.getYear(),d2.getMonth(),d2.getDate());
                 long diff=d2.getTime()-d1.getTime();
                 if(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)>0) {
-                    cost = String.valueOf((float)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * 11.8).substring(0,7);
+                    cost = String.valueOf((int)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * 11.8).substring(0,7);
                     binding.prombudTxt.setText("Promotion Budget:    Rs " + cost);
                 }
                 else {
@@ -185,6 +190,15 @@ public class promote_ad extends AppCompatActivity {
         }
     }
 
+    private boolean isPackageInstalled(String packageName) {
+        PackageManager packageManager = getPackageManager();
+        try {
+            packageManager.getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
     private void viewfunc() {
         binding.promoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,38 +225,28 @@ public class promote_ad extends AppCompatActivity {
                 }
                else {
                    // Api Call
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                            .addConverterFactory(GsonConverterFactory.create()).build();
+                    Uri uri = new Uri.Builder().scheme("upi").authority("pay")
+                            .appendQueryParameter("pa", "8299189690@okbizaxis")
+                            .appendQueryParameter("pn", "sanjay")
+                            .appendQueryParameter("am", cost)
+                            .appendQueryParameter("cu", "INR")
+                            .build();
 
-                    ApiWork apiWork = retrofit.create(ApiWork.class);
+                    Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
+                    upiPayIntent.setData(uri);
+                    Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
 
-                    Call<AuthResponse.SendOtp> call1 = apiWork.do_promotion(adid,userid,binding.datetxt.getText().toString(),
-                            binding.datetxtEnd.getText().toString(),binding.cityet.getText().toString(),cost,reach);
-
-                    call1.enqueue(new Callback<AuthResponse.SendOtp>() {
-                        @Override
-                        public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-                            if(!response.isSuccessful()) {
-                                Log.d("error code",String.valueOf(response.code()));
-                                return;
-                            }
-
-                            AuthResponse.SendOtp resp=response.body();
-
-                            if(resp.getCode().equals("200")) {
-                                //
-                                Toast.makeText(promote_ad.this, "Ad Promoted", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(promote_ad.this, adpromoted_successful.class));
-                                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                                finish();
-                            }
+                    if (chooser.resolveActivity(getPackageManager()) != null) {
+                        try {
+                            startActivityForResult(upiPayIntent, GOOGLE_PAY_REQUEST_CODE);
+                        } catch (Exception e) {
+                            Toast.makeText(promote_ad.this, "No UPI Apps Found", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(promote_ad.this, "No UPI Apps Found!", Toast.LENGTH_SHORT).show();
+                    }
 
-                        @Override
-                        public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                            Log.d("Failure",t.getMessage());
-                        }
-                    });
+
 
                 }
             }
@@ -270,7 +274,7 @@ public class promote_ad extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse.getstate> call, Response<AuthResponse.getstate> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("error code:", String.valueOf(response.code()));
+                    Log.d("error code_state:", String.valueOf(response.code()));
                     return;
                 }
 
@@ -355,6 +359,97 @@ public class promote_ad extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void confirmPromotion() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<AuthResponse.SendOtp> call1 = apiWork.do_promotion(adid,userid,binding.datetxt.getText().toString(),
+                binding.datetxtEnd.getText().toString(),binding.cityet.getText().toString(),cost,reach);
+
+        call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+            @Override
+            public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                if(!response.isSuccessful()) {
+                    Log.d("error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                AuthResponse.SendOtp resp=response.body();
+
+                if(resp.getCode().equals("200")) {
+                    //
+                    Toast.makeText(promote_ad.this, "Ad Promoted", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(promote_ad.this, adpromoted_successful.class));
+                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                Log.d("Failure",t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String status = new String();
+        if (data != null) {
+            if (data.getData() != null) {
+                status = data.getDataString().toLowerCase();
+            }
+            if (requestCode == RESULT_OK) {
+                try {
+                    if (status.equals("success")) {
+                        String resper = data.getStringExtra("response");
+                        Log.d("response", resper);
+                        ArrayList<String> breakresp = new ArrayList<>();
+                        breakresp.add(resper);
+                        upiPaymentDataOperation(breakresp);
+                    } else {
+                        Toast.makeText(promote_ad.this, "Payment Failed!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(promote_ad.this, "There Was An Error While Paying.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+    }
+
+    private void upiPaymentDataOperation(ArrayList<String> breakresp) {
+        String str = breakresp.get(0);
+        Log.d("description:", str);
+        String paycancel = "";
+        String status = "";
+        String approvalrefno = "";
+        String resp[] = str.split("&");
+        for (int i = 0; i < resp.length; i++) {
+            String equalstr[] = resp[i].split("=");
+            if (equalstr.length >= 2) {
+                if (equalstr[0].toLowerCase().equals("Status".toLowerCase())) {
+                    status = equalstr[1].toLowerCase();
+                } else if (equalstr[0].toLowerCase().equals("ApprovalRefNo".toLowerCase()) ||
+                        equalstr[0].toLowerCase().equals("txnRef".toLowerCase())) {
+                    approvalrefno = equalstr[1];
+                } else {
+                    paycancel = "Payment Cancelled By User.";
+                }
+            }
+
+            if (status.equals("success")) {
+                Log.d("success with RefNo:", approvalrefno);
+                Toast.makeText(promote_ad.this, "Please Wait!", Toast.LENGTH_SHORT).show();
+                confirmPromotion();
+            }
+        }
 
     }
 

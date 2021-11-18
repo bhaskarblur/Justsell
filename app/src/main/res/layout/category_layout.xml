@@ -14,8 +14,8 @@
         android:id="@+id/fieldname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/poppins"
         android:letterSpacing="0.01"
         android:text="Sports"
@@ -24,8 +24,8 @@
         android:textSize="12.5sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fieldimg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

@@ -64,6 +64,7 @@ public class homeFragment extends Fragment implements LocationListener {
     private String city;
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationProviderClient;
+
     public homeFragment() {
         // Required empty public constructor
     }
@@ -86,12 +87,11 @@ public class homeFragment extends Fragment implements LocationListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-        Bundle bundle=getArguments();
-        if(bundle!=null) {
-             city=bundle.getString("city");
-        }
-        else {
-            city= sharedPreferences.getString("usercity","");
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            city = bundle.getString("city");
+        } else {
+            city = sharedPreferences.getString("usercity", "");
         }
 
     }
@@ -99,20 +99,19 @@ public class homeFragment extends Fragment implements LocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        hmbinding=FragmentHomeBinding.inflate(inflater,container,false);
-        View bottombar=getActivity().findViewById(R.id.bottomnav);
+        hmbinding = FragmentHomeBinding.inflate(inflater, container, false);
+        View bottombar = getActivity().findViewById(R.id.bottomnav);
         bottombar.setVisibility(View.VISIBLE);
-        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
-            noInternetFragment nocon=new noInternetFragment();
+            noInternetFragment nocon = new noInternetFragment();
             FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
             transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
             transaction1.replace(R.id.mainFragment, nocon);
             transaction1.addToBackStack("A");
             transaction1.commit();
-        }
-        else {
+        } else {
             ManageData();
             viewfuncs();
         }
@@ -123,7 +122,7 @@ public class homeFragment extends Fragment implements LocationListener {
         hmbinding.citytext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                locationFragment homeFragment=new locationFragment();
+                locationFragment homeFragment = new locationFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
                 transaction.replace(R.id.mainFragment, homeFragment);
@@ -135,7 +134,7 @@ public class homeFragment extends Fragment implements LocationListener {
         hmbinding.locaticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                locationFragment homeFragment=new locationFragment();
+                locationFragment homeFragment = new locationFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
                 transaction.replace(R.id.mainFragment, homeFragment);
@@ -228,7 +227,7 @@ public class homeFragment extends Fragment implements LocationListener {
         hmbinding.searchicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchFragment homeFragment=new searchFragment();
+                searchFragment homeFragment = new searchFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
                 transaction.replace(R.id.mainFragment, homeFragment);
@@ -240,7 +239,7 @@ public class homeFragment extends Fragment implements LocationListener {
         hmbinding.notiicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notiFragment homeFragment=new notiFragment();
+                notiFragment homeFragment = new notiFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
                 transaction.replace(R.id.mainFragment, homeFragment);
@@ -250,24 +249,41 @@ public class homeFragment extends Fragment implements LocationListener {
         });
     }
 
+    private void searchfun(String query) {
+        List<homeResponse.adsResult> searchedList = new ArrayList<>();
+        for (homeResponse.adsResult model : hmViewModel.getAdsdata().getValue()) {
+
+            if (model.getAd_category().toLowerCase().contains(query.toLowerCase()) ||
+                    model.getAd_category().toLowerCase().contains(query.toLowerCase())) {
+
+                if (model.getFeatured_status().equals("1")) {
+                    searchedList.add(model);
+                } else {
+                    searchedList.add(model);
+                }
+            }
+
+        }
+        adsAdapter.searchList(searchedList);
+    }
+
     private void ManageData() {
         pos = 0;
         user_id = sharedPreferences.getString("userid", "");
-        String state=sharedPreferences.getString("userstate","");
+        String state = sharedPreferences.getString("userstate", "");
         String citystate;
-        Bundle bundle=getArguments();
-        if(bundle!=null) {
-            citystate=bundle.getString("city");
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            citystate = bundle.getString("city");
             hmbinding.citytext.setText(citystate);
-        }
-        else {
-             citystate=sharedPreferences.getString("usercity","");
-            hmbinding.citytext.setText(citystate+", "+state);
+        } else {
+            citystate = sharedPreferences.getString("usercity", "");
+            hmbinding.citytext.setText(citystate + ", " + state);
         }
 
 
-        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-        hmViewModel.initwork(user_id,"0","0",city);
+        hmViewModel = new ViewModelProvider(getActivity()).get(homefragViewModel.class);
+        hmViewModel.initwork(user_id, "0", "0", city);
 
         hmViewModel.getBannerdata().observe(getActivity(), new Observer<List<homeResponse.bannerResult>>() {
             @Override
@@ -289,11 +305,11 @@ public class homeFragment extends Fragment implements LocationListener {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(categoryResults.size()>0) {
+                        if (categoryResults.size() > 0) {
                             categoryAdapter.notifyDataSetChanged();
                         }
                     }
-                },100);
+                }, 100);
 
             }
         });
@@ -303,49 +319,52 @@ public class homeFragment extends Fragment implements LocationListener {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(adsResults.size()>0) {
+                        if (adsResults.size() > 0) {
                             adsAdapter.notifyDataSetChanged();
                         }
                     }
-                },100);
+                }, 100);
             }
         });
-        categoryAdapter =new categoryAdapter(getActivity(),hmViewModel.getCategorydata().getValue());
-        LinearLayoutManager llm=new LinearLayoutManager(getActivity());
+        categoryAdapter = new categoryAdapter(getActivity(), hmViewModel.getCategorydata().getValue());
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(RecyclerView.HORIZONTAL);
         hmbinding.categoryrec.setLayoutManager(llm);
         hmbinding.categoryrec.setAdapter(categoryAdapter);
         categoryAdapter.setoncardclicklistener(new categoryAdapter.oncardclicklistener() {
             @Override
             public void oncardclick(String catname) {
-
+                if (!catname.equals("All")) {
+                    searchfun(catname);
+                } else {
+                    searchfun("");
+                }
             }
         });
 
-        adsAdapter=new adsAdapter(getActivity(),hmViewModel.getAdsdata().getValue());
-        LinearLayoutManager llm1=new LinearLayoutManager(getActivity());
+        adsAdapter = new adsAdapter(getActivity(), hmViewModel.getAdsdata().getValue());
+        LinearLayoutManager llm1 = new LinearLayoutManager(getActivity());
         hmbinding.adsrec.setLayoutManager(llm1);
         hmbinding.adsrec.setAdapter(adsAdapter);
 
         adsAdapter.setonItemClick(new adsAdapter.onItemClick() {
             @Override
             public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
-               Intent intent = null;
-                if(!userid.equals(user_id)) {
-                    intent=new Intent(getActivity(), Ad_userActivity.class);
+                Intent intent = null;
+                if (!userid.equals(user_id)) {
+                    intent = new Intent(getActivity(), Ad_userActivity.class);
 
-                }
-                else {
+                } else {
                     // change this to same user activity
-                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                    intent = new Intent(getActivity(), Ad_posterActivity.class);
                 }
 
-                intent.putExtra("cat_name",category_name);
-                intent.putExtra("ad_id",ad_id);
-                intent.putExtra("product_name",prod_name);
+                intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", ad_id);
+                intent.putExtra("product_name", prod_name);
 
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 
             }
         });

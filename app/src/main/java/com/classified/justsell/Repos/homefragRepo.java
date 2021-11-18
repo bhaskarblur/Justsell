@@ -208,6 +208,7 @@ public class homefragRepo {
 
     private void getcategoryfromserver() {
 
+        categorylist.add(new homeResponse.categoryResult("All","All"));
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 

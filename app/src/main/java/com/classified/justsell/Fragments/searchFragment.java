@@ -176,14 +176,24 @@ public class searchFragment extends Fragment {
                 if(model.getAd_title().toLowerCase().contains(query.toLowerCase())
                 || model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
 
-                    searchedList.add(model);
+                    if(model.getFeatured_status().equals("1")) {
+                        searchedList.add(model);
+                    }
+                    else {
+                        searchedList.add(model);
+                    }
                 }
             }
             else{
                 if(model.getAd_title().toLowerCase().contains(query.toLowerCase()) ||
                 model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
 
-                    searchedList.add(model);
+                    if(model.getFeatured_status().equals("1")) {
+                        searchedList.add(model);
+                    }
+                    else {
+                        searchedList.add(model);
+                    }
                 }
             }
 

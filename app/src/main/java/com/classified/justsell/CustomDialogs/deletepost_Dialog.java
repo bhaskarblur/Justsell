@@ -107,37 +107,43 @@ public class deletepost_Dialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 // Delete the ad
+                if(reason[0]!=null) {
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                            .addConverterFactory(GsonConverterFactory.create()).build();
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                        .addConverterFactory(GsonConverterFactory.create()).build();
+                    ApiWork apiWork = retrofit.create(ApiWork.class);
 
-                ApiWork apiWork = retrofit.create(ApiWork.class);
+                    Call<AuthResponse.SendOtp> call1 = apiWork.delete_post(ad_id, userid, reason[0]);
 
-                Call<AuthResponse.SendOtp> call1 = apiWork.delete_post(ad_id,userid,reason[0]);
+                    call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                        @Override
+                        public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("error code", String.valueOf(response.code()));
+                                return;
+                            }
 
-                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
-                    @Override
-                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-                        if(!response.isSuccessful()) {
-                            Log.d("error code",String.valueOf(response.code()));
-                            return;
+                            AuthResponse.SendOtp resp = response.body();
+
+                            if (resp.getCode().equals("200")) {
+                                Toast.makeText(getContext(), "Post Deleted!", Toast.LENGTH_SHORT).show();
+                                getActivity().getViewModelStore().clear();
+                                startActivity(new Intent(getActivity(), HomeActivity.class));
+                                getActivity().finish();
+                            }
                         }
 
-                        AuthResponse.SendOtp resp=response.body();
-
-                        if(resp.getCode().equals("200")) {
-                            Toast.makeText(getContext(), "Post Deleted!", Toast.LENGTH_SHORT).show();
-                            getActivity().getViewModelStore().clear();
-                            startActivity(new Intent(getActivity(), HomeActivity.class));
-                            getActivity().finish();
+                        @Override
+                        public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                            Log.d("Failure", t.getMessage());
                         }
-                    }
+                    });
+                }
+                else {
 
-                    @Override
-                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                        Log.d("Failure",t.getMessage());
-                    }
-                });
+                    Toast.makeText(getContext(), "Please select a reason to delete.", Toast.LENGTH_SHORT).show();
+                
+                }
             }
         });
 

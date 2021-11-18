@@ -40,6 +40,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+
+        if(searchfieldModelList.get(position).getCategory_name().equals("All")) {
+            holder.img.setVisibility(View.GONE);
+        }
         holder.fieldname.setText(searchfieldModelList.get(position).getCategory_name());
         Picasso.get().load(searchfieldModelList.get(position).getCategory_image()).resize(150           ,150)
                 .centerCrop().into(holder.img);
@@ -76,7 +80,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
                     if(position!=RecyclerView.NO_POSITION) {
                         checkpos=position;
                         notifyDataSetChanged();
-                        listener.oncardclick(searchfieldModelList.get(position).getCategory_id());
+                        listener.oncardclick(searchfieldModelList.get(position).getCategory_name());
                     }
 
                 }
