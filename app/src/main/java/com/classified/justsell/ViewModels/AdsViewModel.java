@@ -17,7 +17,7 @@ public class AdsViewModel extends ViewModel {
     public AdsRepo repo=new AdsRepo();
     public MutableLiveData<List<homeResponse.adsResult>> favads;
     public profilefragRepo mrepo=new profilefragRepo();
-
+    public MutableLiveData<List<homeResponse.adsResult>> adsdata;
     public LiveData<List<homeResponse.adsResult>> getFavads() {
         return favads;
     }
@@ -30,9 +30,12 @@ public class AdsViewModel extends ViewModel {
 
         dataModel=repo.getInstance().returndataModel(ad_id);
         favads=mrepo.getInstance().returnfavads(userid);
-
+        adsdata= repo.getInstance().returnadadata(userid);
     }
 
+    public LiveData<List<homeResponse.adsResult>> getAdsdata() {
+        return adsdata;
+    }
 
     public LiveData<AdsModel.adsResult> getDataModel() {
         return dataModel;

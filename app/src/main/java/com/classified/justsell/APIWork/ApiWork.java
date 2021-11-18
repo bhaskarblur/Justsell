@@ -176,4 +176,8 @@ public interface ApiWork {
     @FormUrlEncoded
     @POST("reach")
     Call<homeResponse.notiResp> get_reach(@Field("location") String city);
+
+    @FormUrlEncoded
+    @POST("recommended")
+    Call<homeResponse.ListadsResp> get_recommendedads(@Field("product_id") String userid);
 }

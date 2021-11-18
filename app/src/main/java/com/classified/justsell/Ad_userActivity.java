@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class Ad_userActivity extends AppCompatActivity {
     private Integer pos = 0;
     private com.classified.justsell.Adapters.adImagesAdapter adImagesAdapter;
     private com.classified.justsell.Adapters.adsAdapter adsAdapter;
+    private adsAdapter recom_ads;
     private List<AdsModel.imagesres> bannerlist = new ArrayList<>();
     private AdsViewModel adsViewModel;
     private api_baseurl baseurl=new api_baseurl();
@@ -285,7 +287,45 @@ public class Ad_userActivity extends AppCompatActivity {
                 }
             }
         });
+        adsViewModel.getAdsdata().observe(Ad_userActivity.this, new Observer<List<homeResponse.adsResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.adsResult> adsResults) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(adsResults.size()>0) {
+                            recom_ads=new adsAdapter(Ad_userActivity.this,adsResults);
+                            LinearLayoutManager llm1=new LinearLayoutManager(Ad_userActivity.this);
+                            binding.recomAds.setLayoutManager(llm1);
+                            binding.recomAds.setAdapter(recom_ads);
+                            recom_ads.setonItemClick(new adsAdapter.onItemClick() {
+                                @Override
+                                public void onAdClick(String category_name, String ad_id, String prod_name, String userid1) {
+                                    Intent intent = null;
+                                    if (!userid1.equals(userid)) {
+                                        intent = new Intent(Ad_userActivity.this, Ad_userActivity.class);
 
+                                    } else {
+                                        // change this to same user activity
+                                        intent = new Intent(Ad_userActivity.this, Ad_posterActivity.class);
+                                    }
+
+                                    intent.putExtra("cat_name", category_name);
+                                    intent.putExtra("ad_id", ad_id);
+                                    intent.putExtra("product_name", prod_name);
+                                    getViewModelStore().clear();
+                                    startActivity(intent);
+
+                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
+                                }
+                            });
+                        }
+                    }
+                },100);
+
+            }
+        });
         binding.bannerrv.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
