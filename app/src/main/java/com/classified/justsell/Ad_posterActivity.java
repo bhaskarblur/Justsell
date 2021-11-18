@@ -50,6 +50,7 @@ public class Ad_posterActivity extends AppCompatActivity {
     String prod_name;
     String cat_name;
     String userid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

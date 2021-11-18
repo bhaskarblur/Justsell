@@ -121,22 +121,22 @@ public class postFragment extends Fragment {
         binding.catrec.setAdapter(adapter);
         adapter.setonItemclick(new post_categoryAdapter.onItemClick() {
             @Override
-            public void ontileClick(String catname) {
+            public void ontileClick(String catname,String sendcatname) {
                 if(catname.equals("automobile") || catname.equals("car") || catname.equals("Bike")) {
                     Intent intent=new Intent(getActivity(), PostActivity.class);
-                    intent.putExtra("catname",catname);
+                    intent.putExtra("catname",sendcatname);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 }
                 else if(catname.equals("property") || catname.equals("Property") || catname.equals("Bike")){
                     Intent intent=new Intent(getActivity(), PostActivity_property.class);
-                    intent.putExtra("catname",catname);
+                    intent.putExtra("catname",sendcatname);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 }
                 else {
                     Intent intent=new Intent(getActivity(), PostActivity_all.class);
-                    intent.putExtra("catname",catname);
+                    intent.putExtra("catname",sendcatname);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 }

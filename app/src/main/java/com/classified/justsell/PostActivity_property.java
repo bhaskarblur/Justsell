@@ -61,6 +61,7 @@ public class PostActivity_property extends AppCompatActivity {
     private String adtype;
     private String proptype;
     private String selone;
+    private Boolean posting=false;
     private List<String> imagesList = new ArrayList<>();
     private api_baseurl baseurl=new api_baseurl();
     String catname;
@@ -221,7 +222,7 @@ public class PostActivity_property extends AppCompatActivity {
                     binding.proptypeRec.setFocusable(true);
                     binding.proptypeRec.requestFocus();
                     Toast.makeText(PostActivity_property.this, "Please select a property type.", Toast.LENGTH_SHORT).show();
-                 } else if (selone == null) {
+                } else if (selone == null) {
                     binding.numofRec.setFocusable(true);
                     binding.numofRec.requestFocus();
                     Toast.makeText(PostActivity_property.this, "Please select any one.", Toast.LENGTH_SHORT).show();
@@ -236,68 +237,70 @@ public class PostActivity_property extends AppCompatActivity {
                 } else {
 //                    Posting API Here
 
-//                    Posting API Here
-                    SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
-                    String userid=sharedPreferences.getString("userid","");
-                    String city=sharedPreferences.getString("usercity","");
+                    if (posting.equals(false)) {
+                        posting = true;
 
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                            .addConverterFactory(GsonConverterFactory.create()).build();
+                        SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
+                        String userid = sharedPreferences.getString("userid", "");
+                        String city = sharedPreferences.getString("usercity", "");
 
-                    ApiWork apiWork = retrofit.create(ApiWork.class);
-                    StringBuilder images=new StringBuilder();
-                    String base64img;
-                    for (int i = 0; i < imagesAdapter.bannerlist.size(); i++) {
-                        try {
-                            InputStream is = getContentResolver().openInputStream(Uri.parse(imagesAdapter.bannerlist.get(i)));
-                            Bitmap image1 = BitmapFactory.decodeStream(is);
-                            ByteArrayOutputStream by = new ByteArrayOutputStream();
-                            image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
-                            base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
-                            images.append(base64img + ",");
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                                .addConverterFactory(GsonConverterFactory.create()).build();
 
-                    String number_status;
-                    if(show_number.equals(false)) {
-                        number_status="no";
-                    }
-                    else {
-                        number_status="yes";
-                    }
-                    Call<AdsModel.postadsResp> call=apiWork.post_property(userid,binding.prodnameTxt.getText().toString(),
-                            binding.titleTxt.getText().toString(),"property",binding.proddescTxt.getText().toString(),
-                            city,binding.prodpriceTxt.getText().toString(),images.toString().substring(0,images.toString().length()-1),
-                            proptype,adtype,binding.areaTxt.getText().toString(),selone,number_status,catname);
-
-                    call.enqueue(new Callback<AdsModel.postadsResp>() {
-                        @Override
-                        public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
-                            if(!response.isSuccessful()) {
-                                Log.d("error code",String.valueOf(response.code()));
-                                return;
-                            }
-
-                            if(response.body().getResult()!=null) {
-                                Bundle bundle=new Bundle();
-                                bundle.putString("ad_id",response.body().getResult().getProduct_id());
-                                askBoost_Dialog dialog = new askBoost_Dialog();
-                                dialog.setArguments(bundle);
-                                dialog.setCancelable(false);
-                                dialog.show(getSupportFragmentManager(), "dialog");
+                        ApiWork apiWork = retrofit.create(ApiWork.class);
+                        StringBuilder images = new StringBuilder();
+                        String base64img;
+                        for (int i = 0; i < imagesAdapter.bannerlist.size(); i++) {
+                            try {
+                                InputStream is = getContentResolver().openInputStream(Uri.parse(imagesAdapter.bannerlist.get(i)));
+                                Bitmap image1 = BitmapFactory.decodeStream(is);
+                                ByteArrayOutputStream by = new ByteArrayOutputStream();
+                                image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
+                                base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                                images.append(base64img + ",");
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
                             }
                         }
 
-                        @Override
-                        public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
-                            Log.d("Failure",t.getMessage());
+                        String number_status;
+                        if (show_number.equals(false)) {
+                            number_status = "no";
+                        } else {
+                            number_status = "yes";
                         }
-                    });
+                        Call<AdsModel.postadsResp> call = apiWork.post_property(userid, binding.prodnameTxt.getText().toString(),
+                                binding.titleTxt.getText().toString(), "property", binding.proddescTxt.getText().toString(),
+                                city, binding.prodpriceTxt.getText().toString(), images.toString().substring(0, images.toString().length() - 1),
+                                proptype, adtype, binding.areaTxt.getText().toString(), selone, number_status, catname);
+
+                        call.enqueue(new Callback<AdsModel.postadsResp>() {
+                            @Override
+                            public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
+                                if (!response.isSuccessful()) {
+                                    Log.d("error code", String.valueOf(response.code()));
+                                    return;
+                                }
+
+                                if (response.body().getResult() != null) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("ad_id", response.body().getResult().getProduct_id());
+                                    askBoost_Dialog dialog = new askBoost_Dialog();
+                                    dialog.setArguments(bundle);
+                                    dialog.setCancelable(false);
+                                    dialog.show(getSupportFragmentManager(), "dialog");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
+                                Log.d("Failure", t.getMessage());
+                                posting=false;
+                            }
+                        });
 
 
-
+                    }
                 }
             }
         });

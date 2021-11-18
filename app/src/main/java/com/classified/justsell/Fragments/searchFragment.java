@@ -145,6 +145,8 @@ public class searchFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 if (s.toString() != null && !s.toString().isEmpty()) {
                     binding.searchRec.setVisibility(View.VISIBLE);
+                    binding.notfoundimg.setVisibility(View.INVISIBLE);
+                    binding.nothingfoundtxt.setVisibility(View.INVISIBLE);
                     searchfun(s.toString());
                 }
                 else  {
@@ -197,14 +199,14 @@ public class searchFragment extends Fragment {
                 }
             }
 
-            if(searchedList.size()<1) {
-                binding.notfoundimg.setVisibility(View.VISIBLE);
-                binding.nothingfoundtxt.setVisibility(View.VISIBLE);
-            }
-
 
         }
         adsAdapter.searchList(searchedList);
+        if(searchedList.size()<1) {
+            binding.notfoundimg.setVisibility(View.VISIBLE);
+            binding.nothingfoundtxt.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

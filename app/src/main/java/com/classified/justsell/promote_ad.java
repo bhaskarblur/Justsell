@@ -27,6 +27,7 @@ import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.ViewModels.AdsViewModel;
 import com.classified.justsell.databinding.ActivityPromoteAdBinding;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,7 +80,10 @@ public class promote_ad extends AppCompatActivity {
                 if(adsResult!=null) {
                     binding.adsTitle.setText(adsResult.getAd_title());
                     if(adsResult.getImages().size()>0) {
-                        Picasso.get().load(adsResult.getImages().get(0).getImage()).resize(200, 200).into(binding.adsImage);
+                        final int radius = 13;
+                        final int margin = 7;
+                        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+                        Picasso.get().load(adsResult.getImages().get(0).getImage()).transform(transformation).resize(200, 200).into(binding.adsImage);
                     }
                     binding.adsPrice.setText("₹ "+adsResult.getSelling_price());
                     binding.adsDescr.setText(adsResult.getDescription());
@@ -176,7 +181,7 @@ public class promote_ad extends AppCompatActivity {
                 calendar2.set(d2.getYear(),d2.getMonth(),d2.getDate());
                 long diff=d2.getTime()-d1.getTime();
                 if(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)>0) {
-                    cost = String.valueOf((int)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * 11.8).substring(0,7);
+                    cost = String.valueOf((float) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * (float)11.8);
                     binding.prombudTxt.setText("Promotion Budget:    Rs " + cost);
                 }
                 else {

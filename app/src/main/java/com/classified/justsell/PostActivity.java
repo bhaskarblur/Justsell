@@ -61,6 +61,7 @@ public class PostActivity extends AppCompatActivity {
     private String transmission;
     private String numowner;
     private String catname;
+    private Boolean posting=false;
     private List<String> imagesList = new ArrayList<>();
     private api_baseurl baseurl=new api_baseurl();
     @Override
@@ -274,67 +275,72 @@ public class PostActivity extends AppCompatActivity {
             else {
 
 //                    Posting API Here
-                    SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
-                    String userid=sharedPreferences.getString("userid","");
-                    String city=sharedPreferences.getString("usercity","");
 
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                            .addConverterFactory(GsonConverterFactory.create()).build();
+                    if (posting.equals(false)) {
+                        posting = true;
 
-                    ApiWork apiWork = retrofit.create(ApiWork.class);
-                    StringBuilder images=new StringBuilder();
-                    String base64img;
-                    for (int i = 0; i < imagesAdapter.bannerlist.size(); i++) {
-                        try {
-                            InputStream is = getContentResolver().openInputStream(Uri.parse(imagesAdapter.bannerlist.get(i)));
-                            Bitmap image1 = BitmapFactory.decodeStream(is);
-                            ByteArrayOutputStream by = new ByteArrayOutputStream();
-                            image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
-                            base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
-                            images.append(base64img + ",");
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                        SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
+                        String userid = sharedPreferences.getString("userid", "");
+                        String city = sharedPreferences.getString("usercity", "");
 
-                    String number_status;
-                    if(show_number.equals(false)) {
-                        number_status="no";
-                    }
-                    else {
-                        number_status="yes";
-                    }
-                    Call<AdsModel.postadsResp> call=apiWork.post_automobile(userid,binding.prodnameTxt.getText().toString(),
-                            binding.titleTxt.getText().toString(),"automobile",binding.proddescTxt.getText().toString(),
-                            city,binding.prodpriceTxt.getText().toString(),images.toString().substring(0,images.toString().length()-1),binding.brandTxt.getText().toString(),
-                            binding.modelTxt.getText().toString(),binding.datetxt.getText().toString(),fuel,
-                            transmission,numowner,binding.proddrivenTxt.getText().toString(),number_status,catname);
+                        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                                .addConverterFactory(GsonConverterFactory.create()).build();
 
-                    call.enqueue(new Callback<AdsModel.postadsResp>() {
-                        @Override
-                        public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
-                            if(!response.isSuccessful()) {
-                                Log.d("error code",String.valueOf(response.code()));
-                                return;
-                            }
-
-                            if(response.body().getResult()!=null) {
-                                Bundle bundle=new Bundle();
-                                bundle.putString("ad_id",response.body().getResult().getProduct_id());
-                                askBoost_Dialog dialog = new askBoost_Dialog();
-                                dialog.setArguments(bundle);
-                                dialog.setCancelable(false);
-                                dialog.show(getSupportFragmentManager(), "dialog");
+                        ApiWork apiWork = retrofit.create(ApiWork.class);
+                        StringBuilder images = new StringBuilder();
+                        String base64img;
+                        for (int i = 0; i < imagesAdapter.bannerlist.size(); i++) {
+                            try {
+                                InputStream is = getContentResolver().openInputStream(Uri.parse(imagesAdapter.bannerlist.get(i)));
+                                Bitmap image1 = BitmapFactory.decodeStream(is);
+                                ByteArrayOutputStream by = new ByteArrayOutputStream();
+                                image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
+                                base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
+                                images.append(base64img + ",");
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
                             }
                         }
 
-                        @Override
-                        public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
-                            Log.d("Failure",t.getMessage());
+                        String number_status;
+                        if (show_number.equals(false)) {
+                            number_status = "no";
+                        } else {
+                            number_status = "yes";
                         }
-                    });
+                        Call<AdsModel.postadsResp> call = apiWork.post_automobile(userid, binding.prodnameTxt.getText().toString(),
+                                binding.titleTxt.getText().toString(), "automobile", binding.proddescTxt.getText().toString(),
+                                city, binding.prodpriceTxt.getText().toString(), images.toString().substring(0, images.toString().length() - 1), binding.brandTxt.getText().toString(),
+                                binding.modelTxt.getText().toString(), binding.datetxt.getText().toString(), fuel,
+                                transmission, numowner, binding.proddrivenTxt.getText().toString(), number_status, catname);
+
+                        call.enqueue(new Callback<AdsModel.postadsResp>() {
+                            @Override
+                            public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
+                                if (!response.isSuccessful()) {
+                                    Log.d("error code", String.valueOf(response.code()));
+                                    return;
+                                }
+
+                                if (response.body().getResult() != null) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("ad_id", response.body().getResult().getProduct_id());
+                                    askBoost_Dialog dialog = new askBoost_Dialog();
+                                    dialog.setArguments(bundle);
+                                    dialog.setCancelable(false);
+                                    dialog.show(getSupportFragmentManager(), "dialog");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
+                                Log.d("Failure", t.getMessage());
+                                posting=false;
+                            }
+                        });
 
 
+                    }
                 }
             }
         });

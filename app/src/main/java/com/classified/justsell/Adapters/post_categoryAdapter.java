@@ -60,14 +60,15 @@ public class post_categoryAdapter extends RecyclerView.Adapter<post_categoryAdap
                 @Override
                 public void onClick(View view) {
                     if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                        listener.ontileClick(list.get(getAdapterPosition()).getProduct_type());
+                        listener.ontileClick(list.get(getAdapterPosition()).getProduct_type(),
+                                list.get(getAdapterPosition()).getCategory_name());
                     }
                 }
             });
         }
     }
     public interface onItemClick {
-        void ontileClick(String catname);
+        void ontileClick(String catname,String sendcatname);
 
     }
     public void setonItemclick(onItemClick listener) {

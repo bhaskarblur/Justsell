@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder> {
 
@@ -37,7 +40,10 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Picasso.get().load(list.get(position).getAd_image()).resize(200,200).into(holder.adsimg);
+        final int radius = 13;
+        final int margin = 7;
+        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Picasso.get().load(list.get(position).getAd_image()).resize(200,200).transform(transformation).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         if(list.get(position).getAd_pricecut()!=null&& !list.get(position).getAd_pricecut().equals("")) {
