@@ -60,7 +60,7 @@ public class post_categoryAdapter extends RecyclerView.Adapter<post_categoryAdap
                 @Override
                 public void onClick(View view) {
                     if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
-                        listener.ontileClick(list.get(getAdapterPosition()).getCategory_name());
+                        listener.ontileClick(list.get(getAdapterPosition()).getProduct_type());
                     }
                 }
             });

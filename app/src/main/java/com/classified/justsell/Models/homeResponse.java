@@ -97,6 +97,15 @@ public class homeResponse {
         public String category_name;
         @SerializedName("category_icon")
         public String category_image;
+        public String product_type;
+
+        public String getProduct_type() {
+            return product_type;
+        }
+
+        public void setProduct_type(String product_type) {
+            this.product_type = product_type;
+        }
 
         public categoryResult(String category_name, String category_image) {
             this.category_name = category_name;

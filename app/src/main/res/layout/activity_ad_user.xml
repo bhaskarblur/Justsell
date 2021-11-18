@@ -48,7 +48,7 @@
                 android:id="@+id/onbprog9"
                 android:layout_width="6dp"
                 android:layout_height="6dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="9dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="@color/primary_color"
@@ -62,7 +62,7 @@
                 android:layout_width="6dp"
                 android:layout_height="6dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
                 android:clickable="true"
@@ -74,7 +74,7 @@
                 android:layout_width="6dp"
                 android:layout_height="6dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
                 android:clickable="true"
@@ -86,7 +86,7 @@
                 android:layout_width="6dp"
                 android:layout_height="6dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
                 android:clickable="true"
@@ -99,12 +99,24 @@
                 android:layout_width="6dp"
                 android:layout_height="6dp"
                 android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
                 android:backgroundTint="#C6C6C6"
                 android:clickable="true"
                 android:visibility="visible"
                 app:layout_constraintStart_toEndOf="@+id/onbprog13"
+                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+
+            <Button
+                android:id="@+id/onbprog13"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/onboardingposcircle"
+                android:backgroundTint="#C6C6C6"
+                android:clickable="true"
+                app:layout_constraintStart_toEndOf="@+id/onbprog12"
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
             <ImageView
@@ -118,18 +130,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv"
                 app:srcCompat="@drawable/heartlovedicon"
                 app:tint="#FF0000" />
-
-            <Button
-                android:id="@+id/onbprog13"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="#C6C6C6"
-                android:clickable="true"
-                app:layout_constraintStart_toEndOf="@+id/onbprog12"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
             <ImageView
                 android:id="@+id/imageView6"
