@@ -24,8 +24,10 @@
         android:id="@+id/remimg"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="65dp"
         android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/closebtn" />

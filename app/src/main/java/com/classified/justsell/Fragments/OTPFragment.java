@@ -1,10 +1,13 @@
 package com.classified.justsell.Fragments;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,6 +28,9 @@ import com.classified.justsell.HomeActivity;
 import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.R;
 import com.classified.justsell.databinding.FragmentOTPBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +51,7 @@ public class OTPFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private String number;
+    private String token;
     private Boolean pressed = false;
 
     public OTPFragment() {
@@ -83,6 +90,26 @@ public class OTPFragment extends Fragment {
         viewfuncs();
         return lgbinding.getRoot();
 
+    }
+    private void getfirebaseToken() {
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+
+                        // Log and toast
+                        String msg = token;
+                        Log.d("token", msg);
+                    }
+                });
     }
 
     private void viewfuncs() {
@@ -180,7 +207,7 @@ public class OTPFragment extends Fragment {
 
                         String otphere = lgbinding.otpbox1.getText().toString() + lgbinding.otpbox2.getText().toString()
                                 + lgbinding.otpbox3.getText().toString() + lgbinding.otpbox4.getText().toString();
-                        Call<AuthResponse.VerifyOtp> call = apiWork.login(number, otphere);
+                        Call<AuthResponse.VerifyOtp> call = apiWork.login(number, otphere,token);
 
                         call.enqueue(new Callback<AuthResponse.VerifyOtp>() {
                             @Override

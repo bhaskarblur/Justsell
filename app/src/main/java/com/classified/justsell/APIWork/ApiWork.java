@@ -20,7 +20,7 @@ public interface ApiWork {
     @FormUrlEncoded
     @POST("otp")
     Call<AuthResponse.VerifyOtp> login(@Field("mobile") String mobile,
-    @Field("otp") String otp);
+    @Field("otp") String otp,@Field("device_token") String token);
 
     @GET("all-state")
     Call<AuthResponse.getstate> getstate();
