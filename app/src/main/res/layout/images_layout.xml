@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/addedimg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="25dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,7 @@
         android:id="@+id/remimg"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginStart="65dp"
+        android:layout_marginStart="63dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
