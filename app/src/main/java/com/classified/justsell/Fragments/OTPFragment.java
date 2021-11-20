@@ -88,6 +88,7 @@ public class OTPFragment extends Fragment {
 
         ManageUI();
         viewfuncs();
+        getfirebaseToken();
         return lgbinding.getRoot();
 
     }
