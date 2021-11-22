@@ -46,7 +46,7 @@ public class adImagesAdapter extends RecyclerView.Adapter<adImagesAdapter.viewHo
         final int radius = 17;
         final int margin = 17;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(bannerlist.get(position).getImage()).transform(transformation).resize(800,450)
+        Picasso.get().load(bannerlist.get(position).getImage()).transform(transformation).resize(500,250)
                 .centerCrop().into(holder.img);
 
         holder.img.setOnClickListener(new View.OnClickListener() {

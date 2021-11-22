@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
+import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +25,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -52,6 +57,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostActivity extends AppCompatActivity {
     private ActivityPostBinding binding;
+    final int IMAGE_PICK_CODE = 1000;
+    final int PERMISSION_CODE = 1001;
     private textonlyAdapter fuelAdapter;
     private textonlyAdapter transAdapter;
     private textonlyAdapter nowownAdapter;
@@ -354,24 +361,84 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==1 && resultCode==RESULT_OK) {
+            List<Bitmap> bitmaps=new ArrayList<>();
+
+            ClipData clipData=data.getClipData();
+
+            if(clipData!=null) {
+                if(clipData.getItemCount()+imagesList.size()<7) {
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        String img = clipData.getItemAt(i).getUri().toString();
+                        imagesList.add(img);
+                    }
+                    imagesAdapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(PostActivity.this, "You can only pick "+String.valueOf(6-imagesList.size())+" more image.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    //    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (data != null) {
+//            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//                imagesList.add(String.valueOf(result.getUri()));
+//                imagesAdapter.notifyDataSetChanged();
+//            }
+//
+//        }
+//    }
+//
+
     private void startCropActivity() {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
+        if(ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        !=PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(PostActivity.this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+            return;
+        }
+
+        Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        intent.setType("image/*");
+        startActivityForResult(intent,1);
+
+
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    private void pickImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                imagesList.add(String.valueOf(result.getUri()));
-                imagesAdapter.notifyDataSetChanged();
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startCropActivity();
+                } else {
+                    Toast.makeText(PostActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                }
             }
 
         }
     }
+
     @Override
     public void finish() {
         super.finish();

@@ -42,7 +42,7 @@ public class promadsAdapter extends RecyclerView.Adapter<promadsAdapter.ViewHold
         final int radius = 13;
         final int margin = 7;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(list.get(position).getAd_image()).resize(200,200).transform(transformation).into(holder.adsimg);
+        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).transform(transformation).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());
