@@ -3,6 +3,8 @@ package com.classified.justsell.CustomDialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +27,6 @@ public class askBoost_Dialog extends AppCompatDialogFragment {
         LayoutInflater inflater=getActivity().getLayoutInflater();
         View view=inflater.inflate(R.layout.askboost_dialog,null);
         builder.setView(view);
-
         View prombtn=view.findViewById(R.id.prombtn);
         View skipbtn=view.findViewById(R.id.skipbtn);
         Bundle bundle=getArguments();

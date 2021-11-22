@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:textColorPrimaryInverse">
+    android:background="@color/white">
 
     <Button
         android:id="@+id/prombtn"
@@ -33,7 +33,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Ad Promotion"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
         android:fontFamily="@font/poppins"
         android:text="Shows your ad at top, whenever your product is searched. Promote your ad for just Rs. 5 per day."
         android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:textColorPrimaryInverse">
+    android:background="@drawable/rounded_transf"
+    android:backgroundTint="@color/white">
 
     <Button
         android:id="@+id/delbtn_done"
@@ -38,7 +39,7 @@
         android:fontFamily="@font/poppins"
         android:text="Cancel"
         android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +55,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Delete"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +71,7 @@
         android:checked="false"
         android:fontFamily="@font/poppins"
         android:text="Found buyer on Justsell"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView33" />
@@ -85,7 +86,7 @@
         android:checked="false"
         android:fontFamily="@font/poppins"
         android:text="Didn't find buyer on Justsell"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radio1" />
@@ -100,7 +101,7 @@
         android:checked="false"
         android:fontFamily="@font/poppins"
         android:text="Found buyer somewhere else"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radio2" />
@@ -115,7 +116,7 @@
         android:checked="false"
         android:fontFamily="@font/poppins"
         android:text="Don't want to sell anymore"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radio3" />
@@ -129,7 +130,7 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins"
         android:text="Select A Reason:"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

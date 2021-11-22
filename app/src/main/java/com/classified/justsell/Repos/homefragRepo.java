@@ -208,7 +208,7 @@ public class homefragRepo {
 
     private void getcategoryfromserver() {
 
-        categorylist.add(new homeResponse.categoryResult("All","https://cdn-icons.flaticon.com/png/512/5290/premium/5290058.png?token=exp=1637568346~hmac=3c0dd00ba1ceabef3e216a5977aa1678"));
+        categorylist.add(new homeResponse.categoryResult("All","https://cdn-icons-png.flaticon.com/512/1828/1828884.png"));
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
