@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         handlePermissions();
         handleBottomNav();
 
-        startActivity(new Intent(HomeActivity.this,chatActivity.class));
+        //startActivity(new Intent(HomeActivity.this,chatActivity.class));
 
     }
 

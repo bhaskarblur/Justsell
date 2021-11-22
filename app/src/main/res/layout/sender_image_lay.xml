@@ -2,45 +2,46 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp">
 
     <ImageView
-        android:id="@+id/receiver_pic"
+        android:id="@+id/sender_pic"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sampleuserimg1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
         android:layout_marginTop="18dp"
-        android:background="@drawable/chatmsg_background_1"
+        android:layout_marginEnd="7dp"
+        android:background="@drawable/roundboxbg"
         android:backgroundTint="@color/primary_color"
-        app:layout_constraintStart_toEndOf="@+id/receiver_pic"
+        app:layout_constraintEnd_toStartOf="@+id/sender_pic"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/receiver_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins"
-            android:text="This is a sample message"
-            android:textColor="@color/back_black"
-            android:textSize="14sp"
+        <ImageView
+            android:id="@+id/sender_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:foreground="?android:selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/parleg" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
