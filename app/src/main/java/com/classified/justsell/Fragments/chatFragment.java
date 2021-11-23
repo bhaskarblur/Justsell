@@ -101,7 +101,8 @@ public class chatFragment extends Fragment {
         String userid;
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
         userid=sharedPreferences.getString("userid","");
-
+        chatsViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.chatsViewModel.class);
+        chatsViewModel.initwork(userid);
         chatsViewModel.getDataModel().observe(getActivity(), new Observer<List<chatModel.chatResult>>() {
             @Override
             public void onChanged(List<chatModel.chatResult> chatResults) {
@@ -115,8 +116,6 @@ public class chatFragment extends Fragment {
                 }
             }
         });
-        chatsViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.chatsViewModel.class);
-        chatsViewModel.initwork(userid);
         adapter=new chatslistAdapter(getActivity(),chatsViewModel.getDataModel().getValue());
         LinearLayoutManager llm=new LinearLayoutManager(getActivity());
         binding.chatRec.setLayoutManager(llm);
