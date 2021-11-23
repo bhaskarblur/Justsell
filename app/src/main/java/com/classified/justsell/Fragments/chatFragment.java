@@ -1,19 +1,31 @@
 package com.classified.justsell.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.classified.justsell.Adapters.chatslistAdapter;
+import com.classified.justsell.Models.chatModel;
 import com.classified.justsell.R;
+import com.classified.justsell.ViewModels.chatsViewModel;
+import com.classified.justsell.chatActivity;
 import com.classified.justsell.databinding.FragmentChatBinding;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,9 +39,11 @@ public class chatFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private FragmentChatBinding binding;
+    private chatslistAdapter adapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private com.classified.justsell.ViewModels.chatsViewModel chatsViewModel;
 
     public chatFragment() {
         // Required empty public constructor
@@ -77,6 +91,52 @@ public class chatFragment extends Fragment {
             transaction1.addToBackStack("A");
             transaction1.commit();
         }
+
+        ManageData();
+        Viewfuncs();
         return binding.getRoot();
+    }
+
+    private void ManageData() {
+        String userid;
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
+        userid=sharedPreferences.getString("userid","");
+
+        chatsViewModel.getDataModel().observe(getActivity(), new Observer<List<chatModel.chatResult>>() {
+            @Override
+            public void onChanged(List<chatModel.chatResult> chatResults) {
+                if(chatResults.size()>0) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                        }
+                    },100);
+                }
+            }
+        });
+        chatsViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.chatsViewModel.class);
+        chatsViewModel.initwork(userid);
+        adapter=new chatslistAdapter(getActivity(),chatsViewModel.getDataModel().getValue());
+        LinearLayoutManager llm=new LinearLayoutManager(getActivity());
+        binding.chatRec.setLayoutManager(llm);
+        binding.chatRec.setAdapter(adapter);
+        adapter.setonItemclick(new chatslistAdapter.onItemClick() {
+            @Override
+            public void ontileClick(String userid, String person_id, String product_id) {
+                Intent intent=new Intent(getActivity(), chatActivity.class);
+                intent.putExtra("userid",userid);
+                intent.putExtra("person_id",person_id);
+                intent.putExtra("product_id",product_id);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().getViewModelStore().clear();
+                getActivity().finish();
+            }
+        });
+
+    }
+
+    private void Viewfuncs() {
     }
 }

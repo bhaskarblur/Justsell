@@ -7,6 +7,45 @@
     android:background="?android:colorPrimary"
     tools:context=".Ad_userActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/chatbtn"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:background="@drawable/roundboxbg"
+            android:backgroundTint="@color/primary_color"
+            android:fontFamily="@font/poppins_medium"
+            android:foreground="?android:selectableItemBackground"
+            android:paddingLeft="22dp"
+            android:text="Chat"
+            android:textAllCaps="false"
+            android:textColor="@color/back_black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chaticon" />
+
     <TextView
         android:id="@+id/textView38"
         android:layout_width="wrap_content"
@@ -34,6 +73,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +244,6 @@
                 android:text="Product Title"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toStartOf="@+id/chatlay"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodprice_txt" />
 
@@ -430,45 +469,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodtitle_txt" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/chatlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6">
-
-                <Button
-                    android:id="@+id/chatbtn"
-                    android:layout_width="110dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/roundboxbg"
-                    android:backgroundTint="@color/primary_color"
-                    android:fontFamily="@font/poppins_medium"
-                    android:foreground="?android:selectableItemBackground"
-                    android:paddingLeft="22dp"
-                    android:text="Chat"
-                    android:textAllCaps="false"
-                    android:textColor="@color/back_black"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="90dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                app:srcCompat="@drawable/chaticon" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout6"

@@ -88,8 +88,10 @@ public class notiFragment extends Fragment {
     }
 
     private void ManageData() {
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
+        String city=sharedPreferences.getString("usercity","");
         homefragViewModel=new ViewModelProvider(getActivity()).get(com.classified.justsell.ViewModels.homefragViewModel.class);
-
+        homefragViewModel.initwork(userid,"","",city);
         homefragViewModel.getNotidata().observe(getActivity(), new Observer<List<homeResponse.notiResult>>() {
             @Override
             public void onChanged(List<homeResponse.notiResult> notiResults) {

@@ -2,6 +2,7 @@ package com.classified.justsell.APIWork;
 
 import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.Models.AuthResponse;
+import com.classified.justsell.Models.chatModel;
 import com.classified.justsell.Models.homeResponse;
 
 import retrofit2.Call;
@@ -180,4 +181,8 @@ public interface ApiWork {
     @FormUrlEncoded
     @POST("recommended")
     Call<homeResponse.ListadsResp> get_recommendedads(@Field("product_id") String userid);
+
+    @FormUrlEncoded
+    @POST("chats")
+    Call<chatModel.listChats> get_allchats(@Field("user_id") String userid);
 }
