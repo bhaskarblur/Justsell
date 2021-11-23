@@ -55,7 +55,8 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
         }
         holder.adsdesr.setText(list.get(position).getAd_description());
        holder.adsdate.setText("Posted on "+list.get(position).getAd_date());
-        if(list.get(position).getFeatured_status().equals("1")) {
+        if(list.get(position).getFeatured_status().equals("1") && list.get(position).getAd_title()
+        .equals(holder.adstitle.getText().toString())) {
             holder.adsfeat.setVisibility(View.VISIBLE);
         }
      }
