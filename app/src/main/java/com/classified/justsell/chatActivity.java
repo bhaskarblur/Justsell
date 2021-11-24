@@ -2,6 +2,7 @@ package com.classified.justsell;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ImageViewCompat;
 import androidx.lifecycle.Observer;
@@ -18,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -27,7 +29,9 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -86,13 +90,20 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         binding=ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
-
+         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ManageData();
         viewfuncs();
     }
 
     private void viewfuncs() {
 
+         binding.scrolldown.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
+                 binding.scrolldown.setVisibility(View.INVISIBLE);
+             }
+         });
         binding.sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,11 +154,12 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         product_id=intent.getStringExtra("product_id");
         viewModel=new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id,product_id,person_id);
+        binding.scrolldown.setVisibility(View.INVISIBLE);
         viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
             @Override
             public void onChanged(chatModel.chatResult chatResult) {
                 if(chatResult!=null) {
-                    Picasso.get().load(chatResult.getProduct_img()).resize(200,200).transform(new CropCircleTransformation())
+                    Picasso.get().load(chatResult.getProduct_img()).resize(200,200)
                             .into(binding.productImage);
 
                     Picasso.get().load(chatResult.getPerson_img()).resize(150,150).transform(new CropCircleTransformation())
@@ -178,6 +190,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                 if(jsonObjects.size()>0) {
 
                     new Handler().postDelayed(new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void run() {
                             try {
@@ -186,10 +199,26 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                                         ,receiver_img);
 
                                 LinearLayoutManager llm=new LinearLayoutManager(chatActivity.this);
-
                                 binding.chatsRec.setLayoutManager(llm);
                                 binding.chatsRec.setAdapter(chatAdapter);
                                 binding.chatsRec.scrollToPosition(chatAdapter.getItemCount()-1);
+                                llm.setSmoothScrollbarEnabled(true);
+                                binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                                    @Override
+                                    public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+
+                                        int offset=binding.chatsRec.computeVerticalScrollOffset();
+                                        Log.d("pos",String.valueOf(offset)+","+
+                                                binding.chatsRec.getHeight());
+
+                                        if(offset< (binding.chatsRec.getHeight()+100)) {
+                                            binding.scrolldown.setVisibility(View.VISIBLE);
+                                        }
+                                        else {
+                                            binding.scrolldown.setVisibility(View.INVISIBLE);
+                                        }
+                                    }
+                                });
                                 Log.d("chatshere",chatAdapter.messages.get(0).getString("isSent"));
 
                             } catch (JSONException e) {
@@ -204,9 +233,15 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             }
         });
 
-
         initiateSocketConnection();
 
+        binding.msgTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+               // binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
+                return false;
+            }
+        });
         binding.msgTxt.addTextChangedListener(this);
 
     }

@@ -20,6 +20,7 @@
         android:theme="@style/Theme.Justsell"
         android:usesCleartextTraffic="true">
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".chatActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
