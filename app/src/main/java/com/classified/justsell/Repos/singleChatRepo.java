@@ -77,69 +77,70 @@ public class singleChatRepo {
                             }
                         }
 
-                        try {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("user_id", "2");
-                            jsonObject.put("product_id", "8");
-                            jsonObject.put("person_id", "4");
-                            jsonObject.put("message", "Bhai yeh dekh");
-                            jsonObject.put("isSent", "yes");
-                            jsonObject.put("seen", "yes");
-                            previousChatsList.add(jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("user_id", "2");
-                            jsonObject.put("product_id", "8");
-                            jsonObject.put("person_id", "4");
-                            jsonObject.put("image", "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-gold-select-201810?wid=904&hei=840&fmt=jpeg&qlt=80&.v=1633027804000");
-                            jsonObject.put("isSent", "yes");
-                            jsonObject.put("seen", "yes");
-                            previousChatsList.add(jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("user_id", "2");
-                            jsonObject.put("product_id", "8");
-                            jsonObject.put("person_id", "4");
-                            jsonObject.put("image", "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-family-select-2021?wid=940&hei=1112&fmt=jpeg&qlt=80&.v=1629842667000");
-                            jsonObject.put("isSent", "no");
-                            jsonObject.put("seen", "yes");
-                            previousChatsList.add(jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("user_id", "2");
-                            jsonObject.put("product_id", "8");
-                            jsonObject.put("person_id", "4");
-                            jsonObject.put("message", "wow boi congo yrr, happy for you");
-                            jsonObject.put("isSent", "no");
-                            jsonObject.put("seen", "yes");
-                            previousChatsList.add(jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("user_id", "2");
-                            jsonObject.put("product_id", "8");
-                            jsonObject.put("person_id", "4");
-                            jsonObject.put("message", "Thoinks");
-                            jsonObject.put("isSent", "yes");
-                            jsonObject.put("seen", "yes");
-                            previousChatsList.add(jsonObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "Bhai yeh dekh");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("image", "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-gold-select-201810?wid=904&hei=840&fmt=jpeg&qlt=80&.v=1633027804000");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("image", "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-family-select-2021?wid=940&hei=1112&fmt=jpeg&qlt=80&.v=1629842667000");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "wow boi congo yrr, happy for you");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "Thoinks");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
 
                         previousChats.setValue(previousChatsList);
                     }
