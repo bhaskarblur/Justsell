@@ -14,6 +14,7 @@
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_ad_user.xml" value="0.25" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_adpromoted_successful.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_auth.xml" value="0.14" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_chat.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_main.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_post.xml" value="0.33" />
@@ -38,6 +39,8 @@
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/images_layout.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/noti_layout.xml" value="0.25" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/post_category_layout.xml" value="0.16540084388185655" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/sender_chat_lay.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/sender_image_lay.xml" value="0.1675213675213675" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/drawable/sizeprobg.xml" value="0.2203125" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/font/poppins.xml" value="0.234375" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/layout/activity_main.xml" value="0.14" />
@@ -55,7 +58,7 @@
         <entry key="app/src/main/res/layout/activity_ad_user.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_adposted_successful.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.19746835443037974" />
-        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.2240496544548482" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.24573574361309145" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.49914759891138016" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24470148965389069" />
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.24045319328486053" />
@@ -85,10 +88,10 @@
         <entry key="app/src/main/res/layout/images_layout.xml" value="0.486999937483354" />
         <entry key="app/src/main/res/layout/noti_layout.xml" value="0.3139831451317533" />
         <entry key="app/src/main/res/layout/post_category_layout.xml" value="0.4243492287027364" />
-        <entry key="app/src/main/res/layout/receiver_chat_lay.xml" value="0.29893615418597874" />
+        <entry key="app/src/main/res/layout/receiver_chat_lay.xml" value="0.35044670547727097" />
         <entry key="app/src/main/res/layout/receiver_image_lay.xml" value="0.26148438025509624" />
         <entry key="app/src/main/res/layout/see_imagedialog.xml" value="0.19914529914529913" />
-        <entry key="app/src/main/res/layout/sender_chat_lay.xml" value="0.33479167619506456" />
+        <entry key="app/src/main/res/layout/sender_chat_lay.xml" value="0.42403341736853556" />
         <entry key="app/src/main/res/layout/sender_image_lay.xml" value="0.32602876730567687" />
         <entry key="app/src/main/res/layout/textonly_lay.xml" value="0.22692817674665294" />
         <entry key="app/src/main/res/menu/chatoptionmenu.xml" value="0.3814773891936843" />

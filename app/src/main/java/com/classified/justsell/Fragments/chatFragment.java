@@ -124,7 +124,7 @@ public class chatFragment extends Fragment {
             @Override
             public void ontileClick(String userid, String person_id, String product_id) {
                 Intent intent=new Intent(getActivity(), chatActivity.class);
-                intent.putExtra("userid",userid);
+                intent.putExtra("user_id",userid);
                 intent.putExtra("person_id",person_id);
                 intent.putExtra("product_id",product_id);
                 startActivity(intent);

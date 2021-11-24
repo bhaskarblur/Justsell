@@ -109,4 +109,25 @@ public class chatModel {
             this.unseen_msg_count = recent_msg_count;
         }
     }
+
+    public class insidechatResp {
+        public String success;
+        public chatResult result;
+
+        public chatResult getResult() {
+            return result;
+        }
+
+        public void setResult(chatResult result) {
+            this.result = result;
+        }
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+    }
 }

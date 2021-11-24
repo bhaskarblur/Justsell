@@ -174,7 +174,7 @@
             app:tint="?android:textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/msg_txt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="7dp"
