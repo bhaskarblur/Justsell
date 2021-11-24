@@ -68,6 +68,7 @@ public class singleChatRepo {
                                 jsonObject.put("person_id", response.body().getMessages().get(i).getPerson_id());
                                 jsonObject.put("message", response.body().getMessages().get(i).getMessage());
                                 jsonObject.put("image", response.body().getMessages().get(i).getImage());
+                                jsonObject.put("isSent", response.body().getMessages().get(i).getSent());
                                 jsonObject.put("seen", "yes");
                                 previousChatsList.add(jsonObject);
 

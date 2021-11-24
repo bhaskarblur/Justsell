@@ -88,7 +88,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         this.getSupportActionBar().hide();
 
         ManageData();
-        //viewfuncs();
+        viewfuncs();
     }
 
     private void viewfuncs() {
@@ -102,7 +102,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                     jsonObject.put("person_id",person_id);
                     jsonObject.put("message",binding.msgTxt.getText().toString());
                     webSocket.send(jsonObject.toString());
-                    jsonObject.put("isSent",true);
+                    jsonObject.put("isSent","yes");
                     chatAdapter.addItem(jsonObject);
                     resetmessageEdit();
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
@@ -168,10 +168,19 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             @Override
             public void onChanged(List<JSONObject> jsonObjects) {
                 if(jsonObjects.size()>0) {
+                    Log.d("chat","yes2");
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            previousMessages=jsonObjects;
+                            try {
+                                previousMessages=jsonObjects;
+                                Log.d("chatshere",previousMessages.get(0).getString("isSent"));
+                                chatAdapter.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
                     },100);
                 }
@@ -281,7 +290,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             runOnUiThread(() -> {
                 try {
                     JSONObject jsonObject = new JSONObject(text);
-                    jsonObject.put("isSent",false);
+                    jsonObject.put("isSent","true");
                     jsonObject.put("seen",jsonObject.getString("seen"));
                     chatAdapter.addItem(jsonObject);
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
@@ -349,7 +358,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             jsonObject.put("image",base64img);
 
             webSocket.send(jsonObject.toString());
-            jsonObject.put("isSent",true);
+            jsonObject.put("isSent","yes");
             chatAdapter.addItem(jsonObject);
             binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
         } catch (JSONException e) {

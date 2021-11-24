@@ -192,7 +192,7 @@ public class chatModel {
 
         public String message;
         public String image;
-        public Boolean isSent;
+        public String isSent;
 
         public String getUser_id() {
             return user_id;
@@ -226,11 +226,11 @@ public class chatModel {
             this.image = image;
         }
 
-        public Boolean getSent() {
+        public String getSent() {
             return isSent;
         }
 
-        public void setSent(Boolean sent) {
+        public void setSent(String sent) {
             isSent = sent;
         }
     }

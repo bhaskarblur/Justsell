@@ -31,7 +31,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private final static int TYPE_IMG_RECEIVED=3;
     private String receiver_img;
     private LayoutInflater inflater;
-    private List<JSONObject> messages=new ArrayList<>();
+    private List<JSONObject> messages;
 
     public ChatAdapter(Context mcontext,LayoutInflater inflater, List<JSONObject> messages,String receiver_img) {
         this.mcontext=mcontext;
@@ -103,7 +103,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
     public int getItemViewType(int position) {
         JSONObject message=messages.get(position);
         try {
-            if(message.getBoolean("isSent")) {
+            if(message.getString("isSent").equals("yes")) {
                 if(message.has("message")) {
                     return TYPE_MSG_SENT;
                 }
