@@ -74,12 +74,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="9dp"
         android:fontFamily="@font/poppins"
         android:letterSpacing="0.01"
-        android:text="1"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="13sp"
+        android:text="2"
+        android:textAlignment="center"
+        android:textColor="@color/back_black"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

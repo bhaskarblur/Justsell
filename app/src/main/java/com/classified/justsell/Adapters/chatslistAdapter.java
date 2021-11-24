@@ -69,7 +69,7 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             card=itemView.findViewById(R.id.chatbg);
-            img=itemView.findViewById(R.id.person_image);
+            img=itemView.findViewById(R.id.person_pic);
             name=itemView.findViewById(R.id.person_name);
             lastmsg=itemView.findViewById(R.id.recent_msg);
             msgcount_lay=itemView.findViewById(R.id.recentmsg_lay);

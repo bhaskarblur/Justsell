@@ -149,14 +149,16 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             @Override
             public void onChanged(chatModel.chatResult chatResult) {
                 if(chatResult!=null) {
-                    Picasso.get().load(chatResult.getProduct_img()).resize(250,250).transform(new CropCircleTransformation())
+                    Picasso.get().load(chatResult.getProduct_img()).resize(200,200).transform(new CropCircleTransformation())
                             .into(binding.productImage);
 
-                    Picasso.get().load(chatResult.getPerson_img()).resize(250,250).transform(new CropCircleTransformation())
+                    Picasso.get().load(chatResult.getPerson_img()).resize(150,150).transform(new CropCircleTransformation())
                             .into(binding.personImage);
 
                     binding.personName.setText(chatResult.getPerson_name());
-                    binding.personStatus.setText(chatResult.getStatus()+"hello");
+                    binding.personStatus.setText(chatResult.getStatus());
+                    binding.productTitle.setText(chatResult.getProduct_title());
+                    binding.productPrice.setText("Rs "+chatResult.getProduct_price());
 
 
                 }

@@ -72,7 +72,7 @@
 
         <ImageView
             android:id="@+id/person_image"
-            android:layout_width="45dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_marginStart="42dp"
             android:layout_marginTop="30dp"
@@ -103,19 +103,18 @@
             android:text="Product Title"
             android:textColor="?android:textColorPrimary"
             android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/product_title2"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/product_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/product_title2"
+            android:id="@+id/product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Online"
+            android:text="Price"
             android:textAlignment="textEnd"
             android:textColor="?android:textColorPrimary"
             android:textSize="13sp"
