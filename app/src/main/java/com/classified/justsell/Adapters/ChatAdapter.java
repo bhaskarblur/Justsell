@@ -2,6 +2,7 @@ package com.classified.justsell.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private final static int TYPE_IMG_RECEIVED=3;
     private String receiver_img;
     private LayoutInflater inflater;
-    private List<JSONObject> messages;
+    public List<JSONObject> messages;
 
     public ChatAdapter(Context mcontext,LayoutInflater inflater, List<JSONObject> messages,String receiver_img) {
         this.mcontext=mcontext;
@@ -65,9 +66,8 @@ public class ChatAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         JSONObject message=messages.get(position);
-
         try {
-            if(message.getBoolean("isSent")) {
+            if(message.getString("isSent").equals("yes")) {
                 if(message.has("message")) {
                     sentMessageHolder holder1= (sentMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));

@@ -125,9 +125,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(chatActivity.this, v);
                 popupMenu.setOnMenuItemClickListener(chatActivity.this);
-                popupMenu.inflate(R.menu.profoptionmenu);
-                MenuItem item = popupMenu.getMenu().findItem(R.id.logout_item);
-                SpannableString s = new SpannableString("Block");
+                popupMenu.inflate(R.menu.chatoptionmenu);
+                MenuItem item = popupMenu.getMenu().findItem(R.id.delete);
+                SpannableString s = new SpannableString("Delete");
                 item.setTitle(s);
                 s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
                 popupMenu.show();
@@ -141,8 +141,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         user_id=intent.getStringExtra("user_id");
         person_id=intent.getStringExtra("person_id");
         product_id=intent.getStringExtra("product_id");
-        Log.d("product_id",product_id);
-        Log.d("person_id",person_id);
         viewModel=new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id,product_id,person_id);
         viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
@@ -156,7 +154,16 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                             .into(binding.personImage);
 
                     binding.personName.setText(chatResult.getPerson_name());
-                    binding.personStatus.setText(chatResult.getStatus());
+                    if(chatResult.getStatus()!=null) {
+                        if (chatResult.getStatus().equals("online")) {
+                            binding.personStatus.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.personStatus.setText("Offline");
+                        }
+                    }
+                else {
+                        binding.personStatus.setText("Offline");
+                    }
                     binding.productTitle.setText(chatResult.getProduct_title());
                     binding.productPrice.setText("Rs "+chatResult.getProduct_price());
 
@@ -168,14 +175,22 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             @Override
             public void onChanged(List<JSONObject> jsonObjects) {
                 if(jsonObjects.size()>0) {
-                    Log.d("chat","yes2");
+
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 previousMessages=jsonObjects;
-                                Log.d("chatshere",previousMessages.get(0).getString("isSent"));
-                                chatAdapter.notifyDataSetChanged();
+                                chatAdapter=new ChatAdapter(chatActivity.this,getLayoutInflater(),previousMessages
+                                        ,receiver_img);
+
+                                LinearLayoutManager llm=new LinearLayoutManager(chatActivity.this);
+
+                                binding.chatsRec.setLayoutManager(llm);
+                                binding.chatsRec.setAdapter(chatAdapter);
+                                binding.chatsRec.scrollToPosition(chatAdapter.getItemCount()-1);
+                                Log.d("chatshere",chatAdapter.messages.get(0).getString("isSent"));
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -188,13 +203,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             }
         });
 
-        chatAdapter=new ChatAdapter(chatActivity.this,getLayoutInflater(),previousMessages
-        ,receiver_img);
-
-        LinearLayoutManager llm=new LinearLayoutManager(chatActivity.this);
-
-        binding.chatsRec.setLayoutManager(llm);
-        binding.chatsRec.setAdapter(chatAdapter);
 
         initiateSocketConnection();
 
@@ -304,7 +312,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                         binding.personStatus.setVisibility(View.VISIBLE);
                     }
                     else {
-                        binding.personStatus.setVisibility(View.INVISIBLE);
+                        binding.personStatus.setText("Offline");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
