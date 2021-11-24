@@ -28,6 +28,7 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
@@ -99,6 +101,28 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
     private void viewfuncs() {
 
+//        binding.msgTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if(!binding.msgTxt.getText().toString().isEmpty()|| !binding.msgTxt.getText().toString().equals("")) {
+//                    JSONObject jsonObject = new JSONObject();
+//                    try {
+//                        jsonObject.put("user_id", user_id);
+//                        jsonObject.put("person_id", person_id);
+//                        jsonObject.put("message", binding.msgTxt.getText().toString());
+//                        webSocket.send(jsonObject.toString());
+//                        jsonObject.put("isSent", "yes");
+//                        chatAdapter.addItem(jsonObject);
+//                        resetmessageEdit();
+//                        binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                return false;
+//            }
+//        });
         binding.scrolldown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,18 +228,16 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                                 binding.chatsRec.setAdapter(chatAdapter);
                                 binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);
                                 llm.setSmoothScrollbarEnabled(true);
+
                                 binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                                     @Override
                                     public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                                        if(llm.findLastVisibleItemPosition()!=chatAdapter.getItemCount()-1) {
 
-                                        View focusedView = (View) binding.chatsRec.getFocusedChild();
-                                        if(focusedView!=null) {
-                                            if (!focusedView.equals(view)) {
                                                 binding.scrolldown.setVisibility(View.VISIBLE);
                                             } else {
                                                 binding.scrolldown.setVisibility(View.INVISIBLE);
                                             }
-                                        }
                                     }
                                 });
 

@@ -127,6 +127,7 @@
         android:id="@+id/chats_rec"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -168,6 +169,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="7dp"
             android:clickable="true"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -183,7 +185,6 @@
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/roundboxbg"
-            android:ems="10"
             android:fontFamily="@font/poppins"
             android:gravity="center"
             android:hint="Type a message"
@@ -203,7 +204,7 @@
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="85dp"
         android:background="@drawable/sampleuserimg1"
         android:backgroundTint="?android:colorSecondary"
         android:clickable="true"
@@ -211,6 +212,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/skipbtn"
-        tools:targetApi="n_mr1"
-        app:tint="?android:textColorPrimary" />
+        app:tint="?android:textColorPrimary"
+        tools:targetApi="n_mr1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
