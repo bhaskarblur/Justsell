@@ -22,7 +22,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/chatmsg_background_1"
-        android:backgroundTint="@color/primary_color"
+        android:backgroundTint="?android:textColorPrimaryInverse"
         app:layout_constraintStart_toEndOf="@+id/receiver_pic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +37,7 @@
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/poppins"
             android:text="This is a sample messageThis is a sample messageThis is a sample message"
-            android:textColor="@color/back_black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
