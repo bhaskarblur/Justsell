@@ -86,7 +86,6 @@ public class chatActivity extends AppCompatActivity {
                 try{
                     jsonObject.put("user_id",user_id);
                     jsonObject.put("person_id",person_id);
-                    jsonObject.put("product_id",product_id);
                     jsonObject.put("message",binding.msgTxt.getText().toString());
                     webSocket.send(jsonObject.toString());
                     jsonObject.put("isSent",true);
@@ -103,7 +102,7 @@ public class chatActivity extends AppCompatActivity {
         binding.pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startCropActivity();
             }
         });
     }
@@ -261,8 +260,8 @@ public class chatActivity extends AppCompatActivity {
         JSONObject jsonObject=new JSONObject();
 
         try {
-            jsonObject.put("user_id",jsonObject);
-            jsonObject.put("person_id",jsonObject);
+            jsonObject.put("user_id",user_id);
+            jsonObject.put("person_id",person_id);
             jsonObject.put("image",base64img);
 
             webSocket.send(jsonObject.toString());
@@ -272,8 +271,6 @@ public class chatActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
 
     }

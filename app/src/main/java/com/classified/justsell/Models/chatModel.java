@@ -44,6 +44,32 @@ public class chatModel {
         public String person_img;
         public String recent_msg;
         public String unseen_msg_count;
+        public String product_name;
+        public String product_price;
+
+        public String getUnseen_msg_count() {
+            return unseen_msg_count;
+        }
+
+        public void setUnseen_msg_count(String unseen_msg_count) {
+            this.unseen_msg_count = unseen_msg_count;
+        }
+
+        public String getProduct_name() {
+            return product_name;
+        }
+
+        public void setProduct_name(String product_name) {
+            this.product_name = product_name;
+        }
+
+        public String getProduct_price() {
+            return product_price;
+        }
+
+        public void setProduct_price(String product_price) {
+            this.product_price = product_price;
+        }
 
         public String getUser_id() {
             return user_id;
@@ -113,6 +139,15 @@ public class chatModel {
     public class insidechatResp {
         public String success;
         public chatResult result;
+        public pastMessages messages;
+
+        public pastMessages getMessages() {
+            return messages;
+        }
+
+        public void setMessages(pastMessages messages) {
+            this.messages = messages;
+        }
 
         public chatResult getResult() {
             return result;
@@ -128,6 +163,64 @@ public class chatModel {
 
         public void setSuccess(String success) {
             this.success = success;
+        }
+    }
+
+    public class pastMessages {
+        public String user_id;
+        public String person_id;
+        public String product_id;
+
+        public String getProduct_id() {
+            return product_id;
+        }
+
+        public void setProduct_id(String product_id) {
+            this.product_id = product_id;
+        }
+
+        public String message;
+        public String image;
+        public Boolean isSent;
+
+        public String getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
+        }
+
+        public String getPerson_id() {
+            return person_id;
+        }
+
+        public void setPerson_id(String person_id) {
+            this.person_id = person_id;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public Boolean getSent() {
+            return isSent;
+        }
+
+        public void setSent(Boolean sent) {
+            isSent = sent;
         }
     }
 }
