@@ -130,7 +130,6 @@ public class chatFragment extends Fragment {
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 getActivity().getViewModelStore().clear();
-                getActivity().finish();
             }
         });
 

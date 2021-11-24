@@ -60,8 +60,8 @@
 
     <ImageView
         android:id="@+id/recentmsg_lay"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="8dp"
         android:tint="@color/primary_color"
@@ -77,7 +77,7 @@
         android:layout_marginBottom="9dp"
         android:fontFamily="@font/poppins"
         android:letterSpacing="0.01"
-        android:text="2"
+        android:text="4"
         android:textAlignment="center"
         android:textColor="@color/back_black"
         android:textSize="12sp"

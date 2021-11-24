@@ -2,6 +2,8 @@ package com.classified.justsell.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.classified.justsell.R;
+import com.classified.justsell.see_imageDialog;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
@@ -73,9 +78,24 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     holder1.msg.setText(message.getString("message"));
                 }
                 else {
+                    //convert to base64
                     sentImageHolder holder1= (sentImageHolder) holder;
                     Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
-
+                    holder1.image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle=new Bundle();
+                            try {
+                                bundle.putString("image",message.getString("image"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            see_imageDialog dialog=new see_imageDialog();
+                            FragmentManager manager = ((AppCompatActivity)mcontext).getSupportFragmentManager();
+                            dialog.setArguments(bundle);
+                            dialog.show(manager,"dialog");
+                        }
+                    });
                 }
             }
             else {
@@ -85,14 +105,31 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 }
                 else {
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;
-                    Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
 
+                    Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
+                    holder1.image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle=new Bundle();
+                            try {
+                                bundle.putString("image",message.getString("image"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            see_imageDialog dialog=new see_imageDialog();
+                            FragmentManager manager = ((AppCompatActivity)mcontext).getSupportFragmentManager();
+                            dialog.setArguments(bundle);
+                            dialog.show(manager,"dialog");
+                        }
+                    });
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+
 
     @Override
     public int getItemCount() {

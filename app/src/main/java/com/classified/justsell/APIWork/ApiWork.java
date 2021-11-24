@@ -191,4 +191,16 @@ public interface ApiWork {
     Call<chatModel.insidechatResp> get_singlechats(@Field("user_id") String userid,
                                               @Field("product_id") String productid,
                                               @Field("person_id") String personid);
+
+    @FormUrlEncoded
+    @POST("delete_chat")
+    Call<AuthResponse.SendOtp> delete_singlechat(@Field("user_id") String userid,
+                                                   @Field("product_id") String productid,
+                                                   @Field("person_id") String personid);
+
+    @FormUrlEncoded
+    @POST("block")
+    Call<AuthResponse.SendOtp> block(@Field("user_id") String userid,
+                                                     @Field("product_id") String productid,
+                                                     @Field("person_id") String personid);
 }

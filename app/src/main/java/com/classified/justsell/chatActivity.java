@@ -83,6 +83,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
     private ChatAdapter chatAdapter;
     private singleChatViewModel viewModel;
     private String receiver_img;
+    private api_baseurl baseurl=new api_baseurl();
     private  List<JSONObject>previousMessages=new ArrayList<>();
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,10 +213,10 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                                                 binding.chatsRec.getHeight());
 
                                         if(offset< (binding.chatsRec.getHeight()+100)) {
-                                            binding.scrolldown.setVisibility(View.VISIBLE);
+                                            //binding.scrolldown.setVisibility(View.VISIBLE);
                                         }
                                         else {
-                                            binding.scrolldown.setVisibility(View.INVISIBLE);
+                                          //  binding.scrolldown.setVisibility(View.INVISIBLE);
                                         }
                                     }
                                 });
@@ -378,7 +379,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                 try {
                     InputStream is=getContentResolver().openInputStream(imguri);
                     Bitmap image= BitmapFactory.decodeStream(is);
-                    sendImage(image);
+                    sendImage(image,String.valueOf(imguri));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -389,7 +390,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         }
     }
 
-    private void sendImage(Bitmap image) {
+    private void sendImage(Bitmap image,String imageuri) {
         ByteArrayOutputStream by = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 50, by);
         String base64img = android.util.Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
@@ -402,8 +403,13 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             jsonObject.put("image",base64img);
 
             webSocket.send(jsonObject.toString());
-            jsonObject.put("isSent","yes");
-            chatAdapter.addItem(jsonObject);
+
+            JSONObject fakejson=new JSONObject();
+            fakejson.put("user_id",user_id);
+            fakejson.put("person_id",person_id);
+            fakejson.put("image",imageuri);
+            fakejson.put("isSent","yes");
+            chatAdapter.addItem(fakejson);
             binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -416,9 +422,97 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(chatActivity.this).setTitle("Delete Chat")
+                        .setMessage("Are you sure you want to delete the whole chat?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                                ApiWork apiWork = retrofit.create(ApiWork.class);
+
+                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_singlechat(user_id,product_id,person_id);
+
+                                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                                    @Override
+                                    public void onResponse(Call<AuthResponse.SendOtp> call, retrofit2.Response<AuthResponse.SendOtp> response) {
+                                        if(!response.isSuccessful()) {
+                                            Log.d("error code",String.valueOf(response.code()));
+                                            return;
+                                        }
+
+                                        AuthResponse.SendOtp resp=response.body();
+
+                                        if(resp.getCode().equals("200")) {
+                                            Toast.makeText(chatActivity.this, "Account Blocked", Toast.LENGTH_SHORT).show();
+
+                                            finish();
+                                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                                        Log.d("Failure",t.getMessage());
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                builder1.show();
                 break;
             case R.id.block:
+                AlertDialog.Builder builder = new AlertDialog.Builder(chatActivity.this).setTitle("Delete & Block")
+                        .setMessage("You are going to block this account, the chat will also be deleted.").setPositiveButton("Block", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
+                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                                ApiWork apiWork = retrofit.create(ApiWork.class);
+
+                                Call<AuthResponse.SendOtp> call1 = apiWork.block(user_id,product_id,person_id);
+
+                                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                                    @Override
+                                    public void onResponse(Call<AuthResponse.SendOtp> call, retrofit2.Response<AuthResponse.SendOtp> response) {
+                                        if(!response.isSuccessful()) {
+                                            Log.d("error code",String.valueOf(response.code()));
+                                            return;
+                                        }
+
+                                        AuthResponse.SendOtp resp=response.body();
+
+                                        if(resp.getCode().equals("200")) {
+                                            Toast.makeText(chatActivity.this, "Account Blocked", Toast.LENGTH_SHORT).show();
+
+                                            finish();
+                                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                                        Log.d("Failure",t.getMessage());
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                builder.show();
+                break;
 
         }
         return false;
