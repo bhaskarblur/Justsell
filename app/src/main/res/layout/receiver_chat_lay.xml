@@ -36,7 +36,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/poppins"
-            android:text="This is a sample message"
+            android:text="This is a sample messageThis is a sample messageThis is a sample message"
             android:textColor="@color/back_black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

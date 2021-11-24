@@ -140,6 +140,7 @@ public class singleChatRepo {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         previousChats.setValue(previousChatsList);
                     }
                 }

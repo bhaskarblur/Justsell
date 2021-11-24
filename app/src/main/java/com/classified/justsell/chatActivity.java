@@ -153,6 +153,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                     Picasso.get().load(chatResult.getPerson_img()).resize(150,150).transform(new CropCircleTransformation())
                             .into(binding.personImage);
 
+                    receiver_img=chatResult.getPerson_img();
                     binding.personName.setText(chatResult.getPerson_name());
                     if(chatResult.getStatus()!=null) {
                         if (chatResult.getStatus().equals("online")) {

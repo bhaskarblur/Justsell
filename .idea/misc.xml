@@ -51,6 +51,7 @@
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/roundboxbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/rounded_transf.xml" value="0.20970464135021097" />
+        <entry key="app/src/main/res/layout-v25/activity_chat.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_ad_poster.xml" value="0.26114480099148024" />
         <entry key="app/src/main/res/layout/activity_ad_user.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_adposted_successful.xml" value="0.19662447257383966" />

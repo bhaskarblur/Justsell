@@ -159,6 +159,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
             String userpic=sharedPreferences.getString("userimage","");
 
             Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150,150).into(pic);
+
         }
     }
 
@@ -170,6 +171,8 @@ public class ChatAdapter extends RecyclerView.Adapter{
             pic=itemView.findViewById(R.id.receiver_pic);
             msg=itemView.findViewById(R.id.receiver_msg);
 
+            Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150,150).into(pic);
+
         }
     }
 
@@ -180,6 +183,9 @@ public class ChatAdapter extends RecyclerView.Adapter{
             super(itemView);
             pic=itemView.findViewById(R.id.receiver_pic);
             image=itemView.findViewById(R.id.receiver_img);
+
+            Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150,150).into(pic);
+
         }
     }
 }

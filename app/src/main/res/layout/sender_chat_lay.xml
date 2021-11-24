@@ -18,27 +18,28 @@
         app:srcCompat="@drawable/sampleuserimg1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/chatmsg_background_2"
-        android:backgroundTint="@color/primary_color"
+        android:backgroundTint="?android:textColorPrimaryInverse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/sender_msg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/poppins"
-            android:text="This is a sample message"
+            android:text="Hello"
             android:textAlignment="textStart"
-            android:textColor="@color/back_black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
