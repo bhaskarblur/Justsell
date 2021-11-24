@@ -216,8 +216,14 @@ public class chatActivity extends AppCompatActivity implements TextWatcher {
                 try {
                     JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent",false);
+                    jsonObject.put("seen",jsonObject.getString("seen"));
                     chatAdapter.addItem(jsonObject);
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
+                    JSONObject sentcheck=new JSONObject();
+                    sentcheck.put("user_id",user_id);
+                    sentcheck.put("product_id",product_id);
+                    sentcheck.put("person_id",person_id);
+                    sentcheck.put("seen","yes");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

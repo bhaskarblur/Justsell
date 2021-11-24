@@ -185,4 +185,10 @@ public interface ApiWork {
     @FormUrlEncoded
     @POST("chats")
     Call<chatModel.listChats> get_allchats(@Field("user_id") String userid);
+
+    @FormUrlEncoded
+    @POST("single_chat")
+    Call<chatModel.insidechatResp> get_singlechats(@Field("user_id") String userid,
+                                              @Field("product_id") String productid,
+                                              @Field("person_id") String personid);
 }
