@@ -54,10 +54,10 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class chatActivity extends AppCompatActivity {
+public class chatActivity extends AppCompatActivity implements TextWatcher {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path="";
+    private String server_path="http://echo.websocket.org";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -65,7 +65,7 @@ public class chatActivity extends AppCompatActivity {
     final int PERMISSION_CODE = 1001;
     private ChatAdapter chatAdapter;
     private String receiver_img;
-    private List<JSONObject> previousMessages;
+    private  List<JSONObject>previousMessages=new ArrayList<>();
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public class chatActivity extends AppCompatActivity {
         this.getSupportActionBar().hide();
 
         ManageData();
-        viewfuncs();
+        //viewfuncs();
     }
 
     private void viewfuncs() {
@@ -123,38 +123,17 @@ public class chatActivity extends AppCompatActivity {
 
         initiateSocketConnection();
 
-        binding.msgTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        binding.msgTxt.addTextChangedListener(this);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()) {
-                    resetmessageEdit();
-                }
-                else {
-                    binding.sendMsg.setVisibility(View.VISIBLE);
-                    binding.pickImage.setVisibility(View.INVISIBLE);
-                }
-
-            }
-        });
     }
 
     private void resetmessageEdit() {
-        binding.msgTxt.removeTextChangedListener((TextWatcher) this);
+        binding.msgTxt.removeTextChangedListener(this);
         binding.msgTxt.setText("");
         binding.sendMsg.setVisibility(View.INVISIBLE);
         binding.pickImage.setVisibility(View.VISIBLE);
 
-        binding.msgTxt.addTextChangedListener((TextWatcher) chatActivity.this);
+        binding.msgTxt.addTextChangedListener(this);
 
     }
 
@@ -195,8 +174,35 @@ public class chatActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(s.toString().trim().isEmpty()) {
+            resetmessageEdit();
+        }
+        else {
+            binding.sendMsg.setVisibility(View.VISIBLE);
+            binding.pickImage.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
 
     public class socketListener extends WebSocketListener {
+        @Override
+        public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
+            super.onFailure(webSocket, t, response);
+            Log.d("socketFailure",t.getMessage());
+        }
 
         @Override
         public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
@@ -207,9 +213,8 @@ public class chatActivity extends AppCompatActivity {
         public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
             super.onMessage(webSocket, text);
             runOnUiThread(() -> {
-                JSONObject jsonObject= null;
                 try {
-                    jsonObject = new JSONObject(text);
+                    JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent",false);
                     chatAdapter.addItem(jsonObject);
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
@@ -222,7 +227,7 @@ public class chatActivity extends AppCompatActivity {
         @Override
         public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
             super.onOpen(webSocket, response);
-
+            Log.d("connected","yes");
             runOnUiThread(() -> {
                 Toast.makeText(chatActivity.this, "Socket Connected!", Toast.LENGTH_SHORT).show();
 
@@ -272,6 +277,14 @@ public class chatActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+    }
+
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
 
     }
 }

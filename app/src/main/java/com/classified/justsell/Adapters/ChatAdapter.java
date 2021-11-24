@@ -46,16 +46,16 @@ public class ChatAdapter extends RecyclerView.Adapter{
         View view;
         switch (viewType) {
             case TYPE_MSG_SENT:
-                view=inflater.inflate(R.layout.sender_chat_lay,parent);
+                view=inflater.inflate(R.layout.sender_chat_lay,parent,false);
                 return new sentMessageHolder(view);
             case TYPE_IMG_SENT:
-                view=inflater.inflate(R.layout.sender_image_lay,parent);
+                view=inflater.inflate(R.layout.sender_image_lay,parent,false);
                 return new sentImageHolder(view);
             case TYPE_MSG_RECEIVED:
-                view=inflater.inflate(R.layout.receiver_chat_lay,parent);
+                view=inflater.inflate(R.layout.receiver_chat_lay,parent,false);
                 return new ReceivedMessageHolder(view);
             case TYPE_IMG_RECEIVED:
-                view=inflater.inflate(R.layout.receiver_image_lay,parent);
+                view=inflater.inflate(R.layout.receiver_image_lay,parent,false);
                 return new ReceivedImageHolder(view);
 
         }

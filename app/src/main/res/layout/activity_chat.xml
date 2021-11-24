@@ -131,7 +131,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
         tools:itemCount="2"
-        tools:listitem="@layout/sender_image_lay" />
+        tools:listitem="@layout/receiver_chat_lay" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"

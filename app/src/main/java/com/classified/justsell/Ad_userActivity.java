@@ -147,6 +147,12 @@ public class Ad_userActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // chat button!
+                Intent intent=new Intent(Ad_userActivity.this, chatActivity.class);
+                intent.putExtra("user_id",userid);
+                intent.putExtra("person_id",adsViewModel.getDataModel().getValue().getUser_id());
+                intent.putExtra("product_id",adsViewModel.getDataModel().getValue().getAd_id());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             }
         });
 

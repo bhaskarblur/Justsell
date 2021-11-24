@@ -44,8 +44,17 @@ public class chatModel {
         public String person_img;
         public String recent_msg;
         public String unseen_msg_count;
-        public String product_name;
+        public String product_title;
         public String product_price;
+        public String status;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
 
         public String getUnseen_msg_count() {
             return unseen_msg_count;
@@ -55,12 +64,12 @@ public class chatModel {
             this.unseen_msg_count = unseen_msg_count;
         }
 
-        public String getProduct_name() {
-            return product_name;
+        public String getProduct_title() {
+            return product_title;
         }
 
-        public void setProduct_name(String product_name) {
-            this.product_name = product_name;
+        public void setProduct_title(String product_title) {
+            this.product_title = product_title;
         }
 
         public String getProduct_price() {
@@ -139,13 +148,13 @@ public class chatModel {
     public class insidechatResp {
         public String success;
         public chatResult result;
-        public pastMessages messages;
+        public List<pastMessages> messages;
 
-        public pastMessages getMessages() {
+        public List<pastMessages> getMessages() {
             return messages;
         }
 
-        public void setMessages(pastMessages messages) {
+        public void setMessages(List<pastMessages> messages) {
             this.messages = messages;
         }
 
