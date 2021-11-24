@@ -34,6 +34,8 @@ public class singleChatRepo {
     }
 
     public MutableLiveData<chatModel.chatResult> returnchatData(String userid,String productid,String personid) {
+        Log.d("product_id",productid);
+        Log.d("person_id",personid);
         getdataFromServer(userid,productid,personid);
         return chatData;
     }
@@ -57,22 +59,24 @@ public class singleChatRepo {
                 }
                 if(response.body().getResult()!=null) {
                     chatData.setValue(response.body().getResult());
-                    for(int i=0;i<response.body().getMessages().size();i++) {
-                        try {
-                            JSONObject jsonObject=new JSONObject();
-                            jsonObject.put("user_id",response.body().getMessages().get(i).getUser_id());
-                            jsonObject.put("product_id",response.body().getMessages().get(i).getProduct_id());
-                            jsonObject.put("person_id",response.body().getMessages().get(i).getPerson_id());
-                            jsonObject.put("message",response.body().getMessages().get(i).getMessage());
-                            jsonObject.put("image",response.body().getMessages().get(i).getImage());
-                            jsonObject.put("seen","yes");
-                            previousChatsList.add(jsonObject);
+                    if(response.body().getMessages()!=null) {
+                        for (int i = 0; i < response.body().getMessages().size(); i++) {
+                            try {
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("user_id", response.body().getMessages().get(i).getUser_id());
+                                jsonObject.put("product_id", response.body().getMessages().get(i).getProduct_id());
+                                jsonObject.put("person_id", response.body().getMessages().get(i).getPerson_id());
+                                jsonObject.put("message", response.body().getMessages().get(i).getMessage());
+                                jsonObject.put("image", response.body().getMessages().get(i).getImage());
+                                jsonObject.put("seen", "yes");
+                                previousChatsList.add(jsonObject);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
+                        previousChats.setValue(previousChatsList);
                     }
-                    previousChats.setValue(previousChatsList);
                 }
             }
 

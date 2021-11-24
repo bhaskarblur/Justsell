@@ -52,6 +52,7 @@ public class Ad_userActivity extends AppCompatActivity {
     String prod_name;
     String cat_name;
     String userid;
+    String personid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,8 +150,10 @@ public class Ad_userActivity extends AppCompatActivity {
                 // chat button!
                 Intent intent=new Intent(Ad_userActivity.this, chatActivity.class);
                 intent.putExtra("user_id",userid);
-                intent.putExtra("person_id",adsViewModel.getDataModel().getValue().getUser_id());
-                intent.putExtra("product_id",adsViewModel.getDataModel().getValue().getAd_id());
+                intent.putExtra("person_id",personid);
+                intent.putExtra("product_id",adid);
+                Log.d("product_id",adid);
+                Log.d("person_id",personid);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             }
@@ -220,6 +223,7 @@ public class Ad_userActivity extends AppCompatActivity {
                         }
                     }
 
+                    personid=adsResult.getUser_id();
                     binding.prodpriceTxt.setText("Rs "+adsResult.getSelling_price());
                     binding.prodtitleTxt.setText(adsResult.getAd_title());
                     binding.proddescTxt.setText(adsResult.getDescription());

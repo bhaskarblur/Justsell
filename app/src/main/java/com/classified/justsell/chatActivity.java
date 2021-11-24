@@ -141,7 +141,8 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         user_id=intent.getStringExtra("user_id");
         person_id=intent.getStringExtra("person_id");
         product_id=intent.getStringExtra("product_id");
-
+        Log.d("product_id",product_id);
+        Log.d("person_id",person_id);
         viewModel=new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id,product_id,person_id);
         viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
@@ -155,7 +156,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                             .into(binding.personImage);
 
                     binding.personName.setText(chatResult.getPerson_name());
-                    binding.personStatus.setText(chatResult.getStatus());
+                    binding.personStatus.setText(chatResult.getStatus()+"hello");
 
 
                 }
