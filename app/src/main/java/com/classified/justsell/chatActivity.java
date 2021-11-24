@@ -71,10 +71,10 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class chatActivity extends AppCompatActivity implements TextWatcher,PopupMenu.OnMenuItemClickListener{
+public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path="http://echo.websocket.org";
+    private String server_path = "http://echo.websocket.org";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -83,41 +83,42 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
     private ChatAdapter chatAdapter;
     private singleChatViewModel viewModel;
     private String receiver_img;
-    private api_baseurl baseurl=new api_baseurl();
-    private  List<JSONObject>previousMessages=new ArrayList<>();
-     @Override
+    private api_baseurl baseurl = new api_baseurl();
+    private List<JSONObject> previousMessages = new ArrayList<>();
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityChatBinding.inflate(getLayoutInflater());
+        binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
-         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ManageData();
         viewfuncs();
     }
 
     private void viewfuncs() {
 
-         binding.scrolldown.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
-                 binding.scrolldown.setVisibility(View.INVISIBLE);
-             }
-         });
+        binding.scrolldown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+                binding.scrolldown.setVisibility(View.INVISIBLE);
+            }
+        });
         binding.sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject=new JSONObject();
-                try{
-                    jsonObject.put("user_id",user_id);
-                    jsonObject.put("person_id",person_id);
-                    jsonObject.put("message",binding.msgTxt.getText().toString());
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("user_id", user_id);
+                    jsonObject.put("person_id", person_id);
+                    jsonObject.put("message", binding.msgTxt.getText().toString());
                     webSocket.send(jsonObject.toString());
-                    jsonObject.put("isSent","yes");
+                    jsonObject.put("isSent", "yes");
                     chatAdapter.addItem(jsonObject);
                     resetmessageEdit();
-                    binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
+                    binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -149,37 +150,36 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
     private void ManageData() {
 
-        Intent intent=getIntent();
-        user_id=intent.getStringExtra("user_id");
-        person_id=intent.getStringExtra("person_id");
-        product_id=intent.getStringExtra("product_id");
-        viewModel=new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
-        viewModel.initwork(user_id,product_id,person_id);
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("user_id");
+        person_id = intent.getStringExtra("person_id");
+        product_id = intent.getStringExtra("product_id");
+        viewModel = new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
+        viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);
         viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
             @Override
             public void onChanged(chatModel.chatResult chatResult) {
-                if(chatResult!=null) {
-                    Picasso.get().load(chatResult.getProduct_img()).resize(200,200)
+                if (chatResult != null) {
+                    Picasso.get().load(chatResult.getProduct_img()).resize(200, 200)
                             .into(binding.productImage);
 
-                    Picasso.get().load(chatResult.getPerson_img()).resize(150,150).transform(new CropCircleTransformation())
+                    Picasso.get().load(chatResult.getPerson_img()).resize(150, 150).transform(new CropCircleTransformation())
                             .into(binding.personImage);
 
-                    receiver_img=chatResult.getPerson_img();
+                    receiver_img = chatResult.getPerson_img();
                     binding.personName.setText(chatResult.getPerson_name());
-                    if(chatResult.getStatus()!=null) {
+                    if (chatResult.getStatus() != null) {
                         if (chatResult.getStatus().equals("online")) {
                             binding.personStatus.setVisibility(View.VISIBLE);
                         } else {
                             binding.personStatus.setText("Offline");
                         }
-                    }
-                else {
+                    } else {
                         binding.personStatus.setText("Offline");
                     }
                     binding.productTitle.setText(chatResult.getProduct_title());
-                    binding.productPrice.setText("Rs "+chatResult.getProduct_price());
+                    binding.productPrice.setText("Rs " + chatResult.getProduct_price());
 
 
                 }
@@ -188,39 +188,38 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         viewModel.getPreviousChats().observe(chatActivity.this, new Observer<List<JSONObject>>() {
             @Override
             public void onChanged(List<JSONObject> jsonObjects) {
-                if(jsonObjects.size()>0) {
+                if (jsonObjects.size() > 0) {
 
                     new Handler().postDelayed(new Runnable() {
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void run() {
                             try {
-                                previousMessages=jsonObjects;
-                                chatAdapter=new ChatAdapter(chatActivity.this,getLayoutInflater(),previousMessages
-                                        ,receiver_img);
+                                previousMessages = jsonObjects;
+                                chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
+                                        , receiver_img);
 
-                                LinearLayoutManager llm=new LinearLayoutManager(chatActivity.this);
+                                LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
                                 binding.chatsRec.setLayoutManager(llm);
                                 binding.chatsRec.setAdapter(chatAdapter);
-                                binding.chatsRec.scrollToPosition(chatAdapter.getItemCount()-1);
+                                binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);
                                 llm.setSmoothScrollbarEnabled(true);
                                 binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                                     @Override
                                     public void onScrollChange(View view, int i, int i1, int i2, int i3) {
 
-                                        int offset=binding.chatsRec.computeVerticalScrollOffset();
-                                        Log.d("pos",String.valueOf(offset)+","+
-                                                binding.chatsRec.getHeight());
-
-                                        if(offset< (binding.chatsRec.getHeight()+100)) {
-                                            //binding.scrolldown.setVisibility(View.VISIBLE);
-                                        }
-                                        else {
-                                          //  binding.scrolldown.setVisibility(View.INVISIBLE);
+                                        View focusedView = (View) binding.chatsRec.getFocusedChild();
+                                        if(focusedView!=null) {
+                                            if (!focusedView.equals(view)) {
+                                                binding.scrolldown.setVisibility(View.VISIBLE);
+                                            } else {
+                                                binding.scrolldown.setVisibility(View.INVISIBLE);
+                                            }
                                         }
                                     }
                                 });
-                                Log.d("chatshere",chatAdapter.messages.get(0).getString("isSent"));
+
+                                Log.d("chatshere", chatAdapter.messages.get(0).getString("isSent"));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -228,7 +227,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
 
                         }
-                    },100);
+                    }, 100);
                 }
 
             }
@@ -239,7 +238,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         binding.msgTxt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-               // binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
+                // binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
                 return false;
             }
         });
@@ -258,9 +257,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
     }
 
     private void initiateSocketConnection() {
-        OkHttpClient client=new OkHttpClient();
-        Request request=new Request.Builder().url(server_path).build();
-        webSocket=client.newWebSocket(request,new socketListener());
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(server_path).build();
+        webSocket = client.newWebSocket(request, new socketListener());
     }
 
 
@@ -306,10 +305,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
     @Override
     public void afterTextChanged(Editable s) {
-        if(s.toString().trim().isEmpty()) {
+        if (s.toString().trim().isEmpty()) {
             resetmessageEdit();
-        }
-        else {
+        } else {
             binding.sendMsg.setVisibility(View.VISIBLE);
             binding.pickImage.setVisibility(View.INVISIBLE);
         }
@@ -321,7 +319,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         @Override
         public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
             super.onFailure(webSocket, t, response);
-            Log.d("socketFailure",t.getMessage());
+            Log.d("socketFailure", t.getMessage());
         }
 
         @Override
@@ -335,20 +333,19 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
             runOnUiThread(() -> {
                 try {
                     JSONObject jsonObject = new JSONObject(text);
-                    jsonObject.put("isSent","true");
-                    jsonObject.put("seen",jsonObject.getString("seen"));
+                    jsonObject.put("isSent", "true");
+                    jsonObject.put("seen", jsonObject.getString("seen"));
                     chatAdapter.addItem(jsonObject);
-                    binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
-                    JSONObject sentcheck=new JSONObject();
-                    sentcheck.put("user_id",user_id);
-                    sentcheck.put("product_id",product_id);
-                    sentcheck.put("person_id",person_id);
-                    sentcheck.put("seen","yes");
+                    binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+                    JSONObject sentcheck = new JSONObject();
+                    sentcheck.put("user_id", user_id);
+                    sentcheck.put("product_id", product_id);
+                    sentcheck.put("person_id", person_id);
+                    sentcheck.put("seen", "yes");
 
-                    if(jsonObject.getString("status").equals("online")) {
+                    if (jsonObject.getString("status").equals("online")) {
                         binding.personStatus.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         binding.personStatus.setText("Offline");
                     }
                 } catch (JSONException e) {
@@ -360,7 +357,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         @Override
         public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
             super.onOpen(webSocket, response);
-            Log.d("connected","yes");
+            Log.d("connected", "yes");
             runOnUiThread(() -> {
                 Toast.makeText(chatActivity.this, "Socket Connected!", Toast.LENGTH_SHORT).show();
 
@@ -377,9 +374,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 Uri imguri = result.getUri();
                 try {
-                    InputStream is=getContentResolver().openInputStream(imguri);
-                    Bitmap image= BitmapFactory.decodeStream(is);
-                    sendImage(image,String.valueOf(imguri));
+                    InputStream is = getContentResolver().openInputStream(imguri);
+                    Bitmap image = BitmapFactory.decodeStream(is);
+                    sendImage(image, String.valueOf(imguri));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -390,27 +387,27 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         }
     }
 
-    private void sendImage(Bitmap image,String imageuri) {
+    private void sendImage(Bitmap image, String imageuri) {
         ByteArrayOutputStream by = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 50, by);
         String base64img = android.util.Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
 
-        JSONObject jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("user_id",user_id);
-            jsonObject.put("person_id",person_id);
-            jsonObject.put("image",base64img);
+            jsonObject.put("user_id", user_id);
+            jsonObject.put("person_id", person_id);
+            jsonObject.put("image", base64img);
 
             webSocket.send(jsonObject.toString());
 
-            JSONObject fakejson=new JSONObject();
-            fakejson.put("user_id",user_id);
-            fakejson.put("person_id",person_id);
-            fakejson.put("image",imageuri);
-            fakejson.put("isSent","yes");
+            JSONObject fakejson = new JSONObject();
+            fakejson.put("user_id", user_id);
+            fakejson.put("person_id", person_id);
+            fakejson.put("image", imageuri);
+            fakejson.put("isSent", "yes");
             chatAdapter.addItem(fakejson);
-            binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount()-1);
+            binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -432,19 +429,19 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
 
-                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_singlechat(user_id,product_id,person_id);
+                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_singlechat(user_id, product_id, person_id);
 
                                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {
                                     @Override
                                     public void onResponse(Call<AuthResponse.SendOtp> call, retrofit2.Response<AuthResponse.SendOtp> response) {
-                                        if(!response.isSuccessful()) {
-                                            Log.d("error code",String.valueOf(response.code()));
+                                        if (!response.isSuccessful()) {
+                                            Log.d("error code", String.valueOf(response.code()));
                                             return;
                                         }
 
-                                        AuthResponse.SendOtp resp=response.body();
+                                        AuthResponse.SendOtp resp = response.body();
 
-                                        if(resp.getCode().equals("200")) {
+                                        if (resp.getCode().equals("200")) {
                                             Toast.makeText(chatActivity.this, "Account Blocked", Toast.LENGTH_SHORT).show();
 
                                             finish();
@@ -454,7 +451,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
                                     @Override
                                     public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                                        Log.d("Failure",t.getMessage());
+                                        Log.d("Failure", t.getMessage());
                                     }
                                 });
 
@@ -478,19 +475,19 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
 
-                                Call<AuthResponse.SendOtp> call1 = apiWork.block(user_id,product_id,person_id);
+                                Call<AuthResponse.SendOtp> call1 = apiWork.block(user_id, product_id, person_id);
 
                                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {
                                     @Override
                                     public void onResponse(Call<AuthResponse.SendOtp> call, retrofit2.Response<AuthResponse.SendOtp> response) {
-                                        if(!response.isSuccessful()) {
-                                            Log.d("error code",String.valueOf(response.code()));
+                                        if (!response.isSuccessful()) {
+                                            Log.d("error code", String.valueOf(response.code()));
                                             return;
                                         }
 
-                                        AuthResponse.SendOtp resp=response.body();
+                                        AuthResponse.SendOtp resp = response.body();
 
-                                        if(resp.getCode().equals("200")) {
+                                        if (resp.getCode().equals("200")) {
                                             Toast.makeText(chatActivity.this, "Account Blocked", Toast.LENGTH_SHORT).show();
 
                                             finish();
@@ -500,7 +497,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
 
                                     @Override
                                     public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                                        Log.d("Failure",t.getMessage());
+                                        Log.d("Failure", t.getMessage());
                                     }
                                 });
 
@@ -517,10 +514,11 @@ public class chatActivity extends AppCompatActivity implements TextWatcher,Popup
         }
         return false;
     }
+
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         getViewModelStore().clear();
 
     }

@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="50dp"
-    android:layout_marginBottom="15dp">
+    android:layout_marginBottom="7dp">
 
     <ImageView
         android:id="@+id/receiver_pic"
