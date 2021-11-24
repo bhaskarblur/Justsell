@@ -4,29 +4,42 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ImageViewCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.ChatAdapter;
 import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.AuthResponse;
+import com.classified.justsell.Models.chatModel;
+import com.classified.justsell.ViewModels.singleChatViewModel;
 import com.classified.justsell.databinding.ActivityChatBinding;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -54,7 +67,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class chatActivity extends AppCompatActivity implements TextWatcher {
+public class chatActivity extends AppCompatActivity implements TextWatcher,PopupMenu.OnMenuItemClickListener{
     private ActivityChatBinding binding;
     private WebSocket webSocket;
     private String server_path="http://echo.websocket.org";
@@ -64,6 +77,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher {
     final int IMAGE_PICK_CODE = 1000;
     final int PERMISSION_CODE = 1001;
     private ChatAdapter chatAdapter;
+    private singleChatViewModel viewModel;
     private String receiver_img;
     private  List<JSONObject>previousMessages=new ArrayList<>();
      @Override
@@ -105,6 +119,20 @@ public class chatActivity extends AppCompatActivity implements TextWatcher {
                 startCropActivity();
             }
         });
+
+        binding.menuBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(chatActivity.this, v);
+                popupMenu.setOnMenuItemClickListener(chatActivity.this);
+                popupMenu.inflate(R.menu.profoptionmenu);
+                MenuItem item = popupMenu.getMenu().findItem(R.id.logout_item);
+                SpannableString s = new SpannableString("Block");
+                item.setTitle(s);
+                s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
+                popupMenu.show();
+            }
+        });
     }
 
     private void ManageData() {
@@ -113,6 +141,41 @@ public class chatActivity extends AppCompatActivity implements TextWatcher {
         user_id=intent.getStringExtra("user_id");
         person_id=intent.getStringExtra("person_id");
         product_id=intent.getStringExtra("product_id");
+
+        viewModel=new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
+        viewModel.initwork(user_id,product_id,person_id);
+        viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
+            @Override
+            public void onChanged(chatModel.chatResult chatResult) {
+                if(chatResult!=null) {
+                    Picasso.get().load(chatResult.getProduct_img()).resize(250,250).transform(new CropCircleTransformation())
+                            .into(binding.productImage);
+
+                    Picasso.get().load(chatResult.getPerson_img()).resize(250,250).transform(new CropCircleTransformation())
+                            .into(binding.personImage);
+
+                    binding.personName.setText(chatResult.getPerson_name());
+                    binding.personStatus.setText(chatResult.getStatus());
+
+
+                }
+            }
+        });
+        viewModel.getPreviousChats().observe(chatActivity.this, new Observer<List<JSONObject>>() {
+            @Override
+            public void onChanged(List<JSONObject> jsonObjects) {
+                if(jsonObjects.size()>0) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            previousMessages=jsonObjects;
+                        }
+                    },100);
+                }
+
+            }
+        });
+
         chatAdapter=new ChatAdapter(chatActivity.this,getLayoutInflater(),previousMessages
         ,receiver_img);
 
@@ -224,6 +287,13 @@ public class chatActivity extends AppCompatActivity implements TextWatcher {
                     sentcheck.put("product_id",product_id);
                     sentcheck.put("person_id",person_id);
                     sentcheck.put("seen","yes");
+
+                    if(jsonObject.getString("status").equals("online")) {
+                        binding.personStatus.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        binding.personStatus.setVisibility(View.INVISIBLE);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -286,11 +356,22 @@ public class chatActivity extends AppCompatActivity implements TextWatcher {
 
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete:
+                break;
+            case R.id.block:
 
+
+        }
+        return false;
+    }
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+        getViewModelStore().clear();
 
     }
 }

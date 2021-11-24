@@ -8,6 +8,7 @@ import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.chatModel;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class singleChatRepo {
         getdataFromServer(userid,productid,personid);
         return chatData;
     }
-
+    public MutableLiveData<List<JSONObject>> returnprevChats() {
+        return previousChats;
+    }
     private void getdataFromServer(String userid, String productid, String personid) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -54,7 +57,22 @@ public class singleChatRepo {
                 }
                 if(response.body().getResult()!=null) {
                     chatData.setValue(response.body().getResult());
+                    for(int i=0;i<response.body().getMessages().size();i++) {
+                        try {
+                            JSONObject jsonObject=new JSONObject();
+                            jsonObject.put("user_id",response.body().getMessages().get(i).getUser_id());
+                            jsonObject.put("product_id",response.body().getMessages().get(i).getProduct_id());
+                            jsonObject.put("person_id",response.body().getMessages().get(i).getPerson_id());
+                            jsonObject.put("message",response.body().getMessages().get(i).getMessage());
+                            jsonObject.put("image",response.body().getMessages().get(i).getImage());
+                            jsonObject.put("seen","yes");
+                            previousChatsList.add(jsonObject);
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    previousChats.setValue(previousChatsList);
                 }
             }
 
