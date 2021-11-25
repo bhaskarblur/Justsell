@@ -448,7 +448,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(chatActivity.this).setTitle("Delete Chat")
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(chatActivity.this,R.style.AlertDialogStyle).setTitle("Delete Chat")
                         .setMessage("Are you sure you want to delete the whole chat?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -494,7 +494,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 builder1.show();
                 break;
             case R.id.block:
-                AlertDialog.Builder builder = new AlertDialog.Builder(chatActivity.this).setTitle("Delete & Block")
+                AlertDialog.Builder builder = new AlertDialog.Builder(chatActivity.this,R.style.AlertDialogStyle).setTitle("Delete & Block")
                         .setMessage("You are going to block this account, the chat will also be deleted.").setPositiveButton("Block", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

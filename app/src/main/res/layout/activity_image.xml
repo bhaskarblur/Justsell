@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".see_imageDialog">
+    tools:context=".imageActivity">
 
-
-    <ImageView
-        android:id="@+id/big_img"
+    <com.ortiz.touchview.TouchImageView
+        android:id="@+id/big_img2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +19,11 @@
         app:srcCompat="@drawable/grocerycatimg" />
 
     <ImageView
-        android:id="@+id/backbtn8"
+        android:id="@+id/backbtn9"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/backbtn"
         android:tint="@color/white"
         app:layout_constraintStart_toStartOf="parent"

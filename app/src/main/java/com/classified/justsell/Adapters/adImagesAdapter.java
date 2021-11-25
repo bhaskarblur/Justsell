@@ -1,6 +1,8 @@
 package com.classified.justsell.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +11,13 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.classified.justsell.Fragments.chatFragment;
-import com.classified.justsell.see_imageDialog;
 import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.R;
+import com.classified.justsell.imageActivity;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -52,12 +53,10 @@ public class adImagesAdapter extends RecyclerView.Adapter<adImagesAdapter.viewHo
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putString("image",bannerlist.get(position).getImage());
-                see_imageDialog dialog=new see_imageDialog();
-                FragmentManager manager = ((AppCompatActivity)mcontext).getSupportFragmentManager();
-                dialog.setArguments(bundle);
-                dialog.show(manager,"dialog");
+               Intent intent= new Intent(mcontext, imageActivity.class);
+               intent.putExtra("image",bannerlist.get(position).getImage());
+               mcontext.startActivity(intent);
+               // ((Activity) mcontext).overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
 
             }
         });

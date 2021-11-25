@@ -27,4 +27,5 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
     </style>
+
 </resources>

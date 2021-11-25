@@ -1,10 +1,10 @@
 package com.classified.justsell.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +17,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.classified.justsell.R;
-import com.classified.justsell.see_imageDialog;
-import com.google.gson.JsonObject;
+import com.classified.justsell.imageActivity;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -86,16 +84,15 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Bundle bundle=new Bundle();
                             try {
-                                bundle.putString("image",message.getString("image"));
+                                Intent intent= new Intent(mcontext, imageActivity.class);
+                                intent.putExtra("image",message.getString("image"));
+                                mcontext.startActivity(intent);
+                           //     ((Activity) mcontext).overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            see_imageDialog dialog=new see_imageDialog();
-                            FragmentManager manager = ((AppCompatActivity)mcontext).getSupportFragmentManager();
-                            dialog.setArguments(bundle);
-                            dialog.show(manager,"dialog");
+
                         }
                     });
                 }
@@ -113,16 +110,15 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Bundle bundle=new Bundle();
                             try {
-                                bundle.putString("image",message.getString("image"));
+                                Intent intent= new Intent(mcontext, imageActivity.class);
+                                intent.putExtra("image",message.getString("image"));
+                                mcontext.startActivity(intent);
+                            //    ((Activity) mcontext).overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            see_imageDialog dialog=new see_imageDialog();
-                            FragmentManager manager = ((AppCompatActivity)mcontext).getSupportFragmentManager();
-                            dialog.setArguments(bundle);
-                            dialog.show(manager,"dialog");
+
                         }
                     });
                 }

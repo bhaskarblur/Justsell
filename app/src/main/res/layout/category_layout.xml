@@ -29,11 +29,11 @@
 
     <ImageView
         android:id="@+id/fieldimg"
-        android:layout_width="28dp"
+        android:layout_width="26dp"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

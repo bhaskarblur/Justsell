@@ -20,10 +20,13 @@
         android:theme="@style/Theme.Justsell"
         android:usesCleartextTraffic="true">
         <activity
-            android:windowSoftInputMode="adjustPan"
+            android:name=".imageActivity"
+            android:exported="true" />
+        <activity
             android:name=".chatActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".adpromoted_successful"
             android:exported="true"

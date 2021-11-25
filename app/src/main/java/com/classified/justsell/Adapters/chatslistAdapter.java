@@ -38,7 +38,7 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.name.setText(list.get(position).getPerson_name());
-        Picasso.get().load(list.get(position).getProduct_img()).resize(150,150)
+        Picasso.get().load(list.get(position).getPerson_img()).resize(150,150)
                 .centerCrop().into(holder.img);
 
         holder.lastmsg.setText(list.get(position).getRecent_msg());
