@@ -21,7 +21,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".imageActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".chatActivity"
             android:exported="false"

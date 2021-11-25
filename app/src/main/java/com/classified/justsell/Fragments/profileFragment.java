@@ -91,6 +91,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     private String mParam1;
     private String mParam2;
     private String editedimage;
+    private String oldimage;
     private SharedPreferences sharedPreferences;
     private String user_id;
     private MyadsAdapter myadsAdapter;
@@ -209,10 +210,15 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
-                    Call<AuthResponse.profile_update> call1 = apiWork.updateprofile2(user_id, binding.nameTxt.getText().toString()
-                            , state, city, base64img, binding.numberTxt.getText().toString());
-
+                    Call<AuthResponse.profile_update> call1;
+                    if(!oldimage.equals(editedimage)) {
+                        call1 = apiWork.updateprofile2(user_id, binding.nameTxt.getText().toString()
+                                , state, city, base64img, binding.numberTxt.getText().toString());
+                    }
+                    else {
+                        call1 = apiWork.withoutimage_updateprofile(user_id, binding.nameTxt.getText().toString()
+                                , state, city, binding.numberTxt.getText().toString());
+                    }
                     call1.enqueue(new Callback<AuthResponse.profile_update>() {
                         @Override
                         public void onResponse(Call<AuthResponse.profile_update> call, Response<AuthResponse.profile_update> response) {
@@ -253,6 +259,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                         }
                     });
+
                 }
             }
         });
@@ -373,6 +380,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         String number = sharedPreferences.getString("usermobile", "");
         String image = sharedPreferences.getString("userimage", "empty");
         editedimage = sharedPreferences.getString("userimage", "empty");
+        oldimage=editedimage;
 
         binding.userName.setText(name);
         binding.userNumber.setText(number);

@@ -32,6 +32,14 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("profile_update")
+    Call<AuthResponse.profile_update> withoutimage_updateprofile(@Field("user_id") String userid,
+                                                    @Field("name") String name,
+                                                    @Field("state") String state,
+                                                    @Field("city") String city,
+                                                                 @Field("mobile")String mobile);
+
+    @FormUrlEncoded
+    @POST("profile_update")
     Call<AuthResponse.profile_update> updateprofile(@Field("user_id") String userid,
                                                     @Field("name") String name,
                                                     @Field("state") String state,
