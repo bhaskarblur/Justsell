@@ -199,7 +199,7 @@ public interface ApiWork {
                                                    @Field("person_id") String personid);
 
     @FormUrlEncoded
-    @POST("block")
+    @POST("block_chat")
     Call<AuthResponse.SendOtp> block(@Field("user_id") String userid,
                                                      @Field("product_id") String productid,
                                                      @Field("person_id") String personid);

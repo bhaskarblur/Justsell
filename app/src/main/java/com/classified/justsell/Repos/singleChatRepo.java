@@ -63,6 +63,7 @@ public class singleChatRepo {
                         for (int i = 0; i < response.body().getMessages().size(); i++) {
                             try {
                                 JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("time",response.body().getMessages().get(i).getTime());
                                 jsonObject.put("user_id", response.body().getMessages().get(i).getUser_id());
                                 jsonObject.put("product_id", response.body().getMessages().get(i).getProduct_id());
                                 jsonObject.put("person_id", response.body().getMessages().get(i).getPerson_id());

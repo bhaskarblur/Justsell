@@ -181,6 +181,23 @@ public class chatModel {
         public String user_id;
         public String person_id;
         public String product_id;
+        public String time;
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getIsSent() {
+            return isSent;
+        }
+
+        public void setIsSent(String isSent) {
+            this.isSent = isSent;
+        }
 
         public String getProduct_id() {
             return product_id;

@@ -59,6 +59,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -135,6 +136,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             public void onClick(View v) {
                 JSONObject jsonObject = new JSONObject();
                 try {
+                    Calendar calendar=Calendar.getInstance();
+                    String time=calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+                    jsonObject.put("time",time);
                     jsonObject.put("user_id", user_id);
                     jsonObject.put("person_id", person_id);
                     jsonObject.put("message", binding.msgTxt.getText().toString());
@@ -173,7 +177,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     }
 
     private void ManageData() {
-
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
         person_id = intent.getStringExtra("person_id");
@@ -359,6 +362,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     jsonObject.put("seen", jsonObject.getString("seen"));
                     chatAdapter.addItem(jsonObject);
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+
                     JSONObject sentcheck = new JSONObject();
                     sentcheck.put("user_id", user_id);
                     sentcheck.put("product_id", product_id);
@@ -417,13 +421,16 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         JSONObject jsonObject = new JSONObject();
 
         try {
+            Calendar calendar=Calendar.getInstance();
+            String time=calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+            jsonObject.put("time",time);
             jsonObject.put("user_id", user_id);
             jsonObject.put("person_id", person_id);
             jsonObject.put("image", base64img);
-
             webSocket.send(jsonObject.toString());
 
             JSONObject fakejson = new JSONObject();
+            fakejson.put("time",time);
             fakejson.put("user_id", user_id);
             fakejson.put("person_id", person_id);
             fakejson.put("image", imageuri);

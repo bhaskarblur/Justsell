@@ -76,10 +76,12 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 if(message.has("message")) {
                     sentMessageHolder holder1= (sentMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));
+                    holder1.time.setText(message.getString("time"));
                 }
                 else {
                     //convert to base64
                     sentImageHolder holder1= (sentImageHolder) holder;
+                    holder1.time.setText(message.getString("time"));
                     Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -102,10 +104,11 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 if(message.has("message")) {
                     ReceivedMessageHolder holder1= (ReceivedMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));
+                    holder1.time.setText(message.getString("time"));
                 }
                 else {
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;
-
+                    holder1.time.setText(message.getString("time"));
                     Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -169,11 +172,12 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private class sentMessageHolder extends RecyclerView.ViewHolder {
         ImageView pic;
         TextView msg;
+        TextView time;
         public sentMessageHolder(@NonNull View itemView) {
             super(itemView);
             pic=itemView.findViewById(R.id.sender_pic);
             msg=itemView.findViewById(R.id.sender_msg);
-
+            time=itemView.findViewById(R.id.sender_time);
             SharedPreferences sharedPreferences=mcontext.getSharedPreferences("userlogged",0);
 
             String userpic=sharedPreferences.getString("userimage","");
@@ -186,11 +190,12 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private class sentImageHolder extends RecyclerView.ViewHolder {
         ImageView pic;
         ImageView image;
+        TextView time;
         public sentImageHolder(@NonNull View itemView) {
             super(itemView);
             pic=itemView.findViewById(R.id.sender_pic);
             image=itemView.findViewById(R.id.sender_image);
-
+            time=itemView.findViewById(R.id.sender_time);
             SharedPreferences sharedPreferences=mcontext.getSharedPreferences("userlogged",0);
 
             String userpic=sharedPreferences.getString("userimage","");
@@ -203,11 +208,12 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         ImageView pic;
         TextView msg;
+        TextView time;
         public ReceivedMessageHolder(@NonNull View itemView) {
             super(itemView);
             pic=itemView.findViewById(R.id.receiver_pic);
             msg=itemView.findViewById(R.id.receiver_msg);
-
+            time=itemView.findViewById(R.id.receiver_time);
             Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150,150).into(pic);
 
         }
@@ -216,11 +222,12 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private class ReceivedImageHolder extends RecyclerView.ViewHolder {
         ImageView pic;
         ImageView image;
+        TextView time;
         public ReceivedImageHolder(@NonNull View itemView) {
             super(itemView);
             pic=itemView.findViewById(R.id.receiver_pic);
             image=itemView.findViewById(R.id.receiver_img);
-
+            time=itemView.findViewById(R.id.receiver_time);
             Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150,150).into(pic);
 
         }
