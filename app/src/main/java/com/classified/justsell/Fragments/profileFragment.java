@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -262,6 +264,12 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 binding.myadsTxt2.setVisibility(View.INVISIBLE);
                 binding.adsLay.setVisibility(View.VISIBLE);
 
+                Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.poppins_semibold);
+                binding.myadsTxt.setTypeface(typeface);
+                Typeface typeface1 = ResourcesCompat.getFont(getContext(), R.font.poppins);
+                binding.promTxt2.setTypeface(typeface);
+                Typeface typeface2 = ResourcesCompat.getFont(getContext(), R.font.poppins);
+                binding.favsTxt3.setTypeface(typeface);
                 binding.favsTxt.setVisibility(View.VISIBLE);
                 binding.favsTxt3.setVisibility(View.INVISIBLE);
                 binding.favsLay.setVisibility(View.INVISIBLE);
@@ -279,7 +287,12 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 binding.myadsTxt.setVisibility(View.INVISIBLE);
                 binding.myadsTxt2.setVisibility(View.VISIBLE);
                 binding.adsLay.setVisibility(View.INVISIBLE);
-
+                Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.poppins_semibold);
+                binding.favsTxt3.setTypeface(typeface);
+                Typeface typeface1 = ResourcesCompat.getFont(getContext(), R.font.poppins);
+                binding.promTxt2.setTypeface(typeface);
+                Typeface typeface2 = ResourcesCompat.getFont(getContext(), R.font.poppins);
+                binding.myadsTxt2.setTypeface(typeface2);
                 binding.favsTxt.setVisibility(View.INVISIBLE);
                 binding.favsTxt3.setVisibility(View.VISIBLE);
                 binding.favsLay.setVisibility(View.VISIBLE);
@@ -301,6 +314,13 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 binding.favsTxt3.setVisibility(View.INVISIBLE);
                 binding.favsLay.setVisibility(View.INVISIBLE);
 
+
+                Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.poppins_semibold);
+                binding.promTxt2.setTypeface(typeface);
+                Typeface typeface1 = ResourcesCompat.getFont(getContext(), R.font.poppins);
+                binding.favsTxt3.setTypeface(typeface);
+                Typeface typeface2 = ResourcesCompat.getFont(getContext(), R.font.poppins);
+                binding.myadsTxt2.setTypeface(typeface2);
                 binding.promTxt.setVisibility(View.INVISIBLE);
                 binding.promTxt2.setVisibility(View.VISIBLE);
                 binding.promoteLay.setVisibility(View.VISIBLE);
