@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -20,11 +24,13 @@ import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
-public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
+public class adsAdapter extends RecyclerView.Adapter {
 
     private Context mcontext;
     private List<homeResponse .adsResult> list;
     onItemClick listener;
+    private final static int AD_VIEW_TYPE=0;
+    private final static int PRODUCT_VIEW_TYPE=1;
     public adsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
         this.mcontext = mcontext;
         this.list = list;
@@ -32,32 +38,45 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(mcontext).inflate(R.layout.ads_layout,parent,false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view=null;
+        if(viewType==AD_VIEW_TYPE) {
+            view=LayoutInflater.from(mcontext).inflate(R.layout.admob_adlay,parent,false);
+            return new adViewHolder(view);
+        }
+        else {
+            view = LayoutInflater.from(mcontext).inflate(R.layout.ads_layout, parent, false);
+            return new ViewHolder(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final int radius = 13;
-        final int margin = 7;
-        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).transform(transformation).into(holder.adsimg);
-        holder.adstitle.setText(list.get(position).getAd_title());
-        holder.adsprice.setText("₹ "+list.get(position).getAd_price());
-
-        if(list.get(position).getAd_pricecut()!=null && !list.get(position).getAd_pricecut().equals("")) {
-            holder.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
-            holder.adspricecut.setPaintFlags(holder.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(position%7==0 && position!=0) {
+            adViewHolder holder1=(adViewHolder) holder;
         }
         else {
-            holder.adspricecut.setVisibility(View.INVISIBLE);
-        }
-        holder.adsdesr.setText(list.get(position).getAd_description());
-       holder.adsdate.setText("Posted on "+list.get(position).getAd_date());
-        if(list.get(position).getFeatured_status().equals("1") && list.get(position).getAd_title()
-        .equals(holder.adstitle.getText().toString())) {
-            holder.adsfeat.setVisibility(View.VISIBLE);
+            ViewHolder holder1=(ViewHolder) holder;
+            final int radius = 13;
+            final int margin = 7;
+            final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+            Picasso.get().load(list.get(position).getAd_image()).resize(300, 300).transform(transformation).into(holder1.adsimg);
+            holder1.adstitle.setText(list.get(position).getAd_title());
+            holder1.adsprice.setText("₹ " + list.get(position).getAd_price());
+
+            if (list.get(position).getAd_pricecut() != null && !list.get(position).getAd_pricecut().equals("")) {
+                holder1.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
+                holder1.adspricecut.setPaintFlags(holder1.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            } else {
+                holder1.adspricecut.setVisibility(View.INVISIBLE);
+            }
+            holder1.adsdesr.setText(list.get(position).getAd_description());
+            holder1.adsdate.setText("Posted on " + list.get(position).getAd_date());
+            if (list.get(position).getFeatured_status().equals("1") && list.get(position).getAd_title()
+                    .equals(holder1.adstitle.getText().toString())) {
+                holder1.adsfeat.setVisibility(View.VISIBLE);
+            }
         }
      }
     public void searchList(List<homeResponse .adsResult> searchedList) {
@@ -68,6 +87,17 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position%7==0 && position!=0) {
+            return AD_VIEW_TYPE;
+        }
+        else {
+            return PRODUCT_VIEW_TYPE;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -108,5 +138,18 @@ public class adsAdapter extends RecyclerView.Adapter<adsAdapter.ViewHolder> {
 
     public void setonItemClick(onItemClick listener) {
         this.listener=listener;
+    }
+
+    public class adViewHolder extends RecyclerView.ViewHolder{
+        NativeAdView adview;
+        public adViewHolder(@NonNull View itemView) {
+            super(itemView);
+            adview=itemView.findViewById(R.id.ad_view);
+
+            loadAds();
+        }
+
+        private void loadAds() {
+        }
     }
 }

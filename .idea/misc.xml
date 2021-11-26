@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android finished projects/Justsell/app/nativetemplates/src/main/res/layout/gnt_small_template_view.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/borderbg.xml" value="0.18076923076923077" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/descboxbg.xml" value="0.18076923076923077" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/drawable/fieldnotselbg.xml" value="0.18076923076923077" />
@@ -23,7 +24,9 @@
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_post_all.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_post_property.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_promote_ad.xml" value="0.16540084388185655" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/ad_item_lay.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/adimages_layout.xml" value="0.16540084388185655" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/admob_adlay.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/ads_layout.xml" value="0.25" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/banner_layout.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/category_layout.xml" value="0.67" />

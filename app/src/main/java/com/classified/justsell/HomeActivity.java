@@ -7,7 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
-
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +24,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -51,11 +60,61 @@ public class HomeActivity extends AppCompatActivity {
         }
         handlePermissions();
         handleBottomNav();
-
+        loadads();
         //startActivity(new Intent(HomeActivity.this,chatActivity.class));
 
     }
+    private void loadads() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                MobileAds.initialize(HomeActivity.this, new OnInitializationCompleteListener() {
+                    @Override
+                    public void onInitializationComplete(InitializationStatus initializationStatus) {
+                    }
+                });
+                AdView adView = new AdView(HomeActivity.this);
 
+                adView.setAdSize(AdSize.BANNER);
+
+                // banner ad id
+                adView.setAdUnitId("ca-app-pub-8346863949141411/9276270004");
+                AdRequest adRequest = new AdRequest.Builder().build();
+                binding.adView.loadAd(adRequest);
+
+                binding.adView.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError adError) {
+                        Log.d("adError",adError.getMessage());
+                        Toast.makeText(HomeActivity.this, "Error "+adError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onAdOpened() {
+                        // Code to be executed when an ad opens an overlay that
+                        // covers the screen.
+
+                    }
+
+                    @Override
+                    public void onAdClicked() {
+                        // Code to be executed when the user clicks on an ad.
+                    }
+
+                    @Override
+                    public void onAdClosed() {
+                        // Code to be executed when the user is about to return
+                        // to the app after tapping on an ad.
+                    }
+                });
+            }
+        },1000);
+
+    }
     private void handlePermissions() {
 
     }
