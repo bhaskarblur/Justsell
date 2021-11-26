@@ -2,6 +2,7 @@ package com.classified.justsell.Adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -55,6 +60,7 @@ public class adsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(position%7==0 && position!=0) {
             adViewHolder holder1=(adViewHolder) holder;
+            holder1.loadAds();
         }
         else {
             ViewHolder holder1=(ViewHolder) holder;
@@ -146,10 +152,33 @@ public class adsAdapter extends RecyclerView.Adapter {
             super(itemView);
             adview=itemView.findViewById(R.id.ad_view);
 
-            loadAds();
+
         }
 
         private void loadAds() {
+            // native ad id- ca-app-pub-8346863949141411/5883819900
+            AdLoader adLoader = new AdLoader.Builder(mcontext, "ca-app-pub-8346863949141411/5883819900")
+                    .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                        @Override
+                        public void onNativeAdLoaded(NativeAd NativeAd) {
+                            NativeAdView adView= itemView.findViewById(R.id.ad_view);
+                            adView.setNativeAd(NativeAd);
+                        }
+                    })
+                    .withAdListener(new AdListener() {
+                        @Override
+                        public void onAdFailedToLoad(LoadAdError adError) {
+                            Log.d("Failed because",adError.getMessage());
+                        }
+                    })
+                    .withNativeAdOptions(new NativeAdOptions.Builder()
+                            // Methods in the NativeAdOptions.Builder class can be
+                            // used here to specify individual options settings.
+                            .build())
+                    .build();
+
+            AdRequest adRequest=new AdRequest.Builder().build();
+            adLoader.loadAd(adRequest);
         }
     }
 }
