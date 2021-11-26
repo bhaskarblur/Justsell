@@ -178,7 +178,7 @@ public class adsAdapter extends RecyclerView.Adapter {
                     .build();
 
             AdRequest adRequest=new AdRequest.Builder().build();
-            adLoader.loadAd(adRequest);
+            adLoader.loadAds(adRequest,4);
         }
     }
 }
