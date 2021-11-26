@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterbg"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="2dp"
+    android:background="@drawable/roundboxbg"
+    android:backgroundTint="@color/primary_color"
+    android:foreground="?android:selectableItemBackground">
+
+    <TextView
+        android:id="@+id/filter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins"
+        android:letterSpacing="0.01"
+        android:text="Price"
+        android:textAlignment="textStart"
+        android:textColor="@color/back_black"
+        android:textSize="12.5sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/filter_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins"
+        android:letterSpacing="0.01"
+        android:text="2000-3000"
+        android:textAlignment="textStart"
+        android:textColor="@color/back_black"
+        android:textSize="12.5sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/filter_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/remove_filter"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:tint="@color/back_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/filter_rate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/close_newicon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

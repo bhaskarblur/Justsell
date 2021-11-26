@@ -46,6 +46,7 @@ public class searchFragment extends Fragment {
     private homefragViewModel hmViewModel;
     String userid;
     String city;
+    private List<homeResponse.adsResult> resultList=new ArrayList<>();
     private String filterfield;
 
     public searchFragment() {
@@ -121,9 +122,7 @@ public class searchFragment extends Fragment {
     }
 
     private void ManageData() {
-        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-        hmViewModel.initwork(userid,"0","0",city);
-        adsAdapter=new adsAdapter(getActivity(),hmViewModel.getAdsdata().getValue());
+        adsAdapter=new adsAdapter(getActivity(),resultList);
         LinearLayoutManager llm1=new LinearLayoutManager(getActivity());
         binding.searchRec.setLayoutManager(llm1);
         binding.searchRec.setAdapter(adsAdapter);
@@ -154,19 +153,6 @@ public class searchFragment extends Fragment {
                 }
             }
 
-        });
-        hmViewModel.getAdsdata().observe(getActivity(), new Observer<List<homeResponse.adsResult>>() {
-            @Override
-            public void onChanged(List<homeResponse.adsResult> adsResults) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(adsResults.size()>0) {
-                            adsAdapter.notifyDataSetChanged();
-                        }
-                    }
-                },100);
-            }
         });
     }
 
@@ -209,6 +195,9 @@ public class searchFragment extends Fragment {
 
     }
 
+    private void getResultFromServer(String keyword) {
+
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
