@@ -56,9 +56,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("noti_type",noti_type);
                         String product_id = getIntent().getStringExtra("product_id");
                         String user_id = getIntent().getStringExtra("user_id");
-                        Intent openact = new Intent(MainActivity.this, AuthActivity.class);
+                        String person_id=getIntent().getStringExtra("person_id");
+                        Intent openact = new Intent(MainActivity.this, chatActivity.class);
                         openact.putExtra("product_id", product_id);
                         openact.putExtra("user_id", user_id);
+                        openact.putExtra("person_id",person_id);
                         startActivity(openact);
                         finish();
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);

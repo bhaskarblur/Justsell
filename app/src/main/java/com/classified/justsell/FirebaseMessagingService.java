@@ -49,6 +49,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
             else if(remoteMessage.getData().get("noti_type").equals("chat")) {
                 actintent.putExtra("noti_type", remoteMessage.getData().get("noti_type"));
+                actintent.putExtra("person_id",remoteMessage.getData().get("person_id"));
                 actintent.putExtra("product_id",remoteMessage.getData().get("product_id"));
                 actintent.putExtra("user_id", remoteMessage.getData().get("user_id"));
             }
