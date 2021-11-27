@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -157,18 +158,20 @@ public class adsAdapter extends RecyclerView.Adapter {
 
         private void loadAds() {
             // native ad id- ca-app-pub-8346863949141411/5883819900
-            AdLoader adLoader = new AdLoader.Builder(mcontext, "ca-app-pub-8346863949141411/5883819900")
+            AdLoader adLoader = new AdLoader.Builder(mcontext, "ca-app-pub-3940256099942544/2247696110")
                     .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                         @Override
                         public void onNativeAdLoaded(NativeAd NativeAd) {
                             NativeAdView adView= itemView.findViewById(R.id.ad_view);
                             adView.setNativeAd(NativeAd);
+                            Toast.makeText(mcontext, "Native Loaded", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .withAdListener(new AdListener() {
                         @Override
                         public void onAdFailedToLoad(LoadAdError adError) {
-                            Log.d("Failed because",adError.getMessage());
+
+                            Toast.makeText(mcontext, "Native Error "+adError.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
                     .withNativeAdOptions(new NativeAdOptions.Builder()
@@ -178,7 +181,7 @@ public class adsAdapter extends RecyclerView.Adapter {
                     .build();
 
             AdRequest adRequest=new AdRequest.Builder().build();
-            adLoader.loadAds(adRequest,4);
+            adLoader.loadAd(adRequest);
         }
     }
 }

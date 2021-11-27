@@ -77,15 +77,14 @@ public class HomeActivity extends AppCompatActivity {
 
                 adView.setAdSize(AdSize.BANNER);
 
-                // banner ad id
-                adView.setAdUnitId("ca-app-pub-8346863949141411/9276270004");
+                // banner ad id ca-app-pub-8346863949141411/9276270004
+                adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
                 AdRequest adRequest = new AdRequest.Builder().build();
                 binding.adView.loadAd(adRequest);
 
                 binding.adView.setAdListener(new AdListener() {
                     @Override
                     public void onAdLoaded() {
-                        Toast.makeText(HomeActivity.this, "Loaded", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
