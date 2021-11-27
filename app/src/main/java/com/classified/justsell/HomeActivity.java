@@ -13,6 +13,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import android.content.Context;
@@ -36,6 +37,9 @@ import com.classified.justsell.Fragments.postFragment;
 import com.classified.justsell.Fragments.profileFragment;
 import com.classified.justsell.R;
 import com.classified.justsell.databinding.ActivityHomeBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     final int PERMISSION_CODE = 1001;
@@ -73,10 +77,13 @@ public class HomeActivity extends AppCompatActivity {
                     public void onInitializationComplete(InitializationStatus initializationStatus) {
                     }
                 });
+                List<String> testdev_id=new ArrayList<>();
+                testdev_id.add("3706C165FF358A24FA968FB0E95E7E57");
+                RequestConfiguration configuration =
+                        new RequestConfiguration.Builder().setTestDeviceIds(testdev_id).build();
+                MobileAds.setRequestConfiguration(configuration);
                 AdView adView = new AdView(HomeActivity.this);
-
                 adView.setAdSize(AdSize.BANNER);
-
                 // banner ad id ca-app-pub-8346863949141411/9276270004
                 adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
                 AdRequest adRequest = new AdRequest.Builder().build();
