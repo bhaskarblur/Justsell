@@ -85,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.adView.setAdListener(new AdListener() {
                     @Override
                     public void onAdLoaded() {
+                        Toast.makeText(HomeActivity.this, "Loaded", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
