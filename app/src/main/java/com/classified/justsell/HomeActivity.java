@@ -69,19 +69,20 @@ public class HomeActivity extends AppCompatActivity {
 
     }
     private void loadads() {
+        MobileAds.initialize(HomeActivity.this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                MobileAds.initialize(HomeActivity.this, new OnInitializationCompleteListener() {
-                    @Override
-                    public void onInitializationComplete(InitializationStatus initializationStatus) {
-                    }
-                });
-                List<String> testdev_id=new ArrayList<>();
-                testdev_id.add("3706C165FF358A24FA968FB0E95E7E57");
-                RequestConfiguration configuration =
-                        new RequestConfiguration.Builder().setTestDeviceIds(testdev_id).build();
-                MobileAds.setRequestConfiguration(configuration);
+//                List<String> testdev_id=new ArrayList<>();
+//                testdev_id.add("E0E6437ED479B9EC814E40CDFE6D5D47");
+//                RequestConfiguration configuration =
+//                        new RequestConfiguration.Builder().setTestDeviceIds(testdev_id).build();
+//                MobileAds.setRequestConfiguration(configuration);
+
                 AdView adView = new AdView(HomeActivity.this);
                 adView.setAdSize(AdSize.BANNER);
                 // banner ad id ca-app-pub-8346863949141411/9276270004
