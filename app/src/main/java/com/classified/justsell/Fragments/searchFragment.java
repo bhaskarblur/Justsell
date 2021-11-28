@@ -2,29 +2,39 @@ package com.classified.justsell.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
+import com.classified.justsell.Adapters.categoryAdapter;
+import com.classified.justsell.Adapters.selfilterAdapter;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.homefragViewModel;
+import com.classified.justsell.ViewModels.postViewModel;
 import com.classified.justsell.databinding.FragmentSearchBinding;
 
 import java.util.ArrayList;
@@ -44,9 +54,15 @@ public class searchFragment extends Fragment {
     private String mParam2;
     private SharedPreferences sharedPreferences;
     private homefragViewModel hmViewModel;
+    private postViewModel postViewModel;
     String userid;
     String city;
+    private com.classified.justsell.Adapters.categoryAdapter categoryAdapter;
+    private selfilterAdapter filteradapter;
+    private String selected_category;
     private List<homeResponse.adsResult> resultList=new ArrayList<>();
+    private List<String> filterList=new ArrayList<>();
+    private List<String> filterrateList=new ArrayList<>();
     private String filterfield;
 
     public searchFragment() {
@@ -109,6 +125,20 @@ public class searchFragment extends Fragment {
     }
 
     private void viewfuncs() {
+
+        binding.pricebox1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+        binding.pricebox.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+
         binding.backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,14 +149,86 @@ public class searchFragment extends Fragment {
                 transaction.commit();
             }
         });
+
+        binding.openfilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation= AnimationUtils.loadAnimation(getActivity(),R.anim.slide_in_down);
+                binding.filterLayout.setVisibility(View.VISIBLE);
+                binding.filterLayout.setAnimation(animation);
+
+            }
+        });
+
+        binding.closefilterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation= AnimationUtils.loadAnimation(getActivity(),R.anim.slide_out_down);
+                binding.filterLayout.setVisibility(View.INVISIBLE);
+                binding.filterLayout.setAnimation(animation);
+            }
+        });
+
+        binding.bybudgetTxt.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                binding.bybudgetTxt.setTextColor(getResources().getColor(R.color.back_black,null));
+                binding.bydateTxt.setTextColor(Color.parseColor("#5A5A5A"));
+
+                binding.priceLay.setVisibility(View.VISIBLE);
+                binding.dateLay.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        binding.bydateTxt.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                binding.bydateTxt.setTextColor(getResources().getColor(R.color.back_black,null));
+                binding.bybudgetTxt.setTextColor(Color.parseColor("#5A5A5A"));
+
+                binding.priceLay.setVisibility(View.INVISIBLE);
+                binding.dateLay.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void ManageData() {
+        postViewModel=new ViewModelProvider(getActivity()).get(postViewModel.class);
+        postViewModel.initwork();
+        postViewModel.getCategorydata().observe(getActivity(), new Observer<List<homeResponse.categoryResult>>() {
+            @Override
+            public void onChanged(List<homeResponse.categoryResult> categoryResults) {
+                if(categoryResults.size()>0){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            categoryAdapter.notifyDataSetChanged();
+                        }
+                    },100);
+                }
+            }
+        });
         adsAdapter=new adsAdapter(getActivity(),resultList);
         LinearLayoutManager llm1=new LinearLayoutManager(getActivity());
         binding.searchRec.setLayoutManager(llm1);
         binding.searchRec.setAdapter(adsAdapter);
         binding.searchRec.setVisibility(View.INVISIBLE);
+
+        categoryAdapter=new categoryAdapter(getActivity(),postViewModel.categorydata.getValue());
+        LinearLayoutManager llm2=new LinearLayoutManager(getActivity());
+        llm2.setOrientation(RecyclerView.HORIZONTAL);
+        binding.catRec.setLayoutManager(llm2);
+        binding.catRec.setAdapter(categoryAdapter);
+
+        filteradapter=new selfilterAdapter(getActivity(),filterList,filterrateList);
+        LinearLayoutManager llm3=new LinearLayoutManager(getActivity());
+        llm2.setOrientation(RecyclerView.HORIZONTAL);
+        binding.selFilterRec.setLayoutManager(llm3);
+        binding.selFilterRec.setAdapter(filteradapter);
+
+
         binding.searchTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -146,7 +248,7 @@ public class searchFragment extends Fragment {
                     binding.searchRec.setVisibility(View.VISIBLE);
                     binding.notfoundimg.setVisibility(View.INVISIBLE);
                     binding.nothingfoundtxt.setVisibility(View.INVISIBLE);
-                    searchfun(s.toString());
+                   getResultFromServer(s.toString());
                 }
                 else  {
                     binding.searchRec.setVisibility(View.INVISIBLE);
@@ -196,7 +298,7 @@ public class searchFragment extends Fragment {
     }
 
     private void getResultFromServer(String keyword) {
-
+        
     }
     @Override
     public void onDestroy() {

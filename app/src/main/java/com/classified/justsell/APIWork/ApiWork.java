@@ -211,4 +211,13 @@ public interface ApiWork {
     Call<AuthResponse.SendOtp> block(@Field("user_id") String userid,
                                                      @Field("product_id") String productid,
                                                      @Field("person_id") String personid);
+
+    @FormUrlEncoded
+    @POST("search")
+    Call<homeResponse.ListadsResp> search_ads(@Field("keyword") String word,
+                                              @Field("price_start") String start_price,
+                                              @Field("price_end")String end_price,
+                                              @Field("price_sort") String sortby,
+                                              @Field("date_start") String datestart,
+                                              @Field("date_end") String enddate);
 }
