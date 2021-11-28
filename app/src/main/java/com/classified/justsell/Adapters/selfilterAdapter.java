@@ -72,7 +72,7 @@ public class selfilterAdapter extends RecyclerView.Adapter<selfilterAdapter.view
                     if(position!=RecyclerView.NO_POSITION) {
                         checkpos=position;
                         notifyDataSetChanged();
-                        listener.onremoveclick(getAdapterPosition());
+                        listener.onremoveclick(position);
                     }
 
                 }

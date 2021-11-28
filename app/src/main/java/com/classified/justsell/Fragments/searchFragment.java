@@ -1,5 +1,6 @@
 package com.classified.justsell.Fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -26,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
@@ -36,8 +39,13 @@ import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.homefragViewModel;
 import com.classified.justsell.ViewModels.postViewModel;
 import com.classified.justsell.databinding.FragmentSearchBinding;
+import com.classified.justsell.promote_ad;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -126,6 +134,98 @@ public class searchFragment extends Fragment {
 
     private void viewfuncs() {
 
+        binding.pricebox1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().trim().isEmpty() && !binding.pricebox.getText().toString().isEmpty()) {
+                    filterList.add("Budget :");
+                    filterList.add(binding.pricebox.getText().toString()+"-"+
+                            binding.pricebox1.getText().toString());
+                    filteradapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        binding.pricebox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().trim().isEmpty() && !binding.pricebox1.getText().toString().isEmpty()) {
+                    filterList.add("Budget :");
+                    filterList.add(binding.pricebox.getText().toString()+"-"+
+                            binding.pricebox1.getText().toString());
+                    filteradapter.notifyDataSetChanged();
+                }
+            }
+        });
+        final Calendar myCalendar = Calendar.getInstance();
+        final int[] clickcheck = {0};
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                myCalendar.set(Calendar.YEAR, i);
+                myCalendar.set(Calendar.MONTH, i1);
+                myCalendar.set(Calendar.DAY_OF_MONTH, i2);
+                String myFormat = "dd/MM/yy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                if(clickcheck[0]==0) {
+                    binding.datetxtStart.setText(sdf.format(myCalendar.getTime()));
+                }
+                else {
+                    binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
+                }
+
+                if(!binding.datetxtEnd.getText().toString().equals("Select Date") &&
+                !binding.datetxtStart.getText().toString().equals("Select Date")) {
+                    filterList.add("Date");
+                    filterrateList.add(binding.datetxtStart.getText().toString()+"-"
+                    +binding.datetxtEnd.getText().toString());
+                    filteradapter.notifyDataSetChanged();
+                }
+
+            }
+
+        };
+
+
+        binding.datepicklayStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                clickcheck[0] =0;
+            }
+        });
+        binding.datepicklayEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                clickcheck[0] =1;
+            }
+        });
         binding.pricebox1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -221,12 +321,26 @@ public class searchFragment extends Fragment {
         llm2.setOrientation(RecyclerView.HORIZONTAL);
         binding.catRec.setLayoutManager(llm2);
         binding.catRec.setAdapter(categoryAdapter);
+        categoryAdapter.setoncardclicklistener(new categoryAdapter.oncardclicklistener() {
+            @Override
+            public void oncardclick(String catname) {
+                selected_category=catname;
+            }
+        });
 
         filteradapter=new selfilterAdapter(getActivity(),filterList,filterrateList);
         LinearLayoutManager llm3=new LinearLayoutManager(getActivity());
         llm2.setOrientation(RecyclerView.HORIZONTAL);
         binding.selFilterRec.setLayoutManager(llm3);
         binding.selFilterRec.setAdapter(filteradapter);
+        filteradapter.setoncardclicklistener(new selfilterAdapter.oncardclicklistener() {
+            @Override
+            public void onremoveclick(int position) {
+                filterrateList.remove(position);
+                filterList.remove(position);
+                filteradapter.notifyDataSetChanged();
+            }
+        });
 
 
         binding.searchTxt.addTextChangedListener(new TextWatcher() {
@@ -298,7 +412,7 @@ public class searchFragment extends Fragment {
     }
 
     private void getResultFromServer(String keyword) {
-        
+
     }
     @Override
     public void onDestroy() {
