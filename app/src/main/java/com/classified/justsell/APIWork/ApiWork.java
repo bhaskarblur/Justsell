@@ -218,6 +218,7 @@ public interface ApiWork {
     @POST("search")
     Call<homeResponse.ListadsResp> search_ads(@Field("user_id") String userid,
                                               @Field("keyword") String word,
+                                              @Field("category_name") String catname,
                                               @Field("price_start") String start_price,
                                               @Field("price_end")String end_price,
                                               @Field("price_sort") String sortby,

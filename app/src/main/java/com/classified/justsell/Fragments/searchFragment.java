@@ -30,10 +30,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
 import com.classified.justsell.Adapters.categoryAdapter;
 import com.classified.justsell.Adapters.selfilterAdapter;
+import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.homefragViewModel;
@@ -48,6 +51,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class searchFragment extends Fragment {
 
@@ -72,7 +81,7 @@ public class searchFragment extends Fragment {
     private List<String> filterList=new ArrayList<>();
     private List<String> filterrateList=new ArrayList<>();
     private String filterfield;
-
+    private api_baseurl baseurl;
     public searchFragment() {
         // Required empty public constructor
     }
@@ -134,6 +143,14 @@ public class searchFragment extends Fragment {
 
     private void viewfuncs() {
 
+        binding.clearFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterList.clear();
+                filterrateList.clear();
+                filteradapter.notifyDataSetChanged();
+            }
+        });
         binding.pricebox1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -325,6 +342,8 @@ public class searchFragment extends Fragment {
             @Override
             public void oncardclick(String catname) {
                 selected_category=catname;
+                filterList.add("Category:");
+                filterrateList.add(selected_category);
             }
         });
 
@@ -412,6 +431,17 @@ public class searchFragment extends Fragment {
     }
 
     private void getResultFromServer(String keyword) {
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+        for(int i=0;i<filterList.size();i++) {
+
+        }
+        Call<homeResponse.ListadsResp> call1 = apiWork.search_ads(userid,binding.searchTxt.getText().toString()
+        , selected_category,binding.pricebox.getText().toString(),binding.pricebox1.getText().toString(),null,
+                binding.datetxtStart.getText().toString(),binding.datetxtEnd.getText().toString());
 
     }
     @Override
