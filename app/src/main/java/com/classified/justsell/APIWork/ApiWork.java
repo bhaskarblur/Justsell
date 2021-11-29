@@ -68,7 +68,8 @@ public interface ApiWork {
 
 
     @GET("product")
-    Call<homeResponse.ListadsResp> getAds(@Query("city") String city);
+    Call<homeResponse.ListadsResp> getAds(@Query("city") String city,
+                                          @Query("user_id") String userid);
 
     @GET("state")
     Call<homeResponse.listofcities> getallcities();
@@ -188,7 +189,8 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("recommended")
-    Call<homeResponse.ListadsResp> get_recommendedads(@Field("product_id") String userid);
+    Call<homeResponse.ListadsResp> get_recommendedads(@Field("product_id") String prodid,
+                                                      @Field("user_id") String userid);
 
     @FormUrlEncoded
     @POST("chats")
@@ -201,20 +203,21 @@ public interface ApiWork {
                                               @Field("person_id") String personid);
 
     @FormUrlEncoded
-    @POST("delete_chat")
+    @POST("delete_chats")
     Call<AuthResponse.SendOtp> delete_singlechat(@Field("user_id") String userid,
                                                    @Field("product_id") String productid,
                                                    @Field("person_id") String personid);
 
     @FormUrlEncoded
-    @POST("block_chat")
+    @POST("block")
     Call<AuthResponse.SendOtp> block(@Field("user_id") String userid,
                                                      @Field("product_id") String productid,
                                                      @Field("person_id") String personid);
 
     @FormUrlEncoded
     @POST("search")
-    Call<homeResponse.ListadsResp> search_ads(@Field("keyword") String word,
+    Call<homeResponse.ListadsResp> search_ads(@Field("user_id") String userid,
+                                              @Field("keyword") String word,
                                               @Field("price_start") String start_price,
                                               @Field("price_end")String end_price,
                                               @Field("price_sort") String sortby,

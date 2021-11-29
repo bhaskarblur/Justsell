@@ -38,8 +38,8 @@ public class AdsRepo {
         return dataModel;
     }
 
-    public MutableLiveData<List<homeResponse.adsResult>> returnadadata(String city) {
-        getadsfromserver(city);
+    public MutableLiveData<List<homeResponse.adsResult>> returnadadata(String city,String userid) {
+        getadsfromserver(city,userid);
         if (adslist == null) {
             adsdata.setValue(null);
         }
@@ -48,14 +48,14 @@ public class AdsRepo {
     }
 
 
-    private void getadsfromserver(String ad_id) {
+    private void getadsfromserver(String ad_id,String userid) {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<homeResponse.ListadsResp> call3=apiWork.get_recommendedads(ad_id);
+        Call<homeResponse.ListadsResp> call3=apiWork.get_recommendedads(ad_id,userid);
 
         call3.enqueue(new Callback<homeResponse.ListadsResp>() {
             @Override

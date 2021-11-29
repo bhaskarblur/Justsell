@@ -58,8 +58,8 @@ public class homefragRepo {
         return categorydatanew;
     }
 
-    public MutableLiveData<List<homeResponse.adsResult>> returnadadata(String city) {
-        getadsfromserver(city);
+    public MutableLiveData<List<homeResponse.adsResult>> returnadadata(String city,String userid) {
+        getadsfromserver(city,userid);
         if (adslist == null) {
             adsdata.setValue(null);
         }
@@ -165,7 +165,7 @@ public class homefragRepo {
         });
     }
 
-    private void getadsfromserver(String city) {
+    private void getadsfromserver(String city,String userid) {
 //        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
 //                , "$399", "$500", "1"));
 //        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
@@ -177,7 +177,7 @@ public class homefragRepo {
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<homeResponse.ListadsResp> call3=apiWork.getAds(city);
+        Call<homeResponse.ListadsResp> call3=apiWork.getAds(userid,city);
 
         call3.enqueue(new Callback<homeResponse.ListadsResp>() {
             @Override

@@ -30,7 +30,7 @@ public class AdsViewModel extends ViewModel {
 
         dataModel=repo.getInstance().returndataModel(ad_id);
         favads=mrepo.getInstance().returnfavads(userid);
-        adsdata= repo.getInstance().returnadadata(userid);
+        adsdata= repo.getInstance().returnadadata(prodname,userid);
     }
 
     public LiveData<List<homeResponse.adsResult>> getAdsdata() {
