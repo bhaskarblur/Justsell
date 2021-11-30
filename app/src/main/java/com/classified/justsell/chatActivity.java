@@ -503,7 +503,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
-
+                                Log.d("data",user_id+","+person_id);
                                 Call<AuthResponse.SendOtp> call1 = apiWork.block(user_id, product_id, person_id);
 
                                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {

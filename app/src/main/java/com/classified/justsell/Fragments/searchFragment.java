@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -52,6 +53,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import me.bendik.simplerangeview.SimpleRangeView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,11 +79,12 @@ public class searchFragment extends Fragment {
     private com.classified.justsell.Adapters.categoryAdapter categoryAdapter;
     private selfilterAdapter filteradapter;
     private String selected_category;
-    private List<homeResponse.adsResult> resultList=new ArrayList<>();
-    private List<String> filterList=new ArrayList<>();
-    private List<String> filterrateList=new ArrayList<>();
+    private List<homeResponse.adsResult> resultList = new ArrayList<>();
+    private List<String> filterList = new ArrayList<>();
+    private List<String> filterrateList = new ArrayList<>();
     private String filterfield;
     private api_baseurl baseurl;
+
     public searchFragment() {
         // Required empty public constructor
     }
@@ -111,29 +114,28 @@ public class searchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
-        userid=sharedPreferences.getString("userid","");
-        city=sharedPreferences.getString("usercity","");
+        sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+        userid = sharedPreferences.getString("userid", "");
+        city = sharedPreferences.getString("usercity", "");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentSearchBinding.inflate(inflater,container,false);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
 
-        View bottombar=getActivity().findViewById(R.id.bottomnav);
+        View bottombar = getActivity().findViewById(R.id.bottomnav);
         bottombar.setVisibility(View.GONE);
-        ConnectivityManager connectivityManager =  (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
-            noInternetFragment nocon=new noInternetFragment();
+            noInternetFragment nocon = new noInternetFragment();
             FragmentTransaction transaction1 = getActivity().getSupportFragmentManager().beginTransaction();
             transaction1.setCustomAnimations(R.anim.fade_2, R.anim.fade);
             transaction1.replace(R.id.mainFragment, nocon);
             transaction1.addToBackStack("A");
             transaction1.commit();
-        }
-        else {
+        } else {
             ManageData();
             viewfuncs();
         }
@@ -143,6 +145,71 @@ public class searchFragment extends Fragment {
 
     private void viewfuncs() {
 
+        binding.priceSeekbar.setOnTrackRangeListener(new SimpleRangeView.OnTrackRangeListener() {
+            @Override
+            public void onStartRangeChanged(@NonNull SimpleRangeView simpleRangeView, int i) {
+                binding.pricebox1.setText(String.valueOf(i * 1000));
+
+                if(!binding.pricebox1.getText().toString().isEmpty()&&
+                !binding.pricebox.getText().toString().isEmpty()) {
+                    if (!filterList.contains("Budget:")) {
+                        filterList.add("Budget:");
+                        filterrateList.add(binding.pricebox1.getText().toString() + "-" +
+                                binding.pricebox.getText().toString());
+                        filteradapter.notifyDataSetChanged();
+                    }
+                    else {
+                        for (int x = 0; x < filterList.size(); x++) {
+                            if (filterList.get(x).equals("Budget:")) {
+                                filterrateList.remove(x);
+                                filterList.remove(x);
+
+                            }
+                        }
+                        filterList.add("Budget:");
+                        filterrateList.add(binding.pricebox1.getText().toString() + "-" +
+                                binding.pricebox.getText().toString());
+                        filteradapter.notifyDataSetChanged();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onEndRangeChanged(@NonNull SimpleRangeView simpleRangeView, int i) {
+                binding.pricebox.setText(String.valueOf(i * 1000));
+                if (i > 30) {
+
+                    binding.pricebox.setText("30000+");
+                }
+
+                if(!binding.pricebox1.getText().toString().isEmpty()&&
+                        !binding.pricebox.getText().toString().isEmpty()) {
+                    if (!filterList.contains("Budget:")) {
+                        filterList.add("Budget:");
+                        filterrateList.add(binding.pricebox1.getText().toString() + "-" +
+                                binding.pricebox.getText().toString());
+                        filteradapter.notifyDataSetChanged();
+                    }
+                    else {
+                        for (int x = 0; x < filterList.size(); x++) {
+                            if (filterList.get(x).equals("Budget:")) {
+                                filterrateList.remove(x);
+                                filterList.remove(x);
+
+                            }
+                        }
+                        filterList.add("Budget:");
+                        filterrateList.add(binding.pricebox1.getText().toString() + "-" +
+                                binding.pricebox.getText().toString());
+                        filteradapter.notifyDataSetChanged();
+                    }
+                }
+
+
+
+            }
+        });
         binding.clearFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,12 +231,16 @@ public class searchFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!s.toString().trim().isEmpty() && !binding.pricebox.getText().toString().isEmpty()) {
-                    filterList.add("Budget :");
-                    filterList.add(binding.pricebox.getText().toString()+"-"+
-                            binding.pricebox1.getText().toString());
-                    filteradapter.notifyDataSetChanged();
-                }
+//                    if(!filterList.contains("Budget:")) {
+//                        filterList.add("Budget:");
+//                        filterrateList.add(binding.pricebox.getText().toString() + "-" +
+//                                binding.pricebox1.getText().toString());
+//                        filteradapter.notifyDataSetChanged();
+//                    }
+//                    else {
+//                        Toast.makeText(getActivity(), "Remove the previous budget filter to add a new one", Toast.LENGTH_SHORT).show();
+//                    }
+
             }
         });
 
@@ -186,12 +257,6 @@ public class searchFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!s.toString().trim().isEmpty() && !binding.pricebox1.getText().toString().isEmpty()) {
-                    filterList.add("Budget :");
-                    filterList.add(binding.pricebox.getText().toString()+"-"+
-                            binding.pricebox1.getText().toString());
-                    filteradapter.notifyDataSetChanged();
-                }
             }
         });
         final Calendar myCalendar = Calendar.getInstance();
@@ -205,19 +270,33 @@ public class searchFragment extends Fragment {
                 myCalendar.set(Calendar.DAY_OF_MONTH, i2);
                 String myFormat = "dd/MM/yy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                if(clickcheck[0]==0) {
+                if (clickcheck[0] == 0) {
                     binding.datetxtStart.setText(sdf.format(myCalendar.getTime()));
-                }
-                else {
+                } else {
                     binding.datetxtEnd.setText(sdf.format(myCalendar.getTime()));
                 }
 
-                if(!binding.datetxtEnd.getText().toString().equals("Select Date") &&
-                !binding.datetxtStart.getText().toString().equals("Select Date")) {
-                    filterList.add("Date");
-                    filterrateList.add(binding.datetxtStart.getText().toString()+"-"
-                    +binding.datetxtEnd.getText().toString());
-                    filteradapter.notifyDataSetChanged();
+                if (!binding.datetxtEnd.getText().toString().equals("Select Date") &&
+                        !binding.datetxtStart.getText().toString().equals("Select Date")) {
+
+                    if(!filterList.contains("Date:")) {
+                        filterList.add("Date:");
+                        filterrateList.add(binding.datetxtStart.getText().toString() + "-"
+                                + binding.datetxtEnd.getText().toString());
+                        filteradapter.notifyDataSetChanged();
+                    }
+                    else {
+                        for(int x=0;x<filterList.size();x++) {
+                            if(filterList.get(x).equals("Date:")) {
+                                filterList.remove(x);
+                                filterrateList.remove(x);
+                            }
+                        }
+                        filterList.add("Date:");
+                        filterrateList.add(binding.datetxtStart.getText().toString() + "-"
+                                + binding.datetxtEnd.getText().toString());
+                        filteradapter.notifyDataSetChanged();
+                    }
                 }
 
             }
@@ -231,7 +310,7 @@ public class searchFragment extends Fragment {
                 new DatePickerDialog(getActivity(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                clickcheck[0] =0;
+                clickcheck[0] = 0;
             }
         });
         binding.datepicklayEnd.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +319,7 @@ public class searchFragment extends Fragment {
                 new DatePickerDialog(getActivity(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                clickcheck[0] =1;
+                clickcheck[0] = 1;
             }
         });
         binding.pricebox1.setOnTouchListener(new View.OnTouchListener() {
@@ -259,7 +338,7 @@ public class searchFragment extends Fragment {
         binding.backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeFragment homeFragment=new homeFragment();
+                homeFragment homeFragment = new homeFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
                 transaction.replace(R.id.mainFragment, homeFragment);
@@ -270,7 +349,7 @@ public class searchFragment extends Fragment {
         binding.openfilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Animation animation= AnimationUtils.loadAnimation(getActivity(),R.anim.slide_in_down);
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
                 binding.filterLayout.setVisibility(View.VISIBLE);
                 binding.filterLayout.setAnimation(animation);
 
@@ -280,7 +359,7 @@ public class searchFragment extends Fragment {
         binding.closefilterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Animation animation= AnimationUtils.loadAnimation(getActivity(),R.anim.slide_out_down);
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
                 binding.filterLayout.setVisibility(View.INVISIBLE);
                 binding.filterLayout.setAnimation(animation);
             }
@@ -290,7 +369,7 @@ public class searchFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                binding.bybudgetTxt.setTextColor(getResources().getColor(R.color.back_black,null));
+                binding.bybudgetTxt.setTextColor(getResources().getColor(R.color.back_black, null));
                 binding.bydateTxt.setTextColor(Color.parseColor("#5A5A5A"));
 
                 binding.priceLay.setVisibility(View.VISIBLE);
@@ -302,7 +381,7 @@ public class searchFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                binding.bydateTxt.setTextColor(getResources().getColor(R.color.back_black,null));
+                binding.bydateTxt.setTextColor(getResources().getColor(R.color.back_black, null));
                 binding.bybudgetTxt.setTextColor(Color.parseColor("#5A5A5A"));
 
                 binding.priceLay.setVisibility(View.INVISIBLE);
@@ -312,44 +391,59 @@ public class searchFragment extends Fragment {
     }
 
     private void ManageData() {
-        postViewModel=new ViewModelProvider(getActivity()).get(postViewModel.class);
+        postViewModel = new ViewModelProvider(getActivity()).get(postViewModel.class);
         postViewModel.initwork();
         postViewModel.getCategorydata().observe(getActivity(), new Observer<List<homeResponse.categoryResult>>() {
             @Override
             public void onChanged(List<homeResponse.categoryResult> categoryResults) {
-                if(categoryResults.size()>0){
+                if (categoryResults.size() > 0) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             categoryAdapter.notifyDataSetChanged();
                         }
-                    },100);
+                    }, 100);
                 }
             }
         });
-        adsAdapter=new adsAdapter(getActivity(),resultList);
-        LinearLayoutManager llm1=new LinearLayoutManager(getActivity());
+        adsAdapter = new adsAdapter(getActivity(), resultList);
+        LinearLayoutManager llm1 = new LinearLayoutManager(getActivity());
         binding.searchRec.setLayoutManager(llm1);
         binding.searchRec.setAdapter(adsAdapter);
         binding.searchRec.setVisibility(View.INVISIBLE);
 
-        categoryAdapter=new categoryAdapter(getActivity(),postViewModel.categorydata.getValue());
-        LinearLayoutManager llm2=new LinearLayoutManager(getActivity());
+        categoryAdapter = new categoryAdapter(getActivity(), postViewModel.categorydata.getValue());
+        LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(RecyclerView.HORIZONTAL);
         binding.catRec.setLayoutManager(llm2);
         binding.catRec.setAdapter(categoryAdapter);
         categoryAdapter.setoncardclicklistener(new categoryAdapter.oncardclicklistener() {
             @Override
             public void oncardclick(String catname) {
-                selected_category=catname;
-                filterList.add("Category:");
-                filterrateList.add(selected_category);
+                selected_category = catname;
+                if(!filterList.contains("Category:")) {
+                    filterList.add("Category:");
+                    filterrateList.add(selected_category);
+                    filteradapter.notifyDataSetChanged();
+                }
+                else {
+                    for(int i=0;i<filterList.size();i++){
+                        if(filterList.get(i).equals("Category:")) {
+                            filterList.remove(i);
+                            filterrateList.remove(i);
+                        }
+                    }
+                    filterList.add("Category:");
+                    filterrateList.add(selected_category);
+                    filteradapter.notifyDataSetChanged();
+                }
+
             }
         });
 
-        filteradapter=new selfilterAdapter(getActivity(),filterList,filterrateList);
-        LinearLayoutManager llm3=new LinearLayoutManager(getActivity());
-        llm2.setOrientation(RecyclerView.HORIZONTAL);
+        filteradapter = new selfilterAdapter(getActivity(), filterList, filterrateList);
+        LinearLayoutManager llm3 = new LinearLayoutManager(getActivity());
+        llm3.setOrientation(RecyclerView.HORIZONTAL);
         binding.selFilterRec.setLayoutManager(llm3);
         binding.selFilterRec.setAdapter(filteradapter);
         filteradapter.setoncardclicklistener(new selfilterAdapter.oncardclicklistener() {
@@ -381,9 +475,8 @@ public class searchFragment extends Fragment {
                     binding.searchRec.setVisibility(View.VISIBLE);
                     binding.notfoundimg.setVisibility(View.INVISIBLE);
                     binding.nothingfoundtxt.setVisibility(View.INVISIBLE);
-                   getResultFromServer(s.toString());
-                }
-                else  {
+                    getResultFromServer(s.toString());
+                } else {
                     binding.searchRec.setVisibility(View.INVISIBLE);
                 }
             }
@@ -392,29 +485,26 @@ public class searchFragment extends Fragment {
     }
 
     private void searchfun(String query) {
-        List<homeResponse.adsResult> searchedList=new ArrayList<>();
-        for(homeResponse.adsResult model:hmViewModel.getAdsdata().getValue()){
+        List<homeResponse.adsResult> searchedList = new ArrayList<>();
+        for (homeResponse.adsResult model : hmViewModel.getAdsdata().getValue()) {
 
-            if(filterfield!=null && filterfield!="null" && filterfield!="" && !filterfield.equals("All")) {
-                if(model.getAd_title().toLowerCase().contains(query.toLowerCase())
-                || model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
+            if (filterfield != null && filterfield != "null" && filterfield != "" && !filterfield.equals("All")) {
+                if (model.getAd_title().toLowerCase().contains(query.toLowerCase())
+                        || model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
 
-                    if(model.getFeatured_status().equals("1")) {
+                    if (model.getFeatured_status().equals("1")) {
                         searchedList.add(model);
-                    }
-                    else {
+                    } else {
                         searchedList.add(model);
                     }
                 }
-            }
-            else{
-                if(model.getAd_title().toLowerCase().contains(query.toLowerCase()) ||
-                model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
+            } else {
+                if (model.getAd_title().toLowerCase().contains(query.toLowerCase()) ||
+                        model.getProduct_name().toLowerCase().contains(query.toLowerCase())) {
 
-                    if(model.getFeatured_status().equals("1")) {
+                    if (model.getFeatured_status().equals("1")) {
                         searchedList.add(model);
-                    }
-                    else {
+                    } else {
                         searchedList.add(model);
                     }
                 }
@@ -423,7 +513,7 @@ public class searchFragment extends Fragment {
 
         }
         adsAdapter.searchList(searchedList);
-        if(searchedList.size()<1) {
+        if (searchedList.size() < 1) {
             binding.notfoundimg.setVisibility(View.VISIBLE);
             binding.nothingfoundtxt.setVisibility(View.VISIBLE);
         }
@@ -436,18 +526,19 @@ public class searchFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
-        for(int i=0;i<filterList.size();i++) {
+        for (int i = 0; i < filterList.size(); i++) {
 
         }
-        Call<homeResponse.ListadsResp> call1 = apiWork.search_ads(userid,binding.searchTxt.getText().toString()
-        , selected_category,binding.pricebox.getText().toString(),binding.pricebox1.getText().toString(),null,
-                binding.datetxtStart.getText().toString(),binding.datetxtEnd.getText().toString());
+        Call<homeResponse.ListadsResp> call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                , selected_category, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), null,
+                binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        View bottombar=getActivity().findViewById(R.id.bottomnav);
+        View bottombar = getActivity().findViewById(R.id.bottomnav);
         bottombar.setVisibility(View.VISIBLE);
     }
 }

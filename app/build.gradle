@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation 'me.bendik.simplerangeview:simplerangeview:0.2.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.firebase:firebase-messaging-directboot:22.0.0'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
