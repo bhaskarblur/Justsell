@@ -383,7 +383,18 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         @Override
         public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
             super.onOpen(webSocket, response);
+            Toast.makeText(chatActivity.this, "Connection Established!", Toast.LENGTH_SHORT).show();
             Log.d("connected", "yes");
+            JSONObject jsonObject=new JSONObject();
+            try {
+                jsonObject.put("user_id", user_id);
+                jsonObject.put("person_id", person_id);
+                jsonObject.put("product_id",product_id);
+                webSocket.send(jsonObject.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             runOnUiThread(() -> {
                 Toast.makeText(chatActivity.this, "Socket Connected!", Toast.LENGTH_SHORT).show();
 
@@ -426,6 +437,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             jsonObject.put("time",time);
             jsonObject.put("user_id", user_id);
             jsonObject.put("person_id", person_id);
+            jsonObject.put("product_id",product_id);
             jsonObject.put("image", base64img);
             webSocket.send(jsonObject.toString());
 

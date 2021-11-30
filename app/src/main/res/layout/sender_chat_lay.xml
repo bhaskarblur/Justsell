@@ -26,6 +26,8 @@
         android:background="@drawable/chatmsg_background_2"
         android:backgroundTint="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -44,14 +46,14 @@
 
         <TextView
             android:id="@+id/sender_msg"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/poppins"
-            android:text="wassup"
+            android:text="This is a sample message!"
             android:textAlignment="textStart"
             android:textColor="@color/back_black"
             android:textSize="14sp"
