@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -83,7 +84,11 @@ public class searchFragment extends Fragment {
     private List<String> filterList = new ArrayList<>();
     private List<String> filterrateList = new ArrayList<>();
     private String filterfield;
-    private api_baseurl baseurl;
+    private api_baseurl baseurl=new api_baseurl();
+    private String price_sort = "low_to_high";
+    private Boolean pricefilter = false;
+    private Boolean datefilter = false;
+    private Boolean catfilter = false;
 
     public searchFragment() {
         // Required empty public constructor
@@ -145,20 +150,52 @@ public class searchFragment extends Fragment {
 
     private void viewfuncs() {
 
+        binding.applyFitler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (filterList.contains("Budget:")) {
+                    pricefilter = true;
+                }
+                if (filterList.contains("Category:")) {
+                    catfilter = true;
+                }
+                if (filterList.contains("Date:")) {
+                    datefilter = true;
+                }
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
+                binding.fillay.setVisibility(View.INVISIBLE);
+                binding.fillay.setAnimation(animation);
+            }
+        });
+        binding.lowHighBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                price_sort = "low_to_high";
+                binding.lowHighBox.setBackgroundResource(R.drawable.backgroundbg_yellow);
+                binding.highLowBox.setBackgroundResource(R.drawable.backgroundbg_white);
+            }
+        });
+        binding.highLowBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                price_sort = "high_to_low";
+                binding.highLowBox.setBackgroundResource(R.drawable.backgroundbg_yellow);
+                binding.lowHighBox.setBackgroundResource(R.drawable.backgroundbg_white);
+            }
+        });
         binding.priceSeekbar.setOnTrackRangeListener(new SimpleRangeView.OnTrackRangeListener() {
             @Override
             public void onStartRangeChanged(@NonNull SimpleRangeView simpleRangeView, int i) {
                 binding.pricebox1.setText(String.valueOf(i * 1000));
 
-                if(!binding.pricebox1.getText().toString().isEmpty()&&
-                !binding.pricebox.getText().toString().isEmpty()) {
+                if (!binding.pricebox1.getText().toString().isEmpty() &&
+                        !binding.pricebox.getText().toString().isEmpty()) {
                     if (!filterList.contains("Budget:")) {
                         filterList.add("Budget:");
                         filterrateList.add(binding.pricebox1.getText().toString() + "-" +
                                 binding.pricebox.getText().toString());
                         filteradapter.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         for (int x = 0; x < filterList.size(); x++) {
                             if (filterList.get(x).equals("Budget:")) {
                                 filterrateList.remove(x);
@@ -183,15 +220,14 @@ public class searchFragment extends Fragment {
                     binding.pricebox.setText("30000+");
                 }
 
-                if(!binding.pricebox1.getText().toString().isEmpty()&&
+                if (!binding.pricebox1.getText().toString().isEmpty() &&
                         !binding.pricebox.getText().toString().isEmpty()) {
                     if (!filterList.contains("Budget:")) {
                         filterList.add("Budget:");
                         filterrateList.add(binding.pricebox1.getText().toString() + "-" +
                                 binding.pricebox.getText().toString());
                         filteradapter.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         for (int x = 0; x < filterList.size(); x++) {
                             if (filterList.get(x).equals("Budget:")) {
                                 filterrateList.remove(x);
@@ -207,7 +243,6 @@ public class searchFragment extends Fragment {
                 }
 
 
-
             }
         });
         binding.clearFilter.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +251,10 @@ public class searchFragment extends Fragment {
                 filterList.clear();
                 filterrateList.clear();
                 filteradapter.notifyDataSetChanged();
+
+                pricefilter = false;
+                datefilter = false;
+                catfilter = false;
             }
         });
         binding.pricebox1.addTextChangedListener(new TextWatcher() {
@@ -279,15 +318,14 @@ public class searchFragment extends Fragment {
                 if (!binding.datetxtEnd.getText().toString().equals("Select Date") &&
                         !binding.datetxtStart.getText().toString().equals("Select Date")) {
 
-                    if(!filterList.contains("Date:")) {
+                    if (!filterList.contains("Date:")) {
                         filterList.add("Date:");
                         filterrateList.add(binding.datetxtStart.getText().toString() + "-"
                                 + binding.datetxtEnd.getText().toString());
                         filteradapter.notifyDataSetChanged();
-                    }
-                    else {
-                        for(int x=0;x<filterList.size();x++) {
-                            if(filterList.get(x).equals("Date:")) {
+                    } else {
+                        for (int x = 0; x < filterList.size(); x++) {
+                            if (filterList.get(x).equals("Date:")) {
                                 filterList.remove(x);
                                 filterrateList.remove(x);
                             }
@@ -350,8 +388,8 @@ public class searchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_down);
-                binding.filterLayout.setVisibility(View.VISIBLE);
-                binding.filterLayout.setAnimation(animation);
+                binding.fillay.setVisibility(View.VISIBLE);
+                binding.fillay.setAnimation(animation);
 
             }
         });
@@ -360,8 +398,8 @@ public class searchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_down);
-                binding.filterLayout.setVisibility(View.INVISIBLE);
-                binding.filterLayout.setAnimation(animation);
+                binding.fillay.setVisibility(View.INVISIBLE);
+                binding.fillay.setAnimation(animation);
             }
         });
 
@@ -421,14 +459,13 @@ public class searchFragment extends Fragment {
             @Override
             public void oncardclick(String catname) {
                 selected_category = catname;
-                if(!filterList.contains("Category:")) {
+                if (!filterList.contains("Category:")) {
                     filterList.add("Category:");
                     filterrateList.add(selected_category);
                     filteradapter.notifyDataSetChanged();
-                }
-                else {
-                    for(int i=0;i<filterList.size();i++){
-                        if(filterList.get(i).equals("Category:")) {
+                } else {
+                    for (int i = 0; i < filterList.size(); i++) {
+                        if (filterList.get(i).equals("Category:")) {
                             filterList.remove(i);
                             filterrateList.remove(i);
                         }
@@ -449,6 +486,13 @@ public class searchFragment extends Fragment {
         filteradapter.setoncardclicklistener(new selfilterAdapter.oncardclicklistener() {
             @Override
             public void onremoveclick(int position) {
+                if (filterList.get(position).equals("Category:")) {
+                    catfilter = false;
+                } else if (filterList.get(position).equals("Budget:")) {
+                    pricefilter = false;
+                } else if (filterList.get(position).equals("Date:")) {
+                    datefilter = false;
+                }
                 filterrateList.remove(position);
                 filterList.remove(position);
                 filteradapter.notifyDataSetChanged();
@@ -526,12 +570,84 @@ public class searchFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
-        for (int i = 0; i < filterList.size(); i++) {
+
+        Call<homeResponse.ListadsResp> call1 = null;
+
+        if (catfilter.equals(true) && pricefilter.equals(true) && datefilter.equals(true)) {
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , selected_category, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+
 
         }
-        Call<homeResponse.ListadsResp> call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
-                , selected_category, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), null,
-                binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+        else if(catfilter.equals(true) && pricefilter.equals(true)) {
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , selected_category, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    null,null);
+
+        }
+         else if(datefilter.equals(true) && pricefilter.equals(true)) {
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , null, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+
+        }
+         else if(catfilter.equals(true) && datefilter.equals(true)) {
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , selected_category,null,null,null,
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+        }
+         else if(catfilter.equals(true)) {
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , selected_category,null,null,null,
+                    null,null);
+        }
+         else if(datefilter.equals(true)){
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , null, null,null,null,
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+        }
+         else if(pricefilter.equals(true)){
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , null, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    null,null);
+        }
+         else {
+            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+                    , null,null,null, null,null,null);
+        }
+
+
+        call1.enqueue(new Callback<homeResponse.ListadsResp>() {
+            @Override
+            public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Error code", String.valueOf(response.code()));
+                    return;
+                }
+
+                if (response.body().getResult() != null) {
+                    if (response.body().getResult().size() > 0) {
+                        binding.searchRec.setVisibility(View.VISIBLE);
+                        binding.notfoundimg.setVisibility(View.INVISIBLE);
+                        binding.nothingfoundtxt.setVisibility(View.INVISIBLE);
+                        for (int i = 0; i < response.body().getResult().size(); i++) {
+                            resultList.add(response.body().getResult().get(i));
+                        }
+                        adsAdapter.notifyDataSetChanged();
+                    } else {
+                        binding.searchRec.setVisibility(View.INVISIBLE);
+                        binding.notfoundimg.setVisibility(View.VISIBLE);
+                        binding.nothingfoundtxt.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.ListadsResp> call, Throwable t) {
+                Log.d("Failure", t.getMessage());
+            }
+        });
 
     }
 

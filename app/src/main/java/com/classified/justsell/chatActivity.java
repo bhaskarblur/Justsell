@@ -77,7 +77,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "wss://echo.websocket.org";
+    private String server_path = "wss://45.80.183.58:8080";
     private String user_id;
     private String product_id;
     private String person_id;

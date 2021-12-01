@@ -55,6 +55,7 @@
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/font/poppins.xml" value="0.234375" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/backgroundbg.xml" value="0.20970464135021097" />
+        <entry key="app/src/main/res/drawable/backgroundbg_white.xml" value="0.21181434599156118" />
         <entry key="app/src/main/res/drawable/backgroundbg_yellow.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/borderbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/btcart_bg.xml" value="0.20970464135021097" />
@@ -95,7 +96,7 @@
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.20217225096643468" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29139735112646203" />
         <entry key="app/src/main/res/layout/fragment_register_profile.xml" value="0.23464313040902293" />
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3027385955470461" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.24434457684855843" />
         <entry key="app/src/main/res/layout/images_layout.xml" value="0.486999937483354" />
         <entry key="app/src/main/res/layout/noti_layout.xml" value="0.3139831451317533" />
         <entry key="app/src/main/res/layout/post_category_layout.xml" value="0.4243492287027364" />
