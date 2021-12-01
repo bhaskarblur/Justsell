@@ -386,7 +386,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         binding.userNumber.setText(number);
         binding.nameTxt.setText(name);
         binding.numberTxt.setText(number);
-        if (image != null && !image.equals("empty")) {
+        if (image != null && !image.equals("empty") && !image.isEmpty()) {
             final int radius = 150;
             final int margin = 50;
             final Transformation transformation = new RoundedCornersTransformation(radius, margin);
