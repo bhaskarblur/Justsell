@@ -627,6 +627,7 @@ public class searchFragment extends Fragment {
                 }
 
                 if (response.body().getResult() != null) {
+                    resultList.clear();
                     if (response.body().getResult().size() > 0) {
                         binding.searchRec.setVisibility(View.VISIBLE);
                         binding.notfoundimg.setVisibility(View.INVISIBLE);
