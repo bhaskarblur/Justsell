@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/menu_btn2"
-            android:layout_width="22dp"
-            android:layout_height="19sp"
+            android:layout_width="19dp"
+            android:layout_height="17dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:clickable="true"
@@ -143,7 +143,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/border_bg2"
+        android:background="@drawable/fieldnotselbg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
