@@ -369,6 +369,14 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                     editor.putString("username", resp.getResult().getName());
                     editor.commit();
                 }
+                else {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    startActivity(new Intent(getActivity(), AuthActivity.class));
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                }
             }
 
             @Override
@@ -386,7 +394,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         binding.userNumber.setText(number);
         binding.nameTxt.setText(name);
         binding.numberTxt.setText(number);
-        if (image != null && !image.equals("empty") && !image.isEmpty()) {
+        if (image != null && !image.equals("empty") && !image.isEmpty() && !image.equals(" ")) {
             final int radius = 150;
             final int margin = 50;
             final Transformation transformation = new RoundedCornersTransformation(radius, margin);
@@ -472,6 +480,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().getViewModelStore().clear();
             }
             @Override
             public void onHeartClick(String id) {
@@ -531,6 +540,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().getViewModelStore().clear();
             }
         });
 
@@ -553,7 +563,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-
+                getActivity().getViewModelStore().clear();
             }
         });
 

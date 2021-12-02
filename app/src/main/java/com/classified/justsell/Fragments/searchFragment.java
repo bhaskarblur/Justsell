@@ -36,6 +36,7 @@ import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
 import com.classified.justsell.Adapters.categoryAdapter;
+import com.classified.justsell.Adapters.filtercategoryAdapter;
 import com.classified.justsell.Adapters.selfilterAdapter;
 import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.AuthResponse;
@@ -77,7 +78,7 @@ public class searchFragment extends Fragment {
     private postViewModel postViewModel;
     String userid;
     String city;
-    private com.classified.justsell.Adapters.categoryAdapter categoryAdapter;
+    private com.classified.justsell.Adapters.filtercategoryAdapter categoryAdapter;
     private selfilterAdapter filteradapter;
     private String selected_category;
     private List<homeResponse.adsResult> resultList = new ArrayList<>();
@@ -450,12 +451,12 @@ public class searchFragment extends Fragment {
         binding.searchRec.setAdapter(adsAdapter);
         binding.searchRec.setVisibility(View.INVISIBLE);
 
-        categoryAdapter = new categoryAdapter(getActivity(), postViewModel.categorydata.getValue());
+        categoryAdapter = new filtercategoryAdapter(getActivity(), postViewModel.categorydata.getValue());
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
         llm2.setOrientation(RecyclerView.HORIZONTAL);
         binding.catRec.setLayoutManager(llm2);
         binding.catRec.setAdapter(categoryAdapter);
-        categoryAdapter.setoncardclicklistener(new categoryAdapter.oncardclicklistener() {
+        categoryAdapter.setoncardclicklistener(new filtercategoryAdapter.oncardclicklistener() {
             @Override
             public void oncardclick(String catname) {
                 selected_category = catname;

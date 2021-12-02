@@ -60,7 +60,7 @@ public class registerProfile extends Fragment {
     private String mParam1;
     private String mParam2;
     private String userid;
-    private Uri imguri;
+    private Uri imguri= Uri.parse(" ");
 
     public registerProfile() {
         // Required empty public constructor
@@ -302,7 +302,6 @@ public class registerProfile extends Fragment {
     private void startCropActivity() {
         CropImage.activity()
                 .start(getContext(), this);
-
     }
 
     private String getFileExtension(Uri uri) {

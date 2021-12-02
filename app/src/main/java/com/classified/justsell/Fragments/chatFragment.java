@@ -14,11 +14,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.chatslistAdapter;
+import com.classified.justsell.AuthActivity;
+import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.Models.chatModel;
 import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.chatsViewModel;
@@ -26,6 +31,12 @@ import com.classified.justsell.chatActivity;
 import com.classified.justsell.databinding.FragmentChatBinding;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +54,7 @@ public class chatFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private api_baseurl baseurl=new api_baseurl();
     private com.classified.justsell.ViewModels.chatsViewModel chatsViewModel;
 
     public chatFragment() {
@@ -94,6 +106,8 @@ public class chatFragment extends Fragment {
 
         ManageData();
         Viewfuncs();
+
+
         return binding.getRoot();
     }
 
@@ -132,7 +146,47 @@ public class chatFragment extends Fragment {
                 getActivity().getViewModelStore().clear();
             }
         });
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
 
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<AuthResponse.VerifyOtp> call = apiWork.getprofile(userid);
+
+        call.enqueue(new Callback<AuthResponse.VerifyOtp>() {
+            @Override
+            public void onResponse(Call<AuthResponse.VerifyOtp> call, Response<AuthResponse.VerifyOtp> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("error code", String.valueOf(response.code()));
+                    return;
+                }
+
+                AuthResponse.VerifyOtp resp = response.body();
+
+                if (resp.getResult() != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userlogged", "yes");
+                    editor.putString("userimage", resp.getResult().getImage());
+                    editor.putString("userid", resp.getResult().getId());
+                    editor.putString("usermobile", resp.getResult().getMobile());
+                    editor.putString("username", resp.getResult().getName());
+                    editor.commit();
+                }
+                else {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    startActivity(new Intent(getActivity(), AuthActivity.class));
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse.VerifyOtp> call, Throwable t) {
+                Log.d("Failure", t.getMessage());
+            }
+        });
     }
 
     private void Viewfuncs() {

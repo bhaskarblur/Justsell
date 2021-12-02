@@ -20,7 +20,7 @@ public class imageActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         String image=intent.getStringExtra("image");
-        Picasso.get().load(image).resize(1280,720).into(binding.bigImg2);
+        Picasso.get().load(image).resize(1920,1080).into(binding.bigImg2);
 
         binding.backbtn9.setOnClickListener(new View.OnClickListener() {
             @Override

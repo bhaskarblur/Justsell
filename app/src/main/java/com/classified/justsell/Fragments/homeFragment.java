@@ -21,16 +21,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Ad_posterActivity;
 import com.classified.justsell.Ad_userActivity;
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
 import com.classified.justsell.Adapters.categoryAdapter;
+import com.classified.justsell.AuthActivity;
+import com.classified.justsell.Constants.api_baseurl;
+import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.homefragViewModel;
@@ -39,6 +44,12 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class homeFragment extends Fragment implements LocationListener {
@@ -64,7 +75,7 @@ public class homeFragment extends Fragment implements LocationListener {
     private String city;
     private LocationManager locationManager;
     private FusedLocationProviderClient fusedLocationProviderClient;
-
+    private api_baseurl baseurl=new api_baseurl();
     public homeFragment() {
         // Required empty public constructor
     }
@@ -115,6 +126,8 @@ public class homeFragment extends Fragment implements LocationListener {
             ManageData();
             viewfuncs();
         }
+
+
         return hmbinding.getRoot();
     }
 
@@ -281,7 +294,47 @@ public class homeFragment extends Fragment implements LocationListener {
             hmbinding.citytext.setText(citystate + ", " + state);
         }
 
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
 
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<AuthResponse.VerifyOtp> call = apiWork.getprofile(user_id);
+
+        call.enqueue(new Callback<AuthResponse.VerifyOtp>() {
+            @Override
+            public void onResponse(Call<AuthResponse.VerifyOtp> call, Response<AuthResponse.VerifyOtp> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("error code", String.valueOf(response.code()));
+                    return;
+                }
+
+                AuthResponse.VerifyOtp resp = response.body();
+
+                if (resp.getResult() != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userlogged", "yes");
+                    editor.putString("userimage", resp.getResult().getImage());
+                    editor.putString("userid", resp.getResult().getId());
+                    editor.putString("usermobile", resp.getResult().getMobile());
+                    editor.putString("username", resp.getResult().getName());
+                    editor.commit();
+                }
+                else {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    startActivity(new Intent(getActivity(), AuthActivity.class));
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse.VerifyOtp> call, Throwable t) {
+                Log.d("Failure", t.getMessage());
+            }
+        });
         hmViewModel = new ViewModelProvider(getActivity()).get(homefragViewModel.class);
         hmViewModel.initwork(user_id, "0", "0", city);
 
