@@ -26,8 +26,7 @@
         <activity
             android:name=".chatActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".adpromoted_successful"
             android:exported="true"

@@ -96,7 +96,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ManageData();
         viewfuncs();
     }
