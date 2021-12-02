@@ -81,7 +81,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     //convert to base64
                     sentImageHolder holder1= (sentImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
-                    Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
+                    Picasso.get().load(message.getString("image")).resize(500,500).into(holder1.image);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -107,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 else {
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
-                    Picasso.get().load(message.getString("image")).resize(250,250).into(holder1.image);
+                    Picasso.get().load(message.getString("image")).resize(500,500).into(holder1.image);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

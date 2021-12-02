@@ -215,8 +215,10 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     Picasso.get().load(chatResult.getProduct_img()).resize(200, 200)
                             .into(binding.productImage);
 
-                    Picasso.get().load(chatResult.getPerson_img()).resize(150, 150).transform(new CropCircleTransformation())
-                            .into(binding.personImage);
+                    if(chatResult.getPerson_img()!=null) {
+                        Picasso.get().load(chatResult.getPerson_img()).resize(150, 150).transform(new CropCircleTransformation())
+                                .into(binding.personImage);
+                    }
 
                     receiver_img = chatResult.getPerson_img();
                     binding.personName.setText(chatResult.getPerson_name());
