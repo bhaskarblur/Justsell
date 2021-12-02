@@ -27,6 +27,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.text.SpannableString;
@@ -154,6 +155,20 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     }
 
     private void viewfunc() {
+
+        binding.swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getActivity().getViewModelStore().clear();
+                binding.swipelayout.setRefreshing(false);
+                profileFragment homeFragment=new profileFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.commit();
+
+            }
+        });
+
         binding.menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

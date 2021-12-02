@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.util.Log;
@@ -190,5 +191,18 @@ public class chatFragment extends Fragment {
     }
 
     private void Viewfuncs() {
+
+        binding.swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getActivity().getViewModelStore().clear();
+                binding.swipelayout.setRefreshing(false);
+                chatFragment homeFragment=new chatFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.commit();
+
+            }
+        });
     }
 }

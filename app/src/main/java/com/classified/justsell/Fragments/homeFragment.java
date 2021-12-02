@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
@@ -132,6 +133,20 @@ public class homeFragment extends Fragment implements LocationListener {
     }
 
     private void viewfuncs() {
+
+        hmbinding.swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+               getActivity().getViewModelStore().clear();
+                hmbinding.swipelayout.setRefreshing(false);
+                homeFragment homeFragment=new homeFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFragment, homeFragment);
+                transaction.commit();
+
+            }
+        });
+
         hmbinding.citytext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

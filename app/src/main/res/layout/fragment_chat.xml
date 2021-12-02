@@ -7,6 +7,19 @@
     android:background="?android:colorPrimary"
     tools:context=".Fragments.chatFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
     <TextView
         android:id="@+id/textView47"
@@ -32,4 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView47"
         tools:itemCount="3"
         tools:listitem="@layout/chat_msg_layout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

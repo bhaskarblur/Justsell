@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -65,6 +67,8 @@ public class HomeActivity extends AppCompatActivity {
         handlePermissions();
         handleBottomNav();
         loadads();
+
+
         //startActivity(new Intent(HomeActivity.this,chatActivity.class));
 
     }

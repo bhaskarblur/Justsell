@@ -62,156 +62,165 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.523" />
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/homeNested"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topbar"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/topbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/homeNested"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topbar"
+            app:layout_constraintVertical_bias="1.0">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/adsrec"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/citytext3"
-                app:layout_constraintVertical_bias="0.0"
-                tools:itemCount="1"
-                tools:listitem="@layout/ads_layout" />
+                android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoryrec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/citytext2"
-                tools:itemCount="1"
-                tools:listitem="@layout/category_layout">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/adsrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/citytext3"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/ads_layout" />
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categoryrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/citytext2"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/category_layout">
 
-            <TextView
-                android:id="@+id/citytext2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Top Categories"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                </androidx.recyclerview.widget.RecyclerView>
 
-            <ImageView
-                android:id="@+id/filtericon"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="25dp"
-                android:src="@drawable/filtericon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoryrec"
-                app:tint="?android:textColorPrimary" />
+                <TextView
+                    android:id="@+id/citytext2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Top Categories"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-            <TextView
-                android:id="@+id/citytext3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Ads Near You"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoryrec" />
+                <ImageView
+                    android:id="@+id/filtericon"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/filtericon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryrec"
+                    app:tint="?android:textColorPrimary" />
 
-            <Button
-                android:id="@+id/onbprog"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="@color/primary_color"
-                android:clickable="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                <TextView
+                    android:id="@+id/citytext3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Ads Near You"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryrec" />
 
-            <Button
-                android:id="@+id/onbprog2"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="#C6C6C6"
-                android:clickable="true"
-                app:layout_constraintStart_toEndOf="@+id/onbprog"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                <Button
+                    android:id="@+id/onbprog"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="@color/primary_color"
+                    android:clickable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-            <Button
-                android:id="@+id/onbprog3"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="#C6C6C6"
-                android:clickable="true"
-                app:layout_constraintStart_toEndOf="@+id/onbprog2"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                <Button
+                    android:id="@+id/onbprog2"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="#C6C6C6"
+                    android:clickable="true"
+                    app:layout_constraintStart_toEndOf="@+id/onbprog"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-            <Button
-                android:id="@+id/onbprog4"
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/onboardingposcircle"
-                android:backgroundTint="#C6C6C6"
-                android:clickable="true"
-                android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@+id/onbprog3"
-                app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
+                <Button
+                    android:id="@+id/onbprog3"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="#C6C6C6"
+                    android:clickable="true"
+                    app:layout_constraintStart_toEndOf="@+id/onbprog2"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/bannerrv"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:clickable="true"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/topbar" />
+                <Button
+                    android:id="@+id/onbprog4"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/onboardingposcircle"
+                    android:backgroundTint="#C6C6C6"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toEndOf="@+id/onbprog3"
+                    app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/bannerrv"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:clickable="true"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topbar" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar"
         android:layout_width="match_parent"
