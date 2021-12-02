@@ -77,7 +77,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "ws://83.136.219.77:20205";
+    private String server_path = "ws://83.136.219.77:8181";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -89,6 +89,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     private api_baseurl baseurl = new api_baseurl();
     private List<JSONObject> previousMessages = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,9 +137,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             public void onClick(View v) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    Calendar calendar=Calendar.getInstance();
-                    String time=calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
-                    jsonObject.put("time",time);
+                    Calendar calendar = Calendar.getInstance();
+                    String time = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+                    jsonObject.put("time", time);
                     jsonObject.put("user_id", user_id);
                     jsonObject.put("person_id", person_id);
                     jsonObject.put("message", binding.msgTxt.getText().toString());
@@ -176,6 +177,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void ManageData() {
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
@@ -184,8 +186,28 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         viewModel = new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);
-//        chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
-//                , receiver_img);
+
+        chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
+                , receiver_img);
+
+        LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
+        binding.chatsRec.setLayoutManager(llm);
+        binding.chatsRec.setAdapter(chatAdapter);
+        binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);
+        llm.setSmoothScrollbarEnabled(true);
+
+        binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                if (llm.findLastVisibleItemPosition() != chatAdapter.getItemCount() - 1) {
+
+                    binding.scrolldown.setVisibility(View.VISIBLE);
+                } else {
+                    binding.scrolldown.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
         viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
             @Override
             public void onChanged(chatModel.chatResult chatResult) {
@@ -217,41 +239,31 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         viewModel.getPreviousChats().observe(chatActivity.this, new Observer<List<JSONObject>>() {
             @Override
             public void onChanged(List<JSONObject> jsonObjects) {
-
                 if (jsonObjects.size() > 0) {
 
                     new Handler().postDelayed(new Runnable() {
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @Override
                         public void run() {
-                            try {
-                                previousMessages=jsonObjects;
-                                chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
-                                        , receiver_img);
-                                LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
-                                binding.chatsRec.setLayoutManager(llm);
-                                binding.chatsRec.setAdapter(chatAdapter);
-                                binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);
-                                llm.setSmoothScrollbarEnabled(true);
+                              previousMessages=jsonObjects;
+                            chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
+                                    , receiver_img);
+                            LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
+                            binding.chatsRec.setLayoutManager(llm);
+                            binding.chatsRec.setAdapter(chatAdapter);
+                            binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);
+                            llm.setSmoothScrollbarEnabled(true);
+                            binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                                @Override
+                                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                                    if (llm.findLastVisibleItemPosition() != chatAdapter.getItemCount() - 1) {
 
-                                binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                                    @Override
-                                    public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                                        if(llm.findLastVisibleItemPosition()!=chatAdapter.getItemCount()-1) {
-
-                                                binding.scrolldown.setVisibility(View.VISIBLE);
-                                            } else {
-                                                binding.scrolldown.setVisibility(View.INVISIBLE);
-                                            }
+                                        binding.scrolldown.setVisibility(View.VISIBLE);
+                                    } else {
+                                        binding.scrolldown.setVisibility(View.INVISIBLE);
                                     }
-                                });
-
-                                Log.d("chatshere", chatAdapter.messages.get(0).getString("isSent"));
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                                }
+                            });
 
                         }
                     }, 100);
@@ -359,8 +371,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             super.onMessage(webSocket, text);
             runOnUiThread(() -> {
                 try {
+                    Log.d("message", text);
                     JSONObject jsonObject = new JSONObject(text);
-                    jsonObject.put("isSent", "true");
+                    jsonObject.put("isSent", "no");
                     jsonObject.put("seen", jsonObject.getString("seen"));
                     chatAdapter.addItem(jsonObject);
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
@@ -386,11 +399,11 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
             super.onOpen(webSocket, response);
             Log.d("connected", "yes");
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("user_id", user_id);
                 jsonObject.put("person_id", person_id);
-                jsonObject.put("product_id",product_id);
+                jsonObject.put("product_id", product_id);
                 webSocket.send(jsonObject.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -433,17 +446,17 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         JSONObject jsonObject = new JSONObject();
 
         try {
-            Calendar calendar=Calendar.getInstance();
-            String time=calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
-            jsonObject.put("time",time);
+            Calendar calendar = Calendar.getInstance();
+            String time = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+            jsonObject.put("time", time);
             jsonObject.put("user_id", user_id);
             jsonObject.put("person_id", person_id);
-            jsonObject.put("product_id",product_id);
+            jsonObject.put("product_id", product_id);
             jsonObject.put("image", base64img);
             webSocket.send(jsonObject.toString());
 
             JSONObject fakejson = new JSONObject();
-            fakejson.put("time",time);
+            fakejson.put("time", time);
             fakejson.put("user_id", user_id);
             fakejson.put("person_id", person_id);
             fakejson.put("image", imageuri);
@@ -461,7 +474,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(chatActivity.this,R.style.AlertDialogStyle).setTitle("Delete Chat")
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(chatActivity.this, R.style.AlertDialogStyle).setTitle("Delete Chat")
                         .setMessage("Are you sure you want to delete the whole chat?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -507,7 +520,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 builder1.show();
                 break;
             case R.id.block:
-                AlertDialog.Builder builder = new AlertDialog.Builder(chatActivity.this,R.style.AlertDialogStyle).setTitle("Delete & Block")
+                AlertDialog.Builder builder = new AlertDialog.Builder(chatActivity.this, R.style.AlertDialogStyle).setTitle("Delete & Block")
                         .setMessage("You are going to block this account, the chat will also be deleted.").setPositiveButton("Block", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -516,7 +529,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
-                                Log.d("data",user_id+","+person_id);
+                                Log.d("data", user_id + "," + person_id);
                                 Call<AuthResponse.SendOtp> call1 = apiWork.block(user_id, product_id, person_id);
 
                                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {

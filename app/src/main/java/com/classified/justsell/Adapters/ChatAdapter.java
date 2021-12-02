@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -35,7 +36,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private final static int TYPE_IMG_RECEIVED=3;
     private String receiver_img;
     private LayoutInflater inflater;
-    public List<JSONObject> messages;
+    public List<JSONObject> messages=new ArrayList<>();
 
     public ChatAdapter(Context mcontext,LayoutInflater inflater, List<JSONObject> messages,String receiver_img) {
         this.mcontext=mcontext;

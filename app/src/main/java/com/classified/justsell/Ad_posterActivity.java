@@ -231,8 +231,10 @@ public class Ad_posterActivity extends AppCompatActivity {
                     binding.prodtitleTxt.setText(adsResult.getAd_title());
                     binding.proddescTxt.setText(adsResult.getDescription());
                     binding.viewscount.setText(adsResult.getAd_views());
-                    Picasso.get().load(adsResult.getPost_by_image()).transform(new CropCircleTransformation()).resize(150,150)
-                            .into(binding.postimage);
+                    if(adsResult.getPost_by_image()!=null) {
+                        Picasso.get().load(adsResult.getPost_by_image()).transform(new CropCircleTransformation()).resize(150, 150)
+                                .into(binding.postimage);
+                    }
                     binding.postname.setText(adsResult.getPost_by());
                     if(adsResult.getPost_by_number()!=null) {
                         binding.postnumber.setText(adsResult.getPost_by_number());

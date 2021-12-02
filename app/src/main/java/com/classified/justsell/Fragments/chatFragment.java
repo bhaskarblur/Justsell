@@ -122,12 +122,20 @@ public class chatFragment extends Fragment {
             @Override
             public void onChanged(List<chatModel.chatResult> chatResults) {
                 if(chatResults.size()>0) {
+                    binding.chatRec.setVisibility(View.VISIBLE);
+                    binding.nonotiimg2.setVisibility(View.INVISIBLE);
+                    binding.nonotitxt2.setVisibility(View.INVISIBLE);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             adapter.notifyDataSetChanged();
                         }
                     },100);
+                }
+                else {
+                    binding.chatRec.setVisibility(View.INVISIBLE);
+                    binding.nonotiimg2.setVisibility(View.VISIBLE);
+                    binding.nonotitxt2.setVisibility(View.VISIBLE);
                 }
             }
         });
