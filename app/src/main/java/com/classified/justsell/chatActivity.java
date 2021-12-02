@@ -77,7 +77,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "wss://45.80.183.58:8080";
+    private String server_path = "ws://83.136.219.77:20205";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -184,6 +184,8 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         viewModel = new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);
+//        chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
+//                , receiver_img);
         viewModel.getChatData().observe(chatActivity.this, new Observer<chatModel.chatResult>() {
             @Override
             public void onChanged(chatModel.chatResult chatResult) {
@@ -215,6 +217,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         viewModel.getPreviousChats().observe(chatActivity.this, new Observer<List<JSONObject>>() {
             @Override
             public void onChanged(List<JSONObject> jsonObjects) {
+
                 if (jsonObjects.size() > 0) {
 
                     new Handler().postDelayed(new Runnable() {
@@ -222,10 +225,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                         @Override
                         public void run() {
                             try {
-                                previousMessages = jsonObjects;
+                                previousMessages=jsonObjects;
                                 chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
                                         , receiver_img);
-
                                 LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
                                 binding.chatsRec.setLayoutManager(llm);
                                 binding.chatsRec.setAdapter(chatAdapter);
@@ -383,7 +385,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         @Override
         public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
             super.onOpen(webSocket, response);
-            Toast.makeText(chatActivity.this, "Connection Established!", Toast.LENGTH_SHORT).show();
             Log.d("connected", "yes");
             JSONObject jsonObject=new JSONObject();
             try {
