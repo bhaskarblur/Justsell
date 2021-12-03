@@ -2,6 +2,7 @@ package com.classified.justsell.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -33,6 +34,8 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
+import com.classified.justsell.Ad_posterActivity;
+import com.classified.justsell.Ad_userActivity;
 import com.classified.justsell.Adapters.adsAdapter;
 import com.classified.justsell.Adapters.bannerAdapter;
 import com.classified.justsell.Adapters.categoryAdapter;
@@ -450,6 +453,27 @@ public class searchFragment extends Fragment {
         binding.searchRec.setLayoutManager(llm1);
         binding.searchRec.setAdapter(adsAdapter);
         binding.searchRec.setVisibility(View.INVISIBLE);
+        adsAdapter.setonItemClick(new adsAdapter.onItemClick() {
+            @Override
+            public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
+                Intent intent=null;
+                if (!userid.equals(userid)) {
+                    intent = new Intent(getActivity(), Ad_userActivity.class);
+
+                } else {
+                    // change this to same user activity
+                    intent = new Intent(getActivity(), Ad_posterActivity.class);
+                }
+
+                intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", ad_id);
+                intent.putExtra("product_name", prod_name);
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
+            }
+        });
 
         categoryAdapter = new filtercategoryAdapter(getActivity(), postViewModel.categorydata.getValue());
         LinearLayoutManager llm2 = new LinearLayoutManager(getActivity());
