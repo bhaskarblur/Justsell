@@ -178,9 +178,9 @@ public class ChatAdapter extends RecyclerView.Adapter{
             SharedPreferences sharedPreferences=mcontext.getSharedPreferences("userlogged",0);
 
             String userpic=sharedPreferences.getString("userimage","");
-
-            Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150,150).into(pic);
-
+            if(userpic!=null) {
+                Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+            }
         }
     }
 
@@ -197,8 +197,9 @@ public class ChatAdapter extends RecyclerView.Adapter{
 
             String userpic=sharedPreferences.getString("userimage","");
 
-            Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150,150).into(pic);
-
+            if(userpic!=null) {
+                Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+            }
         }
     }
 
@@ -211,8 +212,9 @@ public class ChatAdapter extends RecyclerView.Adapter{
             pic=itemView.findViewById(R.id.receiver_pic);
             msg=itemView.findViewById(R.id.receiver_msg);
             time=itemView.findViewById(R.id.receiver_time);
-            Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150,150).into(pic);
-
+            if(receiver_img!=null) {
+                Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+            }
         }
     }
 
@@ -225,8 +227,9 @@ public class ChatAdapter extends RecyclerView.Adapter{
             pic=itemView.findViewById(R.id.receiver_pic);
             image=itemView.findViewById(R.id.receiver_img);
             time=itemView.findViewById(R.id.receiver_time);
-            Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150,150).into(pic);
-
+            if(receiver_img!=null) {
+                Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+            }
         }
     }
 }

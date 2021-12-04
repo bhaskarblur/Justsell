@@ -77,7 +77,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "ws://83.136.219.77:8181";
+    private String server_path = "ws://83.136.219.77:8190";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -180,9 +180,12 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void ManageData() {
         Intent intent = getIntent();
-        user_id = intent.getStringExtra("user_id");
-        person_id = intent.getStringExtra("person_id");
-        product_id = intent.getStringExtra("product_id");
+        user_id="2";
+        person_id="3";
+        product_id="2";
+//        user_id = intent.getStringExtra("user_id");
+//        person_id = intent.getStringExtra("person_id");
+//        product_id = intent.getStringExtra("product_id");
         viewModel = new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);
