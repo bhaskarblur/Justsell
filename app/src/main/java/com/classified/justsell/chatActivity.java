@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -78,7 +80,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "ws://83.136.219.77:8198";
+    private String server_path = "ws://83.136.219.77:8200";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -342,11 +344,16 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
 
     private void startCropActivity() {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                !=PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+            return;
+        }
 
-
+        Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        intent.setType("image/*");
+        startActivityForResult(intent,1);
     }
 
 
@@ -362,7 +369,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         switch (requestCode) {
             case PERMISSION_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    pickImageFromGallery();
+                    startCropActivity();
                 } else {
                     Toast.makeText(chatActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
@@ -462,12 +469,10 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Uri imguri = result.getUri();
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+                Uri imguri = data.getData();
                 try {
                     InputStream is = getContentResolver().openInputStream(imguri);
                     Bitmap image = BitmapFactory.decodeStream(is);
@@ -475,9 +480,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-
-
-            }
 
         }
     }
