@@ -77,7 +77,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "ws://83.136.219.77:8190";
+    private String server_path = "ws://83.136.219.77:8197";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -142,8 +142,10 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     jsonObject.put("time", time);
                     jsonObject.put("user_id", user_id);
                     jsonObject.put("person_id", person_id);
+                    jsonObject.put("product_id",product_id);
                     jsonObject.put("message", binding.msgTxt.getText().toString());
                     webSocket.send(jsonObject.toString());
+                    Log.d("messagehere",jsonObject.toString());
                     jsonObject.put("isSent", "yes");
                     chatAdapter.addItem(jsonObject);
                     resetmessageEdit();
@@ -375,11 +377,13 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
             super.onMessage(webSocket, text);
             runOnUiThread(() -> {
+                Log.d("message01", text.toString());
                 try {
-                    Log.d("message", text);
+
                     JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent", "no");
-                    jsonObject.put("seen", jsonObject.getString("seen"));
+                   // jsonObject.put("seen", jsonObject.getString("seen"));
+                    Log.d("message", jsonObject.toString());
                     chatAdapter.addItem(jsonObject);
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
@@ -387,7 +391,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     sentcheck.put("user_id", user_id);
                     sentcheck.put("product_id", product_id);
                     sentcheck.put("person_id", person_id);
-                    sentcheck.put("seen", "yes");
+                    sentcheck.put("seen", "yesyo");
 
                     if (jsonObject.getString("status").equals("online")) {
                         binding.personStatus.setVisibility(View.VISIBLE);

@@ -178,7 +178,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
             SharedPreferences sharedPreferences=mcontext.getSharedPreferences("userlogged",0);
 
             String userpic=sharedPreferences.getString("userimage","");
-            if(userpic!=null) {
+            if(userpic!=null && !userpic.isEmpty()) {
                 Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
             }
         }
@@ -197,7 +197,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
 
             String userpic=sharedPreferences.getString("userimage","");
 
-            if(userpic!=null) {
+            if(userpic!=null && !userpic.isEmpty()) {
                 Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
             }
         }
