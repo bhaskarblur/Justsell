@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,7 +78,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class chatActivity extends AppCompatActivity implements TextWatcher, PopupMenu.OnMenuItemClickListener {
     private ActivityChatBinding binding;
     private WebSocket webSocket;
-    private String server_path = "ws://83.136.219.77:8197";
+    private String server_path = "ws://83.136.219.77:8198";
     private String user_id;
     private String product_id;
     private String person_id;
@@ -101,6 +102,36 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         viewfuncs();
     }
 
+    private void playsound() {
+        MediaPlayer mediaPlayer=MediaPlayer.create(this, R.raw.msgsound);
+        mediaPlayer.setVolume(0.5f,0.5f);
+        mediaPlayer.start();
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer.stop();
+                //mediaPlayer.release();
+
+            }
+        });
+    }
+
+
+    private void recplaysound() {
+        MediaPlayer mediaPlayer=MediaPlayer.create(this, R.raw.receive_msgsound);
+        mediaPlayer.setVolume(0.5f,0.5f);
+        mediaPlayer.start();
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer.stop();
+                //mediaPlayer.release();
+
+            }
+        });
+    }
     private void viewfuncs() {
 
 //        binding.msgTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -148,6 +179,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     Log.d("messagehere",jsonObject.toString());
                     jsonObject.put("isSent", "yes");
                     chatAdapter.addItem(jsonObject);
+                    playsound();
                     resetmessageEdit();
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
@@ -365,7 +397,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         @Override
         public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
             super.onFailure(webSocket, t, response);
-            Log.d("socketFailure", t.getMessage());
+            if(t.getMessage()!=null) {
+                Log.d("socketFailure", t.getMessage());
+            }
         }
 
         @Override
@@ -385,6 +419,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                    // jsonObject.put("seen", jsonObject.getString("seen"));
                     Log.d("message", jsonObject.toString());
                     chatAdapter.addItem(jsonObject);
+                    recplaysound();
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
                     JSONObject sentcheck = new JSONObject();
@@ -471,6 +506,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             fakejson.put("image", imageuri);
             fakejson.put("isSent", "yes");
             chatAdapter.addItem(fakejson);
+            playsound();
             binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
         } catch (JSONException e) {
             e.printStackTrace();
