@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         loadads();
 
 
-        startActivity(new Intent(HomeActivity.this,chatActivity.class));
+        //startActivity(new Intent(HomeActivity.this,chatActivity.class));
 
     }
     private void loadads() {

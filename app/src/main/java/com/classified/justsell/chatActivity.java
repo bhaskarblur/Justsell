@@ -216,12 +216,12 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void ManageData() {
         Intent intent = getIntent();
-        user_id="2";
-        person_id="3";
-        product_id="2";
-//        user_id = intent.getStringExtra("user_id");
-//        person_id = intent.getStringExtra("person_id");
-//        product_id = intent.getStringExtra("product_id");
+//        user_id="2";
+//        person_id="3";
+//        product_id="2";
+        user_id = intent.getStringExtra("user_id");
+        person_id = intent.getStringExtra("person_id");
+        product_id = intent.getStringExtra("product_id");
         viewModel = new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);
@@ -264,6 +264,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     if (chatResult.getStatus() != null) {
                         if (chatResult.getStatus().equals("online")) {
                             binding.personStatus.setVisibility(View.VISIBLE);
+                            binding.personStatus.setText("Online");
                         } else {
                             binding.personStatus.setText("Offline");
                         }
@@ -420,7 +421,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             runOnUiThread(() -> {
                 Log.d("message01", text.toString());
                 try {
-
                     JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent", "no");
                    // jsonObject.put("seen", jsonObject.getString("seen"));
@@ -437,6 +437,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
                     if (jsonObject.getString("status").equals("online")) {
                         binding.personStatus.setVisibility(View.VISIBLE);
+                        binding.personStatus.setText("Online");
                     } else {
                         binding.personStatus.setText("Offline");
                     }

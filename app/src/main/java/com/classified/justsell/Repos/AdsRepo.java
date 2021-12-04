@@ -52,7 +52,6 @@ public class AdsRepo {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
-
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
         Call<homeResponse.ListadsResp> call3=apiWork.get_recommendedads(ad_id,userid);
