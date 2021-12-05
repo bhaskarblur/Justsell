@@ -58,29 +58,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/imgsampleround" />
 
-    <ImageView
-        android:id="@+id/recentmsg_lay"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        android:tint="@color/primary_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/imgsampleround" />
 
     <TextView
         android:id="@+id/recentmsg_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins"
         android:letterSpacing="0.01"
         android:text="4"
         android:textAlignment="center"
-        android:textColor="@color/back_black"
-        android:textSize="11sp"
+        android:textColor="@color/primary_color"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
