@@ -73,14 +73,14 @@
         android:id="@+id/recentmsg_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/poppins"
         android:letterSpacing="0.01"
         android:text="4"
         android:textAlignment="center"
         android:textColor="@color/back_black"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
