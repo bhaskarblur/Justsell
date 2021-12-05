@@ -7,7 +7,6 @@
     android:background="?android:colorPrimary"
     tools:context=".chatActivity">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar"
         android:layout_width="match_parent"
