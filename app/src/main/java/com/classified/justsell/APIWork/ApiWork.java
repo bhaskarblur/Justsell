@@ -67,9 +67,10 @@ public interface ApiWork {
     Call<homeResponse.categoryResp> getCategories();
 
 
-    @GET("product")
-    Call<homeResponse.ListadsResp> getAds(@Query("city") String city,
-                                          @Query("user_id") String userid);
+    @FormUrlEncoded
+    @POST("product")
+    Call<homeResponse.ListadsResp> getAds(@Field("city") String city,
+                                          @Field("user_id") String userid);
 
     @GET("state")
     Call<homeResponse.listofcities> getallcities();
