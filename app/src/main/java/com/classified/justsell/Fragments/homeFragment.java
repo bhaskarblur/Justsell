@@ -351,7 +351,7 @@ public class homeFragment extends Fragment implements LocationListener {
             }
         });
         hmViewModel = new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-        hmViewModel.initwork(user_id, "0", "0", city);
+        hmViewModel.initwork(user_id, "0", "0", citystate);
 
         hmViewModel.getBannerdata().observe(getActivity(), new Observer<List<homeResponse.bannerResult>>() {
             @Override

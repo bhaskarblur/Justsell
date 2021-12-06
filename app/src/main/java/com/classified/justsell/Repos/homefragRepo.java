@@ -177,7 +177,7 @@ public class homefragRepo {
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<homeResponse.ListadsResp> call3=apiWork.getAds(userid,city);
+        Call<homeResponse.ListadsResp> call3=apiWork.getAds(city,userid);
 
         call3.enqueue(new Callback<homeResponse.ListadsResp>() {
             @Override
