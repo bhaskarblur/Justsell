@@ -150,9 +150,10 @@ public class chatFragment extends Fragment {
                 intent.putExtra("user_id",userid);
                 intent.putExtra("person_id",person_id);
                 intent.putExtra("product_id",product_id);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                 getActivity().getViewModelStore().clear();
+                startActivity(intent);
+
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
             }
         });
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
