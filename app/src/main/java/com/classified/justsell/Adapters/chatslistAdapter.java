@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+
 public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.viewHolder> {
 
     private Context mcontext;
@@ -38,9 +40,10 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.name.setText(list.get(position).getPerson_name());
-        Picasso.get().load(list.get(position).getPerson_img()).resize(150,150)
-                .centerCrop().into(holder.img);
-
+        if(list.get(position).getPerson_img()!=null) {
+            Picasso.get().load(list.get(position).getPerson_img()).resize(150, 150)
+                    .transform(new CropCircleTransformation()).centerCrop().into(holder.img);
+        }
         holder.lastmsg.setText(list.get(position).getRecent_msg());
 
         if(list.get(position).getRecent_msg_count()!=null && !list.get(position).getRecent_msg_count()
@@ -50,7 +53,6 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
         }
         else {
             holder.msgcount.setVisibility(View.GONE);
-            holder.msgcount_lay.setVisibility(View.GONE);
         }
     }
 

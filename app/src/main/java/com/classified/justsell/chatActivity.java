@@ -101,7 +101,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         this.getSupportActionBar().hide();
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ManageData();
-        viewfuncs();
     }
 
     private void playsound() {
@@ -462,7 +461,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             }
 
             runOnUiThread(() -> {
-                Toast.makeText(chatActivity.this, "Socket Connected!", Toast.LENGTH_SHORT).show();
 
                 viewfuncs();
             });
