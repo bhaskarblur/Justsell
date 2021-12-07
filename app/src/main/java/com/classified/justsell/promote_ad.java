@@ -181,7 +181,7 @@ public class promote_ad extends AppCompatActivity {
                 calendar2.set(d2.getYear(),d2.getMonth(),d2.getDate());
                 long diff=d2.getTime()-d1.getTime();
                 if(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)>0) {
-                    cost = String.valueOf((float) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * (float)11.8);
+                    cost = String.valueOf(Math.round((float) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * (float)11.8));
                     binding.prombudTxt.setText("Promotion Budget:    Rs " + cost);
                 }
                 else {
@@ -208,6 +208,7 @@ public class promote_ad extends AppCompatActivity {
         binding.promoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(promote_ad.this, String.valueOf(cost), Toast.LENGTH_SHORT).show();
                 if(binding.datetxt.getText().toString().equals("Select Date")) {
                     binding.datepicklay.setFocusable(true);
                     binding.datepicklay.requestFocus();

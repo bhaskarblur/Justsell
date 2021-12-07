@@ -105,7 +105,7 @@ public class AdsRepo {
 
             @Override
             public void onFailure(Call<AdsModel.adsResp> call, Throwable t) {
-                Log.d("Failure",t.getMessage());
+                Log.d("Failureads",t.getMessage());
             }
         });
 

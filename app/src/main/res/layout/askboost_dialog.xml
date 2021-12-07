@@ -47,7 +47,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins"
-        android:text="Shows your ad at top, whenever your product is searched. Promote your ad for just Rs. 5 per day."
+        android:text="Shows your ad at top, whenever your product is searched. Promote your ad for just Rs. 10 per day."
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"

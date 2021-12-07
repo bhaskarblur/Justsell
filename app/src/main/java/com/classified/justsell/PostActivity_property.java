@@ -326,11 +326,16 @@ public class PostActivity_property extends AppCompatActivity {
             List<Bitmap> bitmaps=new ArrayList<>();
 
             ClipData clipData=data.getClipData();
-
             if(clipData!=null) {
                 if(clipData.getItemCount()+imagesList.size()<7) {
-                    for (int i = 0; i < clipData.getItemCount(); i++) {
-                        String img = clipData.getItemAt(i).getUri().toString();
+                    if(clipData.getItemCount()>1) {
+                        for (int i = 0; i < clipData.getItemCount(); i++) {
+                            String img = clipData.getItemAt(i).getUri().toString();
+                            imagesList.add(img);
+                        }
+                    }
+                    else {
+                        String img=clipData.getItemAt(0).toString();
                         imagesList.add(img);
                     }
                     imagesAdapter.notifyDataSetChanged();
@@ -339,8 +344,14 @@ public class PostActivity_property extends AppCompatActivity {
                     Toast.makeText(PostActivity_property.this, "You can only pick "+String.valueOf(6-imagesList.size())+" more image.", Toast.LENGTH_SHORT).show();
                 }
             }
+            else {
+                String uri=data.getData().toString();
+                imagesList.add(uri);
+                imagesAdapter.notifyDataSetChanged();
+            }
         }
     }
+
 
     //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
