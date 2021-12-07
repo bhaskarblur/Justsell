@@ -24,6 +24,7 @@ import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Fragments.profileFragment;
 import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.Models.AuthResponse;
+import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.ViewModels.AdsViewModel;
 import com.classified.justsell.databinding.ActivityPromoteAdBinding;
 import com.squareup.picasso.Picasso;
@@ -204,6 +205,37 @@ public class promote_ad extends AppCompatActivity {
             return false;
         }
     }
+
+    private void getReach(String citysel) {
+        api_baseurl baseurl = new api_baseurl();
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+
+        Call<homeResponse.reachresult> call = apiWork.get_reach(citysel);
+
+        call.enqueue(new Callback<homeResponse.reachresult>() {
+            @Override
+            public void onResponse(Call<homeResponse.reachresult> call, Response<homeResponse.reachresult> response) {
+                if(!response.isSuccessful()){
+                    Log.d("error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                if(response.body().getReach()!=null) {
+                    reach=response.body().getReach();
+                    binding.estimTxt.setText("Estimated Reach*:    " + reach);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.reachresult> call, Throwable t) {
+                Log.d("Failure",t.getMessage());
+            }
+        });
+    }
     private void viewfunc() {
         binding.promoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,8 +360,7 @@ public class promote_ad extends AppCompatActivity {
                                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                     if (!parent.getItemAtPosition(position).equals("Select City")) {
                                                         binding.cityet.setText(parent.getItemAtPosition(position).toString());
-                                                        reach="2000-3000";
-                                                        binding.estimTxt.setText("Estimated Reach*:    " + reach);
+                                                       getReach(binding.cityet.getText().toString());
                                                     }
                                                 }
 

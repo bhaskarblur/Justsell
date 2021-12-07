@@ -187,7 +187,7 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("reach")
-    Call<homeResponse.notiResp> get_reach(@Field("location") String city);
+    Call<homeResponse.reachresult> get_reach(@Field("city") String city);
 
     @FormUrlEncoded
     @POST("recommended")

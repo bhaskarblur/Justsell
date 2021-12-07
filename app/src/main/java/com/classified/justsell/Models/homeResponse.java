@@ -464,4 +464,34 @@ public class homeResponse {
             this.description = description;
         }
     }
+
+    public class reachresult {
+        public String code;
+        public String success;
+        public String reach;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        public String getReach() {
+            return reach;
+        }
+
+        public void setReach(String reach) {
+            this.reach = reach;
+        }
+    }
 }

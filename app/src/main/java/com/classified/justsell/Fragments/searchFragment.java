@@ -597,8 +597,6 @@ public class searchFragment extends Fragment {
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
         Call<homeResponse.ListadsResp> call1 = null;
-        Toast.makeText(getActivity(), String.valueOf(catfilter)+","+String.valueOf(pricefilter)+","+
-                String.valueOf(datefilter), Toast.LENGTH_SHORT).show();
         if (catfilter.equals(true) && pricefilter.equals(true) && datefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
@@ -632,7 +630,6 @@ public class searchFragment extends Fragment {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , null, null,null,null,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
-            Toast.makeText(getActivity(), String.valueOf(binding.datetxtStart.getText())+","+String.valueOf(binding.datetxtEnd.getText()), Toast.LENGTH_SHORT).show();
          }
          else if(pricefilter.equals(true)){
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
