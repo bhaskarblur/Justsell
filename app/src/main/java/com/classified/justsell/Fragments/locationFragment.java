@@ -384,6 +384,5 @@ public class locationFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getActivity().getViewModelStore().clear();
     }
 }

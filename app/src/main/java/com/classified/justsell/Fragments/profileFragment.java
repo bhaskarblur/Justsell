@@ -159,7 +159,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         binding.swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getActivity().getViewModelStore().clear();
+               getViewModelStore().clear();
                 binding.swipelayout.setRefreshing(false);
                 profileFragment homeFragment=new profileFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -495,7 +495,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                getActivity().getViewModelStore().clear();
+                getViewModelStore().clear();
             }
             @Override
             public void onHeartClick(String id) {
@@ -519,7 +519,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                         if(resp.getCode().equals("200")) {
                             //
                             Toast.makeText(getContext(), "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
-                            getActivity().getViewModelStore().clear();
+                            getViewModelStore().clear();
                             profileFragment homeFragment=new profileFragment();
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                             transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
@@ -555,7 +555,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                getActivity().getViewModelStore().clear();
+               getViewModelStore().clear();
             }
         });
 
@@ -578,7 +578,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                getActivity().getViewModelStore().clear();
+                getViewModelStore().clear();
             }
         });
 
@@ -704,6 +704,6 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getActivity().getViewModelStore().clear();
+       getViewModelStore().clear();
     }
 }

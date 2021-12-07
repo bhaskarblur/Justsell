@@ -221,7 +221,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         user_id = intent.getStringExtra("user_id");
         person_id = intent.getStringExtra("person_id");
         product_id = intent.getStringExtra("product_id");
-        Toast.makeText(chatActivity.this, user_id+","+person_id+","+product_id, Toast.LENGTH_SHORT).show();
         viewModel = new ViewModelProvider(chatActivity.this).get(singleChatViewModel.class);
         viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);

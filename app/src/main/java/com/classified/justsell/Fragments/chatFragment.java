@@ -133,9 +133,14 @@ public class chatFragment extends Fragment {
                     },100);
                 }
                 else {
-                    binding.chatRec.setVisibility(View.INVISIBLE);
-                    binding.nonotiimg2.setVisibility(View.VISIBLE);
-                    binding.nonotitxt2.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.chatRec.setVisibility(View.INVISIBLE);
+                            binding.nonotiimg2.setVisibility(View.VISIBLE);
+                            binding.nonotitxt2.setVisibility(View.VISIBLE);
+                        }
+                    },500);
                 }
             }
         });
@@ -213,5 +218,11 @@ public class chatFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getViewModelStore().clear();
     }
 }
