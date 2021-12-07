@@ -619,6 +619,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     @Override
     public void finish() {
         super.finish();
+        webSocket.close(1001,"closed");
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         getViewModelStore().clear();
 

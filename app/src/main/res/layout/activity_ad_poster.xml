@@ -259,7 +259,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 7"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line6" />
 
@@ -285,7 +285,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line6_data" />
 
@@ -298,7 +298,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 6"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line5" />
 
@@ -311,7 +311,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line5_data" />
 
@@ -324,7 +324,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 5"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line4" />
 
@@ -337,7 +337,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line4_data" />
 
@@ -350,7 +350,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 4"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line3" />
 
@@ -363,7 +363,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line3_data" />
 
@@ -376,7 +376,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 3"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line2" />
 
@@ -389,7 +389,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line2_data" />
 
@@ -402,7 +402,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 2"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line1" />
 
@@ -415,7 +415,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line1_data" />
 
@@ -428,7 +428,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 1"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
 
@@ -441,7 +441,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
 
