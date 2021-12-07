@@ -101,7 +101,8 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("single_product")
-    Call<AdsModel .adsResp> single_product(@Field("product_id") String ad_id);
+    Call<AdsModel .adsResp> single_product(@Field("product_id") String ad_id,
+                                           @Field("user_id") String userid);
 
     @FormUrlEncoded
     @POST("add_product")

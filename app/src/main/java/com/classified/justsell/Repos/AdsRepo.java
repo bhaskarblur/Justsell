@@ -33,8 +33,8 @@ public class AdsRepo {
         return instance;
     }
 
-    public MutableLiveData<AdsModel.adsResult> returndataModel(String ad_id) {
-        getdatafromServer(ad_id);
+    public MutableLiveData<AdsModel.adsResult> returndataModel(String ad_id,String userid) {
+        getdatafromServer(ad_id,userid);
         return dataModel;
     }
 
@@ -82,19 +82,19 @@ public class AdsRepo {
             }
         });
     }
-    private void getdatafromServer(String ad_id) {
+    private void getdatafromServer(String ad_id,String userid) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<AdsModel.adsResp> call=apiWork.single_product(ad_id);
+        Call<AdsModel.adsResp> call=apiWork.single_product(ad_id,userid);
 
         call.enqueue(new Callback<AdsModel.adsResp>() {
             @Override
             public void onResponse(Call<AdsModel.adsResp> call, Response<AdsModel.adsResp> response) {
                 if(!response.isSuccessful()) {
-                    Log.d("error code",String.valueOf(response.code()));
+                    Log.d("error code",String.valueOf(response.raw()));
                     return;
                 }
                 Log.d("datadelivered","yep");

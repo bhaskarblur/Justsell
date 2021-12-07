@@ -380,10 +380,10 @@ public class locationFragment extends Fragment {
         cityAdapter.searchList(searchedList);
 
     }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().getViewModelStore().clear();
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().getViewModelStore().clear();
     }
 }

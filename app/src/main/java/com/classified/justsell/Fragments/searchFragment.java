@@ -597,23 +597,24 @@ public class searchFragment extends Fragment {
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
         Call<homeResponse.ListadsResp> call1 = null;
-
+        Toast.makeText(getActivity(), String.valueOf(catfilter)+","+String.valueOf(pricefilter)+","+
+                String.valueOf(datefilter), Toast.LENGTH_SHORT).show();
         if (catfilter.equals(true) && pricefilter.equals(true) && datefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
-                    , selected_category, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
 
 
         }
         else if(catfilter.equals(true) && pricefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
-                    , selected_category, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     null,null);
 
         }
          else if(datefilter.equals(true) && pricefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
-                    , null, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
 
         }
@@ -631,10 +632,11 @@ public class searchFragment extends Fragment {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , null, null,null,null,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
-        }
+            Toast.makeText(getActivity(), String.valueOf(binding.datetxtStart.getText())+","+String.valueOf(binding.datetxtEnd.getText()), Toast.LENGTH_SHORT).show();
+         }
          else if(pricefilter.equals(true)){
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
-                    , null, binding.pricebox.getText().toString(), binding.pricebox1.getText().toString(), price_sort,
+                    , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     null,null);
         }
          else {

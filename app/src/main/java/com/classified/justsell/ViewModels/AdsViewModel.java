@@ -28,7 +28,7 @@ public class AdsViewModel extends ViewModel {
             return;
         }
 
-        dataModel=repo.getInstance().returndataModel(ad_id);
+        dataModel=repo.getInstance().returndataModel(ad_id,userid);
         favads=mrepo.getInstance().returnfavads(userid);
         adsdata= repo.getInstance().returnadadata(prodname,userid);
     }
