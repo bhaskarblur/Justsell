@@ -23,7 +23,6 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/chatmsg_background_1"
         android:backgroundTint="?android:textColorPrimaryInverse"
-        app:layout_constraintStart_toEndOf="@+id/receiver_pic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
