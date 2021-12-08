@@ -9,6 +9,7 @@ import androidx.core.widget.ImageViewCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -225,15 +226,15 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         viewModel.initwork(user_id, product_id, person_id);
         binding.scrolldown.setVisibility(View.INVISIBLE);
 
-        chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
+        chatAdapter = new ChatAdapter(chatActivity.this, previousMessages
                 , receiver_img);
 
         LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
+        llm.setOrientation(RecyclerView.VERTICAL);
         binding.chatsRec.setLayoutManager(llm);
         binding.chatsRec.setAdapter(chatAdapter);
         binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);
-        llm.setSmoothScrollbarEnabled(true);
-
+       // llm.setSmoothScrollbarEnabled(true);
         binding.chatsRec.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
@@ -287,9 +288,10 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                         @Override
                         public void run() {
                               previousMessages=jsonObjects;
-                            chatAdapter = new ChatAdapter(chatActivity.this, getLayoutInflater(), previousMessages
+                            chatAdapter = new ChatAdapter(chatActivity.this, previousMessages
                                     , receiver_img);
                             LinearLayoutManager llm = new LinearLayoutManager(chatActivity.this);
+                            llm.setOrientation(RecyclerView.VERTICAL);
                             binding.chatsRec.setLayoutManager(llm);
                             binding.chatsRec.setAdapter(chatAdapter);
                             binding.chatsRec.scrollToPosition(chatAdapter.getItemCount() - 1);

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,12 +37,10 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private final static int TYPE_IMG_SENT=2;
     private final static int TYPE_IMG_RECEIVED=3;
     private String receiver_img;
-    private LayoutInflater inflater;
     public List<JSONObject> messages=new ArrayList<>();
 
-    public ChatAdapter(Context mcontext,LayoutInflater inflater, List<JSONObject> messages,String receiver_img) {
+    public ChatAdapter(Context mcontext,List<JSONObject> messages,String receiver_img) {
         this.mcontext=mcontext;
-        this.inflater = inflater;
         this.messages = messages;
         this.receiver_img=receiver_img;
     }
@@ -52,16 +51,16 @@ public class ChatAdapter extends RecyclerView.Adapter{
         View view;
         switch (viewType) {
             case TYPE_MSG_SENT:
-                view=inflater.inflate(R.layout.sender_chat_lay,parent,false);
+                view=LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_chat_lay,parent,false);
                 return new sentMessageHolder(view);
             case TYPE_IMG_SENT:
-                view=inflater.inflate(R.layout.sender_image_lay,parent,false);
+                view=LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_image_lay,parent,false);
                 return new sentImageHolder(view);
             case TYPE_MSG_RECEIVED:
-                view=inflater.inflate(R.layout.receiver_chat_lay,parent,false);
+                view=LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_chat_lay,parent,false);
                 return new ReceivedMessageHolder(view);
             case TYPE_IMG_RECEIVED:
-                view=inflater.inflate(R.layout.receiver_image_lay,parent,false);
+                view=LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_image_lay,parent,false);
                 return new ReceivedImageHolder(view);
             case 7:
                 return null;
@@ -79,6 +78,8 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     sentMessageHolder holder1= (sentMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));
                     holder1.time.setText(message.getString("time"));
+
+
                 }
                 else if(message.has("image")){
                     //convert to base64
@@ -106,6 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     ReceivedMessageHolder holder1= (ReceivedMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));
                     holder1.time.setText(message.getString("time"));
+
                 }
                 else if(message.has("image")){
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;

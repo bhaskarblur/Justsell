@@ -121,7 +121,7 @@ public class singleChatRepo {
 //                            jsonObject.put("user_id", "2");
 //                            jsonObject.put("product_id", "8");
 //                            jsonObject.put("person_id", "4");
-//                            jsonObject.put("message", "wow boi congo yrr, happy for you");
+//                            jsonObject.put("message", "hi");
 //                            jsonObject.put("isSent", "no");
 //                            jsonObject.put("seen", "yes");
 //                            previousChatsList.add(jsonObject);
@@ -142,6 +142,121 @@ public class singleChatRepo {
 //                            e.printStackTrace();
 //                        }
 //
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "ha");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "no");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "85k ka aya");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "shi h bc bahut ameera bnra kya baat lodu");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "shi ha");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "TY, ttyl");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "Hello");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "Hello");
+//                            jsonObject.put("isSent", "yes");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "Hi");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject();
+//                            jsonObject.put("user_id", "2");
+//                            jsonObject.put("product_id", "8");
+//                            jsonObject.put("person_id", "4");
+//                            jsonObject.put("message", "Hi");
+//                            jsonObject.put("isSent", "no");
+//                            jsonObject.put("seen", "yes");
+//                            previousChatsList.add(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
 
                         previousChats.setValue(previousChatsList);
                     }

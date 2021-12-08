@@ -74,7 +74,6 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
             img=itemView.findViewById(R.id.person_pic);
             name=itemView.findViewById(R.id.person_name);
             lastmsg=itemView.findViewById(R.id.recent_msg);
-            msgcount_lay=itemView.findViewById(R.id.recentmsg_lay);
             msgcount=itemView.findViewById(R.id.recentmsg_count);
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
