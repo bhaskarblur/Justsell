@@ -524,4 +524,9 @@ public class homeFragment extends Fragment implements LocationListener {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().getViewModelStore().clear();
+    }
 }
