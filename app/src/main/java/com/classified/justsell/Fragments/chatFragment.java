@@ -125,7 +125,6 @@ public class chatFragment extends Fragment {
                     @Override
                     public void run() {
 
-
                         if (chatResults.size() > 0) {
                             binding.chatRec.setVisibility(View.VISIBLE);
                             binding.nonotiimg2.setVisibility(View.INVISIBLE);
@@ -147,7 +146,7 @@ public class chatFragment extends Fragment {
                             }, 500);
                         }
                     }
-                },500);
+                },1000);
             }
 
         });

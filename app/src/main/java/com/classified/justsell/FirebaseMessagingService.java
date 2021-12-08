@@ -37,11 +37,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         String title=remoteMessage.getNotification().getTitle();
         String body=remoteMessage.getNotification().getBody();
         final String CHANNEL="APP_NOTIFICATION";
+
         NotificationChannel channel=new NotificationChannel(CHANNEL,
                 "App Notification", NotificationManager.IMPORTANCE_HIGH);
 
 
-        //Toast.makeText(this,String.valueOf(isActivityRunning()),Toast.LENGTH_SHORT).show();
+        Log.d("activity",String.valueOf(isActivityRunning()));
         if(!isActivityRunning()) {
             Intent actintent = new Intent(this, MainActivity.class);
             if (remoteMessage.getData() != null) {
@@ -83,7 +84,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         List<ActivityManager.RunningTaskInfo> activitys = activityManager.getRunningTasks(Integer.MAX_VALUE);
         boolean isActivityFound = false;
         for (int i = 0; i < activitys.size(); i++) {
-            if (activitys.get(i).topActivity.toString().equalsIgnoreCase("ComponentInfo{com.classified.justsell/com.classified.justsell.chatActivity.java}")) {
+            if (activitys.get(i).topActivity.getClassName().equals("com.classified.justsell.chatActivity")) {
                 isActivityFound = true;
             }
         }

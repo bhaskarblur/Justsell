@@ -487,7 +487,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
     private void sendImage(Bitmap image, String imageuri) {
         ByteArrayOutputStream by = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 50, by);
+        image.compress(Bitmap.CompressFormat.JPEG, 30, by);
         String base64img = android.util.Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
 
         JSONObject jsonObject = new JSONObject();

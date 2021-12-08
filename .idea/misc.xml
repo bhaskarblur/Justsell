@@ -24,12 +24,11 @@
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_post.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_post_all.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_post_property.xml" value="0.16540084388185655" />
-        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_promote_ad.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/activity_promote_ad.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/ad_item_lay.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/adimages_layout.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/admob_adlay.xml" value="0.16540084388185655" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/ads_layout.xml" value="0.33" />
-        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/askboost_dialog.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/banner_layout.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/category_layout.xml" value="0.67" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/chat_msg_layout.xml" value="0.75" />
@@ -42,9 +41,9 @@
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_noti.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_o_t_p.xml" value="0.22" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_post.xml" value="0.1675213675213675" />
-        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_profile.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_register_profile.xml" value="0.22" />
-        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_search.xml" value="0.22" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/fragment_search.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/images_layout.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/noti_layout.xml" value="0.25" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/post_category_layout.xml" value="0.16540084388185655" />
@@ -52,7 +51,7 @@
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/receiver_image_lay.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/see_imagedialog.xml" value="0.1675213675213675" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/selfilter_layout.xml" value="0.5" />
-        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/sender_chat_lay.xml" value="0.1675213675213675" />
+        <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/sender_chat_lay.xml" value="0.33" />
         <entry key="..\:/Android finished projects/Justsell/app/src/main/res/layout/sender_image_lay.xml" value="0.5" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/drawable/sizeprobg.xml" value="0.2203125" />
         <entry key="..\:/MarketSellerApp/Justsell/app/src/main/res/font/poppins.xml" value="0.234375" />
@@ -68,8 +67,8 @@
         <entry key="app/src/main/res/drawable/fieldselbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/roundboxbg.xml" value="0.20970464135021097" />
         <entry key="app/src/main/res/drawable/rounded_transf.xml" value="0.20970464135021097" />
-        <entry key="app/src/main/res/layout/activity_ad_poster.xml" value="0.26114480099148024" />
-        <entry key="app/src/main/res/layout/activity_ad_user.xml" value="0.19662447257383966" />
+        <entry key="app/src/main/res/layout/activity_ad_poster.xml" value="0.3577676503740339" />
+        <entry key="app/src/main/res/layout/activity_ad_user.xml" value="0.311941564586407" />
         <entry key="app/src/main/res/layout/activity_adposted_successful.xml" value="0.19662447257383966" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.19746835443037974" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.24573574361309145" />
