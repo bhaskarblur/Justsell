@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,8 @@ public class ChatAdapter extends RecyclerView.Adapter{
             case TYPE_IMG_RECEIVED:
                 view=inflater.inflate(R.layout.receiver_image_lay,parent,false);
                 return new ReceivedImageHolder(view);
+            case 7:
+                return null;
 
         }
         return null;
@@ -77,7 +80,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     holder1.msg.setText(message.getString("message"));
                     holder1.time.setText(message.getString("time"));
                 }
-                else {
+                else if(message.has("image")){
                     //convert to base64
                     sentImageHolder holder1= (sentImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
@@ -104,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     holder1.msg.setText(message.getString("message"));
                     holder1.time.setText(message.getString("time"));
                 }
-                else {
+                else if(message.has("image")){
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
                     Picasso.get().load(message.getString("image")).resize(500,500).into(holder1.image);
@@ -144,7 +147,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 if(message.has("message")) {
                     return TYPE_MSG_SENT;
                 }
-                else {
+                else if(message.has("image")) {
                     return TYPE_IMG_SENT;
                 }
             }
@@ -152,8 +155,12 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 if(message.has("message")) {
                     return TYPE_MSG_RECEIVED;
                 }
-                else {
+                else if(message.has("image")){
                     return TYPE_IMG_RECEIVED;
+                }
+                else {
+                    Log.d("here","icomehere");
+                    return 7;
                 }
             }
         } catch (JSONException e) {
@@ -172,14 +179,16 @@ public class ChatAdapter extends RecyclerView.Adapter{
         TextView time;
         public sentMessageHolder(@NonNull View itemView) {
             super(itemView);
-            pic=itemView.findViewById(R.id.sender_pic);
-            msg=itemView.findViewById(R.id.sender_msg);
-            time=itemView.findViewById(R.id.sender_time);
-            SharedPreferences sharedPreferences=mcontext.getSharedPreferences("userlogged",0);
+            if (itemView != null) {
+                pic = itemView.findViewById(R.id.sender_pic);
+                msg = itemView.findViewById(R.id.sender_msg);
+                time = itemView.findViewById(R.id.sender_time);
+                SharedPreferences sharedPreferences = mcontext.getSharedPreferences("userlogged", 0);
 
-            String userpic=sharedPreferences.getString("userimage","");
-            if(userpic!=null && !userpic.isEmpty()) {
-                Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                String userpic = sharedPreferences.getString("userimage", "");
+                if (userpic != null && !userpic.isEmpty()) {
+                    Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                }
             }
         }
     }
@@ -190,15 +199,17 @@ public class ChatAdapter extends RecyclerView.Adapter{
         TextView time;
         public sentImageHolder(@NonNull View itemView) {
             super(itemView);
-            pic=itemView.findViewById(R.id.sender_pic);
-            image=itemView.findViewById(R.id.sender_image);
-            time=itemView.findViewById(R.id.sender_time);
-            SharedPreferences sharedPreferences=mcontext.getSharedPreferences("userlogged",0);
+            if (itemView != null) {
+                pic = itemView.findViewById(R.id.sender_pic);
+                image = itemView.findViewById(R.id.sender_image);
+                time = itemView.findViewById(R.id.sender_time);
+                SharedPreferences sharedPreferences = mcontext.getSharedPreferences("userlogged", 0);
 
-            String userpic=sharedPreferences.getString("userimage","");
+                String userpic = sharedPreferences.getString("userimage", "");
 
-            if(userpic!=null && !userpic.isEmpty()) {
-                Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                if (userpic != null && !userpic.isEmpty()) {
+                    Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                }
             }
         }
     }
@@ -209,11 +220,13 @@ public class ChatAdapter extends RecyclerView.Adapter{
         TextView time;
         public ReceivedMessageHolder(@NonNull View itemView) {
             super(itemView);
-            pic=itemView.findViewById(R.id.receiver_pic);
-            msg=itemView.findViewById(R.id.receiver_msg);
-            time=itemView.findViewById(R.id.receiver_time);
-            if(receiver_img!=null) {
-                Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+            if (itemView != null) {
+                pic = itemView.findViewById(R.id.receiver_pic);
+                msg = itemView.findViewById(R.id.receiver_msg);
+                time = itemView.findViewById(R.id.receiver_time);
+                if (receiver_img != null) {
+                    Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                }
             }
         }
     }
@@ -224,11 +237,13 @@ public class ChatAdapter extends RecyclerView.Adapter{
         TextView time;
         public ReceivedImageHolder(@NonNull View itemView) {
             super(itemView);
-            pic=itemView.findViewById(R.id.receiver_pic);
-            image=itemView.findViewById(R.id.receiver_img);
-            time=itemView.findViewById(R.id.receiver_time);
-            if(receiver_img!=null) {
-                Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+            if (itemView != null) {
+                pic = itemView.findViewById(R.id.receiver_pic);
+                image = itemView.findViewById(R.id.receiver_img);
+                time = itemView.findViewById(R.id.receiver_time);
+                if (receiver_img != null) {
+                    Picasso.get().load(receiver_img).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                }
             }
         }
     }

@@ -424,10 +424,12 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     jsonObject.put("isSent", "no");
                    // jsonObject.put("seen", jsonObject.getString("seen"));
                     Log.d("message", jsonObject.toString());
-                    chatAdapter.addItem(jsonObject);
-                    recplaysound();
-                    binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+                    if(jsonObject.toString().contains("message") || jsonObject.toString().contains("image")) {
+                        chatAdapter.addItem(jsonObject);
 
+                        recplaysound();
+                        binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+                    }
                     JSONObject sentcheck = new JSONObject();
                     sentcheck.put("user_id", user_id);
                     sentcheck.put("product_id", product_id);

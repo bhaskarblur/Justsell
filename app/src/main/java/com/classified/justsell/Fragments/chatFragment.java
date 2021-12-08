@@ -121,28 +121,35 @@ public class chatFragment extends Fragment {
         chatsViewModel.getDataModel().observe(getActivity(), new Observer<List<chatModel.chatResult>>() {
             @Override
             public void onChanged(List<chatModel.chatResult> chatResults) {
-                if(chatResults.size()>0) {
-                    binding.chatRec.setVisibility(View.VISIBLE);
-                    binding.nonotiimg2.setVisibility(View.INVISIBLE);
-                    binding.nonotitxt2.setVisibility(View.INVISIBLE);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.notifyDataSetChanged();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        if (chatResults.size() > 0) {
+                            binding.chatRec.setVisibility(View.VISIBLE);
+                            binding.nonotiimg2.setVisibility(View.INVISIBLE);
+                            binding.nonotitxt2.setVisibility(View.INVISIBLE);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }, 100);
+                        } else {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    binding.chatRec.setVisibility(View.INVISIBLE);
+                                    binding.nonotiimg2.setVisibility(View.VISIBLE);
+                                    binding.nonotitxt2.setVisibility(View.VISIBLE);
+                                }
+                            }, 500);
                         }
-                    },100);
-                }
-                else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            binding.chatRec.setVisibility(View.INVISIBLE);
-                            binding.nonotiimg2.setVisibility(View.VISIBLE);
-                            binding.nonotitxt2.setVisibility(View.VISIBLE);
-                        }
-                    },500);
-                }
+                    }
+                },500);
             }
+
         });
         adapter=new chatslistAdapter(getActivity(),chatsViewModel.getDataModel().getValue());
         LinearLayoutManager llm=new LinearLayoutManager(getActivity());
