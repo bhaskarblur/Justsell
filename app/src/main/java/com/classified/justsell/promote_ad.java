@@ -240,7 +240,7 @@ public class promote_ad extends AppCompatActivity {
         binding.promoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(promote_ad.this, String.valueOf(cost), Toast.LENGTH_SHORT).show();
+
                 if(binding.datetxt.getText().toString().equals("Select Date")) {
                     binding.datepicklay.setFocusable(true);
                     binding.datepicklay.requestFocus();

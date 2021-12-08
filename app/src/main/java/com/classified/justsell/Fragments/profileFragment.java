@@ -495,7 +495,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                getViewModelStore().clear();
+                getActivity().getViewModelStore().clear();
             }
             @Override
             public void onHeartClick(String id) {
@@ -519,7 +519,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                         if(resp.getCode().equals("200")) {
                             //
                             Toast.makeText(getContext(), "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
-                            getViewModelStore().clear();
+                            getActivity().getViewModelStore().clear();
                             profileFragment homeFragment=new profileFragment();
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                             transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
@@ -555,7 +555,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-               getViewModelStore().clear();
+                getActivity().getViewModelStore().clear();
             }
         });
 
@@ -578,7 +578,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
-                getViewModelStore().clear();
+                getActivity().getViewModelStore().clear();
             }
         });
 
@@ -704,6 +704,6 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       getViewModelStore().clear();
+        getActivity().getViewModelStore().clear();
     }
 }

@@ -229,6 +229,6 @@ public class chatFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getViewModelStore().clear();
+        getActivity().getViewModelStore().clear();
     }
 }
