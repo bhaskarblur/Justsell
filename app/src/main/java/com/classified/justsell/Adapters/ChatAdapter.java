@@ -78,7 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     sentMessageHolder holder1= (sentMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));
                     holder1.time.setText(message.getString("time"));
-
+                    holder1.msg.requestLayout();
 
                 }
                 else if(message.has("image")){
@@ -107,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     ReceivedMessageHolder holder1= (ReceivedMessageHolder) holder;
                     holder1.msg.setText(message.getString("message"));
                     holder1.time.setText(message.getString("time"));
-
+                    holder1.msg.requestLayout();
                 }
                 else if(message.has("image")){
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;

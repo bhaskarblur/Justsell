@@ -4,9 +4,9 @@
 
     <solid android:color="?android:textColorPrimaryInverse" />
     <corners android:topLeftRadius="1dp"
-        android:bottomLeftRadius="80dp"
-        android:bottomRightRadius="90dp"
-        android:topRightRadius="90dp"/>
+        android:bottomLeftRadius="15dp"
+        android:bottomRightRadius="15dp"
+        android:topRightRadius="15dp"/>
 
 
 </shape>
