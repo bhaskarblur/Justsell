@@ -191,6 +191,7 @@ public class locationFragment extends Fragment {
     private void ManageData() {
         getlatlong();
         hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
+        hmViewModel.initwork(userid,"0","0",city);
         hmViewModel.getCitydata().observe(getActivity(), new Observer<List<homeResponse.citiesResp>>() {
             @Override
             public void onChanged(List<homeResponse.citiesResp> citiesResps) {
