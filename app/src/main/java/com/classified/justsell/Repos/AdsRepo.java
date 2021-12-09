@@ -38,8 +38,8 @@ public class AdsRepo {
         return dataModel;
     }
 
-    public MutableLiveData<List<homeResponse.adsResult>> returnadadata(String city,String userid) {
-        getadsfromserver(city,userid);
+    public MutableLiveData<List<homeResponse.adsResult>> returnadadata(String ad_id,String userid) {
+        getadsfromserver(ad_id,userid);
         if (adslist == null) {
             adsdata.setValue(null);
         }
