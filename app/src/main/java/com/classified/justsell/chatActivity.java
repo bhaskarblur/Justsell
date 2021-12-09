@@ -315,8 +315,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             }
         });
 
-        initiateSocketConnection();
-
+        if(user_id!=null) {
+            initiateSocketConnection();
+        }
         binding.msgTxt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
