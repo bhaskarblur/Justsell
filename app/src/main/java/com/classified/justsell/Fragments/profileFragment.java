@@ -589,7 +589,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.profoptionmenu);
         MenuItem item = popupMenu.getMenu().findItem(R.id.logout_item);
-        SpannableString s = new SpannableString("Delete Account");
+        SpannableString s = new SpannableString("Log Out");
         item.setTitle(s);
         s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
         popupMenu.show();
@@ -649,44 +649,46 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 // this is terms and conditions
                 break;
             case R.id.logout_item:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setTitle("Delete?")
-                        .setMessage("Do you want to Delete Account?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setTitle("Log Out?")
+                        .setMessage("Do you want to Log out?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.clear();
+                                editor.apply();
+                                startActivity(new Intent(getActivity(), AuthActivity.class));
+                                getActivity().finish();
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 
-                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                                        .addConverterFactory(GsonConverterFactory.create()).build();
 
-                                ApiWork apiWork = retrofit.create(ApiWork.class);
-
-                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_account(user_id);
-
-                                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
-                                    @Override
-                                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-                                        if(!response.isSuccessful()) {
-                                            Log.d("error code",String.valueOf(response.code()));
-                                            return;
-                                        }
-
-                                        AuthResponse.SendOtp resp=response.body();
-
-                                        if(resp.getCode().equals("200")) {
-                                            Toast.makeText(getContext(), "Account Deleted", Toast.LENGTH_SHORT).show();
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.clear();
-                                            editor.apply();
-                                            startActivity(new Intent(getActivity(), AuthActivity.class));
-                                            getActivity().finish();
-                                            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                                        Log.d("Failure",t.getMessage());
-                                    }
-                                });
+//                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+//                                        .addConverterFactory(GsonConverterFactory.create()).build();
+//
+//                                ApiWork apiWork = retrofit.create(ApiWork.class);
+//
+//                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_account(user_id);
+//
+//                                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+//                                    @Override
+//                                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+//                                        if(!response.isSuccessful()) {
+//                                            Log.d("error code",String.valueOf(response.code()));
+//                                            return;
+//                                        }
+//
+//                                        AuthResponse.SendOtp resp=response.body();
+//
+//                                        if(resp.getCode().equals("200")) {
+//                                            Toast.makeText(getContext(), "Account Deleted", Toast.LENGTH_SHORT).show();
+//
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+//                                        Log.d("Failure",t.getMessage());
+//                                    }
+//                                });
 
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
