@@ -42,7 +42,7 @@ public class MyadsAdapter extends RecyclerView.Adapter<MyadsAdapter.ViewHolder> 
         final int radius = 13;
         final int margin = 7;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).transform(transformation).into(holder.adsimg);
+        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).centerCrop().transform(transformation).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         if(list.get(position).getAd_pricecut()!=null && !list.get(position).getAd_pricecut().equals("")) {
