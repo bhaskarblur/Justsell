@@ -600,45 +600,45 @@ public class searchFragment extends Fragment {
         if (catfilter.equals(true) && pricefilter.equals(true) && datefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
-                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
 
 
         }
         else if(catfilter.equals(true) && pricefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
-                    null,null);
+                    null,null,city);
 
         }
          else if(datefilter.equals(true) && pricefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
-                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
 
         }
          else if(catfilter.equals(true) && datefilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , selected_category,null,null,null,
-                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
         }
          else if(catfilter.equals(true)) {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , selected_category,null,null,null,
-                    null,null);
+                    null,null,city);
         }
          else if(datefilter.equals(true)){
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , null, null,null,null,
-                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString());
+                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
          }
          else if(pricefilter.equals(true)){
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
                     , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
-                    null,null);
+                    null,null,city);
         }
          else {
             call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
-                    , null,null,null, null,null,null);
+                    , null,null,null, null,null,null,city);
         }
 
 

@@ -231,5 +231,6 @@ public interface ApiWork {
                                               @Field("price_end")String end_price,
                                               @Field("price_sort") String sortby,
                                               @Field("date_start") String datestart,
-                                              @Field("date_end") String enddate);
+                                              @Field("date_end") String enddate,
+                                              @Field("city") String city);
 }

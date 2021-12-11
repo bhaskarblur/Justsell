@@ -449,7 +449,7 @@ public class Ad_userActivity extends AppCompatActivity {
                                 .title("Location");
                         sellerlat[0] =String.valueOf(sellat);
                         sellerlong[0] =String.valueOf(sellongit);
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                         googleMap.addMarker(markerOptions);
                     }
                 });
