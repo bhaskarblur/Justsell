@@ -79,7 +79,7 @@ public class searchFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private homefragViewModel hmViewModel;
     private postViewModel postViewModel;
-    String userid;
+    String user_id;
     String city;
     private com.classified.justsell.Adapters.filtercategoryAdapter categoryAdapter;
     private selfilterAdapter filteradapter;
@@ -124,7 +124,7 @@ public class searchFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-        userid = sharedPreferences.getString("userid", "");
+        user_id = sharedPreferences.getString("userid", "");
         city = sharedPreferences.getString("usercity", "");
     }
 
@@ -457,7 +457,7 @@ public class searchFragment extends Fragment {
             @Override
             public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
                 Intent intent=null;
-                if (!userid.equals(userid)) {
+                if (!user_id.equals(userid)) {
                     intent = new Intent(getActivity(), Ad_userActivity.class);
 
                 } else {
@@ -598,46 +598,46 @@ public class searchFragment extends Fragment {
 
         Call<homeResponse.ListadsResp> call1 = null;
         if (catfilter.equals(true) && pricefilter.equals(true) && datefilter.equals(true)) {
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
 
 
         }
         else if(catfilter.equals(true) && pricefilter.equals(true)) {
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     null,null,city);
 
         }
          else if(datefilter.equals(true) && pricefilter.equals(true)) {
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
 
         }
          else if(catfilter.equals(true) && datefilter.equals(true)) {
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , selected_category,null,null,null,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
         }
          else if(catfilter.equals(true)) {
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , selected_category,null,null,null,
                     null,null,city);
         }
          else if(datefilter.equals(true)){
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , null, null,null,null,
                     binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
          }
          else if(pricefilter.equals(true)){
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
                     null,null,city);
         }
          else {
-            call1 = apiWork.search_ads(userid, binding.searchTxt.getText().toString()
+            call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
                     , null,null,null, null,null,null,city);
         }
 
