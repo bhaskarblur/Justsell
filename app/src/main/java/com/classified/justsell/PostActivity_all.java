@@ -1,6 +1,9 @@
 package com.classified.justsell;
 
+import static java.security.AccessController.getContext;
+
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ClipData;
 import android.content.ContentResolver;
@@ -10,9 +13,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +44,14 @@ import com.classified.justsell.CustomDialogs.askBoost_Dialog;
 import com.classified.justsell.Models.AdsModel;
 import com.classified.justsell.databinding.ActivityPostAllBinding;
 import com.classified.justsell.databinding.ActivityPostPropertyBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -72,6 +86,13 @@ public class PostActivity_all extends AppCompatActivity {
     private Boolean posting=false;
     final int IMAGE_PICK_CODE = 1000;
     final int PERMISSION_CODE = 1001;
+    private String lat;
+    private String longit;
+
+    private LocationManager locationManager;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private String mLastLocation;
+
     api_baseurl baseurl=new api_baseurl();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +117,68 @@ public class PostActivity_all extends AppCompatActivity {
         viewfunc();
     }
 
+    @SuppressLint("MissingPermission")
+    private void getlatlong() {
+        locationManager = (LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
+
+        if(getContext()!=null) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+                LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                        .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+                fusedLocationProviderClient.requestLocationUpdates(request, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                Location location = task.getResult();
+                                if (location != null) {
+
+                                    lat = String.valueOf(location.getLatitude());
+                                    longit = String.valueOf(location.getLongitude());
+
+                                } else {
+
+                                    LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                            .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+
+                                    LocationCallback locationCallback = new LocationCallback() {
+                                        @Override
+                                        public void onLocationResult(LocationResult locationResult) {
+                                            super.onLocationResult(locationResult);
+                                            Location location1 = locationResult.getLastLocation();
+                                            lat = String.valueOf(location1.getLatitude());
+                                            longit = String.valueOf(location1.getLongitude());
+
+                                        }
+                                    };
+                                }
+                            }
+
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }, Looper.getMainLooper());
+                LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (!manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                }
+
+
+            }
+        }
+
+    }
     private void ManageData() {
         Intent intent=getIntent();
         catname=intent.getStringExtra("catname");
@@ -291,7 +374,7 @@ public class PostActivity_all extends AppCompatActivity {
                                 binding.titleTxt.getText().toString(), "other", binding.proddescTxt.getText().toString(),
                                 binding.cpTxt.getText().toString(), city, binding.spTxt.getText().toString(), images.toString().substring(0, images.toString().length() - 1)
                                 , condition, warranty, binding.brandTxt.getText().toString(), binding.datetxt.getText().toString(),
-                                number_status, catname);
+                                number_status, catname, lat,longit);
 
                         call.enqueue(new Callback<AdsModel.postadsResp>() {
                             @Override

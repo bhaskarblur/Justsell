@@ -1,5 +1,6 @@
 package com.classified.justsell;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -27,6 +28,12 @@ import com.classified.justsell.Models.AuthResponse;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.ViewModels.AdsViewModel;
 import com.classified.justsell.databinding.ActivityAdUserBinding;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -239,6 +246,10 @@ public class Ad_userActivity extends AppCompatActivity {
                     else {
                         binding.postnumber.setText("Number not shared.");
                     }
+
+                    if(adsResult.getLatitude()!=null && adsResult.getLongitude()!=null) {
+                        loadmat(Double.parseDouble(adsResult.getLatitude()),Double.parseDouble(adsResult.getLongitude()));
+                    }
                     if (adsResult.getProduct_type().toString().equals("automobile")) {
 
                         binding.line1.setText("Brand");
@@ -421,7 +432,32 @@ public class Ad_userActivity extends AppCompatActivity {
         });
     }
 
+    private void loadmat(double sellat, double sellongit) {
+        final String[] sellerlat = new String[1];
+        final String[] sellerlong = new String[1];
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.google_map2);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(@NonNull GoogleMap googleMap) {
+                        LatLng latLng = new LatLng(sellat, sellongit);
+                        MarkerOptions markerOptions = new MarkerOptions().position(latLng)
+                                .title("Location");
+                        sellerlat[0] =String.valueOf(sellat);
+                        sellerlong[0] =String.valueOf(sellongit);
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                        googleMap.addMarker(markerOptions);
+                    }
+                });
+            }
+        }, 100);
+
+
+    }
     private void rotatebanner() {
         new Handler().postDelayed(new Runnable() {
             @Override

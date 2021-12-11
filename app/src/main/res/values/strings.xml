@@ -2,4 +2,5 @@
     <string name="app_name">Justsell</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapsapikey">AIzaSyC3U1d0zLSHXivbHfIRJ5-ctSwWOmlHqTg</string>
 </resources>

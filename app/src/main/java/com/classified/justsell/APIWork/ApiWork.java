@@ -122,7 +122,9 @@ public interface ApiWork {
                                                 @Field("number_of_owners") String numown,
                                                 @Field("kmdriven") String kmdriven,
                                                 @Field("show_number") String number,
-                                                @Field("product_category_name") String catname);
+                                                @Field("product_category_name") String catname,
+                                                @Field("latitude") String lat,
+                                                @Field("longitude") String longit);
 
     @FormUrlEncoded
     @POST("add_product")
@@ -139,7 +141,9 @@ public interface ApiWork {
                                                 @Field("area") String area,
                                                 @Field("land_type") String land_type,
                                               @Field("show_number") String number,
-                                              @Field("product_category_name") String catname);
+                                              @Field("product_category_name") String catname,
+                                              @Field("latitude") String lat,
+                                              @Field("longitude") String longit);
 
     @FormUrlEncoded
     @POST("add_product")
@@ -157,7 +161,9 @@ public interface ApiWork {
                                               @Field("brand") String brand,
                                               @Field("purchase_date") String date,
                                            @Field("show_number") String number,
-                                           @Field("product_category_name") String catname);
+                                           @Field("product_category_name") String catname,
+                                           @Field("latitude") String lat,
+                                           @Field("longitude") String longit);
 
     @FormUrlEncoded
     @POST("remove_product")
