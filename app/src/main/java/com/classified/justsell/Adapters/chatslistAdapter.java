@@ -40,6 +40,7 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.name.setText(list.get(position).getPerson_name());
+        holder.prod_name.setText(list.get(position).getProduct_name());
         if(list.get(position).getPerson_img()!=null) {
             Picasso.get().load(list.get(position).getPerson_img()).resize(150, 150)
                     .transform(new CropCircleTransformation()).centerCrop().into(holder.img);
@@ -66,6 +67,7 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
         ImageView img;
         TextView name;
         TextView lastmsg;
+        TextView prod_name;
         View msgcount_lay;
         TextView msgcount;
         public viewHolder(@NonNull View itemView) {
@@ -73,6 +75,7 @@ public class chatslistAdapter extends RecyclerView.Adapter<chatslistAdapter.view
             card=itemView.findViewById(R.id.chatbg);
             img=itemView.findViewById(R.id.person_pic);
             name=itemView.findViewById(R.id.person_name);
+            prod_name=itemView.findViewById(R.id.prod_name);
             lastmsg=itemView.findViewById(R.id.recent_msg);
             msgcount=itemView.findViewById(R.id.recentmsg_count);
             card.setOnClickListener(new View.OnClickListener() {

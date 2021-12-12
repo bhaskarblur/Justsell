@@ -136,6 +136,48 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
     }
     private void viewfuncs() {
 
+        binding.productImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                if (!user_id.equals(viewModel.getChatData().getValue().getPostedby_id())) {
+                    intent = new Intent(chatActivity.this, Ad_userActivity.class);
+
+                } else {
+                    // change this to same user activity
+                    intent = new Intent(chatActivity.this, Ad_posterActivity.class);
+                }
+
+                //intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", product_id);
+                intent.putExtra("product_name", viewModel.getChatData().getValue().getProduct_name());
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
+            }
+        });
+        binding.productTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                if (!user_id.equals(viewModel.getChatData().getValue().getPostedby_id())) {
+                    intent = new Intent(chatActivity.this, Ad_userActivity.class);
+
+                } else {
+                    // change this to same user activity
+                    intent = new Intent(chatActivity.this, Ad_posterActivity.class);
+                }
+
+                //intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", product_id);
+                intent.putExtra("product_name", viewModel.getChatData().getValue().getProduct_name());
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
+            }
+        });
 //        binding.msgTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override
 //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

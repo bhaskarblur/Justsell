@@ -40,6 +40,7 @@ public class chatModel {
     public class chatResult {
         public String user_id;
         public String person_id;
+        private String product_name;
         public String product_id;
         public String product_img;
         public String person_name;
@@ -49,6 +50,23 @@ public class chatModel {
         public String product_title;
         public String product_price;
         public String status;
+        private String postedby_id;
+
+        public String getPostedby_id() {
+            return postedby_id;
+        }
+
+        public void setPostedby_id(String postedby_id) {
+            this.postedby_id = postedby_id;
+        }
+
+        public String getProduct_name() {
+            return product_name;
+        }
+
+        public void setProduct_name(String product_name) {
+            this.product_name = product_name;
+        }
 
         public String getStatus() {
             return status;

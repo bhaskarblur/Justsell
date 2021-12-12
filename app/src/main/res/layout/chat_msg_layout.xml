@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chatbg"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="70dp"
     android:layout_marginBottom="15dp"
     android:clickable="true"
     android:foreground="?android:selectableItemBackground">
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="35dp"
-        android:fontFamily="@font/poppins"
+        android:fontFamily="@font/poppins_medium"
         android:letterSpacing="0.01"
         android:text="Person Name"
         android:textColor="?android:textColorPrimary"
@@ -28,11 +28,27 @@
         app:layout_constraintVertical_bias="0.25" />
 
     <TextView
+        android:id="@+id/prod_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/poppins"
+        android:letterSpacing="0.01"
+        android:text="Product Name"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/person_pic"
+        app:layout_constraintTop_toBottomOf="@+id/person_name" />
+
+    <TextView
         android:id="@+id/recent_msg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="5dp"
         android:fontFamily="@font/poppins"
         android:letterSpacing="0.01"
@@ -44,8 +60,7 @@
         app:layout_constraintEnd_toStartOf="@+id/recentmsg_count"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/person_pic"
-        app:layout_constraintTop_toBottomOf="@+id/person_name"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/prod_name" />
 
     <ImageView
         android:id="@+id/person_pic"

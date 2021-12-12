@@ -291,7 +291,11 @@ public class PostActivity_all extends AppCompatActivity {
         binding.postAllbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imagesList.size() < 2) {
+                if(lat==null || lat.isEmpty()) {
+                    Toast.makeText(PostActivity_all.this, "Please allow location permission.", Toast.LENGTH_SHORT).show();
+                    getlatlong();
+                }
+               else if (imagesList.size() < 2) {
                     binding.automobImg.setFocusable(true);
                     binding.automobImg.requestFocus();
                     Toast.makeText(PostActivity_all.this, "Please add atleast 2 images.", Toast.LENGTH_SHORT).show();
