@@ -70,7 +70,7 @@ public class chatRepo {
 
             @Override
             public void onFailure(Call<chatModel.listChats> call, Throwable t) {
-                Log.d("Failure",t.getMessage());
+                Log.d("Failurelist",t.getMessage());
             }
         });
     }

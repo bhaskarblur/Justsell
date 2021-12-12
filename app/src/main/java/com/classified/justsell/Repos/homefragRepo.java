@@ -138,32 +138,32 @@ public class homefragRepo {
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-        Call<homeResponse.listofcities> call2=apiWork.getallcities();
+//        Call<homeResponse.listofcities> call2=apiWork.getallcities();
 
-        call2.enqueue(new Callback<homeResponse.listofcities>() {
-            @Override
-            public void onResponse(Call<homeResponse.listofcities> call, Response<homeResponse.listofcities> response) {
-                if(!response.isSuccessful()){
-                    Log.d("Error code",String.valueOf(response.code()));
-                    return;
-                }
-
-                homeResponse.listofcities resp=response.body();
-
-                if(resp.getResult()!=null) {
-                    for(int i=0;i<resp.getResult().size();i++) {
-                        citylist.add(resp.getResult().get(i));
-                    }
-
-                    citydata.setValue(citylist);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<homeResponse.listofcities> call, Throwable t) {
-                Log.d("Failure_city",t.getMessage());
-            }
-        });
+//        call2.enqueue(new Callback<homeResponse.listofcities>() {
+//            @Override
+//            public void onResponse(Call<homeResponse.listofcities> call, Response<homeResponse.listofcities> response) {
+//                if(!response.isSuccessful()){
+//                    Log.d("Error code",String.valueOf(response.code()));
+//                    return;
+//                }
+//
+//                homeResponse.listofcities resp=response.body();
+//
+//                if(resp.getResult()!=null) {
+//                    for(int i=0;i<resp.getResult().size();i++) {
+//                        citylist.add(resp.getResult().get(i));
+//                    }
+//
+//                    citydata.setValue(citylist);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<homeResponse.listofcities> call, Throwable t) {
+//                Log.d("Failure_city",t.getMessage());
+//            }
+//        });
     }
 
     private void getadsfromserver(String city,String userid) {

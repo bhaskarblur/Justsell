@@ -26,11 +26,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.cityAdapter;
+import com.classified.justsell.Constants.api_baseurl;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
 import com.classified.justsell.ViewModels.homefragViewModel;
@@ -48,6 +52,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +84,7 @@ public class locationFragment extends Fragment {
     private String state;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private String mLastLocation;
+    private List<homeResponse.citiesResp> citylist1=new ArrayList<>();
     private homefragViewModel hmViewModel;
     public locationFragment() {
         // Required empty public constructor
@@ -190,23 +201,23 @@ public class locationFragment extends Fragment {
 
     private void ManageData() {
         getlatlong();
-        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-        hmViewModel.initwork(userid,"0","0",city);
-        hmViewModel.getCitydata().observe(getActivity(), new Observer<List<homeResponse.citiesResp>>() {
-            @Override
-            public void onChanged(List<homeResponse.citiesResp> citiesResps) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(citiesResps.size()>0) {
-                            cityAdapter.notifyDataSetChanged();
-                        }
-                    }
-                },100);
-            }
-        });
+//        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
+//        hmViewModel.initwork(userid,"0","0",city);
+//        hmViewModel.getCitydata().observe(getActivity(), new Observer<List<homeResponse.citiesResp>>() {
+//            @Override
+//            public void onChanged(List<homeResponse.citiesResp> citiesResps) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if(citiesResps.size()>0) {
+//                            cityAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                },100);
+//            }
+//        });
 
-        cityAdapter=new cityAdapter(getContext(),hmViewModel.getCitydata().getValue());
+        cityAdapter=new cityAdapter(getActivity(),citylist1);
         LinearLayoutManager llm=new LinearLayoutManager(getContext());
         binding.citysearch.setLayoutManager(llm);
         binding.citysearch.setAdapter(cityAdapter);
@@ -245,17 +256,56 @@ public class locationFragment extends Fragment {
                     @Override
                     public void run() {
                         if(s.toString()!=null) {
-                            searchfun(s.toString());
+                            searchFromServer(s.toString());
                         }
                         else {
                             binding.citysearch.setVisibility(View.GONE);
                         }
                     }
-                },1000);
+                },200);
 
             }
         });
 
+    }
+
+    private void searchFromServer(String name) {
+        api_baseurl baseurl=new api_baseurl();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+
+        ApiWork apiWork = retrofit.create(ApiWork.class);
+        Call<homeResponse.listofcities> call2=apiWork.getallcities(name.toString());
+        call2.enqueue(new Callback<homeResponse.listofcities>() {
+            @Override
+            public void onResponse(Call<homeResponse.listofcities> call, Response<homeResponse.listofcities> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Error code",String.valueOf(response.code()));
+                    return;
+                }
+
+                homeResponse.listofcities resp=response.body();
+                Log.d("what",resp.getResult().get(0).getCity());
+                if(resp.getResult()!=null) {
+                    citylist1.clear();
+                    for(homeResponse.citiesResp resp1:resp.getResult()) {
+                        citylist1.add(resp1);
+                    }
+                    binding.citysearch.setVisibility(View.VISIBLE);
+                    cityAdapter.notifyDataSetChanged();
+
+                }
+                else {
+                    binding.citysearch.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.listofcities> call, Throwable t) {
+                Log.d("Failure_city",t.getMessage());
+            }
+        });
     }
 
     private void getlatlong() {
@@ -353,35 +403,6 @@ public class locationFragment extends Fragment {
         }
 
     }
-
-    private void searchfun(String query) {
-        List<homeResponse.citiesResp> searchedList=new ArrayList<>();
-        for(homeResponse.citiesResp model:hmViewModel.getCitydata().getValue()){
-
-                if(model.getCity().toLowerCase().contains(query.toLowerCase())) {
-
-                    searchedList.add(model);
-                }
-            }
-
-            if(searchedList.size()<1) {
-                binding.citysearch.setVisibility(View.GONE);
-            }
-            else {
-                 new Handler().postDelayed(new Runnable() {
-                     @Override
-                     public void run() {
-                         binding.citysearch.setVisibility(View.VISIBLE);
-                     }
-                 },500);
-
-            }
-
-
-        cityAdapter.searchList(searchedList);
-
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

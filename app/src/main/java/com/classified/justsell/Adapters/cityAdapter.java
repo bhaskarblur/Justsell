@@ -21,9 +21,9 @@ public class cityAdapter extends RecyclerView.Adapter<cityAdapter.viewHolder> {
     private List<homeResponse .citiesResp> list;
     private List<homeResponse .citiesResp> searchedlist=new ArrayList<>();
     private onCityClick listener;
-    public cityAdapter(Context mcontext, List<homeResponse.citiesResp> list) {
+    public cityAdapter(Context mcontext, List<homeResponse.citiesResp> searchedlist) {
         this.mcontext = mcontext;
-        this.list = list;
+        this.searchedlist = searchedlist;
     }
 
     @NonNull
@@ -38,8 +38,9 @@ public class cityAdapter extends RecyclerView.Adapter<cityAdapter.viewHolder> {
         holder.cityname.setText(searchedlist.get(position).getCity()+", "+searchedlist.get(position).getState());
     }
 
-    public void searchList(List<homeResponse .citiesResp> searchedList) {
-        searchedlist=searchedList;
+    public void searchList(List<homeResponse .citiesResp> searchedList1) {
+        searchedlist.clear();
+        searchedlist=searchedList1;
         notifyDataSetChanged();
     }
     @Override

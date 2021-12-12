@@ -72,8 +72,9 @@ public interface ApiWork {
     Call<homeResponse.ListadsResp> getAds(@Field("city") String city,
                                           @Field("user_id") String userid);
 
-    @GET("state")
-    Call<homeResponse.listofcities> getallcities();
+    @FormUrlEncoded
+    @POST("state")
+    Call<homeResponse.listofcities> getallcities(@Field("city_name") String cityname);
 
     @FormUrlEncoded
     @POST("favorite")
