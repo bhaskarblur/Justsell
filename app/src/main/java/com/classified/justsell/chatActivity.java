@@ -62,8 +62,10 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -190,7 +192,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 //                        webSocket.send(jsonObject.toString());
 //                        jsonObject.put("isSent", "yes");
 //                        chatAdapter.addItem(jsonObject);
-//                        resetmessageEdit();
+//                        messageEdit();
 //                        binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 //
 //                    } catch (JSONException e) {
@@ -213,7 +215,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 JSONObject jsonObject = new JSONObject();
                 try {
                     Calendar calendar = Calendar.getInstance();
-                    String time = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+                    Date date=calendar.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+                    String time = sdf.format(date);
                     jsonObject.put("time", time);
                     jsonObject.put("user_id", user_id);
                     jsonObject.put("person_id", person_id);
@@ -321,7 +325,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                         binding.phneBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                Intent callIntent = new Intent(Intent. ACTION_DIAL);
                                 callIntent.setData(Uri.parse("tel:"+chatResult.getPostedby_number()));
                                 startActivity(callIntent);
                             }
@@ -552,7 +556,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
         try {
             Calendar calendar = Calendar.getInstance();
-            String time = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+            Date date=calendar.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+            String time = sdf.format(date);
             jsonObject.put("time", time);
             jsonObject.put("user_id", user_id);
             jsonObject.put("person_id", person_id);
