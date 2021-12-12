@@ -115,6 +115,7 @@ public class PostActivity extends AppCompatActivity {
         
         ManageData();
         viewfunc();
+        getlatlong();
     }
 
     @SuppressLint("MissingPermission")

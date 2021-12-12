@@ -1,5 +1,6 @@
 package com.classified.justsell.Repos;
 
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -252,31 +253,37 @@ public class homefragRepo {
 
         Call<homeResponse.bannerResp> call1=apiWork.getBanners();
 
-        call1.enqueue(new Callback<homeResponse.bannerResp>() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onResponse(Call<homeResponse.bannerResp> call, Response<homeResponse.bannerResp> response) {
-                if(!response.isSuccessful()){
-                    Log.d("Error code",String.valueOf(response.code()));
-                    return;
-                }
+            public void run() {
+                call1.enqueue(new Callback<homeResponse.bannerResp>() {
+                    @Override
+                    public void onResponse(Call<homeResponse.bannerResp> call, Response<homeResponse.bannerResp> response) {
+                        if(!response.isSuccessful()){
+                            Log.d("Error code",String.valueOf(response.code()));
+                            return;
+                        }
 
-                homeResponse.bannerResp resp=response.body();
+                        homeResponse.bannerResp resp=response.body();
 
-                if(resp.getResult()!=null) {
-                    for(int i=0;i<resp.getResult().size();i++) {
-                        bannerlist.add(resp.getResult().get(i));
-                        Log.d("stat",resp.getResult().get(i).getBanner_image());
+                        if(resp.getResult()!=null) {
+                            for(int i=0;i<resp.getResult().size();i++) {
+                                bannerlist.add(resp.getResult().get(i));
+                                Log.d("stat",resp.getResult().get(i).getBanner_image());
+                            }
+
+                            bannerdata.setValue(bannerlist);
+                        }
                     }
 
-                    bannerdata.setValue(bannerlist);
-                }
+                    @Override
+                    public void onFailure(Call<homeResponse.bannerResp> call, Throwable t) {
+                        Log.d("Failure",t.getMessage());
+                    }
+                });
             }
+        },200);
 
-            @Override
-            public void onFailure(Call<homeResponse.bannerResp> call, Throwable t) {
-                Log.d("Failure",t.getMessage());
-            }
-        });
     }
 
 }

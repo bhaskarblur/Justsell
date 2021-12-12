@@ -115,6 +115,7 @@ public class PostActivity_all extends AppCompatActivity {
 
         ManageData();
         viewfunc();
+        getlatlong();
     }
 
     @SuppressLint("MissingPermission")
@@ -381,6 +382,7 @@ public class PostActivity_all extends AppCompatActivity {
                             public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
+                                    posting=false;
                                     return;
                                 }
 
