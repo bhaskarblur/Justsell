@@ -316,7 +316,20 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                     binding.productTitle.setText(chatResult.getProduct_title());
                     binding.productPrice.setText("Rs " + chatResult.getProduct_price());
 
-
+                    if(chatResult.getPostedby_number()!=null){
+                        binding.phneBtn.setVisibility(View.VISIBLE);
+                        binding.phneBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:"+chatResult.getPostedby_number()));
+                                startActivity(callIntent);
+                            }
+                        });
+                    }
+                    else {
+                        binding.phneBtn.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         });

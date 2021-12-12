@@ -446,6 +446,7 @@ public class Ad_userActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
+                        googleMap.setMaxZoomPreference(14);
                         LatLng latLng = new LatLng(sellat, sellongit);
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                                 .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.mapicon));

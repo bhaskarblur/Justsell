@@ -680,9 +680,14 @@ public class searchFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        View view=getActivity().findViewById(R.id.adView);
-        view.setVisibility(View.VISIBLE);
         View bottombar = getActivity().findViewById(R.id.bottomnav);
         bottombar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        View view=getActivity().findViewById(R.id.adView);
+        view.setVisibility(View.VISIBLE);
     }
 }

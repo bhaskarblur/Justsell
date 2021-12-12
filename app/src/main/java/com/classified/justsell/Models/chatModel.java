@@ -51,6 +51,15 @@ public class chatModel {
         public String product_price;
         public String status;
         private String postedby_id;
+        private String postedby_number;
+
+        public String getPostedby_number() {
+            return postedby_number;
+        }
+
+        public void setPostedby_number(String postedby_number) {
+            this.postedby_number = postedby_number;
+        }
 
         public String getPostedby_id() {
             return postedby_id;

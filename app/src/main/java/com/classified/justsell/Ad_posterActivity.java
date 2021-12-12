@@ -384,12 +384,13 @@ public class Ad_posterActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
+                        googleMap.setMaxZoomPreference(14);
                         LatLng latLng = new LatLng(sellat, sellongit);
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                                 .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.mapicon));
                         sellerlat[0] =String.valueOf(sellat);
                         sellerlong[0] =String.valueOf(sellongit);
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
                         googleMap.addMarker(markerOptions);
                     }
                 });
