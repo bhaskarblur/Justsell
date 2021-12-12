@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.classified.justsell.APIWork.ApiWork;
 import com.classified.justsell.Adapters.chatslistAdapter;
@@ -105,7 +106,7 @@ public class chatFragment extends Fragment {
             transaction1.commit();
         }
 
-        ManageData();
+       // ManageData();
         Viewfuncs();
 
 
@@ -124,7 +125,6 @@ public class chatFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         if (chatResults.size() > 0) {
                             binding.chatRec.setVisibility(View.VISIBLE);
                             binding.nonotiimg2.setVisibility(View.INVISIBLE);
@@ -162,9 +162,12 @@ public class chatFragment extends Fragment {
                 intent.putExtra("person_id",person_id);
                 intent.putExtra("product_id",product_id);
                 getActivity().getViewModelStore().clear();
+                chatFragment chatFragment=new chatFragment();
+                getFragmentManager().beginTransaction().remove(chatFragment).commitAllowingStateLoss();
+                getActivity().getViewModelStore().clear();
                 startActivity(intent);
-
                 getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+
             }
         });
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
@@ -227,8 +230,20 @@ public class chatFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getActivity().getViewModelStore().clear();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ManageData();
     }
 }

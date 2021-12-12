@@ -20,7 +20,7 @@ public class chatsViewModel extends ViewModel {
 
     public void initwork(String userid) {
         if(dataModel!=null) {
-            return;
+           return;
         }
 
         dataModel=repo.getInstance().returnchatModel(userid);
