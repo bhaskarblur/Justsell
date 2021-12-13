@@ -1,5 +1,6 @@
 package com.classified.justsell.Fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.classified.justsell.Ad_posterActivity;
 import com.classified.justsell.Adapters.notiAdapter;
 import com.classified.justsell.Models.homeResponse;
 import com.classified.justsell.R;
@@ -82,10 +84,10 @@ public class notiFragment extends Fragment {
             public void onRefresh() {
                 getActivity().getViewModelStore().clear();
                 binding.swipelayout.setRefreshing(false);
-                notiFragment homeFragment=new notiFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainFragment, homeFragment);
-                transaction.commit();
+               // notiFragment homeFragment=new notiFragment();
+               // FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+               // transaction.replace(R.id.mainFragment, homeFragment);
+              //  transaction.commit();
 
             }
         });
@@ -133,6 +135,17 @@ public class notiFragment extends Fragment {
 
         binding.notirec.setLayoutManager(llm1);
         binding.notirec.setAdapter(notiAdapter);
+        notiAdapter.setontileClick(new notiAdapter.ontileclick() {
+            @Override
+            public void onItemClick(String ad_id,String prodname) {
+                Intent intent= new Intent(getContext(), Ad_posterActivity.class);
+                intent.putExtra("ad_id",ad_id);
+                intent.putExtra("product_name",prodname);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                
+            }
+        });
     }
 
     @Override

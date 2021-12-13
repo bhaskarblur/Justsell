@@ -22,7 +22,7 @@ import java.util.List;
 public class notiAdapter extends RecyclerView.Adapter<notiAdapter.viewHolder> {
     private Context mcontext;
     private List<homeResponse .notiResult> list;
-
+    ontileclick listener;
     public notiAdapter(Context mcontext, List<homeResponse.notiResult> list) {
         this.mcontext = mcontext;
         this.list = list;
@@ -52,12 +52,28 @@ public class notiAdapter extends RecyclerView.Adapter<notiAdapter.viewHolder> {
         ImageView notiimg;
         TextView notititle;
         TextView notidesc;
+        View notibg;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             notiimg=itemView.findViewById(R.id.noti_img);
             notititle=itemView.findViewById(R.id.noti_title);
             notidesc=itemView.findViewById(R.id.noti_descr);
-
+            notibg=itemView.findViewById(R.id.noti_card);
+            notibg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getAdapterPosition()!=RecyclerView.NO_POSITION) {
+                        listener.onItemClick(list.get(getAdapterPosition()).getAd_id(),
+                                list.get(getAdapterPosition()).getTitle());
+                    }
+                }
+            });
         }
+    }
+    public interface ontileclick {
+        void onItemClick(String ad_id,String prodname);
+    }
+    public void setontileClick(ontileclick listener) {
+        this.listener=listener;
     }
 }
