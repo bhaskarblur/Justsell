@@ -8,6 +8,9 @@
         android:id="@+id/aboutbtn"
         android:title="Terms And Conditions" />
     <item
-        android:id="@+id/logout_item"
+        android:id="@+id/delacc_item"
         android:title="Delete Account" />
+    <item
+        android:id="@+id/logout_item"
+        android:title="Log Out" />
 </menu>

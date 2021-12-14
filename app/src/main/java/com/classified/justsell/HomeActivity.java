@@ -89,8 +89,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 AdView adView = new AdView(HomeActivity.this);
                 adView.setAdSize(AdSize.BANNER);
+                // test banner id ca-app-pub-3940256099942544/6300978111
                 // banner ad id ca-app-pub-8346863949141411/9276270004
-                adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+                adView.setAdUnitId("ca-app-pub-8346863949141411/9276270004");
                 AdRequest adRequest = new AdRequest.Builder().build();
                 binding.adView.loadAd(adRequest);
 

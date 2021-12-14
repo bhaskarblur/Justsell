@@ -159,9 +159,9 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         binding.swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               getViewModelStore().clear();
+                getViewModelStore().clear();
                 binding.swipelayout.setRefreshing(false);
-                profileFragment homeFragment=new profileFragment();
+                profileFragment homeFragment = new profileFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.mainFragment, homeFragment);
                 transaction.commit();
@@ -226,11 +226,10 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                         e.printStackTrace();
                     }
                     Call<AuthResponse.profile_update> call1;
-                    if(!oldimage.equals(editedimage)) {
+                    if (!oldimage.equals(editedimage)) {
                         call1 = apiWork.updateprofile2(user_id, binding.nameTxt.getText().toString()
                                 , state, city, base64img, binding.numberTxt.getText().toString());
-                    }
-                    else {
+                    } else {
                         call1 = apiWork.withoutimage_updateprofile(user_id, binding.nameTxt.getText().toString()
                                 , state, city, binding.numberTxt.getText().toString());
                     }
@@ -383,8 +382,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                     editor.putString("usermobile", resp.getResult().getMobile());
                     editor.putString("username", resp.getResult().getName());
                     editor.commit();
-                }
-                else {
+                } else {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.clear();
                     editor.apply();
@@ -403,7 +401,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         String number = sharedPreferences.getString("usermobile", "");
         String image = sharedPreferences.getString("userimage", "empty");
         editedimage = sharedPreferences.getString("userimage", "empty");
-        oldimage=editedimage;
+        oldimage = editedimage;
 
         binding.userName.setText(name);
         binding.userNumber.setText(number);
@@ -480,23 +478,23 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             @Override
             public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
                 Intent intent = null;
-                if(!userid.equals(user_id)) {
-                    intent=new Intent(getActivity(), Ad_userActivity.class);
+                if (!userid.equals(user_id)) {
+                    intent = new Intent(getActivity(), Ad_userActivity.class);
 
-                }
-                else {
+                } else {
                     // change this to same user activity
-                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                    intent = new Intent(getActivity(), Ad_posterActivity.class);
                 }
 
-                intent.putExtra("cat_name",category_name);
-                intent.putExtra("ad_id",ad_id);
-                intent.putExtra("product_name",prod_name);
+                intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", ad_id);
+                intent.putExtra("product_name", prod_name);
 
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 getActivity().getViewModelStore().clear();
             }
+
             @Override
             public void onHeartClick(String id) {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
@@ -504,23 +502,23 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 ApiWork apiWork = retrofit.create(ApiWork.class);
 
-                Call<AuthResponse.SendOtp> call1 = apiWork.remove_favourite(id,user_id);
+                Call<AuthResponse.SendOtp> call1 = apiWork.remove_favourite(id, user_id);
 
                 call1.enqueue(new Callback<AuthResponse.SendOtp>() {
                     @Override
                     public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-                        if(!response.isSuccessful()) {
-                            Log.d("error code",String.valueOf(response.code()));
+                        if (!response.isSuccessful()) {
+                            Log.d("error code", String.valueOf(response.code()));
                             return;
                         }
 
-                        AuthResponse.SendOtp resp=response.body();
+                        AuthResponse.SendOtp resp = response.body();
 
-                        if(resp.getCode().equals("200")) {
+                        if (resp.getCode().equals("200")) {
                             //
                             Toast.makeText(getContext(), "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
                             getActivity().getViewModelStore().clear();
-                            profileFragment homeFragment=new profileFragment();
+                            profileFragment homeFragment = new profileFragment();
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                             transaction.setCustomAnimations(R.anim.fade_2, R.anim.fade);
                             transaction.replace(R.id.mainFragment, homeFragment);
@@ -530,7 +528,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                     @Override
                     public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
-                        Log.d("Failure",t.getMessage());
+                        Log.d("Failure", t.getMessage());
                     }
                 });
             }
@@ -540,21 +538,20 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             @Override
             public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
                 Intent intent = null;
-                if(!userid.equals(user_id)) {
-                    intent=new Intent(getActivity(), Ad_userActivity.class);
+                if (!userid.equals(user_id)) {
+                    intent = new Intent(getActivity(), Ad_userActivity.class);
 
-                }
-                else {
+                } else {
                     // change this to same user activity
-                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                    intent = new Intent(getActivity(), Ad_posterActivity.class);
                 }
 
-                intent.putExtra("cat_name",category_name);
-                intent.putExtra("ad_id",ad_id);
-                intent.putExtra("product_name",prod_name);
+                intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", ad_id);
+                intent.putExtra("product_name", prod_name);
 
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 getActivity().getViewModelStore().clear();
             }
         });
@@ -563,21 +560,20 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             @Override
             public void onAdClick(String category_name, String ad_id, String prod_name, String userid) {
                 Intent intent = null;
-                if(!userid.equals(user_id)) {
-                    intent=new Intent(getActivity(), Ad_userActivity.class);
+                if (!userid.equals(user_id)) {
+                    intent = new Intent(getActivity(), Ad_userActivity.class);
 
-                }
-                else {
+                } else {
                     // change this to same user activity
-                    intent=new Intent(getActivity(), Ad_posterActivity.class);
+                    intent = new Intent(getActivity(), Ad_posterActivity.class);
                 }
 
-                intent.putExtra("cat_name",category_name);
-                intent.putExtra("ad_id",ad_id);
-                intent.putExtra("product_name",prod_name);
+                intent.putExtra("cat_name", category_name);
+                intent.putExtra("ad_id", ad_id);
+                intent.putExtra("product_name", prod_name);
 
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 getActivity().getViewModelStore().clear();
             }
         });
@@ -588,8 +584,8 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         PopupMenu popupMenu = new PopupMenu(getContext(), v);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.profoptionmenu);
-        MenuItem item = popupMenu.getMenu().findItem(R.id.logout_item);
-        SpannableString s = new SpannableString("Log Out");
+        MenuItem item = popupMenu.getMenu().findItem(R.id.delacc_item);
+        SpannableString s = new SpannableString("Delete Account");
         item.setTitle(s);
         s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
         popupMenu.show();
@@ -698,6 +694,56 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                             }
                         });
                 builder.show();
+                break;
+            case R.id.delacc_item:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext()).setTitle("Delete Account?")
+                        .setMessage("Do you want to delete this account?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+                                        .addConverterFactory(GsonConverterFactory.create()).build();
+
+                                ApiWork apiWork = retrofit.create(ApiWork.class);
+
+                                Call<AuthResponse.SendOtp> call1 = apiWork.delete_account(user_id);
+
+                                call1.enqueue(new Callback<AuthResponse.SendOtp>() {
+                                    @Override
+                                    public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                                        if (!response.isSuccessful()) {
+                                            Log.d("error code", String.valueOf(response.code()));
+                                            return;
+                                        }
+
+                                        AuthResponse.SendOtp resp = response.body();
+
+                                        if (resp.getCode().equals("200")) {
+                                            Toast.makeText(getContext(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.clear();
+                                            editor.apply();
+                                            startActivity(new Intent(getActivity(), AuthActivity.class));
+                                            getActivity().finish();
+                                            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
+                                        Log.d("Failure", t.getMessage());
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                builder1.show();
 
         }
         return false;

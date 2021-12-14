@@ -413,7 +413,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         }
 
         Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
         intent.setType("image/*");
         startActivityForResult(intent,1);
     }
