@@ -424,6 +424,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="#8B8B8B" />
 
+            <ProgressBar
+                android:id="@+id/progressBar3"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressBackgroundTint="@color/primary_color"
+                android:indeterminateTint="@color/primary_color"
+                android:visibility="invisible"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"

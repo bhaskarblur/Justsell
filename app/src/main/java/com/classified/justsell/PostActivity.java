@@ -376,7 +376,8 @@ public class PostActivity extends AppCompatActivity {
 
                     if (posting.equals(false)) {
                         posting = true;
-
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        binding.postAutomobBtn.setVisibility(View.INVISIBLE);
                         SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
                         String userid = sharedPreferences.getString("userid", "");
                         String city = sharedPreferences.getString("usercity", "");
@@ -421,6 +422,8 @@ public class PostActivity extends AppCompatActivity {
                                 }
 
                                 if (response.body().getResult() != null) {
+                                    binding.progressBar.setVisibility(View.INVISIBLE);
+                                    binding.postAutomobBtn.setVisibility(View.VISIBLE);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("ad_id", response.body().getResult().getProduct_id());
                                     askBoost_Dialog dialog = new askBoost_Dialog();
@@ -434,6 +437,8 @@ public class PostActivity extends AppCompatActivity {
                             public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
                                 Log.d("Failure", t.getMessage());
                                 posting=false;
+                                binding.progressBar.setVisibility(View.INVISIBLE);
+                                binding.postAutomobBtn.setVisibility(View.VISIBLE);
                             }
                         });
 
