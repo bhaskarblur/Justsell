@@ -27,7 +27,7 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Welcome To \nJustsell"
+                android:text="Welcome To \Upuse"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"

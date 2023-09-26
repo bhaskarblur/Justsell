@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "448489654932",
-    "project_id": "justsell-165c6",
-    "storage_bucket": "justsell-165c6.appspot.com"
+    "project_number": "482059897238",
+    "project_id": "upuse-c5737",
+    "storage_bucket": "upuse-c5737.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:448489654932:android:2d2596e65f2c0482860281",
+        "mobilesdk_app_id": "1:482059897238:android:22dadb540d6aa4c7c9f5b7",
         "android_client_info": {
-          "package_name": "com.classified.justsell"
+          "package_name": "com.classified.upuse"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "448489654932-vqvbae1p0g8jtngurhpkqhnd8girg4c9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDGT3jxw3_vtbw2LHy-L6sFkBgAt4dkBsA"
+          "current_key": "AIzaSyAOWOUscAptHMq-MIQXptE4hO6rHI7HHck"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "448489654932-vqvbae1p0g8jtngurhpkqhnd8girg4c9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

@@ -7,17 +7,15 @@
     android:background="?colorPrimary"
     tools:context=".HomeActivity">
 
-
-        <androidx.fragment.app.FragmentContainerView
+    <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mainFragment"
-            android:name="com.classified.justsell.Fragments.homeFragment"
+            android:name="com.classified.upuse.Fragments.homeFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomnav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomnav"

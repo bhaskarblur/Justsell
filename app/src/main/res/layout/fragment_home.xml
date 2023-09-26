@@ -237,7 +237,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="JustSell"
+            android:text="Upuse"
             android:textColor="@color/primary_color"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"

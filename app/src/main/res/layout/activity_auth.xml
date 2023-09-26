@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/auth_fragcontainer"
-        android:name="com.classified.justsell.Fragments.LoginFragment"
+        android:name="com.classified.upuse.Fragments.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

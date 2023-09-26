@@ -211,7 +211,7 @@
 
             <fragment
                 android:id="@+id/google_map"
-                android:name="com.classified.justsell.Fragments.homeFragment"
+                android:name="com.classified.upuse.Fragments.homeFragment"
                 class="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"

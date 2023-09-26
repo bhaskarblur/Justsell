@@ -44,7 +44,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Justsell"
+                android:text="Upuse"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"

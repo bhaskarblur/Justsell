@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Justsell</string>
+    <string name="app_name">Upuse</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="mapsapikey">AIzaSyC3U1d0zLSHXivbHfIRJ5-ctSwWOmlHqTg</string>
+    <string name="mapsapikey">AIzaSyBT9yU5PhV3lHLKlK-LZVDc__yoBcAmG6Q</string>
 </resources>
