@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentPostBinding;
 import com.classified.upuse.Adapters.post_categoryAdapter;
 import com.classified.upuse.Models.homeResponse;

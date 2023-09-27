@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentLoginBinding;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Constants.api_baseurl;

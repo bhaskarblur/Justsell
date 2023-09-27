@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Adapters.adImagesAdapter;
 import com.classified.upuse.Constants.api_baseurl;

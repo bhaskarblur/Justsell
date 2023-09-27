@@ -27,7 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentRegisterProfileBinding;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Constants.api_baseurl;

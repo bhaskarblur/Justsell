@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import com.classified.upuse.Ad_posterActivity;
 import com.classified.upuse.Adapters.notiAdapter;
 import com.classified.upuse.Models.homeResponse;
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentNotiBinding;
 
 import java.util.List;

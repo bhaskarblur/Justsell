@@ -19,7 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.List;

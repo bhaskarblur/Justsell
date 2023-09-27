@@ -29,7 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentLocationBinding;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Adapters.cityAdapter;

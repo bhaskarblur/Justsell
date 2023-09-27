@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 
 public class adposted_successful extends AppCompatActivity {
 

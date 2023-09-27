@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.classified.upuse.Models.AdsModel;
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.imageActivity;
 import com.squareup.picasso.Picasso;
 

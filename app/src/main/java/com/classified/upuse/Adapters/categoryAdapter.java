@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.Models.homeResponse;
 import com.squareup.picasso.Picasso;
 

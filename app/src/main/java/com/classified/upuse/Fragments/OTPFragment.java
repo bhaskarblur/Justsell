@@ -26,7 +26,7 @@ import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Constants.api_baseurl;
 import com.classified.upuse.HomeActivity;
 import com.classified.upuse.Models.AuthResponse;
-import com.classified.upuse.R;
+import com.classified.upuse.R;;
 import com.classified.upuse.databinding.FragmentOTPBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

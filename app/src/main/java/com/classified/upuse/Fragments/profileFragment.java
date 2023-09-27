@@ -39,7 +39,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentProfileBinding;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Ad_posterActivity;

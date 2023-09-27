@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 
 public class adpromoted_successful extends AppCompatActivity {
 

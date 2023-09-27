@@ -26,7 +26,7 @@ import com.classified.upuse.AuthActivity;
 import com.classified.upuse.Constants.api_baseurl;
 import com.classified.upuse.Models.AuthResponse;
 import com.classified.upuse.Models.chatModel;
-import com.classified.upuse.R
+import com.classified.upuse.R;
 
 import com.classified.upuse.chatActivity;
 import com.classified.upuse.databinding.FragmentChatBinding;

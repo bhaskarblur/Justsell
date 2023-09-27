@@ -31,7 +31,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentSearchBinding;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Ad_posterActivity;

@@ -9,7 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.Fragments.LoginFragment;
 
 public class AuthActivity extends AppCompatActivity {

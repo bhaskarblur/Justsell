@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.adposted_successful;
 import com.classified.upuse.promote_ad;
 

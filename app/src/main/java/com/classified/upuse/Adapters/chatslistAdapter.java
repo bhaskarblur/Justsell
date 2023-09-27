@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.classified.upuse.Models.chatModel;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

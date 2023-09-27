@@ -35,7 +35,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.classified.upuse.R
+import com.classified.upuse.R;
 import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Adapters.imagesAdapter;
 import com.classified.upuse.Adapters.textonlyAdapter;
