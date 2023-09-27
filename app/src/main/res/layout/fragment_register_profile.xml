@@ -25,9 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins_semibold"
                 android:lineSpacingExtra="2dp"
-                android:text="Welcome To \Upuse"
+                android:text="Setup your profile"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +37,13 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
                 android:text="Profile Picture"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/registeruserimg" />
 
@@ -65,11 +65,11 @@
                 android:id="@+id/registeruserimg"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="32dp"
                 android:clickable="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/imgsampleround"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:tint="?android:textColorPrimaryInverse" />
@@ -78,10 +78,10 @@
                 android:id="@+id/cameraimg"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="59dp"
+                android:layout_marginTop="67dp"
                 android:clickable="true"
                 android:src="@drawable/camera"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:tint="#8B8B8B" />
@@ -279,7 +279,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/citylay"
-                app:layout_constraintVertical_bias="0.51" />
+                app:layout_constraintVertical_bias="1.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

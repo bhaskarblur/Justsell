@@ -69,7 +69,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             getSystemService(NotificationManager.class).createNotificationChannel(channel);
             Notification.Builder builder = new Notification.Builder(this, CHANNEL)
                     .setContentTitle(title).setContentText(body)
-                    .setSmallIcon(R.mipmap.app_logo_main)
+                    .setSmallIcon(R.mipmap.upuse_logo)
                     .setAutoCancel(true).setContentIntent(intent);
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

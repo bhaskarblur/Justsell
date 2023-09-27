@@ -18,9 +18,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/app_logo_main"
+        android:icon="@mipmap/upuse_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_logo_main"
+        android:roundIcon="@mipmap/upuse_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Justsell"
         android:usesCleartextTraffic="true">
@@ -117,7 +117,10 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8346863949141411~2518972733" />
+            android:value="ca-app-pub-3736420404472867~3668866475" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

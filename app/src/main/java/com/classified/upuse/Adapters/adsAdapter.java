@@ -163,7 +163,8 @@ public class adsAdapter extends RecyclerView.Adapter {
 
         private void loadAds() {
             // native ad id- ca-app-pub-8346863949141411/5883819900
-            AdLoader adLoader = new AdLoader.Builder(mcontext, "ca-app-pub-3940256099942544/2247696110")
+            // native ads id
+            AdLoader adLoader = new AdLoader.Builder(mcontext, "ca-app-pub-3736420404472867/7252409338")
                     .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                         @Override
                         public void onNativeAdLoaded(NativeAd NativeAd) {
@@ -263,8 +264,8 @@ public class adsAdapter extends RecyclerView.Adapter {
 
         private void refreshAd() {
             // test ad id - ca-app-pub-3940256099942544/2247696110
-            // native ad id - ca-app-pub-8346863949141411/5883819900
-            AdLoader.Builder builder = new AdLoader.Builder(mcontext, "ca-app-pub-8346863949141411/5883819900");
+            // native ad id - ca-app-pub-3736420404472867/7252409338
+            AdLoader.Builder builder = new AdLoader.Builder(mcontext, "ca-app-pub-3736420404472867/7252409338");
             builder.forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                 @Override
                 public void onNativeAdLoaded(NativeAd unifiedNativeAd) {

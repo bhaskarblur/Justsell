@@ -260,6 +260,7 @@ public class promote_ad extends AppCompatActivity {
                     Toast.makeText(promote_ad.this, "Please select a city.", Toast.LENGTH_SHORT).show();
                 }
                else {
+                   // Need to add stripe here
                    // Api Call
                     Uri uri = new Uri.Builder().scheme("upi").authority("pay")
                             .appendQueryParameter("pa", "8299189690@okbizaxis")

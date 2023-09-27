@@ -102,7 +102,7 @@
             android:maxLength="30"
             android:text="Posted on 8 November,2021"
             android:textColor="?android:textColorSecondary"
-            android:textSize="9sp"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
