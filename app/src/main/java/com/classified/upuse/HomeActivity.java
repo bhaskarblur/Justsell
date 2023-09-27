@@ -19,6 +19,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -33,17 +34,27 @@ import com.classified.upuse.Fragments.postFragment;
 import com.classified.upuse.Fragments.profileFragment;
 import com.classified.upuse.R;
 import com.classified.upuse.databinding.ActivityHomeBinding;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class HomeActivity extends AppCompatActivity {
     final int PERMISSION_CODE = 1001;
-    ActivityHomeBinding binding;
+   private ActivityHomeBinding binding;
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        SharedPreferences sharedPreferences = getSharedPreferences("userlogged",0);
+        mFirebaseAnalytics.setUserProperty("userName",
+                sharedPreferences.getString("username",""));
+        mFirebaseAnalytics.setUserProperty("userPhone",
+                sharedPreferences.getString("usermobile",""));
+        mFirebaseAnalytics.setUserProperty("userCity",
+                sharedPreferences.getString("usercity",""));
         binding=ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
-
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
              startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
