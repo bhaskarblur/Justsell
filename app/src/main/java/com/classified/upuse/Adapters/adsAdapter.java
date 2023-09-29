@@ -2,6 +2,7 @@ package com.classified.upuse.Adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class adsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(position%7==0 && position!=0) {
+        if(position%6==0 && position!=0) {
             adViewHolder holder1=(adViewHolder) holder;
             holder1.refreshAd();
         }
@@ -70,22 +71,29 @@ public class adsAdapter extends RecyclerView.Adapter {
             ViewHolder holder1=(ViewHolder) holder;
             final int radius = 13;
             final int margin = 7;
-            final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-            Picasso.get().load(list.get(position).getAd_image()).resize(300, 300).centerCrop().transform(transformation).into(holder1.adsimg);
-            holder1.adstitle.setText(list.get(position).getAd_title().toString());
-            holder1.adsprice.setText("₹ " + list.get(position).getAd_price());
+            try {
+                    final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+                    Picasso.get().load(list.get(position).getAd_image()).resize(300, 300).centerCrop().transform(transformation).into(holder1.adsimg);
 
-            if (list.get(position).getAd_pricecut() != null && !list.get(position).getAd_pricecut().equals("")) {
-                holder1.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
-                holder1.adspricecut.setPaintFlags(holder1.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            } else {
-                holder1.adspricecut.setVisibility(View.INVISIBLE);
+                    holder1.adstitle.setText(list.get(position).getAd_title().toString());
+                    holder1.adsprice.setText("₹ " + list.get(position).getAd_price());
+
+                    if (list.get(position).getAd_pricecut() != null && !list.get(position).getAd_pricecut().equals("")) {
+                        holder1.adspricecut.setText("₹ " + list.get(position).getAd_pricecut());
+                        holder1.adspricecut.setPaintFlags(holder1.adspricecut.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    } else {
+                        holder1.adspricecut.setVisibility(View.INVISIBLE);
+                    }
+                    holder1.adsdesr.setText(list.get(position).getAd_description());
+                    holder1.adsdate.setText("Posted on " + list.get(position).getAd_date());
+                    if (list.get(position).getFeatured_status().equals("1") && list.get(position).getAd_title()
+                            .equals(holder1.adstitle.getText().toString())) {
+                        holder1.adsfeat.setVisibility(View.VISIBLE);
+                    }
+//                }
             }
-            holder1.adsdesr.setText(list.get(position).getAd_description());
-            holder1.adsdate.setText("Posted on " + list.get(position).getAd_date());
-            if (list.get(position).getFeatured_status().equals("1") && list.get(position).getAd_title()
-                    .equals(holder1.adstitle.getText().toString())) {
-                holder1.adsfeat.setVisibility(View.VISIBLE);
+            catch (Throwable err) {
+                Log.d("error on ads", err.getMessage().toString());
             }
         }
      }

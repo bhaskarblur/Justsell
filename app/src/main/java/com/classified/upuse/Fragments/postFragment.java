@@ -25,6 +25,7 @@ import com.classified.upuse.PostActivity;
 import com.classified.upuse.PostActivity_all;
 import com.classified.upuse.PostActivity_property;
 import com.classified.upuse.ViewModels.postViewModel;
+import com.classified.upuse.helpingCode.progressDialog;
 
 import java.util.List;
 
@@ -99,7 +100,9 @@ public class postFragment extends Fragment {
     }
 
     private void ManageData() {
-
+        progressDialog progressdialog = new progressDialog();
+        progressdialog.showLoadingDialog(getContext(), "Loading",
+                "Loading. Please wait");
         viewModel=new ViewModelProvider(getActivity()).get(postViewModel.class);
         viewModel.initwork();
         viewModel.getCategorydata().observe(getActivity(), new Observer<List<homeResponse.categoryResult>>() {
@@ -108,6 +111,7 @@ public class postFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        progressdialog.hideLoadingDialog();
                         if(categoryResults.size()>0) {
                             adapter.notifyDataSetChanged();
                         }

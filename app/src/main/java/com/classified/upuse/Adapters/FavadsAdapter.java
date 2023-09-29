@@ -26,7 +26,6 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
     private Context mcontext;
     private List<homeResponse .adsResult> list;
     onitemClick listener;
-    onItemClick listener1;
     public FavadsAdapter(Context mcontext, List<homeResponse.adsResult> list) {
         this.mcontext = mcontext;
         this.list = list;
@@ -112,17 +111,12 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
             });
         }
     }
-    public interface onItemClick {
-
-    }
-
-    public void setonItemClick(onItemClick listener1) {
-        this.listener1=listener1;
-    }
     public interface onitemClick {
         void onAdClick(String category_name,String ad_id,String prod_name,String userid);
         void onHeartClick(String id);
     }
+
+
 
     public void setonitemClickListener(onitemClick listener) {
         this.listener=listener;

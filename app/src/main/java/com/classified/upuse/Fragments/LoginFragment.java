@@ -19,6 +19,7 @@ import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Constants.api_baseurl;
 import com.classified.upuse.HomeActivity;
 import com.classified.upuse.Models.AuthResponse;
+import com.classified.upuse.helpingCode.progressDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,7 +106,8 @@ public class LoginFragment extends Fragment {
                         call.enqueue(new Callback<AuthResponse.SendOtp>() {
                             @Override
                             public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
-
+                              com.classified.upuse.helpingCode.progressDialog dialog = new progressDialog();
+                              dialog.showLoadingDialog(getContext(), "Otp", "Sending OTP");
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
                                     pressed=false;
@@ -116,7 +118,9 @@ public class LoginFragment extends Fragment {
 
                                 Log.d("message", resp.getMessage());
 
-                                if (resp.getMessage().toString().contains("success")) {
+                                dialog.hideLoadingDialog();
+                                if (resp.getMessage().toString().toLowerCase().contains("successfully") ||
+                                resp.getMessage().toString().toLowerCase().contains("wuccess")) {
                                     OTPFragment df = new OTPFragment();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("number", lgbinding.loginnumber.getText().toString());

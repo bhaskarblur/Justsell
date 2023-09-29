@@ -30,6 +30,7 @@ import com.classified.upuse.R;
 
 import com.classified.upuse.chatActivity;
 import com.classified.upuse.databinding.FragmentChatBinding;
+import com.classified.upuse.helpingCode.progressDialog;
 
 import java.util.List;
 
@@ -113,6 +114,9 @@ public class chatFragment extends Fragment {
     }
 
     private void ManageData() {
+        progressDialog progressdialog = new progressDialog();
+        progressdialog.showLoadingDialog(getContext(), "Loading",
+                "Loading. Please wait");
         String userid;
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
         userid=sharedPreferences.getString("userid","");
@@ -124,6 +128,7 @@ public class chatFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        progressdialog.hideLoadingDialog();
                         if (chatResults.size() > 0) {
                             binding.chatRec.setVisibility(View.VISIBLE);
                             binding.nonotiimg2.setVisibility(View.INVISIBLE);
@@ -142,10 +147,10 @@ public class chatFragment extends Fragment {
                                     binding.nonotiimg2.setVisibility(View.VISIBLE);
                                     binding.nonotitxt2.setVisibility(View.VISIBLE);
                                 }
-                            }, 500);
+                            }, 300);
                         }
                     }
-                },1000);
+                },500);
             }
 
         });

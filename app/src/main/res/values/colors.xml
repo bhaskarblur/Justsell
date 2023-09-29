@@ -9,5 +9,6 @@
     <color name="white">#ffffff</color>
     <color name="back_white">#E4E4E4</color>
     <color name="primary_color">#FAC53E</color>
-    <color name="back_black">#121210</color>
+    <color name="back_black">#151514</color>
+    <color name="green">#12C524</color>
 </resources>

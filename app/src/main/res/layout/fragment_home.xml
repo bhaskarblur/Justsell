@@ -230,6 +230,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="76dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/upuse_logo_nobg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/appname"
             android:layout_width="wrap_content"
@@ -238,6 +248,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Upuse"
+            android:visibility="invisible"
             android:textColor="@color/primary_color"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -248,7 +259,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins"
             android:maxLength="30"
@@ -258,7 +269,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
         <ImageView
             android:id="@+id/searchicon"
@@ -295,7 +306,7 @@
             android:src="@drawable/locationicon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appname"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11"
             app:tint="?android:textColorPrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

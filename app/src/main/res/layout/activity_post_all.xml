@@ -104,16 +104,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/brand_txt" />
 
             <TextView
-                android:id="@+id/textView43"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView44"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:lineSpacingExtra="2dp"
-                android:text="Show Number To Buyers"
+                android:text="Show number to buyers? This allows them to call you and can increase buying chances"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toStartOf="@+id/number_switch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
 
@@ -123,9 +124,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="13dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:buttonTint="@color/primary_color"
-                app:layout_constraintStart_toEndOf="@+id/textView43"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView44"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
 
             <TextView
@@ -215,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/roundboxbg"

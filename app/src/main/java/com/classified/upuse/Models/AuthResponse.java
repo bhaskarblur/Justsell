@@ -1,5 +1,7 @@
 package com.classified.upuse.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class AuthResponse {
@@ -30,6 +32,16 @@ public class AuthResponse {
 
         public String message;
         public String code;
+
+        public VerifyOtp(String message, profile_data result) {
+            this.message = message;
+            this.result = result;
+        }
+
+        public VerifyOtp() {
+
+        }
+        @SerializedName("result")
         public profile_data result;
         public String getMessage() {
             return message;
@@ -180,7 +192,7 @@ public class AuthResponse {
     }
 
     public class profile_update {
-        public String status;
+        public String message;
         public String code;
         public profile_data result;
 
@@ -192,12 +204,12 @@ public class AuthResponse {
             this.result = result;
         }
 
-        public String getStatus() {
-            return status;
+        public String getMessage() {
+            return message;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
+        public void setMessage(String status) {
+            this.message = status;
         }
 
         public String getCode() {
@@ -211,16 +223,28 @@ public class AuthResponse {
     }
 
     public class profile_data {
-        public String id;
-        public String image;
-        public String mobile;
-        public String name;
-        public String state;
-        public String city;
-        public String user_type;
+        private String id;
+        private String image;
+        private String mobile;
+        private String name;
+        private String state;
+        private String city;
 
+
+        @SerializedName("user_type")
+        private String user_type;
+
+        private String device_token;
         public String getImage() {
             return image;
+        }
+
+        public String getDevice_token() {
+            return device_token;
+        }
+
+        public void setDevice_token(String device_token) {
+            this.device_token = device_token;
         }
 
         public void setImage(String image) {

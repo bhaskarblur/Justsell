@@ -21,6 +21,7 @@ import com.classified.upuse.Adapters.notiAdapter;
 import com.classified.upuse.Models.homeResponse;
 import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentNotiBinding;
+import com.classified.upuse.helpingCode.progressDialog;
 
 import java.util.List;
 
@@ -102,6 +103,10 @@ public class notiFragment extends Fragment {
     }
 
     private void ManageData() {
+        progressDialog progressdialog = new progressDialog();
+        progressdialog.showLoadingDialog(getContext(), "Loading",
+                "Loading Feed. Please wait");
+
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
         String city=sharedPreferences.getString("usercity","");
         homefragViewModel=new ViewModelProvider(getActivity()).get(com.classified.upuse.ViewModels.homefragViewModel.class);
@@ -112,6 +117,7 @@ public class notiFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        progressdialog.hideLoadingDialog();
                         if(notiResults.size()>0){
                             notiAdapter.notifyDataSetChanged();
                             binding.notirec.setVisibility(View.VISIBLE);

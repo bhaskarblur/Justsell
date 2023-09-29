@@ -431,7 +431,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Promotion Budget:"
+                android:text="Select Promotion Budget:"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"

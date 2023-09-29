@@ -184,7 +184,7 @@ public class searchFragment extends Fragment {
         binding.priceSeekbar.setOnTrackRangeListener(new SimpleRangeView.OnTrackRangeListener() {
             @Override
             public void onStartRangeChanged(@NonNull SimpleRangeView simpleRangeView, int i) {
-                binding.pricebox1.setText(String.valueOf(i * 1000));
+                binding.pricebox1.setText(String.valueOf(i * 3000));
 
                 if (!binding.pricebox1.getText().toString().isEmpty() &&
                         !binding.pricebox.getText().toString().isEmpty()) {

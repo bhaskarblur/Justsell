@@ -41,6 +41,7 @@ import com.classified.upuse.Models.AuthResponse;
 import com.classified.upuse.Models.homeResponse;
 
 import com.classified.upuse.ViewModels.homefragViewModel;
+import com.classified.upuse.helpingCode.progressDialog;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.ArrayList;
@@ -296,6 +297,9 @@ public class homeFragment extends Fragment implements LocationListener {
     }
 
     private void ManageData() {
+        progressDialog progressdialog = new progressDialog();
+        progressdialog.showLoadingDialog(getContext(), "Loading",
+                "Loading Feed. Please wait");
         pos = 0;
         user_id = sharedPreferences.getString("userid", "");
         String state = sharedPreferences.getString("userstate", "");
@@ -387,6 +391,7 @@ public class homeFragment extends Fragment implements LocationListener {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        progressdialog.hideLoadingDialog();
                         if (adsResults.size() > 0) {
                             adsAdapter.notifyDataSetChanged();
                         }

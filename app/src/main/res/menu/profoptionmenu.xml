@@ -6,7 +6,7 @@
         android:title="About Us" />
     <item
         android:id="@+id/aboutbtn"
-        android:title="Terms And Conditions" />
+        android:title="Terms Of Service" />
     <item
         android:id="@+id/delacc_item"
         android:title="Delete Account" />

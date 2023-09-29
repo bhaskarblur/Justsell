@@ -83,17 +83,9 @@ public class HomeActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                List<String> testdev_id=new ArrayList<>();
-//                testdev_id.add("E0E6437ED479B9EC814E40CDFE6D5D47");
-//                RequestConfiguration configuration =
-//                        new RequestConfiguration.Builder().setTestDeviceIds(testdev_id).build();
-//                MobileAds.setRequestConfiguration(configuration);
 
                 AdView adView = new AdView(HomeActivity.this);
                 adView.setAdSize(AdSize.BANNER);
-                // test banner id ca-app-pub-3940256099942544/6300978111
-                // banner ad id ca-app-pub-3736420404472867/4343939301
-                // banner ads id
                 adView.setAdUnitId("ca-app-pub-3736420404472867/4343939301");
                 AdRequest adRequest = new AdRequest.Builder().build();
                 binding.adView.loadAd(adRequest);

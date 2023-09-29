@@ -28,9 +28,12 @@ import com.classified.upuse.HomeActivity;
 import com.classified.upuse.Models.AuthResponse;
 import com.classified.upuse.R;;
 import com.classified.upuse.databinding.FragmentOTPBinding;
+import com.classified.upuse.helpingCode.progressDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -210,12 +213,15 @@ public class OTPFragment extends Fragment {
                                 + lgbinding.otpbox3.getText().toString() + lgbinding.otpbox4.getText().toString();
                         Call<AuthResponse.VerifyOtp> call = apiWork.login(number, otphere,token);
 
+                        com.classified.upuse.helpingCode.progressDialog dialog = new progressDialog();
+                        dialog.showLoadingDialog(getContext(), "Verifying", "Verifying OTP");
                         call.enqueue(new Callback<AuthResponse.VerifyOtp>() {
                             @Override
                             public void onResponse(Call<AuthResponse.VerifyOtp> call, Response<AuthResponse.VerifyOtp> response) {
 
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
+                                    Toast.makeText(getActivity(), String.valueOf(response.message()), Toast.LENGTH_SHORT).show();
                                     return;
                                 }
 
@@ -223,41 +229,46 @@ public class OTPFragment extends Fragment {
 
                                 Log.d("message", resp.getMessage());
 
+                                dialog.hideLoadingDialog();
                                 pressed = false;
-                                if (resp.getMessage().toString().contains("success")) {
-                                    if (resp.getResult().getUser_type().equals("new user")) {
-                                        // send for profile update
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("userid", resp.getResult().getId());
-                                        registerProfile df = new registerProfile();
-                                        df.setArguments(bundle);
-                                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-                                        transaction.replace(R.id.auth_fragcontainer, df);
-                                        transaction.commit();
+                                try {
+                                    if (resp.getMessage().toString().contains("success")) {
+                                        if (Objects.equals(resp.getResult().getUser_type(), "new user")) {
+                                            // send for profile update
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("userid", resp.getResult().getId());
+                                            registerProfile df = new registerProfile();
+                                            df.setArguments(bundle);
+                                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                                            transaction.replace(R.id.auth_fragcontainer, df);
+                                            transaction.commit();
+                                        } else if (Objects.equals(resp.getResult().getUser_type(), "old user")){
+                                            // send to home
+                                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("userlogged", "yes");
+                                            editor.putString("userimage", resp.getResult().getImage());
+                                            editor.putString("userid", resp.getResult().getId());
+                                            editor.putString("username", resp.getResult().getName().toString());
+                                            editor.putString("userstate", resp.getResult().getState().toString());
+                                            editor.putString("usercity", resp.getResult().getCity().toString());
+                                            editor.putString("usermobile", resp.getResult().getMobile());
+                                            editor.commit();
+
+                                            startActivity(new Intent(getActivity(), HomeActivity.class));
+                                            getActivity().finish();
+                                            getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                                        }
+                                    } else if (resp.getMessage().toString().contains("wrong")) {
+                                        Toast.makeText(getContext(), "Incorrect OTP!", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        // send to home
-                                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("userlogged", "yes");
-                                        editor.putString("userimage",resp.getResult().getImage());
-                                        editor.putString("userid", resp.getResult().getId());
-                                        editor.putString("username", resp.getResult().getName().toString());
-                                        editor.putString("userstate", resp.getResult().getState().toString());
-                                        editor.putString("usercity", resp.getResult().getCity().toString());
-                                        editor.putString("usermobile", resp.getResult().getMobile());
-                                        editor.commit();
-
-                                        startActivity(new Intent(getActivity(), HomeActivity.class));
-                                        getActivity().finish();
-                                        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                                        Toast.makeText(getContext(), "There was an error!", Toast.LENGTH_SHORT).show();
                                     }
-                                } else if (resp.getMessage().toString().contains("wrong")) {
-                                    Toast.makeText(getContext(), "Incorrect OTP!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), "There was an error!", Toast.LENGTH_SHORT).show();
                                 }
-
+                                catch (Throwable err) {
+                                    Log.d("Error otp", err.getMessage().toString());
+                                }
                             }
 
                             @Override
@@ -297,7 +308,7 @@ public class OTPFragment extends Fragment {
                 long Minutes = millisUntilFinished / (60 * 1000);
                 long Seconds = millisUntilFinished / 1000 % 60;
 
-                String count = getColoredSpanned(String.valueOf(Minutes) + ":" + String.valueOf(Seconds), "#26BB01");
+                String count = getColoredSpanned(String.valueOf(Minutes) + ":" + String.valueOf(Seconds), "#12C524");
                 lgbinding.otpCounttxt.setText(HtmlCompat.fromHtml(count, HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
 

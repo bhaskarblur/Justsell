@@ -161,7 +161,7 @@ public class registerProfile extends Fragment {
                             }
                           AuthResponse.profile_update resp=response.body();
 
-                            Log.d("message", resp.getStatus());
+//                            Log.d("message", resp.getStatus());
                             if(resp.getResult()!=null) {
                                 Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
                                 SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);

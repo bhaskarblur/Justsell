@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
                     finish();
                 }
-            },2000);
+            },1000);
         }
 
     }

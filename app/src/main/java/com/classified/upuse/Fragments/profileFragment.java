@@ -53,6 +53,7 @@ import com.classified.upuse.Models.AuthResponse;
 import com.classified.upuse.Models.homeResponse;
 
 import com.classified.upuse.ViewModels.profilefragViewModel;
+import com.classified.upuse.helpingCode.progressDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -237,28 +238,34 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                             }
                             AuthResponse.profile_update resp = response.body();
 
-                            Log.d("message", resp.getStatus());
-                            if (resp.getResult() != null) {
-                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("userlogged", "yes");
-                                editor.putString("userimage", resp.getResult().getImage());
-                                editor.putString("userid", resp.getResult().getId());
-                                editor.putString("usermobile", resp.getResult().getMobile());
-                                editor.putString("username", resp.getResult().getName());
-                                editor.putString("userstate", resp.getResult().getState());
-                                editor.putString("usercity", resp.getResult().getCity());
-                                editor.commit();
-                                binding.userName.setText(resp.getResult().getName());
-                                binding.userNumber.setText(resp.getResult().getMobile());
-                                binding.profileEditSave.setVisibility(View.INVISIBLE);
-                                binding.profileEdit.setVisibility(View.VISIBLE);
-                                binding.nameTxt.setVisibility(View.INVISIBLE);
-                                binding.numberTxt.setVisibility(View.INVISIBLE);
-                                binding.imgPick.setVisibility(View.INVISIBLE);
+                            try {
+//                                Log.d("message", resp.getStatus());
+                                if (resp.getResult() != null && resp.getMessage().toLowerCase().contains("success"))
+                                {
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userlogged", 0);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("userlogged", "yes");
+                                    editor.putString("userimage", resp.getResult().getImage());
+                                    editor.putString("userid", resp.getResult().getId());
+                                    editor.putString("usermobile", resp.getResult().getMobile());
+                                    editor.putString("username", resp.getResult().getName());
+                                    editor.putString("userstate", resp.getResult().getState());
+                                    editor.putString("usercity", resp.getResult().getCity());
+                                    editor.commit();
+                                    binding.userName.setText(resp.getResult().getName());
+                                    binding.userNumber.setText("+91 "+resp.getResult().getMobile());
+                                    binding.profileEditSave.setVisibility(View.INVISIBLE);
+                                    binding.profileEdit.setVisibility(View.VISIBLE);
+                                    binding.nameTxt.setVisibility(View.INVISIBLE);
+                                    binding.numberTxt.setVisibility(View.INVISIBLE);
+                                    binding.imgPick.setVisibility(View.INVISIBLE);
 
-                            } else {
-                                Toast.makeText(getContext(), "There was an error!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), "There was an error!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            catch(Throwable err) {
+                                Log.d("error on saving profile", err.getMessage().toString());
                             }
 
                         }
@@ -361,6 +368,9 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         startActivityForResult(intent, IMAGE_PICK_CODE);
     }
     private void ManageData() {
+        progressDialog progressdialog = new progressDialog();
+        progressdialog.showLoadingDialog(getContext(), "Loading",
+                "Loading Profile. Please wait");
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -376,6 +386,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                     return;
                 }
 
+                progressdialog.hideLoadingDialog();
                 AuthResponse.VerifyOtp resp = response.body();
 
                 if (resp.getResult() != null) {
@@ -589,7 +600,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.profoptionmenu);
         MenuItem item = popupMenu.getMenu().findItem(R.id.delacc_item);
-        SpannableString s = new SpannableString("Delete Account");
+        SpannableString s = new SpannableString("Delete Account?");
         item.setTitle(s);
         s.setSpan(new ForegroundColorSpan(Color.parseColor("#F24747")), 0, s.length(), 0);
         popupMenu.show();
@@ -702,7 +713,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 break;
             case R.id.delacc_item:
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext()).setTitle("Delete Account?")
-                        .setMessage("Do you want to delete this account?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setMessage("Are you sure you want to delete this account? You will loose all your data.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 

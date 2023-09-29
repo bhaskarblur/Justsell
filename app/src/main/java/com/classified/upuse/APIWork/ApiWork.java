@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 public interface ApiWork {
 
     @FormUrlEncoded
-    @POST("Login")
+    @POST("login")
     Call<AuthResponse.SendOtp> sendotp(@Field("mobile") String mobile);
 
     @FormUrlEncoded
