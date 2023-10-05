@@ -42,20 +42,14 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.viewHo
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
-
         holder.fieldname.setText(searchfieldModelList.get(position).getCategory_name());
         Picasso.get().load(searchfieldModelList.get(position).getCategory_image()).resize(150           ,150)
                 .centerCrop().into(holder.img);
         if(checkpos==position){
             holder.fieldbg.setBackgroundResource(R.drawable.fieldselbg);
-
         }
         else if(checkpos!=position) {
             holder.fieldbg.setBackgroundResource(R.drawable.fieldnotselbg);
-        }
-        if(searchfieldModelList.get(position).getCategory_name().contains("All")) {
-            Picasso.get().load(R.drawable.applogo).into(holder.img);
-            holder.img.setColorFilter(ContextCompat.getColor(mcontext, R.color.primary_color));
         }
 
     }

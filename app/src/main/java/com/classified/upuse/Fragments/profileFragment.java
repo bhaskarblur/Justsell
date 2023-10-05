@@ -253,7 +253,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                                     editor.putString("usercity", resp.getResult().getCity());
                                     editor.commit();
                                     binding.userName.setText(resp.getResult().getName());
-                                    binding.userNumber.setText("+91 "+resp.getResult().getMobile());
+                                    binding.userNumber.setText(resp.getResult().getMobile());
                                     binding.profileEditSave.setVisibility(View.INVISIBLE);
                                     binding.profileEdit.setVisibility(View.VISIBLE);
                                     binding.nameTxt.setVisibility(View.INVISIBLE);
@@ -355,11 +355,19 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     private void startCropActivity() {
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 !=PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
-            return;
+            requestPermission();
+//            return;
         }
 
         pickImageFromGallery();
+    }
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Toast.makeText(getActivity(),
+                    "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+        }
     }
 
     private void pickImageFromGallery() {
@@ -613,8 +621,6 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
             case PERMISSION_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startCropActivity();
-                } else {
-                    Toast.makeText(getContext(), "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -626,15 +632,17 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
-            ClipData clipData = data.getClipData();
 
+            Uri clipData = data.getData();
             if (clipData!=null) {
-                String img = clipData.getItemAt(0).toString();
+                Log.d("image", clipData.toString());
+                String img = clipData.toString();
                 editedimage = String.valueOf(img);
                 final int radius = 150;
                 final int margin = 50;
                 final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-                Picasso.get().load(editedimage).transform(new CropCircleTransformation()).into(binding.userImg);
+                Picasso.get().load(editedimage).transform(new CropCircleTransformation())
+                        .resize(540,540).into(binding.userImg);
             }
 
         }

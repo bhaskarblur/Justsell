@@ -1,5 +1,7 @@
 package com.classified.upuse;
 
+import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -8,7 +10,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -27,6 +31,7 @@ import com.classified.upuse.ViewModels.AdsViewModel;
 import com.classified.upuse.databinding.ActivityAdPosterBinding;
 import com.classified.upuse.databinding.ActivityAdUserBinding;
 import com.classified.upuse.databinding.ActivityPostPropertyBinding;
+import com.classified.upuse.helpingCode.progressDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -65,7 +70,31 @@ public class Ad_posterActivity extends AppCompatActivity {
         binding=ActivityAdPosterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        View decorView = getWindow().getDecorView();
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
 
+            case Configuration.UI_MODE_NIGHT_NO:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+        }
         ManageData();
         viewfuncs();
     }
@@ -85,7 +114,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
                         if (!response.isSuccessful()) {
-                            Log.d("error code", String.valueOf(response.code()));
+                            Log.d("error code1", String.valueOf(response.code()));
                             return;
                         }
 
@@ -119,7 +148,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
                         if (!response.isSuccessful()) {
-                            Log.d("error code", String.valueOf(response.code()));
+                            Log.d("error code2", String.valueOf(response.code()));
                             return;
                         }
 
@@ -173,10 +202,15 @@ public class Ad_posterActivity extends AppCompatActivity {
 
     }
 
+
     private void ManageData() {
+        progressDialog progressdialog = new progressDialog();
+        progressdialog.showLoadingDialog(this, "Loading",
+                "Loading. Please wait");
         pos = 0;
         Intent intent = getIntent();
         adid = intent.getStringExtra("ad_id");
+        Log.d("ad_id", adid);
         prod_name = intent.getStringExtra("product_name");
         cat_name = intent.getStringExtra("cat_name");
         SharedPreferences sharedPreferences=getSharedPreferences("userlogged",0);
@@ -314,6 +348,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                         binding.line7Data.setVisibility(View.GONE);
                     }
                 }
+                progressdialog.hideLoadingDialog();
             }
         });
 
@@ -384,10 +419,10 @@ public class Ad_posterActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
-                        googleMap.setMaxZoomPreference(14);
+                        googleMap.setMinZoomPreference(20);
                         LatLng latLng = new LatLng(sellat, sellongit);
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
-                                .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.mapicon));
+                                .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.locaticonyellow));
                         sellerlat[0] =String.valueOf(sellat);
                         sellerlong[0] =String.valueOf(sellongit);
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));

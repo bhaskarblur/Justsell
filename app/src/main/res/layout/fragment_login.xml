@@ -33,7 +33,7 @@
                 android:lineSpacingExtra="2dp"
                 android:text="Welcome \nBack"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="76dp"
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="76dp"
                 android:layout_marginEnd="100dp"

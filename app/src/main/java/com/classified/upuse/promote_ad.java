@@ -1,5 +1,7 @@
 package com.classified.upuse;
 
+import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -9,7 +11,9 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +62,31 @@ public class promote_ad extends AppCompatActivity {
         binding= ActivityPromoteAdBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        View decorView = getWindow().getDecorView();
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+        }
 
         ManageData();
         viewfunc();
@@ -300,7 +329,7 @@ public class promote_ad extends AppCompatActivity {
     private void loadfunc() {
         api_baseurl baseurl = new api_baseurl();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl_market)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
@@ -330,7 +359,7 @@ public class promote_ad extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if (!parent.getItemAtPosition(position).equals("Select State")) {
                                 binding.statet.setText(parent.getItemAtPosition(position).toString());
-                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl_market)
+                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);

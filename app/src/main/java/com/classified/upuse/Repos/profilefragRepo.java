@@ -74,7 +74,7 @@ public class profilefragRepo {
             @Override
             public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
                 if(!response.isSuccessful()){
-                    Log.d("Error code",String.valueOf(response.code()));
+                    Log.d("Error code11",String.valueOf(response.code()));
                     return;
                 }
 
@@ -110,7 +110,7 @@ public class profilefragRepo {
             @Override
             public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
                 if(!response.isSuccessful()){
-                    Log.d("Error code",String.valueOf(response.code()));
+                    Log.d("Error code22",String.valueOf(response.code()));
                     return;
                 }
 
@@ -145,7 +145,7 @@ public class profilefragRepo {
             @Override
             public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
                 if(!response.isSuccessful()){
-                    Log.d("Error code",String.valueOf(response.code()));
+                    Log.d("Error code33",String.valueOf(response.code()));
                     return;
                 }
 

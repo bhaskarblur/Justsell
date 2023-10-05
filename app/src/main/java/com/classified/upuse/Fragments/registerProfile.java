@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import com.canhub.cropper.CropImage;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.widget.ImageViewCompat;
@@ -34,6 +35,8 @@ import com.classified.upuse.Constants.api_baseurl;
 import com.classified.upuse.HomeActivity;
 import com.classified.upuse.Models.AuthResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -163,7 +166,7 @@ public class registerProfile extends Fragment {
 
 //                            Log.d("message", resp.getStatus());
                             if(resp.getResult()!=null) {
-                                Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Registered successfully.", Toast.LENGTH_SHORT).show();
                                 SharedPreferences sharedPreferences=getActivity().getSharedPreferences("userlogged",0);
                                 SharedPreferences.Editor editor=sharedPreferences.edit();
                                 editor.putString("userlogged","yes");
@@ -206,8 +209,11 @@ public class registerProfile extends Fragment {
     private void loadfunc() {
         api_baseurl baseurl = new api_baseurl();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl_market)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
+                .addConverterFactory(GsonConverterFactory.create(gson)).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
@@ -224,7 +230,7 @@ public class registerProfile extends Fragment {
                 AuthResponse.getstate statedata = response.body();
                 ArrayList<String> statelist = new ArrayList<>();
                 statelist.add("Select State");
-
+                Log.d("states List", statedata.getMessage().toString());
                 if (statedata.getResult() != null) {
                     for (int i = 0; i < statedata.getResult().size(); i++) {
                         statelist.add(statedata.getResult().get(i).getStatename());
@@ -236,17 +242,17 @@ public class registerProfile extends Fragment {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if (!parent.getItemAtPosition(position).equals("Select State")) {
                                 sdbinding.statet.setText(parent.getItemAtPosition(position).toString());
-                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl_market)
+                                Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
-                                Call<AuthResponse.getcity> call = apiWork.getcity(statedata.getResult().get(position - 1).getId());
+                                Call<AuthResponse.getcity> call = apiWork.getcity(statedata.getResult().get(position - 1).getStatename());
 
                                 call.enqueue(new Callback<AuthResponse.getcity>() {
                                     @Override
                                     public void onResponse(Call<AuthResponse.getcity> call, Response<AuthResponse.getcity> response) {
                                         if (!response.isSuccessful()) {
-                                            Log.d("error code:", String.valueOf(response.code()));
+                                            Log.d("error codecity:", String.valueOf(response.code()));
                                             return;
                                         }
 
@@ -296,8 +302,9 @@ public class registerProfile extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<AuthResponse.getstate> call, Throwable t) {
-
+            public void onFailure(Call<AuthResponse.getstate> call, @NonNull Throwable t) {
+                Log.d("stateFailure", t.getMessage());
+                Log.d("stateFailure2", call.request().url().toString());
             }
         });
 
@@ -308,7 +315,7 @@ public class registerProfile extends Fragment {
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 !=PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
-            return;
+//            return;
         }
 
         pickImageFromGallery();
@@ -350,8 +357,7 @@ public class registerProfile extends Fragment {
             ClipData clipData = data.getClipData();
 
             if (clipData!=null) {
-                String img =  clipData.getItemAt(0).toString();
-                imguri = Uri.parse(clipData.getItemAt(0).toString());
+                imguri =  data.getData();
                 sdbinding.cameraimg.setVisibility(View.GONE);
                 sdbinding.registeruserimg.setColorFilter(null);
                 sdbinding.registeruserimg.clearColorFilter();

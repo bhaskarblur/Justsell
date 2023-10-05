@@ -391,12 +391,12 @@ public class homeFragment extends Fragment implements LocationListener {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        progressdialog.hideLoadingDialog();
                         if (adsResults.size() > 0) {
                             adsAdapter.notifyDataSetChanged();
                         }
+                        progressdialog.hideLoadingDialog();
                     }
-                }, 100);
+                }, 500);
             }
         });
         categoryAdapter = new categoryAdapter(getActivity(), hmViewModel.getCategorydata().getValue());

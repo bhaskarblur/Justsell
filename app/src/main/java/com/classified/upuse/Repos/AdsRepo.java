@@ -1,4 +1,4 @@
-package com.classified.justsell.Repos;
+package com.classified.upuse.Repos;
 
 import android.util.Log;
 
@@ -8,6 +8,8 @@ import com.classified.upuse.APIWork.ApiWork;
 import com.classified.upuse.Constants.api_baseurl;
 import com.classified.upuse.Models.AdsModel;
 import com.classified.upuse.Models.homeResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +52,11 @@ public class AdsRepo {
 
     private void getadsfromserver(String ad_id,String userid) {
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create(gson)).build();
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
         Call<homeResponse.ListadsResp> call3=apiWork.get_recommendedads(ad_id,userid);
@@ -60,7 +65,7 @@ public class AdsRepo {
             @Override
             public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
                 if(!response.isSuccessful()){
-                    Log.d("Error code",String.valueOf(response.code()));
+                    Log.d("Error code11",String.valueOf(response.code()));
                     return;
                 }
 
@@ -83,8 +88,11 @@ public class AdsRepo {
         });
     }
     private void getdatafromServer(String ad_id,String userid) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create(gson)).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
@@ -94,7 +102,7 @@ public class AdsRepo {
             @Override
             public void onResponse(Call<AdsModel.adsResp> call, Response<AdsModel.adsResp> response) {
                 if(!response.isSuccessful()) {
-                    Log.d("error code",String.valueOf(response.raw()));
+                    Log.d("error code22",String.valueOf(response.raw()));
                     return;
                 }
                 Log.d("datadelivered","yep");

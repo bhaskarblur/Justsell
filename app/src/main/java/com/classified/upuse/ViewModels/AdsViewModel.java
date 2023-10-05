@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.classified.upuse.Models.AdsModel;
 import com.classified.upuse.Models.homeResponse;
-import com.classified.justsell.Repos.AdsRepo;
 import com.classified.justsell.Repos.profilefragRepo;
+import com.classified.upuse.Repos.AdsRepo;
 
 import java.util.List;
 

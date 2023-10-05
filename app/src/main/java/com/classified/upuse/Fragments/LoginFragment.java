@@ -121,6 +121,7 @@ public class LoginFragment extends Fragment {
                                 dialog.hideLoadingDialog();
                                 if (resp.getMessage().toString().toLowerCase().contains("successfully") ||
                                 resp.getMessage().toString().toLowerCase().contains("wuccess")) {
+                                    Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_SHORT).show();
                                     OTPFragment df = new OTPFragment();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("number", lgbinding.loginnumber.getText().toString());

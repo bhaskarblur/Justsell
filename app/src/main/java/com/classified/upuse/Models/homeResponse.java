@@ -313,6 +313,7 @@ public class homeResponse {
 
         public String success;
         public List<citiesResp> result;
+        @SerializedName("message")
         public String message;
 
         public String getSuccess() {
@@ -341,7 +342,7 @@ public class homeResponse {
     }
 
     public static class citiesResp {
-        @SerializedName("city_name")
+        @SerializedName("city")
         public String city;
         public String state;
 

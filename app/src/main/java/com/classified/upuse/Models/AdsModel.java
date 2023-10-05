@@ -7,7 +7,10 @@ import java.util.List;
 public class AdsModel {
 
     public class adsResp {
+
+        @SerializedName("status")
         public String success;
+        @SerializedName("message")
         public String code;
 
         public String getCode() {

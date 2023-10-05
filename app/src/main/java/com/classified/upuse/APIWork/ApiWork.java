@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiWork {
 
@@ -25,9 +26,8 @@ public interface ApiWork {
     @GET("all-state")
     Call<AuthResponse.getstate> getstate();
 
-    @FormUrlEncoded
-    @POST("get-city")
-    Call<AuthResponse.getcity> getcity(@Field("state_id") String stateid);
+    @GET("state-by-city")
+    Call<AuthResponse.getcity> getcity(@Query("state") String state);
 
     @FormUrlEncoded
     @POST("profile_update")
@@ -71,9 +71,11 @@ public interface ApiWork {
     Call<homeResponse.ListadsResp> getAds(@Field("city") String city,
                                           @Field("user_id") String userid);
 
-    @FormUrlEncoded
-    @POST("state")
-    Call<homeResponse.listofcities> getallcities(@Field("city_name") String cityname);
+    @GET("city")
+    Call<homeResponse.listofcities> getallcities(@Query("q") String query,
+                                                 @Query("page") Integer limit);
+
+
 
     @FormUrlEncoded
     @POST("favorite")
@@ -101,7 +103,7 @@ public interface ApiWork {
 
     @FormUrlEncoded
     @POST("single_product")
-    Call<AdsModel .adsResp> single_product(@Field("product_id") String ad_id,
+    Call<AdsModel.adsResp> single_product(@Field("product_id") String ad_id,
                                            @Field("user_id") String userid);
 
     @FormUrlEncoded

@@ -24,12 +24,11 @@
         android:id="@+id/remimg"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/closebtn" />
+        app:srcCompat="@drawable/closebtn"
+        android:src="@drawable/closebtn"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

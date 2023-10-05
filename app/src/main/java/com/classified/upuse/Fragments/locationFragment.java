@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,7 +20,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +33,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.classified.upuse.R;
 import com.classified.upuse.databinding.FragmentLocationBinding;
@@ -197,23 +203,28 @@ public class locationFragment extends Fragment {
     }
 
     private void ManageData() {
-        getlatlong();
-//        hmViewModel=new ViewModelProvider(getActivity()).get(homefragViewModel.class);
-//        hmViewModel.initwork(userid,"0","0",city);
-//        hmViewModel.getCitydata().observe(getActivity(), new Observer<List<homeResponse.citiesResp>>() {
-//            @Override
-//            public void onChanged(List<homeResponse.citiesResp> citiesResps) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if(citiesResps.size()>0) {
-//                            cityAdapter.notifyDataSetChanged();
-//                        }
-//                    }
-//                },100);
-//            }
-//        });
+        hmViewModel = new ViewModelProvider(getActivity()).get(homefragViewModel.class);
+        hmViewModel.initwork(userid, "0", "0",sharedPreferences.getString("usercity", ""));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hmViewModel.getCitydata().observe(getViewLifecycleOwner(), new Observer<List<homeResponse.citiesResp>>() {
+                    @Override
+                    public void onChanged(List<homeResponse.citiesResp> citiesResps) {
 
+                        Log.d("citiesLoaded", "true");
+                        citylist1.addAll(citiesResps);
+                        binding.citysearch.setVisibility(View.VISIBLE);
+                        binding.progressBar5.setVisibility(View.GONE);
+                        cityAdapter.notifyDataSetChanged();
+
+
+                    }
+                });
+            }
+        },0);
+
+        getlatlong();
         cityAdapter=new cityAdapter(getActivity(),citylist1);
         LinearLayoutManager llm=new LinearLayoutManager(getContext());
         binding.citysearch.setLayoutManager(llm);
@@ -236,44 +247,60 @@ public class locationFragment extends Fragment {
 
             }
         });
-        binding.citysearchTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
+        binding.citysearchTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                binding.citysearch.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(s.toString()!=null) {
-                            searchFromServer(s.toString());
-                        }
-                        else {
-                            binding.citysearch.setVisibility(View.GONE);
-                        }
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //got focus
+                } else {
+                    if(!binding.citysearchTxt.getText().toString().isEmpty()) {
+                        binding.citysearch.setVisibility(View.GONE);
+                        searchFromServer(binding.citysearchTxt.getText().toString(), 1);
                     }
-                },200);
-
+                    else {
+                    }
+                }
             }
         });
 
+        binding.citysearch.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            int ydy = 0;
+            int page = 1;
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView,newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int offset = dy - ydy;
+                ydy = dy;
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == citylist1.size() - 1) {
+                    //bottom of list!
+                    page = page + 1;
+                    searchFromServer(!binding.citysearchTxt.getText().toString().isEmpty() ? binding.citysearchTxt.getText().toString()
+                            : "", page);
+                }
+
+            }
+        });
     }
 
-    private void searchFromServer(String name) {
+    private void searchFromServer(String query, Integer page) {
+        if(query.equals("") && page == 1) {
+            binding.citysearch.setVisibility(View.GONE);
+            binding.progressBar5.setVisibility(View.VISIBLE);
+        }
         api_baseurl baseurl=new api_baseurl();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
-
         ApiWork apiWork = retrofit.create(ApiWork.class);
-        Call<homeResponse.listofcities> call2=apiWork.getallcities(name.toString());
+        Call<homeResponse.listofcities> call2=apiWork.getallcities(query.toString(), page);
         call2.enqueue(new Callback<homeResponse.listofcities>() {
             @Override
             public void onResponse(Call<homeResponse.listofcities> call, Response<homeResponse.listofcities> response) {
@@ -283,13 +310,17 @@ public class locationFragment extends Fragment {
                 }
 
                 homeResponse.listofcities resp=response.body();
-                Log.d("what",resp.getResult().get(0).getCity());
                 if(resp.getResult()!=null) {
-                    citylist1.clear();
-                    for(homeResponse.citiesResp resp1:resp.getResult()) {
-                        citylist1.add(resp1);
+                    if(!query.equals("") && page == 1) {
+                        citylist1.clear();
+                    }
+                    for(int i=0; i<resp.getResult().size();i++) {
+                        if(!citylist1.contains(resp.getResult().get(i))) {
+                            citylist1.add(resp.getResult().get(i));
+                        }
                     }
                     binding.citysearch.setVisibility(View.VISIBLE);
+                    binding.progressBar5.setVisibility(View.GONE);
                     cityAdapter.notifyDataSetChanged();
 
                 }

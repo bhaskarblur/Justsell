@@ -1,11 +1,13 @@
 package com.classified.upuse.ViewModels;
 
+import android.os.Handler;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.classified.upuse.Models.homeResponse;
-import com.classified.justsell.Repos.homefragRepo;
+import com.classified.upuse.Repos.homefragRepo;
 
 import java.util.List;
 
@@ -31,8 +33,7 @@ public class homefragViewModel extends ViewModel {
         if(adsdata!=null) {
             return;
         }
-
-        citydata=repo.getInstance().returncitydata();
+        citydata = repo.getInstance().returncitydata();
         bannerdata= repo.getInstance().getInstance().returnbannerdata();
         categorydata=repo.getInstance().returncategorydata();
         adsdata= repo.getInstance().returnadadata(location,userid);

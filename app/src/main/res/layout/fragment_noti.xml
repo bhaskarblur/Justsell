@@ -41,7 +41,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
         android:src="@drawable/backbtn"
-        android:tint="?android:textColorPrimary"
+        app:tint="?android:textColorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:text="No Notification"
+        android:text="No Notifications"
         android:textColor="?android:textColorPrimary"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

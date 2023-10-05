@@ -1,5 +1,6 @@
 package com.classified.upuse;
 
+import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import static java.security.AccessController.getContext;
 
 import androidx.annotation.NonNull;
@@ -20,11 +21,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Base64;
@@ -43,6 +46,7 @@ import com.classified.upuse.Adapters.textonlyAdapter;
 import com.classified.upuse.Constants.api_baseurl;
 import com.classified.upuse.CustomDialogs.askBoost_Dialog;
 import com.classified.upuse.Models.AdsModel;
+import com.classified.upuse.helpingCode.progressDialog;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -97,6 +101,31 @@ public class PostActivity extends AppCompatActivity {
         binding= ActivityPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        View decorView = getWindow().getDecorView();
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+        }
 
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -368,7 +397,9 @@ public class PostActivity extends AppCompatActivity {
                    Toast.makeText(PostActivity.this, "Please enter km driven", Toast.LENGTH_SHORT).show();
                 }
             else {
-
+                    progressDialog progressdialog = new progressDialog();
+                    progressdialog.showLoadingDialog(PostActivity.this, "Loading",
+                            "Creating Ad. Please wait");
 //                    Posting API Here
 
                     if (posting.equals(false)) {
@@ -415,6 +446,7 @@ public class PostActivity extends AppCompatActivity {
                             public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
+                                    progressdialog.hideLoadingDialog();
                                     return;
                                 }
 
@@ -428,12 +460,14 @@ public class PostActivity extends AppCompatActivity {
                                     dialog.setCancelable(false);
                                     dialog.show(getSupportFragmentManager(), "dialog");
                                 }
+                                progressdialog.hideLoadingDialog();
                             }
 
                             @Override
                             public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
                                 Log.d("Failure", t.getMessage());
                                 posting=false;
+                                progressdialog.hideLoadingDialog();
                                 binding.progressBar.setVisibility(View.INVISIBLE);
                                 binding.postAutomobBtn.setVisibility(View.VISIBLE);
                             }
@@ -502,7 +536,7 @@ public class PostActivity extends AppCompatActivity {
         if(ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
         !=PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(PostActivity.this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
-            return;
+//            return;
         }
 
         Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
@@ -533,7 +567,7 @@ public class PostActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startCropActivity();
                 } else {
-                    Toast.makeText(PostActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PostActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
             }
 

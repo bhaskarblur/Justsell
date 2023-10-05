@@ -41,9 +41,9 @@ public class FavadsAdapter extends RecyclerView.Adapter<FavadsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final int radius = 13;
-        final int margin = 7;
+        final int margin = 0;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).centerCrop().transform(transformation).into(holder.adsimg);
+        Picasso.get().load(list.get(position).getAd_image()).resize(480,480).centerCrop().transform(transformation).into(holder.adsimg);
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         if(list.get(position).getAd_pricecut()!=null&& !list.get(position).getAd_pricecut().equals("")) {

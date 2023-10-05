@@ -1,4 +1,4 @@
-package com.classified.justsell.Repos;
+package com.classified.upuse.Repos;
 
 import android.os.Handler;
 import android.util.Log;
@@ -115,63 +115,48 @@ public class homefragRepo {
 
             @Override
             public void onFailure(Call<homeResponse.notiResp> call, Throwable t) {
-                Log.d("Failure_city",t.getMessage());
+                Log.d("Failure_notification",t.getMessage());
             }
         });
-
-
-
 
 
     }
 
 
     private void getcitiesfromServer() {
-//        citylist.add(new homeResponse.citiesResp("Ludhiana","Punjab"));
-//        citylist.add(new homeResponse.citiesResp("Amritsar","Punjab"));
-//        citylist.add(new homeResponse.citiesResp("Khanna","Punjab"));
-//        citylist.add(new homeResponse.citiesResp("Jalandhar","Punjab"));
-
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
-//        Call<homeResponse.listofcities> call2=apiWork.getallcities();
+        Call<homeResponse.listofcities> call2=apiWork.getallcities("",1);
+        call2.enqueue(new Callback<homeResponse.listofcities>() {
+            @Override
+            public void onResponse(Call<homeResponse.listofcities> call, Response<homeResponse.listofcities> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Error code",String.valueOf(response.code()));
+                    return;
+                }
 
-//        call2.enqueue(new Callback<homeResponse.listofcities>() {
-//            @Override
-//            public void onResponse(Call<homeResponse.listofcities> call, Response<homeResponse.listofcities> response) {
-//                if(!response.isSuccessful()){
-//                    Log.d("Error code",String.valueOf(response.code()));
-//                    return;
-//                }
-//
-//                homeResponse.listofcities resp=response.body();
-//
-//                if(resp.getResult()!=null) {
-//                    for(int i=0;i<resp.getResult().size();i++) {
-//                        citylist.add(resp.getResult().get(i));
-//                    }
-//
-//                    citydata.setValue(citylist);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<homeResponse.listofcities> call, Throwable t) {
-//                Log.d("Failure_city",t.getMessage());
-//            }
-//        });
+                homeResponse.listofcities resp=response.body();
+                Log.d("gotAllCities", resp.message);
+                if(resp.getResult()!=null) {
+                    for(int i=0;i<resp.getResult().size();i++) {
+                        citylist.add(resp.getResult().get(i));
+                    }
+
+                    citydata.setValue(citylist);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<homeResponse.listofcities> call, Throwable t) {
+                Log.d("Failure_city",t.getMessage());
+            }
+        });
     }
 
     private void getadsfromserver(String city,String userid) {
-//        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-//                , "$399", "$500", "1"));
-//        adslist.add(new homeResponse.adsResult("Iphone 12X Max 64GB", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=940&hei=1112&fmt=png-alpha&.v=1604343704000"
-//                , "$399", "$500", "0"));
-//        adsdata.setValue(adslist);
-
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseurl.apibaseurl.toString())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 

@@ -86,8 +86,8 @@
 
             <Button
                 android:id="@+id/onbprog9"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/onboardingposcircle"
@@ -99,8 +99,8 @@
 
             <Button
                 android:id="@+id/onbprog10"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
@@ -111,8 +111,8 @@
 
             <Button
                 android:id="@+id/onbprog11"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
@@ -123,8 +123,8 @@
 
             <Button
                 android:id="@+id/onbprog12"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
@@ -136,8 +136,8 @@
 
             <Button
                 android:id="@+id/onbprog14"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
@@ -149,8 +149,8 @@
 
             <Button
                 android:id="@+id/onbprog13"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/onboardingposcircle"
@@ -163,7 +163,7 @@
                 android:id="@+id/imageView9"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +175,7 @@
                 android:id="@+id/imageView6"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,9 +185,9 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="22dp"
+                android:layout_width="23dp"
                 android:layout_height="22dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="75dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -200,11 +200,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="9dp"
                 android:fontFamily="@font/poppins"
                 android:text="0"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/bannerrv" />
 
@@ -215,23 +215,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
                 android:apiKey="@string/mapsapikey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line7" />
+                app:layout_constraintTop_toBottomOf="@+id/line" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/bannerrv"
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="5dp"
                 android:clickable="true"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -257,7 +258,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Product Title"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodprice_txt" />
 
@@ -266,13 +267,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 7"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line6" />
+
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Seller location"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line7" />
 
             <TextView
                 android:id="@+id/line9"
@@ -280,10 +294,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_medium"
                 android:text="Posted By"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/google_map2" />
 
@@ -305,11 +319,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="180dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line6_data" />
 
@@ -318,11 +332,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 6"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line5" />
 
@@ -335,7 +349,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line5_data" />
 
@@ -344,11 +358,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 5"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line4" />
 
@@ -361,7 +375,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line4_data" />
 
@@ -370,11 +384,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 4"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line3" />
 
@@ -383,11 +397,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="180dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line3_data" />
 
@@ -396,11 +410,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 3"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line2" />
 
@@ -413,7 +427,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line2_data" />
 
@@ -422,11 +436,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 2"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line1" />
 
@@ -439,7 +453,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line1_data" />
 
@@ -452,7 +466,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Line 1"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
 
@@ -465,7 +479,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Information"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
 
@@ -479,7 +493,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Product Description"
                 android:textColor="?android:textColorPrimary"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/prodtitle_txt" />
@@ -488,9 +502,9 @@
                 android:id="@+id/constraintLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/border_bg2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -505,7 +519,7 @@
                     android:fontFamily="@font/poppins"
                     android:text="Posted By Name"
                     android:textColor="?android:textColorPrimary"
-                    android:textSize="13sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@+id/postimage"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -519,7 +533,7 @@
                     android:fontFamily="@font/poppins"
                     android:text="Posted By Number"
                     android:textColor="?android:textColorPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/postimage"
@@ -540,11 +554,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recom_ads"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

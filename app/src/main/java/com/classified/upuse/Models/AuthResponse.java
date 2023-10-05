@@ -70,9 +70,11 @@ public class AuthResponse {
 
     public class getstate {
 
+        @SerializedName("status")
         private String success;
-        private List<stateresp> result;
         private String message;
+
+        private List<stateresp> result;
 
         public String getSuccess() {
             return success;
@@ -101,6 +103,8 @@ public class AuthResponse {
     public class stateresp {
 
         private String id;
+
+        @SerializedName("state")
         private String statename;
         private String countryid;
 

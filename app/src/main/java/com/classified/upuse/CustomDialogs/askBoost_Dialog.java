@@ -42,7 +42,7 @@ public class askBoost_Dialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), adposted_successful.class));
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.fade_2,R.anim.fade);
                 getActivity().finish();
 
             }

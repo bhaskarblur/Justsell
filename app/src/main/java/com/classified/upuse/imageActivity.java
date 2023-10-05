@@ -1,8 +1,12 @@
 package com.classified.upuse;
 
+import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,6 +21,31 @@ public class imageActivity extends AppCompatActivity {
         binding=ActivityImageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getSupportActionBar().hide();
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        View decorView = getWindow().getDecorView();
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                }
+                break;
+
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getWindow().getDecorView().getWindowInsetsController().
+                            setSystemBarsAppearance(0, APPEARANCE_LIGHT_STATUS_BARS);
+                }
+                break;
+        }
 
         Intent intent=getIntent();
         String image=intent.getStringExtra("image");

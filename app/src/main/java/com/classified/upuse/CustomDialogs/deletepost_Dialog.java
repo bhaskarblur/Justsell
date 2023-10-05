@@ -122,12 +122,12 @@ public class deletepost_Dialog extends AppCompatDialogFragment {
 
                             AuthResponse.SendOtp resp = response.body();
 
-                            if (resp.getCode().equals("200")) {
+//                            if (resp.getCode().equals("200")) {
                                 Toast.makeText(getContext(), "Post Deleted!", Toast.LENGTH_SHORT).show();
                                 getActivity().getViewModelStore().clear();
                                 startActivity(new Intent(getActivity(), HomeActivity.class));
                                 getActivity().finish();
-                            }
+//                            }
                         }
 
                         @Override
