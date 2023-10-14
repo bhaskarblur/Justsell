@@ -73,7 +73,7 @@ public class adsAdapter extends RecyclerView.Adapter {
             final int margin = 0;
             try {
                     final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-                    Picasso.get().load(list.get(position).getAd_image()).resize(480, 480).
+                    Picasso.get().load(list.get(position).getAd_image()).resize(560, 560).
                             centerCrop().transform(transformation).into(holder1.adsimg);
 
                     holder1.adstitle.setText(list.get(position).getAd_title().toString());
@@ -111,7 +111,7 @@ public class adsAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(position%7==0 && position!=0) {
+        if(position%6==0 && position!=0) {
             return AD_VIEW_TYPE;
         }
         else {
@@ -161,13 +161,11 @@ public class adsAdapter extends RecyclerView.Adapter {
 
     public class adViewHolder extends RecyclerView.ViewHolder{
         NativeAdView adview;
-
         NativeAd nativeAd;
         public adViewHolder(@NonNull View itemView) {
             super(itemView);
             adview=itemView.findViewById(R.id.ad_nativeview);
-
-
+            loadAds();
         }
 
         private void loadAds() {
@@ -179,7 +177,7 @@ public class adsAdapter extends RecyclerView.Adapter {
                         public void onNativeAdLoaded(NativeAd NativeAd) {
                             NativeAdView adView= itemView.findViewById(R.id.ad_nativeview);
                             adView.setNativeAd(NativeAd);
-                            Toast.makeText(mcontext, "Native Loaded:", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(mcontext, "Native Loaded:", Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -187,8 +185,7 @@ public class adsAdapter extends RecyclerView.Adapter {
                     .withAdListener(new AdListener() {
                         @Override
                         public void onAdFailedToLoad(LoadAdError adError) {
-
-                            Toast.makeText(mcontext, "Native Error "+adError.getMessage(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(mcontext, "Native Error "+adError.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
                     .withNativeAdOptions(new NativeAdOptions.Builder()

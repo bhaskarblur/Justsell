@@ -13,6 +13,7 @@
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginStart="10dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sampleuserimg1" />
@@ -20,8 +21,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/chatmsg_background_1"
         android:backgroundTint="?android:textColorPrimaryInverse"
         app:layout_constraintStart_toStartOf="parent"

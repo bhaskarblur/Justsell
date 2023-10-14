@@ -419,7 +419,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
-                        googleMap.setMinZoomPreference(20);
+                        googleMap.setMinZoomPreference(17);
                         LatLng latLng = new LatLng(sellat, sellongit);
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                                 .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.locaticonyellow));

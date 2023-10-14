@@ -97,7 +97,7 @@ public class AdsRepo {
         ApiWork apiWork = retrofit.create(ApiWork.class);
 
         Call<AdsModel.adsResp> call=apiWork.single_product(ad_id,userid);
-
+        Log.d("ids", ad_id+","+userid);
         call.enqueue(new Callback<AdsModel.adsResp>() {
             @Override
             public void onResponse(Call<AdsModel.adsResp> call, Response<AdsModel.adsResp> response) {

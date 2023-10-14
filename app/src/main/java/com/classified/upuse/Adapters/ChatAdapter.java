@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.classified.upuse.R;
 import com.classified.upuse.imageActivity;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class ChatAdapter extends RecyclerView.Adapter{
     private Context mcontext;
@@ -67,6 +69,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         JSONObject message=messages.get(position);
+        Log.d("image__", String.valueOf(message.has("image")));
         try {
             if(message.getString("isSent").equals("yes")) {
                 if(message.has("message")) {
@@ -80,7 +83,13 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     //convert to base64
                     sentImageHolder holder1= (sentImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
-                    Picasso.get().load(message.getString("image")).resize(500,500).into(holder1.image);
+                    final int radius = 20;
+                    final int margin = 2;
+                    Log.d("imageTest2", message.toString());
+                    final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+                    Picasso.get().load(message.getString("image").toString()).transform(transformation)
+                            .resize(800,800).into(holder1.image);
+                    holder1.image.setRotation(0f);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -88,7 +97,6 @@ public class ChatAdapter extends RecyclerView.Adapter{
                                 Intent intent= new Intent(mcontext, imageActivity.class);
                                 intent.putExtra("image",message.getString("image"));
                                 mcontext.startActivity(intent);
-                           //     ((Activity) mcontext).overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -107,7 +115,13 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 else if(message.has("image")){
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
-                    Picasso.get().load(message.getString("image")).resize(500,500).into(holder1.image);
+                    final int radius = 20;
+                    final int margin = 2;
+                    Log.d("imageTest2", message.getString("image"));
+                    final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+                    Picasso.get().load(message.getString("image")).transform(transformation)
+                            .resize(800,800).into(holder1.image);
+                    holder1.image.setRotation(0f);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -115,7 +129,6 @@ public class ChatAdapter extends RecyclerView.Adapter{
                                 Intent intent= new Intent(mcontext, imageActivity.class);
                                 intent.putExtra("image",message.getString("image"));
                                 mcontext.startActivity(intent);
-                            //    ((Activity) mcontext).overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -184,7 +197,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
 
                 String userpic = sharedPreferences.getString("userimage", "");
                 if (userpic != null && !userpic.isEmpty()) {
-                    Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                    Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(480, 480).into(pic);
                 }
             }
         }
@@ -205,7 +218,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
                 String userpic = sharedPreferences.getString("userimage", "");
 
                 if (userpic != null && !userpic.isEmpty()) {
-                    Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(150, 150).into(pic);
+                    Picasso.get().load(userpic).transform(new CropCircleTransformation()).resize(480, 480).into(pic);
                 }
             }
         }

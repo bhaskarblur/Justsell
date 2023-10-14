@@ -72,6 +72,7 @@
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:buttonTint="@color/primary_color"
+                android:thumbTint="@color/primary_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView44"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
@@ -96,7 +97,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/number_switch2" />
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
             <EditText
                 android:id="@+id/proddesc_txt"
@@ -151,12 +152,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fuel_rec"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView25"
                 tools:itemCount="2"
@@ -239,7 +240,6 @@
                 android:paddingLeft="15dp"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/prodprice_txt2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -247,12 +247,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/numof_rec"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView26"
                 tools:itemCount="2"
@@ -302,12 +302,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trans_rec"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView24"
                 tools:itemCount="2"

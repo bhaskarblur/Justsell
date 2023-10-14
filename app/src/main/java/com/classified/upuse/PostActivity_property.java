@@ -224,7 +224,8 @@ public class PostActivity_property extends AppCompatActivity {
         proptype=proptypeList.get(0).toString();
         selone=seloneList.get(0).toString();
         adsAdapter = new textonlyAdapter(PostActivity_property.this, adtypeList);
-        GridLayoutManager glm = new GridLayoutManager(PostActivity_property.this, 3);
+        LinearLayoutManager glm = new LinearLayoutManager(this);
+        glm.setOrientation(RecyclerView.HORIZONTAL);
         binding.adtypeRec.setLayoutManager(glm);
         binding.adtypeRec.setAdapter(adsAdapter);
         adsAdapter.setoncardclicklistener(new textonlyAdapter.oncardclicklistener() {
@@ -235,7 +236,8 @@ public class PostActivity_property extends AppCompatActivity {
         });
 
         propAdapter = new textonlyAdapter(PostActivity_property.this, proptypeList);
-        GridLayoutManager glm1 = new GridLayoutManager(PostActivity_property.this, 3);
+        LinearLayoutManager glm1 = new LinearLayoutManager(this);
+        glm1.setOrientation(RecyclerView.HORIZONTAL);
         binding.proptypeRec.setLayoutManager(glm1);
         binding.proptypeRec.setAdapter(propAdapter);
         propAdapter.setoncardclicklistener(new textonlyAdapter.oncardclicklistener() {
@@ -246,7 +248,8 @@ public class PostActivity_property extends AppCompatActivity {
         });
 
         seloneAdapter = new textonlyAdapter(PostActivity_property.this, seloneList);
-        GridLayoutManager glm2 = new GridLayoutManager(PostActivity_property.this, 3);
+        LinearLayoutManager glm2 = new LinearLayoutManager(this);
+        glm2.setOrientation(RecyclerView.HORIZONTAL);
         binding.numofRec.setLayoutManager(glm2);
         binding.numofRec.setAdapter(seloneAdapter);
         seloneAdapter.setoncardclicklistener(new textonlyAdapter.oncardclicklistener() {
@@ -352,9 +355,9 @@ public class PostActivity_property extends AppCompatActivity {
                     binding.areaTxt.requestFocus();
                     Toast.makeText(PostActivity_property.this, "Please enter the area.", Toast.LENGTH_SHORT).show();
                 } else {
-                    progressDialog progressdialog = new progressDialog();
-                    progressdialog.showLoadingDialog(PostActivity_property.this, "Loading",
-                            "Creating Ad. Please wait");
+//                    progressDialog progressdialog = new progressDialog();
+//                    progressdialog.showLoadingDialog(PostActivity_property.this, "Loading",
+//                            "Creating Ad. Please wait");
 //                    Posting API Here
 
                     if (posting.equals(false)) {
@@ -400,7 +403,7 @@ public class PostActivity_property extends AppCompatActivity {
                             public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
-                                    progressdialog.hideLoadingDialog();
+//                                    progressdialog.hideLoadingDialog();
                                     return;
                                 }
 
@@ -414,14 +417,14 @@ public class PostActivity_property extends AppCompatActivity {
                                     dialog.setCancelable(false);
                                     dialog.show(getSupportFragmentManager(), "dialog");
                                 }
-                                progressdialog.hideLoadingDialog();
+//                                progressdialog.hideLoadingDialog();
                             }
 
                             @Override
                             public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
                                 Log.d("Failure", t.getMessage());
                                 posting=false;
-                                progressdialog.hideLoadingDialog();
+//                                progressdialog.hideLoadingDialog();
                                 binding.progressBar4.setVisibility(View.INVISIBLE);
                                 binding.postAutomobBtn.setVisibility(View.VISIBLE);
                             }

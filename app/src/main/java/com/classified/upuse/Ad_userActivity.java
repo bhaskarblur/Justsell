@@ -261,7 +261,7 @@ public class Ad_userActivity extends AppCompatActivity {
                             binding.onbprog14.setVisibility(View.INVISIBLE);
                         }
                     }
-
+                    Log.d("personId", adsResult.getUser_id());
                     personid=adsResult.getUser_id();
                     binding.prodpriceTxt.setText("Rs "+adsResult.getSelling_price());
                     binding.prodtitleTxt.setText(adsResult.getAd_title());
@@ -478,7 +478,7 @@ public class Ad_userActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
-                        googleMap.setMinZoomPreference(20);
+                        googleMap.setMinZoomPreference(17);
                         LatLng latLng = new LatLng(sellat, sellongit);
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                                 .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.locaticonyellow));

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.classified.upuse.Models.chatModel;
-import com.classified.justsell.Repos.singleChatRepo;
+import com.classified.upuse.Repos.singleChatRepo;
 
 import org.json.JSONObject;
 

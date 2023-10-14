@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 import me.bendik.simplerangeview.SimpleRangeView;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -405,8 +406,8 @@ public class searchFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                binding.bybudgetTxt.setTextColor(getResources().getColor(R.color.back_black, null));
-                binding.bydateTxt.setTextColor(Color.parseColor("#5A5A5A"));
+                binding.bybudgetTxt.setTextColor(getResources().getColor(R.color.white, null));
+                binding.bydateTxt.setTextColor(getResources().getColor(R.color.whiteSec, null));
 
                 binding.priceLay.setVisibility(View.VISIBLE);
                 binding.dateLay.setVisibility(View.INVISIBLE);
@@ -417,8 +418,8 @@ public class searchFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                binding.bydateTxt.setTextColor(getResources().getColor(R.color.back_black, null));
-                binding.bybudgetTxt.setTextColor(Color.parseColor("#5A5A5A"));
+                binding.bydateTxt.setTextColor(getResources().getColor(R.color.white, null));
+                binding.bybudgetTxt.setTextColor(getResources().getColor(R.color.whiteSec, null));
 
                 binding.priceLay.setVisibility(View.INVISIBLE);
                 binding.dateLay.setVisibility(View.VISIBLE);
@@ -579,6 +580,9 @@ public class searchFragment extends Fragment {
         if (searchedList.size() < 1) {
             binding.notfoundimg.setVisibility(View.VISIBLE);
             binding.nothingfoundtxt.setVisibility(View.VISIBLE);
+            binding.nothingfoundtxt.setText(
+                    "Nothing found with term:"+binding.searchTxt.getText());
+            binding.searchRec.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -606,8 +610,8 @@ public class searchFragment extends Fragment {
         }
          else if(datefilter.equals(true) && pricefilter.equals(true)) {
             call1 = apiWork.search_ads(user_id, binding.searchTxt.getText().toString()
-                    , null, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
-                    binding.datetxtStart.getText().toString(), binding.datetxtEnd.getText().toString(),city);
+                    , selected_category, binding.pricebox1.getText().toString(), binding.pricebox.getText().toString(), price_sort,
+                    null,null,city);
 
         }
          else if(catfilter.equals(true) && datefilter.equals(true)) {
@@ -635,7 +639,9 @@ public class searchFragment extends Fragment {
                     , null,null,null, null,null,null,city);
         }
 
-
+        call1 = apiWork.search_ads2(user_id, binding.searchTxt.getText().toString());
+         binding.progressBar5.setVisibility(View.VISIBLE);
+         binding.searchRec.setVisibility(View.INVISIBLE);
         call1.enqueue(new Callback<homeResponse.ListadsResp>() {
             @Override
             public void onResponse(Call<homeResponse.ListadsResp> call, Response<homeResponse.ListadsResp> response) {
@@ -643,7 +649,8 @@ public class searchFragment extends Fragment {
                     Log.d("Error code", String.valueOf(response.code()));
                     return;
                 }
-
+                binding.progressBar5.setVisibility(View.INVISIBLE);
+                binding.searchRec.setVisibility(View.VISIBLE);
                 if (response.body().getResult() != null) {
                     resultList.clear();
                     if (response.body().getResult().size() > 0) {
@@ -658,7 +665,11 @@ public class searchFragment extends Fragment {
                         binding.searchRec.setVisibility(View.INVISIBLE);
                         binding.notfoundimg.setVisibility(View.VISIBLE);
                         binding.nothingfoundtxt.setVisibility(View.VISIBLE);
+                        binding.nothingfoundtxt.setText(
+                                "Nothing found with term: "+binding.searchTxt.getText());
                     }
+
+
                 }
             }
 

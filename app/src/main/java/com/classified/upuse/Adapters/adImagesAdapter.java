@@ -14,10 +14,12 @@ import com.classified.upuse.Models.AdsModel;
 import com.classified.upuse.R;
 import com.classified.upuse.imageActivity;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class adImagesAdapter extends RecyclerView.Adapter<adImagesAdapter.viewHolder> {
 
@@ -38,9 +40,10 @@ public class adImagesAdapter extends RecyclerView.Adapter<adImagesAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Picasso.get().load(bannerlist.get(position).getImage()).transform(
-                new CropCircleTransformation()
-                ).resize(700,350)
+        final int radius = 26;
+        final int margin = 25;
+        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Picasso.get().load(bannerlist.get(position).getImage()).transform(transformation).resize(1080,720)
                 .centerCrop().into(holder.img);
 
         holder.img.setOnClickListener(new View.OnClickListener() {

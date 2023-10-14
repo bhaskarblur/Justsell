@@ -1,4 +1,4 @@
-package com.classified.justsell.Repos;
+package com.classified.upuse.Repos;
 
 import android.util.Log;
 
@@ -54,7 +54,7 @@ public class singleChatRepo {
             @Override
             public void onResponse(Call<chatModel.insidechatResp> call, Response<chatModel.insidechatResp> response) {
                 if(!response.isSuccessful()) {
-                    Log.d("errorCode",String.valueOf(response.code()));
+                    Log.d("ErrorCode11",String.valueOf(response.code()));
                     return;
                 }
                 if(response.body().getResult()!=null) {

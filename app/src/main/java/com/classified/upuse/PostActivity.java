@@ -243,7 +243,8 @@ public class PostActivity extends AppCompatActivity {
         });
 
         transAdapter = new textonlyAdapter(PostActivity.this, transList);
-        GridLayoutManager glm1 = new GridLayoutManager(PostActivity.this, 1);
+        LinearLayoutManager glm1 = new LinearLayoutManager(this);
+        glm1.setOrientation(RecyclerView.HORIZONTAL);
         binding.transRec.setLayoutManager(glm1);
         binding.transRec.setAdapter(transAdapter);
         transAdapter.setoncardclicklistener(new textonlyAdapter.oncardclicklistener() {
@@ -397,9 +398,9 @@ public class PostActivity extends AppCompatActivity {
                    Toast.makeText(PostActivity.this, "Please enter km driven", Toast.LENGTH_SHORT).show();
                 }
             else {
-                    progressDialog progressdialog = new progressDialog();
-                    progressdialog.showLoadingDialog(PostActivity.this, "Loading",
-                            "Creating Ad. Please wait");
+//                    progressDialog progressdialog = new progressDialog();
+//                    progressdialog.showLoadingDialog(PostActivity.this, "Loading",
+//                            "Creating Ad. Please wait");
 //                    Posting API Here
 
                     if (posting.equals(false)) {
@@ -441,12 +442,15 @@ public class PostActivity extends AppCompatActivity {
                                 binding.modelTxt.getText().toString(), binding.datetxt.getText().toString(), fuel,
                                 transmission, numowner, binding.proddrivenTxt.getText().toString(), number_status, catname,lat,longit);
 
+                        for(String image : imagesList) {
+                            Log.d("imagesList", image);
+                        }
                         call.enqueue(new Callback<AdsModel.postadsResp>() {
                             @Override
                             public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
-                                    progressdialog.hideLoadingDialog();
+//                                    progressdialog.hideLoadingDialog();
                                     return;
                                 }
 
@@ -460,16 +464,17 @@ public class PostActivity extends AppCompatActivity {
                                     dialog.setCancelable(false);
                                     dialog.show(getSupportFragmentManager(), "dialog");
                                 }
-                                progressdialog.hideLoadingDialog();
+//                                progressdialog.hideLoadingDialog();
                             }
 
                             @Override
                             public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
                                 Log.d("Failure", t.getMessage());
                                 posting=false;
-                                progressdialog.hideLoadingDialog();
+//                                progressdialog.hideLoadingDialog();
                                 binding.progressBar.setVisibility(View.INVISIBLE);
                                 binding.postAutomobBtn.setVisibility(View.VISIBLE);
+
                             }
                         });
 

@@ -127,6 +127,7 @@
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:buttonTint="@color/primary_color"
+                android:thumbTint="@color/primary_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView44"
                 app:layout_constraintTop_toBottomOf="@+id/proddesc_txt" />
@@ -233,7 +234,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/number_switch" />
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
             <EditText
                 android:id="@+id/proddesc_txt"
@@ -432,14 +433,14 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:indeterminateTint="@color/primary_color"
                 android:progressBackgroundTint="@color/primary_color"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintHorizontal_bias="0.461"
+                app:layout_constraintStart_toStartOf="@+id/textView44"
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -475,6 +476,8 @@
                 android:layout_marginTop="13dp"
                 android:backgroundTint="?android:textColorPrimaryInverse"
                 android:buttonTint="@color/primary_color"
+                android:thumbTint="@color/primary_color"
+                android:trackTint="@color/primary_color"
                 app:layout_constraintStart_toEndOf="@+id/textView31"
                 app:layout_constraintTop_toBottomOf="@+id/cond_rec" />
 

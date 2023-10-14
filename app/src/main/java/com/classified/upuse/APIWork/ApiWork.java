@@ -235,4 +235,9 @@ public interface ApiWork {
                                               @Field("date_start") String datestart,
                                               @Field("date_end") String enddate,
                                               @Field("city") String city);
+
+    @FormUrlEncoded
+    @POST("search")
+    Call<homeResponse.ListadsResp> search_ads2(@Field("user_id") String userid,
+                                               @Field("keyword") String word);
 }

@@ -302,6 +302,7 @@ public class homeFragment extends Fragment implements LocationListener {
                 "Loading Feed. Please wait");
         pos = 0;
         user_id = sharedPreferences.getString("userid", "");
+        Log.d("userId", user_id);
         String state = sharedPreferences.getString("userstate", "");
         String citystate;
         Bundle bundle = getArguments();

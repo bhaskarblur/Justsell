@@ -39,10 +39,15 @@ public class promadsAdapter extends RecyclerView.Adapter<promadsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         final int radius = 13;
         final int margin = 0;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(list.get(position).getAd_image()).resize(300,300).centerCrop().transform(transformation).into(holder.adsimg);
+        if(list.get(position).getAd_image() != null &&
+                !list.get(position).getAd_image().isEmpty() ) {
+            Picasso.get().load(list.get(position).getAd_image()).resize(560, 560).
+                    centerCrop().transform(transformation).into(holder.adsimg);
+        }
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());
         holder.adspricecut.setText("₹ "+list.get(position).getAd_pricecut());

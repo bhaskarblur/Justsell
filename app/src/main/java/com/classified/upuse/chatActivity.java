@@ -47,6 +47,7 @@ import com.classified.upuse.Models.chatModel;
 import com.classified.upuse.ViewModels.singleChatViewModel;
 import com.classified.upuse.databinding.ActivityChatBinding;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,8 +60,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -196,28 +199,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
             }
         });
-//        binding.msgTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if(!binding.msgTxt.getText().toString().isEmpty()|| !binding.msgTxt.getText().toString().equals("")) {
-//                    JSONObject jsonObject = new JSONObject();
-//                    try {
-//                        jsonObject.put("user_id", user_id);
-//                        jsonObject.put("person_id", person_id);
-//                        jsonObject.put("message", binding.msgTxt.getText().toString());
-//                        webSocket.send(jsonObject.toString());
-//                        jsonObject.put("isSent", "yes");
-//                        chatAdapter.addItem(jsonObject);
-//                        messageEdit();
-//                        binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                return false;
-//            }
-//        });
         binding.scrolldown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,21 +209,21 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         binding.sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
+                JSONObject localMsg = new JSONObject();
                 try {
                     Calendar calendar = Calendar.getInstance();
                     Date date=calendar.getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
                     String time = sdf.format(date);
-                    jsonObject.put("time", time);
-                    jsonObject.put("user_id", user_id);
-                    jsonObject.put("person_id", person_id);
-                    jsonObject.put("product_id",product_id);
-                    jsonObject.put("message", binding.msgTxt.getText().toString());
-                    webSocket.send(jsonObject.toString());
-                    Log.d("messagehere",jsonObject.toString());
-                    jsonObject.put("isSent", "yes");
-                    chatAdapter.addItem(jsonObject);
+                    localMsg.put("time", time);
+                    localMsg.put("user_id", user_id);
+                    localMsg.put("person_id", person_id);
+                    localMsg.put("product_id",product_id);
+                    localMsg.put("message", binding.msgTxt.getText().toString());
+                    webSocket.send(localMsg.toString());
+                    Log.d("messagehere",localMsg.toString());
+                    localMsg.put("isSent", "yes");
+                    chatAdapter.addItem(localMsg);
                     playsound();
                     resetmessageEdit();
                     binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
@@ -313,11 +294,15 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             @Override
             public void onChanged(chatModel.chatResult chatResult) {
                 if (chatResult != null) {
-                    Picasso.get().load(chatResult.getProduct_img()).resize(200, 200)
-                            .into(binding.productImage);
+                    final int radius = 26;
+                    final int margin = 2;
+                    final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+                    Picasso.get().load(chatResult.getProduct_img()).resize(240, 240)
+                            .transform(transformation).into(binding.productImage);
 
                     if(chatResult.getPerson_img()!=null) {
-                        Picasso.get().load(chatResult.getPerson_img()).resize(150, 150).transform(new CropCircleTransformation())
+                        Picasso.get().load(chatResult.getPerson_img()).resize(240, 240)
+                                .transform(new CropCircleTransformation())
                                 .into(binding.personImage);
                     }
 
@@ -425,7 +410,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 !=PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
-            return;
+//            return;
         }
 
         Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
@@ -449,7 +434,6 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startCropActivity();
                 } else {
-                    Toast.makeText(chatActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -472,7 +456,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             resetmessageEdit();
         } else {
             binding.sendMsg.setVisibility(View.VISIBLE);
-            binding.pickImage.setVisibility(View.INVISIBLE);
+            binding.pickImage.setVisibility(View.GONE);
         }
 
     }
@@ -490,6 +474,9 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         @Override
         public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
             super.onClosed(webSocket, code, reason);
+            if(reason!=null) {
+                Log.d("socketClosed", reason);
+            }
         }
 
         @Override
@@ -500,25 +487,31 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 try {
                     JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent", "no");
-                   // jsonObject.put("seen", jsonObject.getString("seen"));
                     Log.d("message", jsonObject.toString());
                     if(jsonObject.toString().contains("message") || jsonObject.toString().contains("image")) {
                         chatAdapter.addItem(jsonObject);
-
                         recplaysound();
                         binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
                     }
+                    Calendar calendar = Calendar.getInstance();
+                    Date date=calendar.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+                    String time = sdf.format(date);
                     JSONObject sentcheck = new JSONObject();
                     sentcheck.put("user_id", user_id);
                     sentcheck.put("product_id", product_id);
                     sentcheck.put("person_id", person_id);
                     sentcheck.put("seen", "yesyo");
 
-                    if (jsonObject.getString("status").equals("online")) {
+                    if (jsonObject.toString().contains("online")) {
                         binding.personStatus.setVisibility(View.VISIBLE);
                         binding.personStatus.setText("Online");
+                        binding.personStatus.setTextColor(getResources()
+                                .getColor(R.color.green));
                     } else {
                         binding.personStatus.setText("Offline");
+                        binding.personStatus.setTextColor(getResources()
+                                .getColor(R.color.yellow));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -537,13 +530,11 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
                 jsonObject.put("product_id", product_id);
                 webSocket.send(jsonObject.toString());
             } catch (JSONException e) {
+                Log.d("errOpen", Objects.requireNonNull(e.getMessage()));
                 e.printStackTrace();
             }
 
-            runOnUiThread(() -> {
-
-                viewfuncs();
-            });
+            runOnUiThread(chatActivity.this::viewfuncs);
         }
     }
 
@@ -565,7 +556,7 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
 
     private void sendImage(Bitmap image, String imageuri) {
         ByteArrayOutputStream by = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 30, by);
+        image.compress(Bitmap.CompressFormat.JPEG, 50, by);
         String base64img = android.util.Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
 
         JSONObject jsonObject = new JSONObject();
@@ -582,13 +573,13 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
             jsonObject.put("image", base64img);
             webSocket.send(jsonObject.toString());
 
-            JSONObject fakejson = new JSONObject();
-            fakejson.put("time", time);
-            fakejson.put("user_id", user_id);
-            fakejson.put("person_id", person_id);
-            fakejson.put("image", imageuri);
-            fakejson.put("isSent", "yes");
-            chatAdapter.addItem(fakejson);
+            JSONObject localMsg = new JSONObject();
+            localMsg.put("time", time);
+            localMsg.put("user_id", user_id);
+            localMsg.put("person_id", person_id);
+            localMsg.put("image", imageuri);
+            localMsg.put("isSent", "yes");
+            chatAdapter.addItem(localMsg);
             playsound();
             binding.chatsRec.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
         } catch (JSONException e) {

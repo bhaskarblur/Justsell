@@ -66,6 +66,7 @@
         android:id="@+id/swipelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -160,9 +161,9 @@
 
                 <Button
                     android:id="@+id/onbprog"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="50dp"
                     android:background="@drawable/onboardingposcircle"
                     android:backgroundTint="@color/primary_color"
@@ -174,10 +175,10 @@
 
                 <Button
                     android:id="@+id/onbprog2"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
                     android:layout_marginStart="7dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/onboardingposcircle"
                     android:backgroundTint="#C6C6C6"
                     android:clickable="true"
@@ -186,10 +187,10 @@
 
                 <Button
                     android:id="@+id/onbprog3"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
                     android:layout_marginStart="7dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/onboardingposcircle"
                     android:backgroundTint="#C6C6C6"
                     android:clickable="true"
@@ -198,10 +199,10 @@
 
                 <Button
                     android:id="@+id/onbprog4"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
                     android:layout_marginStart="7dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/onboardingposcircle"
                     android:backgroundTint="#C6C6C6"
                     android:clickable="true"
@@ -212,7 +213,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/bannerrv"
                     android:layout_width="match_parent"
-                    android:layout_height="190dp"
+                    android:layout_height="175dp"
                     android:clickable="true"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -359,16 +359,11 @@ public class PostActivity_all extends AppCompatActivity {
                     binding.cpTxt.requestFocus();
                     Toast.makeText(PostActivity_all.this, "Please enter the cost price.", Toast.LENGTH_SHORT).show();
                 } else {
-
-                    progressDialog progressdialog = new progressDialog();
-                    progressdialog.showLoadingDialog(PostActivity_all.this, "Loading",
-                            "Creating Ad. Please wait");
-
-//                    Posting API Here
+                   //Posting API Here
+                    binding.progressBar3.setVisibility(View.VISIBLE);
+                    binding.postAllbtn.setVisibility(View.INVISIBLE);
                     if (posting.equals(false)) {
                         posting = true;
-                        binding.progressBar3.setVisibility(View.VISIBLE);
-                        binding.postAllbtn.setVisibility(View.INVISIBLE);
                         SharedPreferences sharedPreferences = getSharedPreferences("userlogged", 0);
                         String userid = sharedPreferences.getString("userid", "");
                         String city = sharedPreferences.getString("usercity", "");
@@ -387,6 +382,7 @@ public class PostActivity_all extends AppCompatActivity {
                                 image1.compress(Bitmap.CompressFormat.JPEG, 50, by);
                                 base64img = Base64.encodeToString(by.toByteArray(), Base64.DEFAULT);
                                 images.append(base64img + ",");
+                                Log.d("image64", base64img);
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -411,19 +407,21 @@ public class PostActivity_all extends AppCompatActivity {
                                 , condition, warranty, binding.brandTxt.getText().toString(), binding.datetxt.getText().toString(),
                                 number_status, catname, lat,longit);
 
+                        for(String image : imagesList) {
+                            Log.d("imagesList", image);
+                        }
                         call.enqueue(new Callback<AdsModel.postadsResp>() {
                             @Override
                             public void onResponse(Call<AdsModel.postadsResp> call, Response<AdsModel.postadsResp> response) {
+                                binding.progressBar3.setVisibility(View.INVISIBLE);
+                                binding.postAllbtn.setVisibility(View.VISIBLE);
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
                                     posting=false;
-                                    progressdialog.hideLoadingDialog();
                                     return;
                                 }
-
+//                                Log.d("dataISent", response.body().success);
                                 if (response.body().getResult() != null) {
-                                    binding.progressBar3.setVisibility(View.INVISIBLE);
-                                    binding.postAllbtn.setVisibility(View.VISIBLE);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("ad_id", response.body().getResult().getProduct_id());
                                     askBoost_Dialog dialog = new askBoost_Dialog();
@@ -431,13 +429,13 @@ public class PostActivity_all extends AppCompatActivity {
                                     dialog.setCancelable(false);
                                     dialog.show(getSupportFragmentManager(), "dialog");
                                 }
-                                progressdialog.hideLoadingDialog();
+//                                progressdialog.hideLoadingDialog();
                             }
 
                             @Override
                             public void onFailure(Call<AdsModel.postadsResp> call, Throwable t) {
                                 Log.d("Failure", t.getMessage());
-                                progressdialog.hideLoadingDialog();
+//                                progressdialog.hideLoadingDialog();
                                 posting=false;
                                 binding.progressBar3.setVisibility(View.INVISIBLE);
                                 binding.postAllbtn.setVisibility(View.VISIBLE);
