@@ -3,10 +3,7 @@
 
     <item
         android:id="@+id/terms"
-        android:title="About Us" />
-    <item
-        android:id="@+id/aboutbtn"
-        android:title="Terms Of Service" />
+        android:title="Terms and Conditions" />
     <item
         android:id="@+id/delacc_item"
         android:title="Delete Account" />

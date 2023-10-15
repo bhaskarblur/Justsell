@@ -653,7 +653,9 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.terms:
-                // this is aboutus
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                        "https://docs.google.com/document/d/1SJYXUXMWif1IFBeWdFOY_0Bvxm0JYnmA3KNetcI5v6Y/"
+                )));
                 break;
 
 //            case R.id.toglmode:
@@ -666,9 +668,6 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 //                    uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
 //                }
 //                break;
-            case R.id.aboutbtn:
-                // this is terms and conditions
-                break;
             case R.id.logout_item:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setTitle("Log Out?")
                         .setMessage("Do you want to Log out?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {

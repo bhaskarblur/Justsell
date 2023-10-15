@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -63,6 +64,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.2.2'
     implementation 'com.google.firebase:firebase-storage:20.2.1'
     implementation 'com.google.firebase:firebase-messaging:23.2.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     def lifecycle_version = '2.6.2'
     def arch_version = "2.1.0"
     implementation("com.vanniktech:android-image-cropper:4.5.0")
