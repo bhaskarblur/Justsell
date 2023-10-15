@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.classified.upuse.APIWork.ApiWork;
@@ -55,7 +56,7 @@ public class promote_ad extends AppCompatActivity {
     String cost;
     String reach;
     String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
-    int GOOGLE_PAY_REQUEST_CODE = 123;
+    private int dailyBudget = 50;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +110,7 @@ public class promote_ad extends AppCompatActivity {
                     binding.adsTitle.setText(adsResult.getAd_title());
                     if(adsResult.getImages().size()>0) {
                         final int radius = 13;
-                        final int margin = 7;
+                        final int margin = 0;
                         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
                         Picasso.get().load(adsResult.getImages().get(0).getImage()).transform(transformation).resize(200, 200).into(binding.adsImage);
                     }
@@ -178,9 +179,11 @@ public class promote_ad extends AppCompatActivity {
         binding.datepicklay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(promote_ad.this, date, myCalendar
+              DatePickerDialog dp =  new DatePickerDialog(promote_ad.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+              dp.getDatePicker().setMinDate(System.currentTimeMillis());
+              dp.show();
                 clickcheck[0] =0;
             }
         });
@@ -188,9 +191,11 @@ public class promote_ad extends AppCompatActivity {
         binding.datepicklayEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(promote_ad.this, date, myCalendar
+                DatePickerDialog dp = new DatePickerDialog(promote_ad.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                dp.getDatePicker().setMinDate(System.currentTimeMillis());
+                dp.show();
                 clickcheck[0] =1;
             }
         });
@@ -209,8 +214,8 @@ public class promote_ad extends AppCompatActivity {
                 calendar2.set(d2.getYear(),d2.getMonth(),d2.getDate());
                 long diff=d2.getTime()-d1.getTime();
                 if(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)>0) {
-                    cost = String.valueOf(Math.round((float) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * (float)11.8));
-                    binding.prombudTxt.setText("Promotion Budget:    Rs " + cost);
+                    cost = String.valueOf(Math.round((float) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) * (float)dailyBudget));
+                    binding.prombudTxt.setText("Promotion Budget: Rs " + cost);
                 }
                 else {
                     binding.datetxtEnd.setText("Select Date");
@@ -264,6 +269,7 @@ public class promote_ad extends AppCompatActivity {
         });
     }
     private void viewfunc() {
+
         binding.promoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -290,34 +296,31 @@ public class promote_ad extends AppCompatActivity {
                 }
                else {
                    // Need to add stripe here
-                   // Api Call
-                    Uri uri = new Uri.Builder().scheme("upi").authority("pay")
-                            .appendQueryParameter("pa", "8299189690@okbizaxis")
-                            .appendQueryParameter("pn", "sanjay")
-                            .appendQueryParameter("am", cost)
-                            .appendQueryParameter("cu", "INR")
-                            .build();
-
-                    Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
-                    upiPayIntent.setData(uri);
-                    Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
-
-                    if (chooser.resolveActivity(getPackageManager()) != null) {
-                        try {
-                            startActivityForResult(upiPayIntent, GOOGLE_PAY_REQUEST_CODE);
-                        } catch (Exception e) {
-                            Toast.makeText(promote_ad.this, "No UPI Apps Found", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(promote_ad.this, "No UPI Apps Found!", Toast.LENGTH_SHORT).show();
-                    }
-
-
+                    // And then call promote api on success
+                    confirmPromotion();
 
                 }
             }
         });
 
+        binding.budgetSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                dailyBudget = i;
+                binding.dailybudget.setText("Daily Budget: Rs "+i);
+                docalculation();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         binding.backbtn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -363,7 +366,7 @@ public class promote_ad extends AppCompatActivity {
                                         .addConverterFactory(GsonConverterFactory.create()).build();
 
                                 ApiWork apiWork = retrofit.create(ApiWork.class);
-                                Call<AuthResponse.getcity> call = apiWork.getcity(statedata.getResult().get(position - 1).getId());
+                                Call<AuthResponse.getcity> call = apiWork.getcity(statedata.getResult().get(position - 1).getStatename());
 
                                 call.enqueue(new Callback<AuthResponse.getcity>() {
                                     @Override
@@ -436,18 +439,22 @@ public class promote_ad extends AppCompatActivity {
         Call<AuthResponse.SendOtp> call1 = apiWork.do_promotion(adid,userid,binding.datetxt.getText().toString(),
                 binding.datetxtEnd.getText().toString(),binding.cityet.getText().toString(),cost,reach);
 
+        binding.progressBar5.setVisibility(View.VISIBLE);
+         binding.promoteBtn.setVisibility(View.INVISIBLE);
         call1.enqueue(new Callback<AuthResponse.SendOtp>() {
             @Override
             public void onResponse(Call<AuthResponse.SendOtp> call, Response<AuthResponse.SendOtp> response) {
+                binding.progressBar5.setVisibility(View.INVISIBLE);
+                binding.promoteBtn.setVisibility(View.VISIBLE);
                 if(!response.isSuccessful()) {
                     Log.d("error code",String.valueOf(response.code()));
+                    Toast.makeText(promote_ad.this, "There was an error "+response.message(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 AuthResponse.SendOtp resp=response.body();
 
                 if(resp.getCode().equals("200")) {
-                    //
                     Toast.makeText(promote_ad.this, "Ad Promoted", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(promote_ad.this, adpromoted_successful.class));
                     overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
@@ -458,6 +465,8 @@ public class promote_ad extends AppCompatActivity {
             @Override
             public void onFailure(Call<AuthResponse.SendOtp> call, Throwable t) {
                 Log.d("Failure",t.getMessage());
+                binding.progressBar5.setVisibility(View.INVISIBLE);
+                binding.promoteBtn.setVisibility(View.VISIBLE);
             }
         });
     }

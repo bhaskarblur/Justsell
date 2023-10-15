@@ -353,74 +353,77 @@ public class locationFragment extends Fragment {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
                         super.onLocationResult(locationResult);
-                        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            // TODO: Consider calling
-                            //    ActivityCompat#requestPermissions
-                            // here to request the missing permissions, and then overriding
-                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                            //                                          int[] grantResults)
-                            // to handle the case where the user grants the permission. See the documentation
-                            // for ActivityCompat#requestPermissions for more details.
-                            return;
-                        }
-                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location != null) {
-                                    Geocoder geocoder = null;
-                                    if (getContext() != null) {
-                                        geocoder = new Geocoder(getActivity()
-                                                , Locale.getDefault());
-                                    }
-                                    try {
-                                        if (geocoder != null) {
-                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        if(getContext() != null) {
+                            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                return;
+                            }
 
-                                            city = addresses.get(0).getLocality();
-                                            state =  addresses.get(0).getAdminArea();
-                                            binding.curcity.setText(city+", "+state);
-
+                            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Location> task) {
+                                    Location location = task.getResult();
+                                    if (location != null) {
+                                        Geocoder geocoder = null;
+                                        if (getContext() != null) {
+                                            geocoder = new Geocoder(getActivity()
+                                                    , Locale.getDefault());
                                         }
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                } else {
-
-                                    LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                            .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
-
-                                    LocationCallback locationCallback = new LocationCallback() {
-                                        @Override
-                                        public void onLocationResult(LocationResult locationResult) {
-                                            super.onLocationResult(locationResult);
-                                            Location location1 = locationResult.getLastLocation();
-                                            Geocoder geocoder = null;
-                                            if (getContext() != null) {
-                                                geocoder = new Geocoder(getActivity()
-                                                        , Locale.getDefault());
-                                            }
-                                            try {
+                                        try {
+                                            if (geocoder != null) {
                                                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-                                                city = addresses.get(0).getSubLocality();
-                                                state = addresses.get(0).getLocality();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
+                                                city = addresses.get(0).getLocality();
+                                                state = addresses.get(0).getAdminArea();
+                                                binding.curcity.setText(city + ", " + state);
+
                                             }
-
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
                                         }
-                                    };
-                                }
-                            }
 
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                    } else {
+
+                                        LocationRequest request = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                                .setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
+
+                                        LocationCallback locationCallback = new LocationCallback() {
+                                            @Override
+                                            public void onLocationResult(LocationResult locationResult) {
+                                                super.onLocationResult(locationResult);
+                                                Location location1 = locationResult.getLastLocation();
+                                                Geocoder geocoder = null;
+                                                if (getContext() != null) {
+                                                    geocoder = new Geocoder(getActivity()
+                                                            , Locale.getDefault());
+                                                }
+                                                try {
+                                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+                                                    city = addresses.get(0).getSubLocality();
+                                                    state = addresses.get(0).getLocality();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        };
+                                    }
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                 }, Looper.getMainLooper());
                 LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
