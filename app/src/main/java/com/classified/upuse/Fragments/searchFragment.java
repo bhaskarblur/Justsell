@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -172,6 +173,8 @@ public class searchFragment extends Fragment {
                 price_sort = "low_to_high";
                 binding.lowHighBox.setBackgroundResource(R.drawable.backgroundbg_yellow);
                 binding.highLowBox.setBackgroundResource(R.drawable.backgroundbg_white);
+                binding.highLowBox.setBackgroundTintList(
+                        ColorStateList.valueOf(Color.parseColor("#252525")));
             }
         });
         binding.highLowBox.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +183,8 @@ public class searchFragment extends Fragment {
                 price_sort = "high_to_low";
                 binding.highLowBox.setBackgroundResource(R.drawable.backgroundbg_yellow);
                 binding.lowHighBox.setBackgroundResource(R.drawable.backgroundbg_white);
+                binding.lowHighBox.setBackgroundTintList(
+                        ColorStateList.valueOf(Color.parseColor("#252525")));
             }
         });
         binding.priceSeekbar.setOnTrackRangeListener(new SimpleRangeView.OnTrackRangeListener() {

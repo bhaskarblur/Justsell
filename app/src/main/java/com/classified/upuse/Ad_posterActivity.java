@@ -4,6 +4,7 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -34,6 +35,7 @@ import com.classified.upuse.databinding.ActivityPostPropertyBinding;
 import com.classified.upuse.helpingCode.progressDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -95,6 +97,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                 }
                 break;
         }
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         ManageData();
         viewfuncs();
     }
@@ -120,7 +123,7 @@ public class Ad_posterActivity extends AppCompatActivity {
 
                         AuthResponse.SendOtp resp = response.body();
 
-                        if (resp.getCode().equals("200")) {
+                        if (!resp.getMessage().isEmpty()) {
                             //
                             Toast.makeText(Ad_posterActivity.this, "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
                             binding.imageView6.setVisibility(View.VISIBLE);
@@ -154,7 +157,7 @@ public class Ad_posterActivity extends AppCompatActivity {
 
                         AuthResponse.SendOtp resp = response.body();
 
-                        if (resp.getCode().equals("200")) {
+                        if (!resp.getMessage().isEmpty()) {
                             //
                             Toast.makeText(Ad_posterActivity.this, "Ad added to favourite.", Toast.LENGTH_SHORT).show();
                             binding.imageView6.setVisibility(View.INVISIBLE);
@@ -410,8 +413,8 @@ public class Ad_posterActivity extends AppCompatActivity {
     private void loadmat(double sellat, double sellongit) {
         final String[] sellerlat = new String[1];
         final String[] sellerlong = new String[1];
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.google_map);
+        MapFragment supportMapFragment = (MapFragment)
+                getFragmentManager().findFragmentById(R.id.google_map);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -419,7 +422,7 @@ public class Ad_posterActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
-                        googleMap.setMinZoomPreference(17);
+                        googleMap.setMinZoomPreference(18);
                         LatLng latLng = new LatLng(sellat, sellongit);
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                                 .title("Location").icon(BitmapDescriptorFactory.fromResource(R.drawable.locaticonyellow));

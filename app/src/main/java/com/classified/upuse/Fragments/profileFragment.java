@@ -432,9 +432,10 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
         binding.numberTxt.setText(number);
         if (image != null && !image.equals("empty") && !image.isEmpty() && !image.equals(" ")) {
             final int radius = 150;
-            final int margin = 50;
+            final int margin = 0;
             final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-            Picasso.get().load(image).transform(new CropCircleTransformation()).into(binding.userImg);
+            Picasso.get().load(image).
+            resize(600,600).transform(new CropCircleTransformation()).into(binding.userImg);
         }
 
         profilefragViewModel = new ViewModelProvider(getActivity()).get(com.classified.upuse.ViewModels.profilefragViewModel.class);
@@ -537,7 +538,7 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                         AuthResponse.SendOtp resp = response.body();
 
-                        if (resp.getCode().equals("200")) {
+                        if (!resp.getMessage().isEmpty()) {
                             //
                             Toast.makeText(getContext(), "Ad removed from favourite.", Toast.LENGTH_SHORT).show();
                             getActivity().getViewModelStore().clear();
@@ -639,10 +640,10 @@ public class profileFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 String img = clipData.toString();
                 editedimage = String.valueOf(img);
                 final int radius = 150;
-                final int margin = 50;
+                final int margin = 0;
                 final Transformation transformation = new RoundedCornersTransformation(radius, margin);
                 Picasso.get().load(editedimage).transform(new CropCircleTransformation())
-                        .resize(540,540).into(binding.userImg);
+                        .resize(600,600).into(binding.userImg);
             }
 
         }

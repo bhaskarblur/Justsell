@@ -40,11 +40,12 @@ public class MyadsAdapter extends RecyclerView.Adapter<MyadsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final int radius = 13;
-        final int margin = 7;
+        final int margin = 0;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
         if(list.get(position).getAd_image() != null &&
                 !list.get(position).getAd_image().isEmpty() ) {
-            Picasso.get().load(list.get(position).getAd_image()).resize(560, 560).centerCrop().transform(transformation).into(holder.adsimg);
+            Picasso.get().load(list.get(position).getAd_image())
+                    .transform(transformation).into(holder.adsimg);
         }
         holder.adstitle.setText(list.get(position).getAd_title());
         holder.adsprice.setText("₹ "+list.get(position).getAd_price());

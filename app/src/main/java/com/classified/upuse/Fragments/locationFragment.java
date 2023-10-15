@@ -198,6 +198,7 @@ public class locationFragment extends Fragment {
                 transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
                 transaction.replace(R.id.mainFragment, homeFragment);
                 transaction.commit();
+                Toast.makeText(getActivity(), "Your location has been changed & set to default location.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -244,6 +245,7 @@ public class locationFragment extends Fragment {
                 transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
                 transaction.replace(R.id.mainFragment, homeFragment);
                 transaction.commit();
+                Toast.makeText(getActivity(), "Your location has been changed & set to default location.", Toast.LENGTH_SHORT).show();
 
             }
         });

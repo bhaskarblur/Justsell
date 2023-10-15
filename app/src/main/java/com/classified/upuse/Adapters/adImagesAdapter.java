@@ -41,10 +41,10 @@ public class adImagesAdapter extends RecyclerView.Adapter<adImagesAdapter.viewHo
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         final int radius = 26;
-        final int margin = 25;
+        final int margin = 0;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-        Picasso.get().load(bannerlist.get(position).getImage()).transform(transformation).resize(1080,720)
-                .centerCrop().into(holder.img);
+        Picasso.get().load(bannerlist.get(position).getImage())
+                .transform(transformation).into(holder.img);
 
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override

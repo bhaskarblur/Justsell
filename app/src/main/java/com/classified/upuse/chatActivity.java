@@ -467,7 +467,10 @@ public class chatActivity extends AppCompatActivity implements TextWatcher, Popu
         public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, @Nullable Response response) {
             super.onFailure(webSocket, t, response);
             if(t.getMessage()!=null) {
-                Log.d("socketFailure", t.getMessage());
+                runOnUiThread(() -> {
+                        Log.d("socketFailure", t.getMessage());
+                Toast.makeText(chatActivity.this, "Failed to connect to chat socket.", Toast.LENGTH_SHORT).show();
+                });
             }
         }
 

@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -199,8 +201,6 @@ public class OTPFragment extends Fragment {
                 } else {
                     // the api call will be done here
 
-                    if (pressed.equals(false)) {
-                        pressed = true;
 
                         api_baseurl baseurl = new api_baseurl();
 
@@ -221,7 +221,10 @@ public class OTPFragment extends Fragment {
 
                                 if (!response.isSuccessful()) {
                                     Log.d("error code", String.valueOf(response.code()));
-                                    Toast.makeText(getActivity(), String.valueOf(response.message()), Toast.LENGTH_SHORT).show();
+                                    if(response.code() == 401) {
+                                        Toast.makeText(getActivity(), "Incorrect OTP, please enter correct OTP", Toast.LENGTH_SHORT).show();
+                                    }
+                                    dialog.hideLoadingDialog();
                                     return;
                                 }
 
@@ -279,7 +282,6 @@ public class OTPFragment extends Fragment {
                         });
                     }
                 }
-            }
         });
 
 //        lgbinding.otpcontButton.setOnClickListener(new View.OnClickListener() {
@@ -328,7 +330,6 @@ public class OTPFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override

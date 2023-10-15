@@ -84,11 +84,10 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     sentImageHolder holder1= (sentImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
                     final int radius = 20;
-                    final int margin = 2;
+                    final int margin = 0;
                     Log.d("imageTest2", message.toString());
                     final Transformation transformation = new RoundedCornersTransformation(radius, margin);
-                    Picasso.get().load(message.getString("image").toString()).transform(transformation)
-                            .resize(800,800).into(holder1.image);
+                    Picasso.get().load(message.getString("image").toString()).transform(transformation).into(holder1.image);
                     holder1.image.setRotation(0f);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -116,11 +115,11 @@ public class ChatAdapter extends RecyclerView.Adapter{
                     ReceivedImageHolder holder1= (ReceivedImageHolder) holder;
                     holder1.time.setText(message.getString("time"));
                     final int radius = 20;
-                    final int margin = 2;
+                    final int margin = 0;
                     Log.d("imageTest2", message.getString("image"));
                     final Transformation transformation = new RoundedCornersTransformation(radius, margin);
                     Picasso.get().load(message.getString("image")).transform(transformation)
-                            .resize(800,800).into(holder1.image);
+                           .into(holder1.image);
                     holder1.image.setRotation(0f);
                     holder1.image.setOnClickListener(new View.OnClickListener() {
                         @Override
